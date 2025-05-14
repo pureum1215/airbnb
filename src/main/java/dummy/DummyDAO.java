@@ -45,26 +45,26 @@ public class DummyDAO {
 	
 
 	/******************************************************************
-	 *  더미 데이터 작성하기
+	 *  더미 데이터 작성하기 회원가입 페이지 만들시 사용하면 좋음. Index
 	 ******************************************************************/
 	//idx check
-	public int initUserIdxCount() {
-		try {
-			String sql = "Select count(*)+1 as cnt from  user where user_id like 'user%'";
-			pstmt = conn.prepareStatement(sql);
-			rs = pstmt.executeQuery();
-			
-			if(rs.next()) {
-				return rs.getInt("cnt");
-			}
-			
-		}
-		catch(SQLException e) {
-			System.out.println("wow");
-		}
-		return 0;
-	}
-	
+//	public int initUserIdxCount() {
+//		try {
+//			String sql = "Select count(*)+1 as cnt from  user where user_id like 'user%'";
+//			pstmt = conn.prepareStatement(sql);
+//			rs = pstmt.executeQuery();
+//			
+//			if(rs.next()) {
+//				return rs.getInt("cnt");
+//			}
+//			
+//		}
+//		catch(SQLException e) {
+//			System.out.println("wow");
+//		}
+//		return 0;
+//	}
+//	
 	
 	/**
 	 *유저 등록하기

@@ -8,6 +8,6 @@
 </head>
 <body>
 <h1>response 연결 부분</h1>
-<%response.sendRedirect("http://localhost:8080/init?action=user"); %>
+
 </body>
 </html>

@@ -5,6 +5,8 @@ import java.sql.*;
 import javax.naming.*;
 import javax.sql.*;
 
+import dummy.vo.UserVO;
+
 /***
  * 유저 데이터 가공
  * 작성자: 명희승
@@ -48,7 +50,27 @@ public class DummyDAO {
 	/******************************************************************
 	 *  더미 데이터 작성하기
 	 ******************************************************************/
-	public void initUser() {
+	//idx check
+	public int initUserIdxCount() {
+		try {
+			String sql = "Select count(*) as cnt from  user where user_id like 'user%'";
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				return rs.getInt("cnt");
+			}
+			
+		}
+		catch(SQLException e) {
+			System.out.println("wow");
+		}
+		return 0;
+	}
+	
+	
+	
+	public void initUser(UserVO userVO) {
 		String sql = "INSERT INTO User (user_id, user_name, user_email, user_password, user_phone_number, user_birthday, user_created_at, user_delete_yn)";
 		sql += "VALUES ( ?, ?, ?, ?, ?, ?, NOW(), 'N')";
 		

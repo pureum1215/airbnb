@@ -5,6 +5,7 @@ import java.sql.*;
 import javax.naming.*;
 import javax.sql.*;
 
+import dummy.vo.HostVO;
 import dummy.vo.UserVO;
 
 /***
@@ -42,11 +43,7 @@ public class DummyDAO {
 		try { if(conn != null) conn.close(); } catch(Exception e) {}
 	}
 	
-	
-	
-	
-	
-	
+
 	/******************************************************************
 	 *  더미 데이터 작성하기
 	 ******************************************************************/
@@ -70,7 +67,7 @@ public class DummyDAO {
 	
 	
 	/**
-	 *유저 등록하
+	 *유저 등록하기
 	 * @param userVO: 유저 정보
 	 * @return
 	 * boolean 성공여부: false 성공,true: 실패
@@ -90,27 +87,48 @@ public class DummyDAO {
 			pstmt.setString(6, userVO.getUserBirthday());
 			
 			if(0 < pstmt.executeUpdate()) {
-				return false;
+				return true;
 			}
 			
 		}
 		catch (SQLException e) {
 			System.out.println("initUser insert 실패: "+userVO.getUserId());
 			
+			return false;
+		}
+		
+		return false;
+	}
+	
+	/***************************
+	 * 호스트 등록하기, 
+	 * boolean 성공여부: false 성공,true: 실패
+	 * user_id host_id  
+	 * 개 다르게 하기
+	 **************************/
+	
+	public boolean initHost(HostVO hostVO) {
+		String sql = "INSERT INTO Host (host_id, user_id, host_bio, host_created_at, host_delete_yn)";
+		sql += "VALUES(? ,?, ?, NOW(), 'N')";
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, hostVO.getHostId());
+			pstmt.setString(2, hostVO.getUserId());
+			pstmt.setString(3, hostVO.getHostBio());
+			
+			if(0 < pstmt.executeUpdate()) {
+				return false;
+			}
+			
+			
+		} catch (SQLException e) {
+			System.out.println("initUser insert 실패: "+hostVO.getHostId());
 			return true;
 		}
 		
+		
 		return true;
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 }

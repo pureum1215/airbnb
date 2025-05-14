@@ -1,6 +1,6 @@
 package dummy;
 
-public interface Action {
+public interface DummyAction {
 
 	void execute(DummyDAO dummyDAO);
 }

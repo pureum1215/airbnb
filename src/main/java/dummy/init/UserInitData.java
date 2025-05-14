@@ -2,7 +2,7 @@ package dummy.init;
 
 import java.util.*;
 
-import dummy.Action;
+import dummy.DummyAction;
 import dummy.DummyDAO;
 import dummy.vo.UserVO;
 
@@ -10,7 +10,7 @@ import dummy.vo.UserVO;
  * 유저 데이터 가공
  * 작성자: 명희승
  */
-public class UserInitData implements Action{
+public class UserInitData implements DummyAction{
 
 	@Override
 	public void execute(DummyDAO dummyDAO) {

@@ -41,7 +41,7 @@ public class InitServletController extends HttpServlet {
 		/****
 		 * 동적 바인딩
 		 */
-		Action action = null;
+		DummyAction action = null;
 		
 		/******************
 		 * 사용자가 기능 선택하기

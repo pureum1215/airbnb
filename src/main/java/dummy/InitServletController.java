@@ -60,7 +60,7 @@ public class InitServletController extends HttpServlet {
 			action.execute(dummyDAO);
 		}
 		else if(func.equals("amenities")) {
-			action = new AmenitiesInitData();
+			
 			
 		}
 		

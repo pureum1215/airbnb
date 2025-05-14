@@ -63,14 +63,10 @@ public class StatisticsController extends HttpServlet {
 		catch (Exception e) {
 			e.printStackTrace();
 		}
-		
-		if(forward.isRedirect()) {
-			response.sendRedirect(forward.getPath());
-		}
-		else {
-			RequestDispatcher dispatcher = request.getRequestDispatcher(forward.getPath());
-			dispatcher.forward(request, response);
-		}
+
+		/***********************
+		 * 비동기로 할 예정
+		 *************************/
 		
 	}
 }

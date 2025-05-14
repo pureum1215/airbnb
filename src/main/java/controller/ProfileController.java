@@ -13,13 +13,13 @@ import javax.servlet.http.HttpServletResponse;
  * Servlet implementation class ReviewController
  */
 @WebServlet("/ReviewController")
-public class ReviewController extends HttpServlet {
+public class ProfileController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ReviewController() {
+    public ProfileController() {
         super();
         // TODO Auto-generated constructor stub
     }

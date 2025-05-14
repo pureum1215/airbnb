@@ -10,16 +10,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class PaymentController
+ * Servlet implementation class ListController
  */
-@WebServlet("/PaymentController")
-public class PaymentController extends HttpServlet {
+@WebServlet("/ListController")
+public class ListController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public PaymentController() {
+    public ListController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -76,6 +76,5 @@ public class PaymentController extends HttpServlet {
 		}
 		
 	}
-
 
 }

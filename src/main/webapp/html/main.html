@@ -1,245 +1,292 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Airbnb Clone</title>
-<style>
-* {
-	box-sizing: border-box;
-	margin: 0;
-	padding: 0;
-}
-html, body {
-	height: 100%;
-	overflow: hidden;
-}
-body {
-	display: flex;
-	flex-direction: column;
-	font-family: 'Arial', sans-serif;
-	background-color: #fff;
-	color: #222;
-}
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Airbnb Clone</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    html, body {
+      height: 100%;
+    }
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #fff;
+      color: #222;
+    }
 
-header.navbar {
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	padding: 10px 24px;
-	border-bottom: 1px solid #ddd;
-	position: sticky;
-	top: 0;
-	background-color: #fff;
-	z-index: 100;
-}
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
 
-.navbar .logo {
-	font-size: 24px;
-	font-weight: bold;
-	color: #ff385c;
-}
+    header.navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 0;
+      border-bottom: 1px solid #ddd;
+      position: sticky;
+      top: 0;
+      background-color: #fff;
+      z-index: 100;
+    }
 
-.search-bar {
-	display: flex;
-	align-items: center;
-	border: 1px solid #ddd;
-	border-radius: 9999px;
-	overflow: hidden;
-	max-width: 600px;
-	background-color: #fff;
-	box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
-}
+    .navbar .logo {
+      font-size: 24px;
+      font-weight: bold;
+      color: #ff385c;
+    }
 
-.search-section {
-	flex: 1;
-	padding: 12px 16px;
-	font-size: 14px;
-	font-weight: 500;
-	color: #333;
-	border-right: 1px solid #ddd;
-	white-space: nowrap;
-}
+    .search-bar {
+      display: flex;
+      align-items: center;
+      border: 1px solid #ddd;
+      border-radius: 9999px;
+      overflow: hidden;
+      width: 100%;
+      max-width: 700px;
+      background-color: #fff;
+      box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
+      justify-content: space-between;
+    }
 
-.search-section:last-child {
-	border-right: none;
-}
+    .search-section {
+      flex: 1;
+      padding: 12px 16px;
+      font-size: 14px;
+      font-weight: 500;
+      color: #333;
+      border-right: 1px solid #ddd;
+      text-align: center;
+      white-space: nowrap;
+    }
 
-.search-bar button {
-	background-color: #ff385c;
-	color: white;
-	border: none;
-	border-radius: 50%;
-	padding: 10px;
-	margin-right: 8px;
-	cursor: pointer;
-	width: 32px;
-	height: 32px;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-}
+    .search-section:last-child {
+      border-right: none;
+    }
 
-.menu button {
-	border: none;
-	background: none;
-	margin-left: 12px;
-	font-size: 16px;
-	cursor: pointer;
-}
+    .search-bar button {
+      background-color: #ff385c;
+      color: white;
+      border: none;
+      border-radius: 50%;
+      padding: 10px;
+      margin-right: 8px;
+      cursor: pointer;
+      width: 32px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
 
-nav.categories {
-	display: flex;
-	overflow-x: auto;
-	padding: 16px 24px;
-	border-bottom: 1px solid #eee;
-	background-color: #fff;
-	gap: 16px;
-	position: sticky;
-	top: 62px;
-	z-index: 99;
-}
+    .menu button {
+      border: none;
+      background: none;
+      margin-left: 12px;
+      font-size: 16px;
+      cursor: pointer;
+    }
 
-.category-item {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	font-size: 12px;
-	color: #555;
-	cursor: pointer;
-}
+    nav.categories {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 0;
+      border-bottom: 1px solid #eee;
+      background-color: #fff;
+      gap: 28px;
+      position: sticky;
+      top: 62px;
+      z-index: 99;
+    }
 
-.category-item img {
-	width: 32px;
-	height: 32px;
-	margin-bottom: 4px;
-}
+    .category-wrapper {
+      display: flex;
+      flex: 1;
+      justify-content: center;
+      align-items: center;
+      overflow-x: auto;
+      gap: 28px;
+    }
 
-main.card-grid {
-	flex: 1;
-	overflow-y: auto;
-	padding: 24px;
-	display: grid;
-	grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-	gap: 24px;
-}
+    .category-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      font-size: 13px;
+      color: #555;
+      cursor: pointer;
+      min-width: 60px;
+      flex-shrink: 0;
+    }
 
-.card {
-	border: 1px solid #eee;
-	border-radius: 12px;
-	overflow: hidden;
-	background-color: #fff;
-	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-	position: relative;
-}
+    .category-item img {
+      width: 36px;
+      height: 36px;
+      margin-bottom: 6px;
+    }
 
-.card .tag {
-	position: absolute;
-	top: 12px;
-	left: 12px;
-	background-color: #fff;
-	color: #222;
-	font-size: 12px;
-	font-weight: bold;
-	padding: 4px 8px;
-	border-radius: 8px;
-	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-}
+    .filter-button {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      border: 1px solid #ccc;
+      padding: 10px 16px;
+      border-radius: 12px;
+      font-size: 14px;
+      cursor: pointer;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
 
-.card img {
-	width: 100%;
-	height: 180px;
-	object-fit: cover;
-}
+    main.card-grid {
+      padding: 24px 0;
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 24px;
+    }
 
-.card-info {
-	padding: 12px;
-}
+    .card {
+      border: 1px solid #eee;
+      border-radius: 12px;
+      overflow: hidden;
+      background-color: #fff;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+      position: relative;
+    }
 
-.card-info p {
-	margin: 4px 0;
-	font-size: 14px;
-}
+    .card .tag {
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      background-color: #fff;
+      color: #222;
+      font-size: 12px;
+      font-weight: bold;
+      padding: 4px 8px;
+      border-radius: 8px;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    }
 
-.card-info .location {
-	font-weight: bold;
-}
+    .card img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+    }
 
-.card-info .price {
-	font-weight: bold;
-}
+    .card-info {
+      padding: 12px;
+    }
 
-.card-info .rating {
-	color: #ff385c;
-}
-</style>
+    .card-info p {
+      margin: 4px 0;
+      font-size: 14px;
+    }
+
+    .location {
+      font-weight: bold;
+    }
+
+    .rating {
+      color: #ff385c;
+      font-weight: bold;
+    }
+
+    .guest-review {
+      color: #666;
+      font-size: 13px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .distance,
+    .dates {
+      color: #666;
+      font-size: 13px;
+    }
+
+  </style>
 </head>
 <body>
-	<header class="navbar">
-		<div class="logo">airbnb</div>
-		<div class="search-bar">
-			<div class="search-section">어디든지</div>
-			<div class="search-section">언제든 일주일</div>
-			<div class="search-section">게스트 추가</div>
-			<button>🔍</button>
-		</div>
-		<div class="menu">
-			<button>호스트 되기</button>
-			<button>🌐</button>
-			<button>☰</button>
-		</div>
-	</header>
+  <div class="container">
+    <header class="navbar">
+      <div class="logo">airbnb</div>
+      <div class="search-bar">
+        <div class="search-section">어디든지</div>
+        <div class="search-section">언제든 일주일</div>
+        <div class="search-section">게스트 추가</div>
+        <button>🔍</button>
+      </div>
+      <div class="menu">
+        <button>호스트 되기</button>
+        <button>🌐</button>
+        <button>☰</button>
+      </div>
+    </header>
 
-	<nav class="categories">
-		<!-- (카테고리 생략 없이 그대로 유지) -->
-		<!-- 기존 카테고리 내용은 그대로 유지됩니다 -->
-		<div class="category-item"><img src="https://img.icons8.com/ios-filled/50/mountain-cabin.png" alt="한적한 시골" /><span>한적한 시골</span></div>
-		<div class="category-item"><img src="https://img.icons8.com/ios-filled/50/view.png" alt="최고의 전망" /><span>최고의 전망</span></div>
-		<div class="category-item"><img src="https://img.icons8.com/ios-filled/50/fire-element.png" alt="인기 급상승" /><span>인기 급상승</span></div>
-		<div class="category-item"><img src="https://img.icons8.com/ios-filled/50/lake.png" alt="호수 근처" /><span>호수 근처</span></div>
-		<div class="category-item"><img src="https://img.icons8.com/ios-filled/50/cave.png" alt="동굴" /><span>동굴</span></div>
-		<div class="category-item"><img src="https://img.icons8.com/ios-filled/50/swimming-pool.png" alt="멋진 수영장" /><span>멋진 수영장</span></div>
-		<div class="category-item"><img src="https://img.icons8.com/ios-filled/50/pagoda.png" alt="한옥" /><span>한옥</span></div>
-		<div class="category-item"><img src="https://img.icons8.com/ios-filled/50/beach.png" alt="해변 바로 앞" /><span>해변 바로 앞</span></div>
-		<div class="category-item"><img src="https://img.icons8.com/ios-filled/50/architecture.png" alt="초소형 주택" /><span>초소형 주택</span></div>
-		<div class="category-item"><img src="https://img.icons8.com/ios-filled/50/wooden-house.png" alt="통나무집" /><span>통나무집</span></div>
-		<div class="category-item"><img src="https://img.icons8.com/ios-filled/50/yurt.png" alt="기상천외한 숙소" /><span>기상천외한 숙소</span></div>
-		<div class="category-item"><img src="https://img.icons8.com/ios-filled/50/bedroom.png" alt="방" /><span>방</span></div>
-		<div class="category-item"><img src="https://img.icons8.com/ios-filled/50/national-park.png" alt="국립공원" /><span>국립공원</span></div>
-		<div class="category-item"><img src="https://img.icons8.com/ios-filled/50/farm.png" alt="농장" /><span>농장</span></div>
-		<div class="category-item"><img src="https://img.icons8.com/ios-filled/50/chef-hat.png" alt="전문가급 주방" /><span>전문가급 주방</span></div>
-	</nav>
+    <nav class="categories">
+      <div class="category-wrapper">
+        <div class="category-item"><img src="https://img.icons8.com/ios-filled/50/mountain-cabin.png" alt="한적한 시골" /><span>한적한 시골</span></div>
+        <div class="category-item"><img src="https://img.icons8.com/ios-filled/50/view.png" alt="최고의 전망" /><span>최고의 전망</span></div>
+        <div class="category-item"><img src="https://img.icons8.com/ios-filled/50/fire-element.png" alt="인기 급상승" /><span>인기 급상승</span></div>
+        <div class="category-item"><img src="https://img.icons8.com/ios-filled/50/lake.png" alt="호수 근처" /><span>호수 근처</span></div>
+        <div class="category-item"><img src="https://img.icons8.com/ios-filled/50/cave.png" alt="동굴" /><span>동굴</span></div>
+        <div class="category-item"><img src="https://img.icons8.com/ios-filled/50/swimming-pool.png" alt="수영장" /><span>멋진 수영장</span></div>
+        <div class="category-item"><img src="https://img.icons8.com/ios-filled/50/pagoda.png" alt="한옥" /><span>한옥</span></div>
+        <div class="category-item"><img src="https://img.icons8.com/ios-filled/50/beach.png" alt="해변 바로 앞" /><span>해변 바로 앞</span></div>
+        <div class="category-item"><img src="https://img.icons8.com/ios-filled/50/architecture.png" alt="초소형 주택" /><span>초소형 주택</span></div>
+      </div>
+      <div class="filter-button">
+        <img src="https://img.icons8.com/ios-filled/24/filter.png" alt="필터" />
+        <span>필터</span>
+      </div>
+    </nav>
 
-	<main class="card-grid">
-		<!-- 아래는 총 15개의 숙소 카드 -->
-		<!-- 기존 3개 + 12개 추가 -->
-		<!-- 복사 및 내용 살짝씩 변경 -->
-		<!-- 반복을 피하기 위해 단순화 -->
-		<!-- card 반복 생성 -->
-		<script>
-			const container = document.currentScript.parentElement;
-			const cardData = new Array(15).fill(0).map((_, i) => ({
-				location: `지역 ${i + 1} · ${2 + (i % 6)}박 · 게스트 ${2 + (i % 5)}명`,
-				desc: `예시 설명 ${i + 1}`,
-				price: `₩${150000 + i * 10000} / 박`,
-				rating: `★ ${(4.5 + (i % 5) * 0.1).toFixed(2)}`
-			}));
-			cardData.forEach(data => {
-				const card = document.createElement('div');
-				card.className = 'card';
-				card.innerHTML = `
-					<div class="tag">게스트 선호</div>
-					<img src="https://via.placeholder.com/300x200" alt="숙소 이미지">
-					<div class="card-info">
-						<p class="location">${data.location}</p>
-						<p class="desc">${data.desc}</p>
-						<p class="price">${data.price}</p>
-						<p class="rating">${data.rating}</p>
-					</div>
-				`;
-				container.appendChild(card);
-			});
-		</script>
-	</main>
+    <main class="card-grid">
+      <script>
+        const container = document.currentScript.parentElement;
+        const imageUrls = [
+          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTCN-7h-kMHAyIcQMYpymhnpOdLV0nAnyHWXA&s",
+          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT2_ItxyF9TVbu9h8V0rrTPikT2EJZSge1_EQ&s",
+          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR1Hi_ftmmeGiIEIJtToWBje3NGzZpOTeA9FQ&s"
+        ];
+
+        const cardData = new Array(15).fill(0).map((_, i) => ({
+          location: `한국 Yesan-gun`,
+          distance: `${50 + i * 2}km 거리`,
+          dates: `6월 ${9 + (i % 5)}일~${14 + (i % 3)}일`,
+          review: `게스트 한마디 “깔끔하고 인테리어가 좋았어요!”`,
+          price: `₩${(23000 + i * 1000).toLocaleString()} /박`,
+          rating: `★ ${(4.5 + (i % 5) * 0.1).toFixed(2)}`,
+          image: imageUrls[Math.floor(Math.random() * imageUrls.length)]
+        }));
+
+        cardData.forEach(data => {
+          const card = document.createElement('div');
+          card.className = 'card';
+          card.innerHTML = `
+            <div class="tag">게스트 선호</div>
+            <img src="${data.image}" alt="숙소 이미지">
+            <div class="card-info">
+              <p class="location">${data.location} <span class="rating">${data.rating}</span></p>
+              <p class="distance">${data.distance}</p>
+              <p class="dates">${data.dates}</p>
+              <p class="guest-review">${data.review}</p>
+              <p class="price">${data.price}</p>
+            </div>
+          `;
+          container.appendChild(card);
+        });
+      </script>
+    </main>
+  </div>
 </body>
 </html>

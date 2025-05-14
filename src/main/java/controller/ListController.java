@@ -9,10 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/**
- * Servlet implementation class ListController
- */
-@WebServlet("/ListController")
+
 public class ListController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -57,6 +54,8 @@ public class ListController extends HttpServlet {
 		/****************************** 
 		 * 페이지 이동 작성 구간
 		 *****************************/
+		
+		/* test */
 		
 		try {
 			if(action != null) {

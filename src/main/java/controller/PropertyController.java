@@ -12,10 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import controller.Action;
 import controller.ActionForward;
 
-/**
- * Servlet implementation class MainController
- */
-//@WebServlet("/MainController")
+
 public class PropertyController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 

@@ -1,5 +1,6 @@
 package dummy;
 
+import java.io.IOException;
 import java.sql.*;
 import javax.naming.*;
 import javax.sql.*;
@@ -45,8 +46,22 @@ public class DummyDAO {
 	
 	
 	/******************************************************************
-	 * 
+	 *  더미 데이터 작성하기
 	 ******************************************************************/
+	public void initUser() {
+		String sql = "INSERT INTO User (user_id, user_name, user_email, user_password, user_phone_number, user_birthday, user_created_at, user_delete_yn)";
+		sql += "VALUES ( ?, ?, ?, ?, ?, ?, NOW(), 'N')";
+		
+		try {
+			
+			pstmt = conn.prepareStatement(sql);
+			
+			
+		}
+		catch (SQLException e) {
+			System.out.println("sql 똑바로 쓸 것");
+		}
+	}
 	
 	
 	

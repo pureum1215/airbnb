@@ -58,6 +58,8 @@ public class ListController extends HttpServlet {
 		 * 페이지 이동 작성 구간
 		 *****************************/
 		
+		/* test */
+		
 		try {
 			if(action != null) {
 				forward = action.execute(request, response);

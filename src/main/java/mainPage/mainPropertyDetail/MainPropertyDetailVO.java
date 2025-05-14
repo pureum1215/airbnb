@@ -1,6 +1,7 @@
 package mainPage.mainPropertyDetail;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 
 public class MainPropertyDetailVO {
 	
@@ -39,7 +40,7 @@ public class MainPropertyDetailVO {
 	private String property_review_id;
 	private String property_review_rating;
 	private String property_review_content;
-	private String property_review_created_at;
+	private Timestamp property_review_created_at;
 	
 	private int price_per_night;
 	private Date reservation_check_in;
@@ -177,10 +178,10 @@ public class MainPropertyDetailVO {
 	public void setProperty_review_content(String property_review_content) {
 		this.property_review_content = property_review_content;
 	}
-	public String getProperty_review_created_at() {
+	public Timestamp getProperty_review_created_at() {
 		return property_review_created_at;
 	}
-	public void setProperty_review_created_at(String property_review_created_at) {
+	public void setProperty_review_created_at(Timestamp property_review_created_at) {
 		this.property_review_created_at = property_review_created_at;
 	}
 	public int getPrice_per_night() {

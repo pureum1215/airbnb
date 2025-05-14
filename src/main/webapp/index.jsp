@@ -8,6 +8,5 @@
 </head>
 <body>
 <h1>response 연결 부분</h1>
-
 </body>
 </html>

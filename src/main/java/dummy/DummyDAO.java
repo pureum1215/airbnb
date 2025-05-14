@@ -8,7 +8,7 @@ import javax.sql.*;
  * 유저 데이터 가공
  * 작성자: 명희승
  */
-class DummyDAO {
+public class DummyDAO {
 	private Connection conn;
 	private PreparedStatement pstmt;
 	private ResultSet rs;
@@ -38,4 +38,24 @@ class DummyDAO {
 		try { if(pstmt != null) pstmt.close(); } catch(Exception e) {}
 		try { if(conn != null) conn.close(); } catch(Exception e) {}
 	}
+	
+	
+	
+	
+	
+	
+	/******************************************************************
+	 * 
+	 ******************************************************************/
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }

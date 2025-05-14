@@ -7,15 +7,18 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import dummy.init.HostInitData;
+import dummy.init.UserInitData;
 
-@WebServlet("/InitServletController")
+
+@WebServlet("/init")
 public class InitServletController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		String url = request.getRequestURI();
 		String path = request.getContextPath();
 		String command = url.substring(path.length());
-		System.out.println("동작 체크: "+command);
+		
 		
 		/***************
 		 *  더미 기능구현하기  Req 받기 
@@ -24,6 +27,7 @@ public class InitServletController extends HttpServlet {
 		if(func == null) {
 			return ;
 		}
+		System.out.println("동작 체크: "+func);
 		
 		/***
 		 * db 연결하기
@@ -42,11 +46,22 @@ public class InitServletController extends HttpServlet {
 		/******************
 		 * 사용자가 기능 선택하기
 		 *****************/
-		if(func.equals("1")) {
+		if(func.equals("user")) {
 			
 			action = new UserInitData(); //유저등록하기
 			action.execute(dummyDAO);
 			
+		}
+		else if(func.equals("host")) {
+			action = new HostInitData(); // 호스트 등록하기
+			action.execute(dummyDAO);
+		}
+		else if(func.equals("all") || func.equals("start")) {
+			action = new UserInitData(); //유저등록하기
+			action.execute(dummyDAO);
+			
+			action = new HostInitData(); // 호스트 등록하기
+			action.execute(dummyDAO);
 		}
 		
 		
@@ -55,5 +70,6 @@ public class InitServletController extends HttpServlet {
 		
 	}
 
+	
 
 }

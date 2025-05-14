@@ -25,7 +25,13 @@ public class AmenitiesInitData implements DummyAction {
 		amenities.add(new AmenitiesVO(9, "Gym"));
 		amenities.add(new AmenitiesVO(10, "Pet Friendly"));
 
-		
+		for(AmenitiesVO li : amenities) {
+			if(dummyDAO.initAmenitie(li)) {
+				System.out.println("실패하였습니다.");
+			}else {
+				System.out.println("성공하였습니다.");
+			}
+		}
 		
 	}
 

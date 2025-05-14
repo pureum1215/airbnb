@@ -47,10 +47,8 @@ public class InitServletController extends HttpServlet {
 		 * 사용자가 기능 선택하기
 		 *****************/
 		if(func.equals("user")) {
-			
 			action = new UserInitData(); //유저등록하기
 			action.execute(dummyDAO);
-			
 		}
 		else if(func.equals("host")) {
 			action = new HostInitData(); // 호스트 등록하기

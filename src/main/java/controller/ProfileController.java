@@ -9,10 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/**
- * Servlet implementation class ReviewController
- */
-@WebServlet("/ReviewController")
+
 public class ProfileController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        

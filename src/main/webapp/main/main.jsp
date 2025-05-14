@@ -1,3 +1,7 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<meta charset="UTF-8">
+
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -223,6 +227,7 @@
   </style>
 </head>
 <body>
+<jsp:include page="main_header.jsp" />
   <div class="container">
     <header class="navbar">
       <div class="logo">

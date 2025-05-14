@@ -9,4 +9,16 @@
     <welcome-file>default.jsp</welcome-file>
     <welcome-file>default.htm</welcome-file>
   </welcome-file-list>
+  
+   <servlet>
+  	<servlet-name>Property</servlet-name>
+  	<servlet-class>controller.PropertyController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>Property</servlet-name>
+  	<url-pattern>*.pro</url-pattern>
+  </servlet-mapping>
+  
+
+  
 </web-app>

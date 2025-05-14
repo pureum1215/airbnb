@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import dummy.init.HostInitData;
+import dummy.init.LocationInitData;
 import dummy.init.UserInitData;
 
 
@@ -54,11 +55,23 @@ public class InitServletController extends HttpServlet {
 			action = new HostInitData(); // 호스트 등록하기
 			action.execute(dummyDAO);
 		}
+		else if(func.equals("location")) {
+			action = new LocationInitData();
+			action.execute(dummyDAO);
+		}
+		else if(func.equals("amenities")) {
+			
+			
+		}
+		
 		else if(func.equals("all") || func.equals("start")) {
 			action = new UserInitData(); //유저등록하기
 			action.execute(dummyDAO);
 			
 			action = new HostInitData(); // 호스트 등록하기
+			action.execute(dummyDAO);
+			
+			action = new LocationInitData();
 			action.execute(dummyDAO);
 		}
 		

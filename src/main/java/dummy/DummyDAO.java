@@ -6,6 +6,7 @@ import javax.naming.*;
 import javax.sql.*;
 
 import dummy.vo.HostVO;
+import dummy.vo.LocationVO;
 import dummy.vo.UserVO;
 
 /***
@@ -123,7 +124,7 @@ public class DummyDAO {
 			
 			
 		} catch (SQLException e) {
-			System.out.println("initUser insert 실패: "+hostVO.getHostId());
+			System.out.println("initHost insert 실패: "+hostVO.getHostId());
 			return true;
 		}
 		
@@ -131,4 +132,30 @@ public class DummyDAO {
 		return true;
 	}
 	
+	public boolean initLocation(LocationVO locVO) {
+		String sql = "INSERT INTO Location (location_id, location_city, location_country, location_continent,\n"
+				+ "location_detail, location_x, location_y)";
+		sql += "VALUES(?,?,?,?,?,?,?)";
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, locVO.getLocationId());
+			pstmt.setString(2, locVO.getLocationCity());
+			pstmt.setString(3, locVO.getLocationCountry());
+			pstmt.setString(4, locVO.getLocationContinent());
+			pstmt.setString(5, locVO.getLocationDetail());
+			pstmt.setDouble(6, locVO.getLocationX());
+			pstmt.setDouble(7, locVO.getLocationY());
+			if(0 < pstmt.executeUpdate()) {
+				return false;
+			}
+			
+		} catch (SQLException e) {
+			System.out.println("initLocation insert 실패: "+locVO.getLocationId());
+			return true;
+		}
+		
+		
+		return true;
+	}
 }

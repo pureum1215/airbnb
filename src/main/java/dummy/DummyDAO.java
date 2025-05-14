@@ -53,7 +53,7 @@ public class DummyDAO {
 	//idx check
 	public int initUserIdxCount() {
 		try {
-			String sql = "Select count(*) as cnt from  user where user_id like 'user%'";
+			String sql = "Select count(*)+1 as cnt from  user where user_id like 'user%'";
 			pstmt = conn.prepareStatement(sql);
 			rs = pstmt.executeQuery();
 			
@@ -69,20 +69,37 @@ public class DummyDAO {
 	}
 	
 	
-	
-	public void initUser(UserVO userVO) {
+	/**
+	 *유저 등록하
+	 * @param userVO: 유저 정보
+	 * @return
+	 * boolean 성공여부: false 성공,true: 실패
+	 */
+	public boolean initUser(UserVO userVO) {
 		String sql = "INSERT INTO User (user_id, user_name, user_email, user_password, user_phone_number, user_birthday, user_created_at, user_delete_yn)";
 		sql += "VALUES ( ?, ?, ?, ?, ?, ?, NOW(), 'N')";
 		
 		try {
 			
 			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, userVO.getUserId());
+			pstmt.setString(2, userVO.getUserName());		
+			pstmt.setString(3, userVO.getUserEmail());
+			pstmt.setString(4, userVO.getUserPassword());
+			pstmt.setString(5, userVO.getPhoneNumber());
+			pstmt.setString(6, userVO.getUserBirthday());
 			
+			if(0 < pstmt.executeUpdate()) {
+				return false;
+			}
 			
 		}
 		catch (SQLException e) {
 			System.out.println("sql 똑바로 쓸 것");
+			return false;
 		}
+		
+		return true;
 	}
 	
 	

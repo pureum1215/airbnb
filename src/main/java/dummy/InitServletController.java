@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import dummy.init.AmenitiesInitData;
 import dummy.init.HostInitData;
 import dummy.init.LocationInitData;
 import dummy.init.UserInitData;
@@ -60,8 +61,8 @@ public class InitServletController extends HttpServlet {
 			action.execute(dummyDAO);
 		}
 		else if(func.equals("amenities")) {
-			
-			
+			action = new AmenitiesInitData();
+			action.execute(dummyDAO);
 		}
 		
 		else if(func.equals("all") || func.equals("start")) {

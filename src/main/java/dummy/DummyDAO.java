@@ -95,8 +95,9 @@ public class DummyDAO {
 			
 		}
 		catch (SQLException e) {
-			System.out.println("sql 똑바로 쓸 것");
-			return false;
+			System.out.println("initUser insert 실패: "+userVO.getUserId());
+			
+			return true;
 		}
 		
 		return true;

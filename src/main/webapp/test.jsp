@@ -9,7 +9,7 @@
 <body>
 	
 	<form action="/property/upload" method="post" enctype="multipart/form-data">
-    	<input type="text" name="title" placeholder="숙소 제목" />
+    	<input type="text" name="title" placeholder="숙소 사진" />
 	    <input type="file" name="image" />
     	<button type="submit">업로드</button>
 	</form>

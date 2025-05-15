@@ -8,5 +8,7 @@
 </head>
 <body>
 <img src="/uploads/img.png" alt="이미지" width="300">
+<%-- 주소 변수로 변경 --%>
+
 </body>
 </html>

@@ -11,6 +11,7 @@ import dummy.vo.LocationVO;
 import dummy.vo.PropertyAmenitiesVO;
 import dummy.vo.PropertyReviewVO;
 import dummy.vo.PropertyVO;
+import dummy.vo.ReservationVO;
 import dummy.vo.UserReviewVO;
 import dummy.vo.UserVO;
 
@@ -282,6 +283,29 @@ public class DummyDAO {
 		return false;
 	}
 
-	
+	public boolean initReservation(ReservationVO vo) {
+		String sql = "INSERT INTO Reservation (reservation_id, property_id, user_id, reservation_check_in, reservation_check_out, reservation_created_at) "
+		           + "VALUES (?, ?, ?, ?, ?, NOW())";
+
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, vo.getReservationId());
+			pstmt.setString(2, vo.getPropertyId());
+			pstmt.setString(3, vo.getUserId());
+			pstmt.setString(4, vo.getReservationCheckIn());
+			pstmt.setString(5, vo.getReservationCheckOut());
+
+			if (pstmt.executeUpdate() > 0) {
+				return true;
+			}
+		} catch (SQLException e) {
+			System.out.println("initReservation insert 실패: " + vo.getReservationId());
+			e.printStackTrace();
+			return false;
+		}
+
+		return false;
+	}
+
 	
 }

@@ -263,7 +263,7 @@ public class DummyDAO {
 	
 	public boolean initPropertyReview(PropertyReviewVO vo) {
 		String sql = "INSERT INTO Property_Review (property_review_id, user_id, property_id, property_review_rating, property_review_content, property_review_created_at) "
-		           + "VALUES (?, ?, ?, ?, ?, NOW())";
+		           + "VALUES (?, ?, ?, ?, ?, ?)";
 
 		try {
 			pstmt = conn.prepareStatement(sql);
@@ -272,7 +272,7 @@ public class DummyDAO {
 			pstmt.setString(3, vo.getPropertyId());
 			pstmt.setInt(4, vo.getPropertyReviewRating());
 			pstmt.setString(5, vo.getPropertyReviewContent());
-
+			pstmt.setDate(6, vo.getProperty_review_created_at());
 			if (pstmt.executeUpdate() > 0) {
 				return true;
 			}

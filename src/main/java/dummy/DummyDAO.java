@@ -239,7 +239,7 @@ public class DummyDAO {
 	
 	public boolean initUserReview(UserReviewVO vo) {
 		String sql = "INSERT INTO User_Review (user_review_id, user_id, host_id, user_review_rating, user_review_content, user_review_created_at) "
-		           + "VALUES (?, ?, ?, ?, ?, NOW())";
+		           + "VALUES (?, ?, ?, ?, ?, ?)";
 
 		try {
 			pstmt = conn.prepareStatement(sql);
@@ -248,7 +248,8 @@ public class DummyDAO {
 			pstmt.setString(3, vo.getHostId());
 			pstmt.setInt(4, vo.getUserReviewRating());
 			pstmt.setString(5, vo.getUserReviewContent());
-
+			pstmt.setDate(6, vo.getUser_review_created_at());
+			
 			if (pstmt.executeUpdate() > 0) {
 				return true;
 			}

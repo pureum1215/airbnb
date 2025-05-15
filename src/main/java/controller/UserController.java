@@ -4,10 +4,10 @@ import java.io.IOException;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 
 
 public class UserController extends HttpServlet {
@@ -54,18 +54,22 @@ public class UserController extends HttpServlet {
 		 * 페이지 이동 작성 구간
 		 *****************************/
 		
-		if(command.equals("login.us")) {
+		if(command.equals("/login.us")) {
 			forward = new ActionForward();
 			forward.setPath("member/login.jsp");
 			forward.setRedirect(false);
 		}
-		else if(command.equals("register.us")) {
+		else if(command.equals("/register.us")) {
 			forward = new ActionForward();
 			forward.setPath("member/register.jsp");
 			forward.setRedirect(false);
 		}
-		
-		
+		else if(command.equals("/registerProcess.us")) {
+			
+		}
+		else if(command.equals("loginProcess.us")) {
+			
+		}
 		
 		try {
 			if(action != null) {
@@ -75,6 +79,8 @@ public class UserController extends HttpServlet {
 		catch (Exception e) {
 			e.printStackTrace();
 		}
+		
+		
 		
 		if(forward.isRedirect()) {
 			response.sendRedirect(forward.getPath());

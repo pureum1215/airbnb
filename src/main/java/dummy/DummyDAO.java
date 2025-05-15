@@ -8,8 +8,14 @@ import javax.sql.*;
 import dummy.vo.AmenitiesVO;
 import dummy.vo.HostVO;
 import dummy.vo.LocationVO;
+import dummy.vo.PaymentVO;
+import dummy.vo.PropertyAmenitiesVO;
+import dummy.vo.PropertyReviewVO;
 import dummy.vo.PropertyVO;
+import dummy.vo.ReservationVO;
+import dummy.vo.UserReviewVO;
 import dummy.vo.UserVO;
+import dummy.vo.WishListVO;
 
 /***
  * 유저 데이터 가공
@@ -210,6 +216,133 @@ public class DummyDAO {
 		}
 
 		return false;
+	}
+
+	public boolean initPropertyAmenities(PropertyAmenitiesVO vo) {
+		String sql = "INSERT INTO Property_Amenities (amenity_id, property_id) VALUES (?, ?)";
+
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, vo.getAmenityId());
+			pstmt.setString(2, vo.getPropertyId());
+
+			if (pstmt.executeUpdate() > 0) {
+				return true;
+			}
+		} catch (SQLException e) {
+			System.out.println("initPropertyAmenities insert 실패: property_id=" + vo.getPropertyId() + ", amenity_id=" + vo.getAmenityId());
+			e.printStackTrace();
+			return false;
+		}
+		return false;
+	}
+	
+	public boolean initUserReview(UserReviewVO vo) {
+		String sql = "INSERT INTO User_Review (user_review_id, user_id, host_id, user_review_rating, user_review_content, user_review_created_at) "
+		           + "VALUES (?, ?, ?, ?, ?, NOW())";
+
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, vo.getUserReviewId());
+			pstmt.setString(2, vo.getUserId());
+			pstmt.setString(3, vo.getHostId());
+			pstmt.setInt(4, vo.getUserReviewRating());
+			pstmt.setString(5, vo.getUserReviewContent());
+
+			if (pstmt.executeUpdate() > 0) {
+				return true;
+			}
+		} catch (SQLException e) {
+			System.out.println("initUserReview insert 실패: " + vo.getUserReviewId());
+			e.printStackTrace();
+			return false;
+		}
+
+		return false;
+	}
+	
+	public boolean initPropertyReview(PropertyReviewVO vo) {
+		String sql = "INSERT INTO Property_Review (property_review_id, user_id, property_id, property_review_rating, property_review_content, property_review_created_at) "
+		           + "VALUES (?, ?, ?, ?, ?, NOW())";
+
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, vo.getPropertyReviewId());
+			pstmt.setString(2, vo.getUserId());
+			pstmt.setString(3, vo.getPropertyId());
+			pstmt.setInt(4, vo.getPropertyReviewRating());
+			pstmt.setString(5, vo.getPropertyReviewContent());
+
+			if (pstmt.executeUpdate() > 0) {
+				return true;
+			}
+		} catch (SQLException e) {
+			System.out.println("initPropertyReview insert 실패: " + vo.getPropertyReviewId());
+			e.printStackTrace();
+			return false;
+		}
+
+		return false;
+	}
+
+	public boolean initReservation(ReservationVO vo) {
+		String sql = "INSERT INTO Reservation (reservation_id, property_id, user_id, reservation_check_in, reservation_check_out, reservation_created_at) "
+		           + "VALUES (?, ?, ?, ?, ?, NOW())";
+
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, vo.getReservationId());
+			pstmt.setString(2, vo.getPropertyId());
+			pstmt.setString(3, vo.getUserId());
+			pstmt.setString(4, vo.getReservationCheckIn());
+			pstmt.setString(5, vo.getReservationCheckOut());
+
+			if (pstmt.executeUpdate() > 0) {
+				return true;
+			}
+		} catch (SQLException e) {
+			System.out.println("initReservation insert 실패: " + vo.getReservationId());
+			e.printStackTrace();
+			return false;
+		}
+
+		return false;
+	}
+
+	public boolean initPayment(PaymentVO vo) {
+		String sql = "INSERT INTO Payment (payment_id, reservation_id, payment_price, payment_method, payment_status, payment_created_at) "
+		           + "VALUES (?, ?, ?, ?, ?, NOW())";
+
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, vo.getPaymentId());
+			pstmt.setString(2, vo.getReservationId());
+			pstmt.setInt(3, vo.getPaymentPrice());
+			pstmt.setString(4, vo.getPaymentMethod());
+			pstmt.setString(5, vo.getPaymentStatus());
+
+			return pstmt.executeUpdate() > 0;
+		} catch (SQLException e) {
+			System.out.println("initPayment insert 실패: " + vo.getPaymentId());
+			e.printStackTrace();
+			return false;
+		}
+	}
+	
+	public boolean initWishList(WishListVO vo) {
+		String sql = "INSERT INTO Wish_List (user_id, property_id) VALUES (?, ?)";
+
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, vo.getUserId());
+			pstmt.setString(2, vo.getPropertyId());
+
+			return pstmt.executeUpdate() > 0;
+		} catch (SQLException e) {
+			System.out.println("initWishList insert 실패: user_id=" + vo.getUserId() + ", property_id=" + vo.getPropertyId());
+			e.printStackTrace();
+			return false;
+		}
 	}
 
 	

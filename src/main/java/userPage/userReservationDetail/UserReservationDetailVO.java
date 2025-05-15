@@ -1,13 +1,16 @@
-package hostPage.hostReservationList;
+package userPage.userReservationDetail;
 
 import java.sql.Date;
 import java.sql.Timestamp;
 
-public class HostReservationListVO {
+public class UserReservationDetailVO {
 	
 	/**************************************************************************
 	 * 숙소 id, 숙소 사진, 숙소 이름, 숙소 별점, 숙소 위치 id, 상세주소, 숙소 도시, 나라, 숙소 상세, 1박 가격,
-	 * 예약 id, 사용자 id, 체크인 날짜, 체크아웃 날짜, 결제 상태, 예약 요청 시간	 * 
+	 * 호스트 id, 호스트 이름, 호스트 소개
+	 * 숙소 리뷰 id, 리뷰 내용, 리뷰 생성 날짜, 
+	 * 예약 id, 사용자 id, 체크인 날짜, 체크아웃 날짜,
+	 * 결제 id, 결제 비용, 
 	 **************************************************************************/
 	
 	private String property_id;
@@ -20,12 +23,21 @@ public class HostReservationListVO {
 	private String location_detail;
 	private int price_per_night;
 	
+	private String host_id;
+	private String user_name;
+	private String host_bio;
+	
+	private String property_review_id;
+	private String user_review_content;
+	private Timestamp user_review_created_at;
+	
 	private String reservation_id;
 	private String user_id;
 	private Date reservation_check_in;
 	private Date reservation_check_out;
-	private String payment_status;
-	private Timestamp reservation_created_at;
+	
+	private String payment_id;
+	private String payment_price;
 	
 	public String getProperty_id() {
 		return property_id;
@@ -81,6 +93,42 @@ public class HostReservationListVO {
 	public void setPrice_per_night(int price_per_night) {
 		this.price_per_night = price_per_night;
 	}
+	public String getHost_id() {
+		return host_id;
+	}
+	public void setHost_id(String host_id) {
+		this.host_id = host_id;
+	}
+	public String getUser_name() {
+		return user_name;
+	}
+	public void setUser_name(String user_name) {
+		this.user_name = user_name;
+	}
+	public String getHost_bio() {
+		return host_bio;
+	}
+	public void setHost_bio(String host_bio) {
+		this.host_bio = host_bio;
+	}
+	public String getProperty_review_id() {
+		return property_review_id;
+	}
+	public void setProperty_review_id(String property_review_id) {
+		this.property_review_id = property_review_id;
+	}
+	public String getUser_review_content() {
+		return user_review_content;
+	}
+	public void setUser_review_content(String user_review_content) {
+		this.user_review_content = user_review_content;
+	}
+	public Timestamp getUser_review_created_at() {
+		return user_review_created_at;
+	}
+	public void setUser_review_created_at(Timestamp user_review_created_at) {
+		this.user_review_created_at = user_review_created_at;
+	}
 	public String getReservation_id() {
 		return reservation_id;
 	}
@@ -105,28 +153,30 @@ public class HostReservationListVO {
 	public void setReservation_check_out(Date reservation_check_out) {
 		this.reservation_check_out = reservation_check_out;
 	}
-	public String getPayment_status() {
-		return payment_status;
+	public String getPayment_id() {
+		return payment_id;
 	}
-	public void setPayment_status(String payment_status) {
-		this.payment_status = payment_status;
+	public void setPayment_id(String payment_id) {
+		this.payment_id = payment_id;
 	}
-	public Timestamp getReservation_created_at() {
-		return reservation_created_at;
+	public String getPayment_price() {
+		return payment_price;
 	}
-	public void setReservation_created_at(Timestamp reservation_created_at) {
-		this.reservation_created_at = reservation_created_at;
+	public void setPayment_price(String payment_price) {
+		this.payment_price = payment_price;
 	}
 	
 	@Override
 	public String toString() {
-		return "HostPropertyListVO [property_id=" + property_id + ", property_photo_url=" + property_photo_url
+		return "UserReservationDetailVO [property_id=" + property_id + ", property_photo_url=" + property_photo_url
 				+ ", property_name=" + property_name + ", property_review_rating=" + property_review_rating
 				+ ", location_id=" + location_id + ", location_city=" + location_city + ", location_country="
 				+ location_country + ", location_detail=" + location_detail + ", price_per_night=" + price_per_night
-				+ ", reservation_id=" + reservation_id + ", user_id=" + user_id + ", reservation_check_in="
-				+ reservation_check_in + ", reservation_check_out=" + reservation_check_out + ", payment_status="
-				+ payment_status + ", reservation_created_at=" + reservation_created_at + "]";
+				+ ", host_id=" + host_id + ", user_name=" + user_name + ", host_bio=" + host_bio
+				+ ", property_review_id=" + property_review_id + ", user_review_content=" + user_review_content
+				+ ", user_review_created_at=" + user_review_created_at + ", reservation_id=" + reservation_id
+				+ ", user_id=" + user_id + ", reservation_check_in=" + reservation_check_in + ", reservation_check_out="
+				+ reservation_check_out + ", payment_id=" + payment_id + ", payment_price=" + payment_price + "]";
 	}
-
+		
 }

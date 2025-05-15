@@ -10,7 +10,14 @@ import javax.servlet.http.HttpServletResponse;
 import dummy.init.AmenitiesInitData;
 import dummy.init.HostInitData;
 import dummy.init.LocationInitData;
+import dummy.init.PaymentInitData;
+import dummy.init.PropertyAmenitiesInitData;
+import dummy.init.PropertyInitData;
+import dummy.init.PropertyReviewInitData;
+import dummy.init.ReservationInitData;
 import dummy.init.UserInitData;
+import dummy.init.UserReviewInitData;
+import dummy.init.WishListInitData;
 
 
 @WebServlet("/init")
@@ -57,11 +64,39 @@ public class InitServletController extends HttpServlet {
 			action.execute(dummyDAO);
 		}
 		else if(func.equals("location")) {
-			action = new LocationInitData();
+			action = new LocationInitData(); //위치 등록하기
 			action.execute(dummyDAO);
 		}
 		else if(func.equals("amenities")) {
-			action = new AmenitiesInitData();
+			action = new AmenitiesInitData(); // 편의시설 등록하기
+			action.execute(dummyDAO);
+		}
+		else if(func.equals("property")) {
+			action = new PropertyInitData(); //숙소 등록하기
+			action.execute(dummyDAO);
+		}
+		else if(func.equals("propertyAm")) {
+			action = new PropertyAmenitiesInitData(); //숙소 편의시설
+			action.execute(dummyDAO);
+		}
+		else if(func.equals("userRe")) {
+			action = new UserReviewInitData(); //호스트가 쓰는 유저에 대한 리뷰
+			action.execute(dummyDAO);
+		}
+		else if(func.equals("propRe")) {
+			action = new PropertyReviewInitData(); //유저가 쓰는 숙소에 대한 리뷰
+			action.execute(dummyDAO);
+		}
+		else if(func.equals("reservation")) {
+			action = new ReservationInitData(); // 예약
+			action.execute(dummyDAO);
+		}
+		else if(func.equals("payment")) {
+			action = new PaymentInitData();
+			action.execute(dummyDAO);
+		}
+		else if (func.equals("wishlist")) {
+			action = new WishListInitData();
 			action.execute(dummyDAO);
 		}
 		
@@ -73,6 +108,30 @@ public class InitServletController extends HttpServlet {
 			action.execute(dummyDAO);
 			
 			action = new LocationInitData();
+			action.execute(dummyDAO);
+			
+			action = new AmenitiesInitData();
+			action.execute(dummyDAO);
+			
+			action = new PropertyInitData();
+			action.execute(dummyDAO);
+			
+			action = new PropertyAmenitiesInitData();
+			action.execute(dummyDAO);
+			
+			action = new UserReviewInitData();
+			action.execute(dummyDAO);
+			
+			action = new PropertyReviewInitData();
+			action.execute(dummyDAO);
+			
+			action = new ReservationInitData(); // 예약
+			action.execute(dummyDAO);
+			
+			action = new PaymentInitData();
+			action.execute(dummyDAO);
+			
+			action = new WishListInitData();
 			action.execute(dummyDAO);
 		}
 		

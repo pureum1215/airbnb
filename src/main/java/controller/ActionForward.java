@@ -6,6 +6,7 @@ public class ActionForward {
 	private String path = null;
 	
 	
+	
 	public boolean isRedirect() {
 		return isRedirect;
 	}
@@ -18,5 +19,6 @@ public class ActionForward {
 	public void setPath(String path) {
 		this.path = path;
 	}
+	
 	
 }

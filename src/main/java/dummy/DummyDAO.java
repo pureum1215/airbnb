@@ -8,6 +8,7 @@ import javax.sql.*;
 import dummy.vo.AmenitiesVO;
 import dummy.vo.HostVO;
 import dummy.vo.LocationVO;
+import dummy.vo.PropertyVO;
 import dummy.vo.UserVO;
 
 /***
@@ -177,4 +178,39 @@ public class DummyDAO {
 		return true;
 		
 	}
+	public boolean initProperty(PropertyVO propertyVO) {
+		String sql = "INSERT INTO Property (property_id, host_id, location_id, amenity_id, property_name, property_description, price_per_night, "
+		           + "property_room, property_bed, property_bathroom, property_reservation_default, property_photo_url, property_delete_yn) "
+		           + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, propertyVO.getPropertyId());
+			pstmt.setString(2, propertyVO.getHostId());
+			pstmt.setString(3, propertyVO.getLocationId());
+			pstmt.setInt(4, propertyVO.getAmenityId());
+			pstmt.setString(5, propertyVO.getPropertyName());
+			pstmt.setString(6, propertyVO.getPropertyDescription());
+			pstmt.setInt(7, propertyVO.getPricePerNight());
+			pstmt.setInt(8, propertyVO.getPropertyRoom());
+			pstmt.setInt(9, propertyVO.getPropertyBed());
+			pstmt.setInt(10, propertyVO.getPropertyBathroom());
+			pstmt.setString(11, propertyVO.getPropertyReservationDefault());
+			pstmt.setString(12, propertyVO.getPropertyPhotoUrl());
+			pstmt.setString(13, propertyVO.getPropertyDeleteYn());
+
+			if (pstmt.executeUpdate() > 0) {
+				return true;
+			}
+
+		} catch (SQLException e) {
+			System.out.println("initProperty insert 실패: " + propertyVO.getPropertyId());
+			e.printStackTrace();
+			return false;
+		}
+
+		return false;
+	}
+
+	
 }

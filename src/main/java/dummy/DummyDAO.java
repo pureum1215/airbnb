@@ -9,6 +9,7 @@ import dummy.vo.AmenitiesVO;
 import dummy.vo.HostVO;
 import dummy.vo.LocationVO;
 import dummy.vo.PropertyAmenitiesVO;
+import dummy.vo.PropertyReviewVO;
 import dummy.vo.PropertyVO;
 import dummy.vo.UserReviewVO;
 import dummy.vo.UserVO;
@@ -250,6 +251,30 @@ public class DummyDAO {
 			}
 		} catch (SQLException e) {
 			System.out.println("initUserReview insert 실패: " + vo.getUserReviewId());
+			e.printStackTrace();
+			return false;
+		}
+
+		return false;
+	}
+	
+	public boolean initPropertyReview(PropertyReviewVO vo) {
+		String sql = "INSERT INTO Property_Review (property_review_id, user_id, property_id, property_review_rating, property_review_content, property_review_created_at) "
+		           + "VALUES (?, ?, ?, ?, ?, NOW())";
+
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, vo.getPropertyReviewId());
+			pstmt.setString(2, vo.getUserId());
+			pstmt.setString(3, vo.getPropertyId());
+			pstmt.setInt(4, vo.getPropertyReviewRating());
+			pstmt.setString(5, vo.getPropertyReviewContent());
+
+			if (pstmt.executeUpdate() > 0) {
+				return true;
+			}
+		} catch (SQLException e) {
+			System.out.println("initPropertyReview insert 실패: " + vo.getPropertyReviewId());
 			e.printStackTrace();
 			return false;
 		}

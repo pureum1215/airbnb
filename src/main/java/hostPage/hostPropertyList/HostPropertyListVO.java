@@ -4,6 +4,7 @@ public class HostPropertyListVO {
 	
 	/**************************************************************************
 	 * 숙소 id, 숙소 사진, 숙소 이름, 숙소 별점, 숙소 위치 id, 상세주소, 숙소 도시, 나라, 숙소 상세, 1박 가격,
+	 * 호스트 id, 삭제 여부
 	 **************************************************************************/
 	
 	private String property_id;
@@ -16,8 +17,11 @@ public class HostPropertyListVO {
 	private String location_detail;
 	private int price_per_night;
 	
-	public String getProperty_id() {
-		return property_id;
+	private String host_id;
+	private String property_delete_yn;
+	
+	public void setProperty_delete_yn(String property_delete_yn) {
+		this.property_delete_yn = property_delete_yn;
 	}
 	public void setProperty_id(String property_id) {
 		this.property_id = property_id;
@@ -70,14 +74,26 @@ public class HostPropertyListVO {
 	public void setPrice_per_night(int price_per_night) {
 		this.price_per_night = price_per_night;
 	}
+	public String getProperty_id() {
+		return property_id;
+	}
+	public String getHost_id() {
+		return host_id;
+	}
+	public void setHost_id(String host_id) {
+		this.host_id = host_id;
+	}
+	public String getProperty_delete_yn() {
+		return property_delete_yn;
+	}
 	
 	@Override
 	public String toString() {
-		return "UserWishListVO [property_id=" + property_id + ", property_photo_url=" + property_photo_url
+		return "HostPropertyListVO [property_id=" + property_id + ", property_photo_url=" + property_photo_url
 				+ ", property_name=" + property_name + ", property_review_rating=" + property_review_rating
 				+ ", location_id=" + location_id + ", location_city=" + location_city + ", location_country="
 				+ location_country + ", location_detail=" + location_detail + ", price_per_night=" + price_per_night
-				+ "]";
+				+ ", host_id=" + host_id + ", property_delete_yn=" + property_delete_yn + "]";
 	}
-
+	
 }

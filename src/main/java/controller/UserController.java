@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import controller.*;
+
 
 public class UserController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -49,11 +51,23 @@ public class UserController extends HttpServlet {
 		
 		Action action = null;
 		ActionForward forward = null;
-		forward = new ActionForward();
-		
+	
 		/****************************** 
 		 * 페이지 이동 작성 구간
 		 *****************************/
+		
+		if(command.equals("login.us")) {
+			forward = new ActionForward();
+			forward.setPath("member/login.jsp");
+			forward.setRedirect(false);
+		}
+		else if(command.equals("register.us")) {
+			forward = new ActionForward();
+			forward.setPath("member/register.jsp");
+			forward.setRedirect(false);
+		}
+		
+		
 		
 		try {
 			if(action != null) {

@@ -5,6 +5,7 @@ import java.sql.*;
 import javax.naming.*;
 import javax.sql.*;
 
+import dummy.vo.AmenitiesVO;
 import dummy.vo.HostVO;
 import dummy.vo.LocationVO;
 import dummy.vo.UserVO;
@@ -154,8 +155,26 @@ public class DummyDAO {
 			System.out.println("initLocation insert 실패: "+locVO.getLocationId());
 			return true;
 		}
-		
-		
 		return true;
+	}
+	
+	public boolean initAmenitie(AmenitiesVO amVO) {
+		
+		String sql = "INSERT INTO Amenities (amenity_id, amenity_name) VALUES(?,?)";
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, amVO.getAmenityId());
+			pstmt.setString(2, amVO.getAmenityName());
+			if(0 < pstmt.executeUpdate()) {
+				return false;
+			}
+			
+		} catch (SQLException e) {
+			System.out.println("initLocation insert 실패: "+amVO.getAmenityId());
+			return true;
+		}
+		return true;
+		
 	}
 }

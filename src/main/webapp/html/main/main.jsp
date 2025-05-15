@@ -1,3 +1,7 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<meta charset="UTF-8">
+
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -223,6 +227,7 @@
   </style>
 </head>
 <body>
+<jsp:include page="main_header.jsp" />
   <div class="container">
     <header class="navbar">
       <div class="logo">
@@ -291,53 +296,7 @@
     </header>
 
     <main class="card-grid">
-      <script>
-        const container = document.currentScript.parentElement;
-        const imageUrls = [
-          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTCN-7h-kMHAyIcQMYpymhnpOdLV0nAnyHWXA&s",
-          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT2_ItxyF9TVbu9h8V0rrTPikT2EJZSge1_EQ&s",
-          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR1Hi_ftmmeGiIEIJtToWBje3NGzZpOTeA9FQ&s"
-        ];
 
-        const cardData = new Array(15).fill(0).map((_, i) => ({
-          location: `한국 Yesan-gun`,
-          distance: `${50 + i * 2}km 거리`,
-          dates: `6월 ${9 + (i % 5)}일~${14 + (i % 3)}일`,
-          review: `게스트 한마디 “깔끔하고 인테리어가 좋았어요!”`,
-          price: `₩${(23000 + i * 1000).toLocaleString()} /박`,
-          rating: `★ ${(4.5 + (i % 5) * 0.1).toFixed(2)}`,
-          image: imageUrls[Math.floor(Math.random() * imageUrls.length)]
-        }));
-
-        cardData.forEach(data => {
-          const card = document.createElement('div');
-          card.className = 'card';
-          card.innerHTML = `
-            <div class="tag">게스트 선호</div>
-            <img src="${data.image}" alt="숙소 이미지">
-            <div class="card-info">
-              <p class="location">${data.location} <span class="rating">${data.rating}</span></p>
-              <p class="distance">${data.distance}</p>
-              <p class="dates">${data.dates}</p>
-              <p class="guest-review">${data.review}</p>
-              <p class="price">${data.price}</p>
-            </div>
-          `;
-          container.appendChild(card);
-        });
-
-        function toggleFilter() {
-          const panel = document.getElementById('filterPanel');
-          panel.style.display = panel.style.display === 'block' ? 'none' : 'block';
-        }
-
-        const counts = { adult: 0, child: 0, infant: 0, pet: 0 };
-
-        function changeCount(type, delta) {
-          counts[type] = Math.max(0, counts[type] + delta);
-          document.getElementById(`${type}Count`).innerText = counts[type];
-        }
-      </script>
     </main>
   </div>
 </body>

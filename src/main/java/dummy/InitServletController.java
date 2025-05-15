@@ -13,6 +13,7 @@ import dummy.init.LocationInitData;
 import dummy.init.PropertyAmenitiesInitData;
 import dummy.init.PropertyInitData;
 import dummy.init.PropertyReviewInitData;
+import dummy.init.ReservationInitData;
 import dummy.init.UserInitData;
 import dummy.init.UserReviewInitData;
 
@@ -84,7 +85,10 @@ public class InitServletController extends HttpServlet {
 			action = new PropertyReviewInitData(); //유저가 쓰는 숙소에 대한 리뷰
 			action.execute(dummyDAO);
 		}
-		
+		else if(func.equals("reservation")) {
+			action = new ReservationInitData(); // 예약
+			action.execute(dummyDAO);
+		}
 		else if(func.equals("all") || func.equals("start")) {
 			action = new UserInitData(); //유저등록하기
 			action.execute(dummyDAO);

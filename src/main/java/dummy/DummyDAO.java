@@ -8,12 +8,14 @@ import javax.sql.*;
 import dummy.vo.AmenitiesVO;
 import dummy.vo.HostVO;
 import dummy.vo.LocationVO;
+import dummy.vo.PaymentVO;
 import dummy.vo.PropertyAmenitiesVO;
 import dummy.vo.PropertyReviewVO;
 import dummy.vo.PropertyVO;
 import dummy.vo.ReservationVO;
 import dummy.vo.UserReviewVO;
 import dummy.vo.UserVO;
+import dummy.vo.WishListVO;
 
 /***
  * 유저 데이터 가공
@@ -305,6 +307,42 @@ public class DummyDAO {
 		}
 
 		return false;
+	}
+
+	public boolean initPayment(PaymentVO vo) {
+		String sql = "INSERT INTO Payment (payment_id, reservation_id, payment_price, payment_method, payment_status, payment_created_at) "
+		           + "VALUES (?, ?, ?, ?, ?, NOW())";
+
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, vo.getPaymentId());
+			pstmt.setString(2, vo.getReservationId());
+			pstmt.setInt(3, vo.getPaymentPrice());
+			pstmt.setString(4, vo.getPaymentMethod());
+			pstmt.setString(5, vo.getPaymentStatus());
+
+			return pstmt.executeUpdate() > 0;
+		} catch (SQLException e) {
+			System.out.println("initPayment insert 실패: " + vo.getPaymentId());
+			e.printStackTrace();
+			return false;
+		}
+	}
+	
+	public boolean initWishList(WishListVO vo) {
+		String sql = "INSERT INTO Wish_List (user_id, property_id) VALUES (?, ?)";
+
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, vo.getUserId());
+			pstmt.setString(2, vo.getPropertyId());
+
+			return pstmt.executeUpdate() > 0;
+		} catch (SQLException e) {
+			System.out.println("initWishList insert 실패: user_id=" + vo.getUserId() + ", property_id=" + vo.getPropertyId());
+			e.printStackTrace();
+			return false;
+		}
 	}
 
 	

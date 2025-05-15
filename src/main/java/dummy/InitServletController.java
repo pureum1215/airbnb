@@ -113,6 +113,9 @@ public class InitServletController extends HttpServlet {
 			
 			action = new PropertyReviewInitData();
 			action.execute(dummyDAO);
+			
+			action = new ReservationInitData(); // 예약
+			action.execute(dummyDAO);
 		}
 		
 		

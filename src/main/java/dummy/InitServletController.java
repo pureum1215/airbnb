@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServletResponse;
 import dummy.init.AmenitiesInitData;
 import dummy.init.HostInitData;
 import dummy.init.LocationInitData;
+import dummy.init.PropertyAmenitiesInitData;
+import dummy.init.PropertyInitData;
 import dummy.init.UserInitData;
 
 
@@ -64,6 +66,14 @@ public class InitServletController extends HttpServlet {
 			action = new AmenitiesInitData();
 			action.execute(dummyDAO);
 		}
+		else if(func.equals("property")) {
+			action = new PropertyInitData();
+			action.execute(dummyDAO);
+		}
+		else if(func.equals("propertyAm")) {
+			action = new PropertyAmenitiesInitData();
+			action.execute(dummyDAO);
+		}
 		
 		else if(func.equals("all") || func.equals("start")) {
 			action = new UserInitData(); //유저등록하기
@@ -73,6 +83,12 @@ public class InitServletController extends HttpServlet {
 			action.execute(dummyDAO);
 			
 			action = new LocationInitData();
+			action.execute(dummyDAO);
+			
+			action = new AmenitiesInitData();
+			action.execute(dummyDAO);
+			
+			action = new PropertyInitData();
 			action.execute(dummyDAO);
 		}
 		

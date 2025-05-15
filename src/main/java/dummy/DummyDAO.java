@@ -8,7 +8,9 @@ import javax.sql.*;
 import dummy.vo.AmenitiesVO;
 import dummy.vo.HostVO;
 import dummy.vo.LocationVO;
+import dummy.vo.PropertyAmenitiesVO;
 import dummy.vo.PropertyVO;
+import dummy.vo.UserReviewVO;
 import dummy.vo.UserVO;
 
 /***
@@ -212,5 +214,49 @@ public class DummyDAO {
 		return false;
 	}
 
+	public boolean initPropertyAmenities(PropertyAmenitiesVO vo) {
+		String sql = "INSERT INTO Property_Amenities (amenity_id, property_id) VALUES (?, ?)";
+
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, vo.getAmenityId());
+			pstmt.setString(2, vo.getPropertyId());
+
+			if (pstmt.executeUpdate() > 0) {
+				return true;
+			}
+		} catch (SQLException e) {
+			System.out.println("initPropertyAmenities insert 실패: property_id=" + vo.getPropertyId() + ", amenity_id=" + vo.getAmenityId());
+			e.printStackTrace();
+			return false;
+		}
+		return false;
+	}
+	
+	public boolean initUserReview(UserReviewVO vo) {
+		String sql = "INSERT INTO User_Review (user_review_id, user_id, host_id, user_review_rating, user_review_content, user_review_created_at) "
+		           + "VALUES (?, ?, ?, ?, ?, NOW())";
+
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, vo.getUserReviewId());
+			pstmt.setString(2, vo.getUserId());
+			pstmt.setString(3, vo.getHostId());
+			pstmt.setInt(4, vo.getUserReviewRating());
+			pstmt.setString(5, vo.getUserReviewContent());
+
+			if (pstmt.executeUpdate() > 0) {
+				return true;
+			}
+		} catch (SQLException e) {
+			System.out.println("initUserReview insert 실패: " + vo.getUserReviewId());
+			e.printStackTrace();
+			return false;
+		}
+
+		return false;
+	}
+
+	
 	
 }

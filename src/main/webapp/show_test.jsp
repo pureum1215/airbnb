@@ -8,5 +8,7 @@
 </head>
 <body>
 <img src="/uploads/img.png" alt="이미지" width="300">
+<%-- 주소창만 변경하기 --%>
+
 </body>
 </html>

@@ -1,303 +1,95 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<meta charset="UTF-8">
-
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>에어비앤비 메인</title>
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+<meta charset="UTF-8">
+<title>숙소 리스트</title>
+<style>
+body {
+	margin: 0;
+	font-family: 'Arial', sans-serif;
+	background-color: #ffffff;
+}
 
-    html, body {
-      height: 100%;
-      font-family: Arial, sans-serif;
-      background: #fff;
-    }
+/* 임포트: 상단 헤더 */
+.section-title {
+	font-size: 22px;
+	font-weight: bold;
+	margin: 40px 80px 20px;
+}
 
-    .container {
-      max-width: 1400px;
-      margin: 0 auto;
-      padding: 0;
-    }
+.card-container {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+	gap: 24px;
+	padding: 0 80px 60px;
+}
 
-    header.navbar {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 2px 0;
-      border-bottom: 1px solid #ddd;
-      position: sticky;
-      top: 0;
-      background-color: #fff;
-      z-index: 100;
-    }
+.card {
+	border-radius: 12px;
+	overflow: hidden;
+	box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+	background-color: white;
+	cursor: pointer;
+	transition: transform 0.2s ease;
+}
 
-    .logo img {
-      height: 120px;
-    }
+.card:hover {
+	transform: translateY(-4px);
+}
 
-    .search-bar {
-      display: flex;
-      align-items: center;
-      border: 1px solid #ddd;
-      border-radius: 9999px;
-      background: #fff;
-      box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
-      overflow: hidden;
-      width: 100%;
-      max-width: 100%;
-      transition: all 0.3s ease;
-    }
+.card img {
+	width: 100%;
+	height: 200px;
+	object-fit: cover;
+}
 
-    .search-section {
-      flex: 1;
-      padding: 12px 16px;
-      font-size: 14px;
-      display: flex;
-      flex-direction: column;
-      font-weight: 500;
-      color: #333;
-      white-space: nowrap;
-      border-right: 1px solid #ddd;
-      cursor: pointer;
-      transition: all 0.2s ease;
-    }
+.card-content {
+	padding: 14px;
+}
 
-    .search-section:last-child {
-      border-right: none;
-    }
+.card-title {
+	font-size: 16px;
+	font-weight: bold;
+	margin-bottom: 6px;
+}
 
-    .search-section:hover {
-      background-color: #f7f7f7;
-      border: 1px solid #ccc;
-      z-index: 1;
-      border-radius: 9999px;
-    }
+.card-desc {
+	font-size: 14px;
+	color: #555;
+}
 
-    .search-section div:first-child {
-      font-size: 12px;
-      font-weight: 600;
-    }
+.card-price {
+	font-size: 15px;
+	font-weight: bold;
+	margin-top: 10px;
+}
 
-    .search-section div:last-child {
-      color: #888;
-      font-weight: normal;
-      font-size: 13px;
-    }
-
-    .search-bar button {
-      background-color: #ff385c;
-      color: white;
-      border: none;
-      border-radius: 50%;
-      padding: 10px;
-      margin-right: 8px;
-      cursor: pointer;
-      width: 32px;
-      height: 32px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .menu button {
-      border: none;
-      background: none;
-      margin-left: 12px;
-      font-size: 16px;
-      cursor: pointer;
-    }
-
-    main.card-grid {
-      padding: 24px 0;
-      display: grid;
-      grid-template-columns: repeat(5, 1fr);
-      gap: 24px;
-    }
-
-    .card {
-      border: 1px solid #eee;
-      border-radius: 12px;
-      overflow: hidden;
-      background: #fff;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-      position: relative;
-    }
-
-    .card .tag {
-      position: absolute;
-      top: 12px;
-      left: 12px;
-      background: #fff;
-      font-size: 12px;
-      font-weight: bold;
-      padding: 4px 8px;
-      border-radius: 8px;
-      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-    }
-
-    .card img {
-      width: 100%;
-      height: 180px;
-      object-fit: cover;
-    }
-
-    .card-info {
-      padding: 12px;
-    }
-
-    .card-info p {
-      margin: 4px 0;
-      font-size: 14px;
-    }
-
-    .location {
-      font-weight: bold;
-    }
-
-    .rating {
-      color: #ff385c;
-      font-weight: bold;
-    }
-
-    .guest-review, .distance, .dates {
-      color: #666;
-      font-size: 13px;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-
-    .filter-panel {
-      margin-top: 8px;
-      border: 1px solid #ddd;
-      border-radius: 20px;
-      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
-      padding: 20px;
-      width: 320px;
-      background-color: #fff;
-      display: none;
-      position: absolute;
-      z-index: 99;
-    }
-
-    .filter-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 12px 0;
-      border-bottom: 1px solid #eee;
-    }
-
-    .filter-row:last-child {
-      border-bottom: none;
-    }
-
-    .filter-row div:first-child {
-      font-weight: bold;
-    }
-
-    .filter-controls {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .filter-controls button {
-      width: 28px;
-      height: 28px;
-      border-radius: 50%;
-      border: 1px solid #ccc;
-      background: #fff;
-      font-weight: bold;
-      cursor: pointer;
-    }
-
-    .filter-controls span {
-      min-width: 20px;
-      text-align: center;
-    }
-  </style>
+.card-rating {
+	font-size: 14px;
+	color: #888;
+}
+</style>
 </head>
 <body>
-<jsp:include page="main_header.jsp" />
-  <div class="container">
-    <header class="navbar">
-      <div class="logo">
-        <img src="https://cdn.iconscout.com/icon/free/png-256/free-airbnb-2-282311.png" alt="Airbnb Logo" />
-      </div>
-      <div style="position: relative; display: flex; flex-direction: column; flex: 1; margin: 0 20px;">
-        <div class="search-bar">
-          <div class="search-section">
-            <div>여행지</div>
-            <div>여행지 검색</div>
-          </div>
-          <div class="search-section">
-            <div>체크인</div>
-            <div>날짜 추가</div>
-          </div>
-          <div class="search-section">
-            <div>체크아웃</div>
-            <div>날짜 추가</div>
-          </div>
-          <div class="search-section" onclick="toggleFilter()">
-            <div>여행자</div>
-            <div>게스트 추가</div>
-          </div>
-          <button>🔍</button>
-        </div>
-        <div id="filterPanel" class="filter-panel">
-          <div class="filter-row">
-            <div>성인<br><small>13세 이상</small></div>
-            <div class="filter-controls">
-              <button onclick="changeCount('adult', -1)">−</button>
-              <span id="adultCount">0</span>
-              <button onclick="changeCount('adult', 1)">+</button>
-            </div>
-          </div>
-          <div class="filter-row">
-            <div>어린이<br><small>2~12세</small></div>
-            <div class="filter-controls">
-              <button onclick="changeCount('child', -1)">−</button>
-              <span id="childCount">0</span>
-              <button onclick="changeCount('child', 1)">+</button>
-            </div>
-          </div>
-          <div class="filter-row">
-            <div>유아<br><small>2세 미만</small></div>
-            <div class="filter-controls">
-              <button onclick="changeCount('infant', -1)">−</button>
-              <span id="infantCount">0</span>
-              <button onclick="changeCount('infant', 1)">+</button>
-            </div>
-          </div>
-          <div class="filter-row">
-            <div>반려동물<br><small>보조동물을 동반하시나요?</small></div>
-            <div class="filter-controls">
-              <button onclick="changeCount('pet', -1)">−</button>
-              <span id="petCount">0</span>
-              <button onclick="changeCount('pet', 1)">+</button>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="menu">
-        <button>호스트 모드로 전환</button>
-        <button>🌐</button>
-        <button>☰</button>
-      </div>
-    </header>
 
-    <main class="card-grid">
+	<!-- 숙소 섹션 -->
+	<h2 class="section-title">파리의 인기 숙소</h2>
 
-    </main>
-  </div>
+	<div class="card-container">
+		<!-- 숙소 카드 1개 -->
+		<div class="card">
+			<img src="https://via.placeholder.com/400x300.png?text=Room+Image"
+				alt="숙소 이미지">
+			<div class="card-content">
+				<div class="card-title">Les Halles의 다인실</div>
+				<div class="card-desc">8월 15일~17일 · 게스트 선호</div>
+				<div class="card-price">₩554,430 · 2박</div>
+				<div class="card-rating">★ 4.88</div>
+			</div>
+		</div>
+	</div>
+
 </body>
 </html>

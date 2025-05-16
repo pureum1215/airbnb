@@ -31,7 +31,7 @@ public class MainPropertySearchServlet extends HttpServlet {
         String amenityIdStr = request.getParameter("amenity_id");
 
         // 2. VO에 값 세팅
-        MainPropertyListVO criteria = new MainPropertyListVO();
+        MainPropertyListSearchVO criteria = new MainPropertyListSearchVO();
         criteria.setLocation_continent(continent);
         criteria.setLocation_country(country);
         criteria.setLocation_city(city);
@@ -48,10 +48,25 @@ public class MainPropertySearchServlet extends HttpServlet {
         if (amenityIdStr != null && !amenityIdStr.isEmpty()) {
             criteria.setAmenity_id(Integer.parseInt(amenityIdStr));
         }
+        
+        //침실, 침대, 욕실 수 vo에 세팅
+        String roomCountStr = request.getParameter("room_count");
+        String bedCountStr = request.getParameter("bed_count");
+        String bathCountStr = request.getParameter("bathroom_count");
+
+        if (roomCountStr != null && !roomCountStr.isEmpty()) {
+            criteria.setProperty_room(Integer.parseInt(roomCountStr));
+        }
+        if (bedCountStr != null && !bedCountStr.isEmpty()) {
+            criteria.setProperty_bed(Integer.parseInt(bedCountStr));
+        }
+        if (bathCountStr != null && !bathCountStr.isEmpty()) {
+            criteria.setProperty_bathroom(Integer.parseInt(bathCountStr));
+        }
 
         // 3. DAO 호출
         MainPropertyListDAO dao = new MainPropertyListDAO();
-        List<MainPropertyListVO> propertyList = dao.searchProperties(criteria);
+        List<MainPropertyListSearchVO> propertyList = dao.searchProperties(criteria);
 
         // 4. 결과를 request에 담아서 JSP로 forward
         request.setAttribute("propertyList", propertyList);

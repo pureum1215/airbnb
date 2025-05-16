@@ -45,8 +45,8 @@ public class MainPropertyListDAO {
 		}
 	}
 	
-	public List<MainPropertyListVO> searchProperties(MainPropertyListVO criteria) {
-	    List<MainPropertyListVO> list = new ArrayList<>();
+	public List<MainPropertyListSearchVO> searchProperties(MainPropertyListSearchVO criteria) {
+	    List<MainPropertyListSearchVO> list = new ArrayList<>();
 
 	    try {
 	        StringBuilder sql = new StringBuilder(
@@ -101,7 +101,7 @@ public class MainPropertyListDAO {
 	        rs = pstmt.executeQuery();
 
 	        while (rs.next()) {
-	            MainPropertyListVO vo = new MainPropertyListVO();
+	        	MainPropertyListSearchVO vo = new MainPropertyListSearchVO();
 	            vo.setProperty_id(rs.getString("property_id"));
 	            vo.setProperty_photo_url(rs.getString("property_photo_url"));
 	            vo.setPrice_per_night(rs.getInt("price_per_night"));

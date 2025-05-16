@@ -16,13 +16,11 @@ public class SignInAction implements Action{
 		UserDAO userDAO = new UserDAO();
 		MemberSignInVO msVO = new MemberSignInVO();
 		
-		//userid를 늘려야 되므로 db를 확인해야함.
-		//그렇다면 setUserId는 dao에서 해야 할까?
-
-		msVO.setUser_name(request.getParameter("name1"));
-		msVO.setUser_email(request.getParameter("email1"));
-		msVO.setUser_password(request.getParameter("password"));
-		msVO.setUser_phone_number(request.getParameter("phoneNumber1"));
+		
+		msVO.setUser_email(request.getParameter("user_email"));
+		msVO.setUser_name(request.getParameter("user_name"));
+		msVO.setUser_password(request.getParameter("user_password"));
+		msVO.setUser_phone_number(request.getParameter("user_phone_number"));
 		msVO.setUser_birthday(java.sql.Date.valueOf(request.getParameter("user_birthday")));
 		
 		//성공했을 시,

@@ -107,15 +107,15 @@
         <form action="${pageContext.request.contextPath}/registerProcess.us" method="post">
         	<div class="form-group">
                 <label for="nickname">이메일</label>
-                <input type="email" id="email1" name="email1" required>
+                <input type="email" id="email1" name="user_email" required>
             </div>
             <div class="form-group">
                 <label for="nickname">이름</label>
-                <input type="text" id="name1" name="name1" required>
+                <input type="text" id="name1" name="user_name" required>
             </div>
             <div class="form-group">
                 <label for="password">비밀번호</label>
-                <input type="password" id="password" name="password" required>
+                <input type="password" id="password" name="user_password" required>
             </div>
             <div class="form-group">
                 <label for="confirmPassword">비밀번호 확인</label>
@@ -123,7 +123,7 @@
             </div>
             <div class="form-group">
                 <label for="phoneNumber1">휴대전화 번호</label>
-                <input type="text" placeholder="010-1234-1234" id="phoneNumber1" name="phoneNumber1" required>
+                <input type="text" placeholder="010-1234-1234" id="phoneNumber1" name="user_phone_number" required>
             </div>
             <div class="form-group">
                 <label for="user_birthday">생일날짜</label>

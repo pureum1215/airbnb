@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>예약 요청 - Airbnb</title>
+<title>예약 요청</title>
 <style>
 body {
 	font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue",
@@ -123,34 +123,34 @@ h1 {
 }
 
 .tooltip-box {
-  position: absolute;
-  background: #fff;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-  padding: 14px 18px;
-  font-size: 14px;
-  z-index: 100;
-  display: none;
-  max-width: 300px;
-  line-height: 1.4;
-  border: 1px solid #ddd;
+	position: absolute;
+	background: #fff;
+	border-radius: 12px;
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+	padding: 14px 18px;
+	font-size: 14px;
+	z-index: 100;
+	display: none;
+	max-width: 300px;
+	line-height: 1.4;
+	border: 1px solid #ddd;
 }
 
 .tooltip-close {
-  position: absolute;
-  top: 6px;
-  left: 8px;
-  background: none;
-  border: none;
-  font-size: 16px;
-  cursor: pointer;
-  color: #333;
+	position: absolute;
+	top: 6px;
+	left: 8px;
+	background: none;
+	border: none;
+	font-size: 16px;
+	cursor: pointer;
+	color: #333;
 }
 
 .tooltip-trigger {
-  cursor: pointer;
-  text-decoration: underline;
-  position: relative;
+	cursor: pointer;
+	text-decoration: underline;
+	position: relative;
 }
 </style>
 </head>
@@ -205,10 +205,12 @@ h1 {
 						</span> <span>₩14,081</span>
 					</div>
 					<div class="price-line">
-						<span>에어비앤비 서비스 수수료</span> <span>₩19,138</span>
+						<span><span class="tooltip-trigger fee-tooltip-trigger">에어비앤비
+								서비스 수수료</span></span> <span>₩19,138</span>
 					</div>
 					<div class="price-line">
-						<span>세금</span> <span>₩5,149</span>
+						<span><span class="tooltip-trigger tax-tooltip-trigger">세금</span></span>
+						<span>₩5,149</span>
 					</div>
 					<div class="price-line price-total">
 						<span>총액 (KRW)</span> <span>₩149,716</span>
@@ -222,32 +224,77 @@ h1 {
 		<button class="tooltip-close" onclick="hideTooltip()">×</button>
 		호스트가 청구하는 일회성 숙소 청소 비용입니다.
 	</div>
+	<!-- 에어비앤비 수수료 툴팁 -->
+	<div class="tooltip-box" id="tooltipBoxFee">
+		<button class="tooltip-close" onclick="hideTooltip('tooltipBoxFee')">×</button>
+		수수료는 에어비앤비 플랫폼을 운영하고 연중무휴 고객 지원과 같은 다양한 서비스를 제공하는데 사용됩니다.
+	</div>
+	<!-- 세금 툴팁 -->
+	<div class="tooltip-box" id="tooltipBoxTax">
+		<button class="tooltip-close" onclick="hideTooltip('tooltipBoxTax')">×</button>
+		숙박세, 부가가치세(VAT/GST) 등 숙박 관련 세금.<br> 여기에는 관광 수수료가 포함될 수 있습니다.<br>
+		<br> Taxe Additionnelle Article L2531-18<br> Taxe
+		Additionnelle Departementale<br> Taxe Additionnelle Regionale<br>
+		Taxe de Sejour<br> <a href="#"
+			style="color: #008489; text-decoration: underline;">자세히 알아보기</a>
+	</div>
 
-<script>
+	<script>
   const tooltipTrigger = document.querySelector(".tooltip-trigger");
   const tooltipBox = document.getElementById("tooltipBox");
+  const taxTrigger = document.querySelector(".tax-tooltip-trigger");
+  const tooltipBoxTax = document.getElementById("tooltipBoxTax");
 
-  tooltipTrigger.addEventListener("click", () => {
-    const rect = tooltipTrigger.getBoundingClientRect();
-    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-
-    // 툴팁 위치를 trigger 위쪽 중앙에 표시
-    const tooltipHeight = tooltipBox.offsetHeight;
-
-    tooltipBox.style.left = rect.left + "px";
-    tooltipBox.style.top = (rect.top + scrollTop - tooltipHeight - 8) + "px";
-    tooltipBox.style.display = "block";
+  taxTrigger.addEventListener("click", (e) => {
+    positionTooltip(e.target, tooltipBoxTax);
   });
 
-  function hideTooltip() {
-    tooltipBox.style.display = "none";
+  tooltipTrigger.addEventListener("click", (e) => {
+    positionTooltip(e.target, tooltipBox);
+  });
+
+  const feeTrigger = document.querySelector(".fee-tooltip-trigger");
+  const tooltipBoxFee = document.getElementById("tooltipBoxFee");
+
+  feeTrigger.addEventListener("click", (e) => {
+    positionTooltip(e.target, tooltipBoxFee);
+  });
+
+  function positionTooltip(target, box) {
+    const rect = target.getBoundingClientRect();
+    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+    const tooltipHeight = box.offsetHeight;
+
+    box.style.left = rect.left + "px";
+    box.style.top = (rect.top + scrollTop - tooltipHeight - 8) + "px";
+    box.style.display = "block";
   }
 
-  // 바깥 클릭 시 툴팁 닫기
-  window.addEventListener("click", function(e) {
-    if (!tooltipBox.contains(e.target) && !tooltipTrigger.contains(e.target)) {
+  function hideTooltip(id) {
+    document.getElementById(id).style.display = "none";
+  }
+
+  window.addEventListener("click", function (e) {
+    if (
+      !tooltipBox.contains(e.target) &&
+      !tooltipTrigger.contains(e.target)
+    ) {
       tooltipBox.style.display = "none";
     }
+
+    if (
+      !tooltipBoxFee.contains(e.target) &&
+      !feeTrigger.contains(e.target)
+    ) {
+      tooltipBoxFee.style.display = "none";
+    }
+    
+    if (
+    	    !tooltipBoxTax.contains(e.target) &&
+    	    !taxTrigger.contains(e.target)
+    	  ) {
+    	    tooltipBoxTax.style.display = "none";
+    	  }
   });
 </script>
 </body>

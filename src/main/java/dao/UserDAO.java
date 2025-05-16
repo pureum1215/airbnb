@@ -9,6 +9,8 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
+import member.MemberVO;
+import memberPage.memberLogIn.MemberLogInVO;
 import memberPage.memberSignIn.MemberSignInVO;
 
 public class UserDAO {
@@ -52,7 +54,7 @@ public class UserDAO {
 	 *******************************************************/
 	
 	/******************************************************************
-	 *  idx check 용 작
+	 *  idx check 용 작성
 	 ******************************************************************/
 	//idx check
 	public int initUserIdxCount() {
@@ -108,6 +110,37 @@ public class UserDAO {
 		return false;
 	}
 	
-	
+	public MemberLogInVO login(String email) {
+		
+		MemberLogInVO memberVO = null;
+		
+		try {
+
+			String sql = "select user_password, user_id, user_name from user where user_email = ?";
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, email);
+			// SELECT 할 경우, ResultSet 필요
+			rs = pstmt.executeQuery();
+
+			// 결과값은 1개만 있으므로, if만 있어도 가능
+			if (rs.next()) {
+				memberVO = new MemberLogInVO();
+				String userpw = rs.getString("user_password");
+				
+				memberVO.setUser_password(userpw);
+				
+				return memberVO;
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			closeCon();
+		}
+
+		return null;
+		
+	}
 	
 }

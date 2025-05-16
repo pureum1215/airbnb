@@ -107,12 +107,12 @@
         <h1>로그인</h1>
         <form action="${pageContext.request.contextPath}loginProcess.us" method="post">
             <div class="form-group">
-                <label for="userId">아이디</label>
-                <input type="text" id="userId" name="userId" required>
+                <label for="user_email">이메일</label>
+                <input type="text" id="user_email" name="user_email" required>
             </div>
             <div class="form-group">
-                <label for="password">비밀번호</label>
-                <input type="password" id="password" name="password" required>
+                <label for="user_password">비밀번호</label>
+                <input type="password" id="user_password" name="user_password" required>
             </div>
             <button type="submit" class="btn">로그인</button>
         </form>

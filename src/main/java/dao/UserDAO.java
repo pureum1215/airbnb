@@ -78,6 +78,7 @@ public class UserDAO {
 	 *******************/
 	public boolean SignIn(MemberSignInVO msVO) {
 		
+		
 		String sql = "INSERT INTO User (user_id, user_name, user_email, user_password, user_phone_number, user_birthday, user_created_at, user_delete_yn)";
 		sql += "VALUES ( ?, ?, ?, ?, ?, ?, NOW(), 'N')";
 		
@@ -85,7 +86,7 @@ public class UserDAO {
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, usercount);
+			pstmt.setString(1, "user"+usercount);
 			pstmt.setString(2, msVO.getUser_name());		
 			pstmt.setString(3, msVO.getUser_email());
 			pstmt.setString(4, msVO.getUser_password());
@@ -98,6 +99,7 @@ public class UserDAO {
 			
 		}
 		catch (SQLException e) {
+			e.printStackTrace();
 			System.out.println("initUser insert 실패: "+msVO.getUser_name());
 			
 			return false;

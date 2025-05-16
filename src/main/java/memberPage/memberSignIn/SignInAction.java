@@ -18,11 +18,9 @@ public class SignInAction implements Action{
 		
 		//userid를 늘려야 되므로 db를 확인해야함.
 		//그렇다면 setUserId는 dao에서 해야 할까?
-		
-		msVO.setUser_id(null);// userid 는 user***이다.
 
 		msVO.setUser_name(request.getParameter("name1"));
-		msVO.setUser_email(request.getParameter("email"));
+		msVO.setUser_email(request.getParameter("email1"));
 		msVO.setUser_password(request.getParameter("password"));
 		msVO.setUser_phone_number(request.getParameter("phoneNumber1"));
 		msVO.setUser_birthday(java.sql.Date.valueOf(request.getParameter("user_birthday")));

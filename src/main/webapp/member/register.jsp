@@ -105,17 +105,13 @@
     <div class="container">
         <h1>회원가입</h1>
         <form action="${pageContext.request.contextPath}/registerProcess.us" method="post">
-            <div class="form-group">
-                <label for="userId">아이디</label>
-                <input type="text" id="userId" name="userId" required>
+        	<div class="form-group">
+                <label for="nickname">이메일</label>
+                <input type="email" id="email1" name="email1" required>
             </div>
             <div class="form-group">
                 <label for="nickname">이름</label>
                 <input type="text" id="name1" name="name1" required>
-            </div>
-            <div class="form-group">
-                <label for="nickname">이메일</label>
-                <input type="email" id="email1" name="email1" required>
             </div>
             <div class="form-group">
                 <label for="password">비밀번호</label>
@@ -126,11 +122,11 @@
                 <input type="password" id="confirmPassword" name="confirmPassword" required>
             </div>
             <div class="form-group">
-                <label for="password">휴대전화 번호</label>
+                <label for="phoneNumber1">휴대전화 번호</label>
                 <input type="text" placeholder="010-1234-1234" id="phoneNumber1" name="phoneNumber1" required>
             </div>
             <div class="form-group">
-                <label for="password">생일날짜</label>
+                <label for="user_birthday">생일날짜</label>
                 <input type="text" placeholder="2000-04-01" id="user_birthday" name="user_birthday" required>
             </div>
             <button type="submit" class="btn">회원가입</button>

@@ -10,10 +10,10 @@ public class UserReviewVO {
 	private String userReviewContent;
 	private Date user_review_created_at; //
 	
-	public UserReviewVO(String userReviewId, String userId, String hostId, int userReviewRating, String userReviewContent, Date user_review_created_at) {
+	public UserReviewVO(String userReviewId, String hostId, String userId, int userReviewRating, String userReviewContent, Date user_review_created_at) {
 		this.userReviewId = userReviewId;
-		this.userId = userId;
 		this.hostId = hostId;
+		this.userId = userId;
 		this.userReviewRating = userReviewRating;
 		this.userReviewContent = userReviewContent;
 		this.user_review_created_at =user_review_created_at;

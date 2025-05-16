@@ -1,18 +1,22 @@
 package dummy.vo;
 
+import java.sql.Date;
+
 public class UserReviewVO {
 	private String userReviewId;
 	private String userId;
 	private String hostId;
 	private int userReviewRating;
 	private String userReviewContent;
-
-	public UserReviewVO(String userReviewId, String userId, String hostId, int userReviewRating, String userReviewContent) {
+	private Date user_review_created_at; //
+	
+	public UserReviewVO(String userReviewId, String userId, String hostId, int userReviewRating, String userReviewContent, Date user_review_created_at) {
 		this.userReviewId = userReviewId;
 		this.userId = userId;
 		this.hostId = hostId;
 		this.userReviewRating = userReviewRating;
 		this.userReviewContent = userReviewContent;
+		this.user_review_created_at =user_review_created_at;
 	}
 
 	public String getUserReviewId() {
@@ -34,4 +38,9 @@ public class UserReviewVO {
 	public String getUserReviewContent() {
 		return userReviewContent;
 	}
+
+	public Date getUser_review_created_at() {
+		return user_review_created_at;
+	}
+	
 }

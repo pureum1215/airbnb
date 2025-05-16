@@ -18,7 +18,6 @@ public class LoginAction implements Action{
 		UserDAO userDAO = new UserDAO();
 		MemberLogInVO mlVOB = new MemberLogInVO(); // 확인해볼값.
 		
-		
 		mlVO.setUser_email(request.getParameter("user_email"));
 		mlVO.setUser_password(request.getParameter("user_password"));
 		
@@ -26,7 +25,9 @@ public class LoginAction implements Action{
 		
 		if(mlVOB != null&& mlVO.getUser_password().equals(mlVOB.getUser_password())) {
 			
-			//dao에 들러서 user 정보 다시 가져와
+			//dao에 들러서 user 정보 다시 가져와 session 에 넣기
+			userDAO.
+			
 			forward.setPath("list.co");
 			forward.setRedirect(true);
 			System.out.println("로그인 o");

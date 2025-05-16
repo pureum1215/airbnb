@@ -139,7 +139,8 @@ public class UserDAO {
 		}
 
 		return null;
-		
 	}
-	
+	public int infoSession() {
+		return 0;
+	}
 }

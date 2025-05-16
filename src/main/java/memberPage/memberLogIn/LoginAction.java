@@ -26,20 +26,19 @@ public class LoginAction implements Action{
 		mlVOB = userDAO.login(mlVO.getUser_email());
 		
 		if(mlVOB != null&& mlVO.getUser_password().equals(mlVOB.getUser_password())) {
-			
 			//dao에 들러서 user 정보 다시 가져와 session 에 넣기
 			mlVOC = userDAO.infoSession(mlVO.getUser_email());
 			
-			forward.setPath("list.co");
+			forward.setPath("main/main_property_list.jsp");
 			forward.setRedirect(true);
-			System.out.println("로그인 o");
 
 			// 세션 등록 과정
-			//HttpSession session = request.getSession();
-			//session.setAttribute("userId", request.getParameter("userId"));
+			HttpSession session = request.getSession();
+			session.setAttribute("userInfo", mlVOC);
 			return forward;
 		}
-		
+		userDAO.closeCon();
+		forward.setPath("login.us");
 		
 		return forward;
 	}

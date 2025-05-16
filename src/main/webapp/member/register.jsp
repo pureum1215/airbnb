@@ -126,11 +126,11 @@
                 <input type="password" id="confirmPassword" name="confirmPassword" required>
             </div>
             <div class="form-group">
-                <label for="password">휴대전화 번호</label>
+                <label for="phoneNumber1">휴대전화 번호</label>
                 <input type="text" placeholder="010-1234-1234" id="phoneNumber1" name="phoneNumber1" required>
             </div>
             <div class="form-group">
-                <label for="password">생일날짜</label>
+                <label for="user_birthday">생일날짜</label>
                 <input type="text" placeholder="2000-04-01" id="user_birthday" name="user_birthday" required>
             </div>
             <button type="submit" class="btn">회원가입</button>

@@ -68,11 +68,11 @@ public class UserController extends HttpServlet {
 			forward.setRedirect(false);
 		}
 		else if(command.equals("/registerProcess.us")) {
-			forward = new SignInAction();
+			action = new SignInAction();
 			
 		}
 		else if(command.equals("loginProcess.us")) {
-			forward = new LoginAction();
+			action = new LoginAction();
 			
 		}
 		

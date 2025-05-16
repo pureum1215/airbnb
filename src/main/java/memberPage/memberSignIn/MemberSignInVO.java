@@ -15,7 +15,7 @@ public class MemberSignInVO {
 	private String user_password;
 	private String user_phone_number;
 	private Date user_birthday;
-	private Timestamp user_created_at;
+	private Timestamp user_created_at; //now();
 	private String user_delete_yn;
 	
 	public String getUser_id() {

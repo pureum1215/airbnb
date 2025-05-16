@@ -44,7 +44,6 @@ public class UserReviewInitData implements DummyAction {
 		lists.add(new UserReviewVO("urv028", "host029", "user098", 4, "소통이 원활해서 좋았어요.", java.sql.Date.valueOf("2024-03-09")));
 		lists.add(new UserReviewVO("urv029", "host048", "user077", 4, "숙소 규칙을 잘 지켜주셨어요.", java.sql.Date.valueOf("2024-03-14")));
 		lists.add(new UserReviewVO("urv030", "host004", "user070", 5, "소통이 원활해서 좋았어요.", java.sql.Date.valueOf("2024-04-13")));
-
 		
 		
 		for (UserReviewVO rv : lists) {

@@ -32,22 +32,25 @@ public class MainPropertySearchServlet extends HttpServlet {
 
         // 2. VO에 값 세팅
         MainPropertyListSearchVO criteria = new MainPropertyListSearchVO();
+        
+        //위치 세팅
         criteria.setLocation_continent(continent);
         criteria.setLocation_country(country);
         criteria.setLocation_city(city);
-
+        
+        //날짜 세팅
         if (checkInStr != null && !checkInStr.isEmpty()) {
             criteria.setReservation_check_in(Date.valueOf(checkInStr)); // java.sql.Date
         }
         if (checkOutStr != null && !checkOutStr.isEmpty()) {
             criteria.setReservation_check_out(Date.valueOf(checkOutStr));
         }
-        if (priceStr != null && !priceStr.isEmpty()) {
-            criteria.setPrice_per_night(Integer.parseInt(priceStr));
-        }
-        if (amenityIdStr != null && !amenityIdStr.isEmpty()) {
-            criteria.setAmenity_id(Integer.parseInt(amenityIdStr));
-        }
+        
+        //가격 세팅 - 수정 필요
+        
+        
+        //어메니티 세팅
+
         
         //침실, 침대, 욕실 수 vo에 세팅
         String roomCountStr = request.getParameter("room_count");

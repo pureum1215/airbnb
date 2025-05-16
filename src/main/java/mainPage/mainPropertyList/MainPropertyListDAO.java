@@ -81,16 +81,10 @@ public class MainPropertyListDAO {
 	        }
 
 	        // 가격
-	        if (criteria.getPrice_per_night() > 0) {
-	            sql.append("AND price_per_night <= ? ");
-	            paramList.add(criteria.getPrice_per_night());
-	        }
+	        
 
 	        // 편의시설
-	        if (criteria.getAmenity_id() > 0) {
-	            sql.append("AND amenity_id = ? ");
-	            paramList.add(criteria.getAmenity_id());
-	        }
+	       
 
 	        pstmt = conn.prepareStatement(sql.toString());
 

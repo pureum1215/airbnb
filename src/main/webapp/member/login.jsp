@@ -2,123 +2,117 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="UTF-8">
-    <title>로그인 - AirBNB</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+  <meta charset="UTF-8">
+  <title>로그인 - Airbnb</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-        }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Helvetica, Arial, sans-serif;
+      background-color: #ffffff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
 
-        .container {
-            background: white;
-            padding: 40px;
-            border-radius: 15px;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-            width: 100%;
-            max-width: 500px;
-        }
+    .container {
+      width: 100%;
+      max-width: 400px;
+      background-color: #fff;
+      padding: 32px;
+      border-radius: 16px;
+      box-shadow: 0 2px 16px rgba(0, 0, 0, 0.1);
+      border: 1px solid #e0e0e0;
+    }
 
-        h1 {
-            text-align: center;
-            color: #333;
-            margin-bottom: 30px;
-            font-size: 2em;
-        }
+    h1 {
+      text-align: center;
+      font-size: 22px;
+      font-weight: 600;
+      margin-bottom: 24px;
+    }
 
-        .form-group {
-            margin-bottom: 20px;
-        }
+    .form-group {
+      margin-bottom: 16px;
+    }
 
-        label {
-            display: block;
-            margin-bottom: 8px;
-            color: #555;
-            font-weight: 500;
-        }
+    input {
+      width: 100%;
+      padding: 14px;
+      border: 1px solid #dddddd;
+      border-radius: 12px;
+      font-size: 16px;
+      outline: none;
+      transition: border-color 0.2s;
+    }
 
-        input {
-            width: 100%;
-            padding: 12px;
-            border: 2px solid #ddd;
-            border-radius: 8px;
-            font-size: 16px;
-            transition: border-color 0.3s;
-        }
+    input:focus {
+      border-color: #FF385C;
+    }
 
-        input:focus {
-            border-color: #667eea;
-            outline: none;
-        }
+    .btn {
+      width: 100%;
+      padding: 14px;
+      background-color: #FF385C;
+      color: white;
+      border: none;
+      border-radius: 12px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
 
-        .btn {
-            width: 100%;
-            padding: 12px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            border: none;
-            border-radius: 8px;
-            font-size: 16px;
-            cursor: pointer;
-            transition: transform 0.3s;
-        }
+    .btn:hover {
+      background-color: #e03150;
+    }
 
-        .btn:hover {
-            transform: translateY(-2px);
-        }
+    .register-link {
+      margin-top: 20px;
+      text-align: center;
+      font-size: 14px;
+      color: #484848;
+    }
 
-        .register-link {
-            text-align: center;
-            margin-top: 20px;
-            color: #666;
-        }
+    .register-link a {
+      color: #007bff;
+      text-decoration: none;
+      margin-left: 4px;
+    }
 
-        .register-link a {
-            color: #667eea;
-            text-decoration: none;
-            font-weight: 500;
-        }
+    .register-link a:hover {
+      text-decoration: underline;
+    }
 
-        .register-link a:hover {
-            text-decoration: underline;
-        }
-
-        .error-message {
-            color: #ff4444;
-            font-size: 14px;
-            margin-top: 5px;
-            text-align: center;
-        }
-    </style>
+    .error-message {
+      color: #ff4444;
+      font-size: 14px;
+      margin-top: 10px;
+      text-align: center;
+    }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <h1>로그인</h1>
-        <form action="${pageContext.request.contextPath}loginProcess.us" method="post">
-            <div class="form-group">
-                <label for="userId">아이디</label>
-                <input type="text" id="userId" name="userId" required>
-            </div>
-            <div class="form-group">
-                <label for="password">비밀번호</label>
-                <input type="password" id="password" name="password" required>
-            </div>
-            <button type="submit" class="btn">로그인</button>
-        </form>
-        <div class="register-link">
-            계정이 없으신가요? <a href="${pageContext.request.contextPath}register.us">회원가입</a>
-        </div>
+  <div class="container">
+    <h1>로그인</h1>
+    <form action="${pageContext.request.contextPath}/loginProcess.us" method="post">
+      <div class="form-group">
+        <input type="email" name="user_email" placeholder="이메일" required>
+      </div>
+      <div class="form-group">
+        <input type="password" name="password" placeholder="비밀번호" required>
+      </div>
+      <button type="submit" class="btn">로그인</button>
+    </form>
+    <div class="register-link">
+      계정이 없으신가요?
+      <a href="${pageContext.request.contextPath}/register.us">회원가입</a>
     </div>
+  </div>
 </body>
-</html> 
+</html>

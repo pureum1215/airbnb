@@ -115,7 +115,7 @@ public class UserDAO {
 		
 		try {
 
-			String sql = "select user_password, user_id, user_name from user where user_email = ?";
+			String sql = "select user_password from user where user_email = ?";
 			pstmt = conn.prepareStatement(sql);
 			
 			pstmt.setString(1, email);
@@ -140,7 +140,37 @@ public class UserDAO {
 
 		return null;
 	}
-	public int infoSession() {
-		return 0;
+	public MemberLogInVO infoSession(String email) {
+		
+		MemberLogInVO memberVO = null;
+		
+		try {
+
+			String sql = "select user_id, user_name from user where user_email = ?";
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, email);
+			// SELECT 할 경우, ResultSet 필요
+			rs = pstmt.executeQuery();
+
+			// 결과값은 1개만 있으므로, if만 있어도 가능
+			if (rs.next()) {
+				memberVO = new MemberLogInVO();
+				String user_id = rs.getString("user_id");
+				String user_name = rs.getString("user_name");
+				
+				memberVO.setUser_id(user_id);
+				memberVO.setUser_name(user_name);
+				
+				return memberVO;
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			closeCon();
+		}
+
+		return null;
 	}
 }

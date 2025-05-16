@@ -9,7 +9,6 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
-import member.MemberVO;
 import memberPage.memberLogIn.MemberLogInVO;
 import memberPage.memberSignIn.MemberSignInVO;
 

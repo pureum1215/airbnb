@@ -155,6 +155,12 @@ h1 {
 </style>
 </head>
 <body>
+	<div>
+		<%@ include file="../html/header_default.jsp"%>
+		<!-- 정적 포함 -->
+	</div>
+	<br>
+
 	<div class="container">
 		<!-- 좌측 영역 -->
 		<div class="left">

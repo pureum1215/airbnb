@@ -121,7 +121,7 @@ body {
 </head>
 <body>
 	<!-- header -->
-	<jsp:include page="header_MainDetail" />
+	<jsp:include page="header_MainDetail.jsp" />
 	
 	<!-- body -->
 	<div class="container">

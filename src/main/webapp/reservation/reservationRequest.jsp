@@ -123,35 +123,34 @@ h1 {
 }
 
 .tooltip-box {
-	position: absolute;
-	top: 140px; /* 위치는 필요에 따라 조정 */
-	left: 120px;
-	background: #fff;
-	border-radius: 12px;
-	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-	padding: 14px 18px;
-	font-size: 14px;
-	z-index: 100;
-	display: none;
-	max-width: 300px;
-	line-height: 1.4;
-	border: 1px solid #ddd;
+  position: absolute;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  padding: 14px 18px;
+  font-size: 14px;
+  z-index: 100;
+  display: none;
+  max-width: 300px;
+  line-height: 1.4;
+  border: 1px solid #ddd;
 }
 
 .tooltip-close {
-	position: absolute;
-	top: 6px;
-	left: 8px;
-	background: none;
-	border: none;
-	font-size: 16px;
-	cursor: pointer;
-	color: #333;
+  position: absolute;
+  top: 6px;
+  left: 8px;
+  background: none;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+  color: #333;
 }
 
 .tooltip-trigger {
-	cursor: pointer;
-	text-decoration: underline;
+  cursor: pointer;
+  text-decoration: underline;
+  position: relative;
 }
 </style>
 </head>
@@ -224,11 +223,19 @@ h1 {
 		호스트가 청구하는 일회성 숙소 청소 비용입니다.
 	</div>
 
-	<script>
+<script>
   const tooltipTrigger = document.querySelector(".tooltip-trigger");
   const tooltipBox = document.getElementById("tooltipBox");
 
   tooltipTrigger.addEventListener("click", () => {
+    const rect = tooltipTrigger.getBoundingClientRect();
+    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+
+    // 툴팁 위치를 trigger 위쪽 중앙에 표시
+    const tooltipHeight = tooltipBox.offsetHeight;
+
+    tooltipBox.style.left = rect.left + "px";
+    tooltipBox.style.top = (rect.top + scrollTop - tooltipHeight - 8) + "px";
     tooltipBox.style.display = "block";
   });
 
@@ -236,7 +243,7 @@ h1 {
     tooltipBox.style.display = "none";
   }
 
-  // 바깥 클릭 시 닫기 (선택)
+  // 바깥 클릭 시 툴팁 닫기
   window.addEventListener("click", function(e) {
     if (!tooltipBox.contains(e.target) && !tooltipTrigger.contains(e.target)) {
       tooltipBox.style.display = "none";

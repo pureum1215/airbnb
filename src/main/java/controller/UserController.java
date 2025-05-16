@@ -71,7 +71,7 @@ public class UserController extends HttpServlet {
 			action = new SignInAction();
 			
 		}
-		else if(command.equals("loginProcess.us")) {
+		else if(command.equals("/loginProcess.us")) {
 			action = new LoginAction();
 			
 		}

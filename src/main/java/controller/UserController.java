@@ -8,6 +8,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import memberPage.memberLogIn.LoginAction;
+import memberPage.memberSignIn.SignInAction;
+
 
 
 public class UserController extends HttpServlet {
@@ -65,9 +68,11 @@ public class UserController extends HttpServlet {
 			forward.setRedirect(false);
 		}
 		else if(command.equals("/registerProcess.us")) {
+			action = new SignInAction();
 			
 		}
 		else if(command.equals("loginProcess.us")) {
+			action = new LoginAction();
 			
 		}
 		

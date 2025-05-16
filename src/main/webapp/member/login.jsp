@@ -98,20 +98,22 @@
   </style>
 </head>
 <body>
-  <div class="container">
-    <h1>로그인</h1>
-    <form action="${pageContext.request.contextPath}/loginProcess.us" method="post">
-      <div class="form-group">
-        <input type="email" name="user_email" placeholder="이메일" required>
-      </div>
-      <div class="form-group">
-        <input type="password" name="password" placeholder="비밀번호" required>
-      </div>
-      <button type="submit" class="btn">로그인</button>
-    </form>
-    <div class="register-link">
-      계정이 없으신가요?
-      <a href="${pageContext.request.contextPath}/register.us">회원가입</a>
+    <div class="container">
+        <h1>로그인</h1>
+        <form action="${pageContext.request.contextPath}loginProcess.us" method="post">
+            <div class="form-group">
+                <label for="user_email">이메일</label>
+                <input type="text" id="user_email" name="user_email" required>
+            </div>
+            <div class="form-group">
+                <label for="user_password">비밀번호</label>
+                <input type="password" id="user_password" name="user_password" required>
+            </div>
+            <button type="submit" class="btn">로그인</button>
+        </form>
+        <div class="register-link">
+            계정이 없으신가요? <a href="${pageContext.request.contextPath}register.us">회원가입</a>
+        </div>
     </div>
   </div>
 </body>

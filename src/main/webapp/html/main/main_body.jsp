@@ -4,7 +4,7 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
-<title>숙소 리스트</title>
+<title>main_body</title>
 <style>
 body {
 	margin: 0;
@@ -13,7 +13,7 @@ body {
 }
 
 /* 임포트: 상단 헤더 */
-.section-title {
+.section-Title {
 	font-size: 22px;
 	font-weight: bold;
 	margin: 40px 80px 20px;
@@ -70,12 +70,17 @@ body {
 	font-size: 14px;
 	color: #888;
 }
+
 </style>
 </head>
 <body>
 
+<div>
+    <%@ include file="../header.jsp" %>  <!-- 정적 포함 -->
+</div>
+
 	<!-- 숙소 섹션 -->
-	<h2 class="section-title">파리의 인기 숙소</h2>
+	<h2 class="section-Title">파리의 인기 숙소</h2>
 
 	<div class="card-container">
 		<!-- 숙소 카드 1개 -->

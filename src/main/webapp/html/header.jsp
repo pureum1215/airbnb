@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Airbnb Style Search</title>
+<title>header</title>
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
 <link rel="stylesheet"
@@ -221,6 +221,7 @@ body {
 #calendar {
 	width: 100%;
 }
+
 .calendar-wrapper {
   display: flex;
   justify-content: center;  /* 수평 중앙 정렬 */
@@ -234,6 +235,7 @@ body {
   justify-content: center;
   width: 100%;
 }
+
 .calendar-panel .flatpickr-innerContainer {
     display: flex;
     justify-content: center;
@@ -257,6 +259,7 @@ body {
   margin-left: auto !important;
   margin-right: auto !important;
 }
+
 </style>
 </head>
 <body>

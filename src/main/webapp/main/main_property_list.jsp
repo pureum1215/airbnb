@@ -120,7 +120,7 @@ body {
 </head>
 <body>
 	<!-- header -->
-	<jsp:include page="header.jsp" />
+	<jsp:include page="property_header.jsp" />
 	
 	<!-- body -->
 	<div class="container">

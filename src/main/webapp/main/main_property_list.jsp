@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="dao.PropertyDAO" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -124,7 +125,12 @@ body {
 	
 	<!-- body -->
 	<div class="container">
-		<div class="title">산이 감싸고 있는 마을 속 “풀길스테이” 도고온천과 예산 시장 인접</div>
+	<%
+    String propertyId = "prop001"; //property_Id 로 검색
+    PropertyDAO dao = new PropertyDAO(); // DAO 객체 생성
+    String propertyName = dao.propertyName(propertyId); // DB에서 값 조회
+	%>
+		<div class="title"><%= propertyName %></div>
 
 		<div class="gallery">
 			<img src="https://via.placeholder.com/600x400" alt="숙소 대표 이미지" /> <img
@@ -168,6 +174,6 @@ body {
 	</div>
 	
 	<!-- footer -->
-	<jsp:include page="footer.jsp" />
+	<jsp:include page="property_footer.jsp" />
 </body>
 </html>

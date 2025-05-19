@@ -3,6 +3,7 @@ package dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -49,5 +50,23 @@ public class PropertyDAO {
 	 * (호스트의 숙소 수정, 관리자의 숙소 정보 삭제)
 	 ***********************************************************************/
 	
+	// 숙소 이름 가져오기
+	public String propertyName(String propertyId) {
+		String propertyName = null;
+		try {
+			String sql = "SELECT property_name FROM property WHERE property_id = ?";
+	        PreparedStatement pstmt = conn.prepareStatement(sql);
+	        pstmt.setString(1, propertyId);
+	        ResultSet rs = pstmt.executeQuery();
+	        if (rs.next()) {
+	            propertyName = rs.getString("property_name");
+	        }
+			
+		}
+		catch(SQLException e) {
+			System.out.println("wow");
+		}
+		return propertyName;
+	}
 	
 }

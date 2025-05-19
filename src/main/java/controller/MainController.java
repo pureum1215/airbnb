@@ -1,6 +1,7 @@
 package controller;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -8,13 +9,18 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import mainPage.mainPropertyDetail.PropertyDAO;
+import mainPage.mainPropertyList.MainPropertyListDAO;
+import mainPage.mainPropertyList.MainPropertyListVO;
+
 /**
  * Servlet implementation class MainController
  */
 @WebServlet("/MainController")
 public class MainController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
+	MainPropertyListDAO mainPropertyDAO = new MainPropertyListDAO(); // DAO 객체 준비
+	PropertyDAO propDAO = new PropertyDAO();
     /**
      * Default constructor. 
      */
@@ -28,6 +34,8 @@ public class MainController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		process(request, response);
+		
+		
 	}
 
 	/**

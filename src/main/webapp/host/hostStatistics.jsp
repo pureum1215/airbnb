@@ -3,10 +3,12 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>hostProfile</title>
+<title>호스트</title>
+
 </head>
+
 <body>
+
 
 </body>
 </html>

@@ -8,7 +8,7 @@ import controller.Action;
 import controller.ActionForward;
 import reservationPage.ReservationDAO;
 
-public class ReservationRequestAction implements Action {
+public class ReservationDefaultAction implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {

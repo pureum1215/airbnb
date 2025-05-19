@@ -52,44 +52,24 @@ public class PropertyDAO {
 	 * (호스트의 숙소 수정, 관리자의 숙소 정보 삭제)
 	 ***********************************************************************/
 	
-	/***
-	 * 
-	 * @param propertyId
-	 * @return 숙소 이름 가져오기
-	 */
-	public String propertyName(String propertyId) {
-		String propertyName_rs = null;
-		try {
-			String sql = "SELECT property_name FROM property WHERE property_id = ?";
-	        PreparedStatement pstmt = conn.prepareStatement(sql);
-	        pstmt.setString(1, propertyId);
-	        ResultSet rs = pstmt.executeQuery();
-	        if (rs.next()) {
-	            propertyName_rs = rs.getString("property_name");
-	        }
-			
-		}
-		catch(SQLException e) {
-			System.out.println("에러");
-		}
-		return propertyName_rs;
-	}
 	
 	/***
 	 * 
 	 * @param propertyId
-	 * @return 숙소 사진 가져오기
+	 * @return 숙소 이름 가져오기, 사진 가져오기, 숙소설명 가져오기
 	 */
-	public String propertyPhoto(String propertyId) {
-		String propertyPhoto_rs = null;
+	public MainPropertyDetailVO propertyNPD(String propertyId) {
+		MainPropertyDetailVO madVO = new MainPropertyDetailVO();
 		
 		try {
-			String sql = "SELECT property_photo_url FROM property WHERE property_id = ?";
+			String sql = "SELECT property_name, property_photo_url, property_description FROM property WHERE property_id = ?";
 	        PreparedStatement pstmt = conn.prepareStatement(sql);
 	        pstmt.setString(1, propertyId);
 	        ResultSet rs = pstmt.executeQuery();
 	        if (rs.next()) {
-	            propertyPhoto_rs = rs.getString("property_photo_url");
+	            madVO.setProperty_name(rs.getString(1));
+	            madVO.setProperty_photo_url(rs.getString(2));
+	            madVO.setProperty_description(rs.getString(3));
 	        }
 			
 		}
@@ -97,9 +77,10 @@ public class PropertyDAO {
 			System.out.println("에러");
 		}
 		
-		return propertyPhoto_rs;
 		
+		return madVO;
 	}
+	
 	
 	/***
 	 * 
@@ -154,6 +135,57 @@ public class PropertyDAO {
 		catch(SQLException e) {
 			System.out.println("에러");
 		}
+		return madVO;
+	}
+	
+	public MainPropertyDetailVO propertyAvgCount(String propertyId) {
+		MainPropertyDetailVO madVO = new MainPropertyDetailVO();
+		
+		try {
+			String sql = "SELECT \n"
+					+ "    COUNT(*) AS review_count,\n"
+					+ "    ROUND(AVG(property_review_rating), 2) AS avg_rating\n"
+					+ "FROM property_review\n"
+					+ "WHERE property_id = ?";
+	        PreparedStatement pstmt = conn.prepareStatement(sql);
+	        pstmt.setString(1, propertyId);
+	        ResultSet rs = pstmt.executeQuery();
+	        if (rs.next()) {
+	        	madVO.setProperty_review_count(rs.getInt(1));
+	            madVO.setProperty_review_avg(rs.getDouble(2));
+	        }
+			
+		}
+		catch(SQLException e) {
+			System.out.println("에러");
+		}
+		
+		return madVO;
+	}
+	
+	public MainPropertyDetailVO propertyHostName(String propertyId) {
+		MainPropertyDetailVO madVO = new MainPropertyDetailVO();
+		
+		try {
+			String sql = "SELECT u.user_name, h.host_created_at\n"
+					+ "FROM property p\n"
+					+ "JOIN host h ON p.host_id = h.host_id\n"
+					+ "JOIN user u ON h.user_id = u.user_id\n"
+					+ "WHERE p.property_id = ?";
+	        PreparedStatement pstmt = conn.prepareStatement(sql);
+	        pstmt.setString(1, propertyId);
+	        ResultSet rs = pstmt.executeQuery();
+	        if (rs.next()) {
+	        	madVO.setUser_name(rs.getString(1));;
+	        	madVO.setHost_created_at(rs.getString(2));
+	        }
+			
+		}
+		catch(SQLException e) {
+			System.out.println("에러");
+		}
+		
+		
 		return madVO;
 	}
 }

@@ -64,7 +64,7 @@
 			<form action="${pageContext.request.contextPath}/reservation_payment.re" method="post">
 				
 				<%-- servlet으로 보낼 값 --%>
-				<input type="hidden" name="reservation_id" value=<%=request.getParameter("reservation_id")%>>
+				<input type="hidden" name="reservation_id" value=<%=request.getAttribute("reservation_id")%>>
 				<input type="hidden" name="user_id" value="${sessionScope.user_id}">
 			
 				<%-- 결제 버튼 --%>

@@ -42,8 +42,10 @@ public class ReservationRequestAction implements Action {
 		dao.reservationRequest(vo);
 		
         ActionForward forward = new ActionForward();
-        forward.setPath("/resesrvation/reservationRequestComplete.jsp");
-        forward.setRedirect(true);
+        forward.setPath("reservation/reservationRequestComplete.jsp");
+        forward.setRedirect(false);
+        
+        System.out.println("forward: " + forward);
         
         return forward;
 	}

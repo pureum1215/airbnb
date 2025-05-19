@@ -1,5 +1,5 @@
 <%@page import="mainPage.mainPropertyDetail.MainPropertyDetailVO"%>
-<%@ page import="java.time.*, java.time.format.*, java.time.temporal.ChronoUnit" %>
+<%@ page import="java.time.*, java.time.format.*, java.time.temporal.ChronoUnit, java.util.List, java.util.ArrayList" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="dao.PropertyDAO" %>
@@ -130,11 +130,13 @@ body {
 	<%
     String propertyId = "prop011"; //property_Id 로 검색
     PropertyDAO dao = new PropertyDAO(); // DAO 객체 생성
-    MainPropertyDetailVO madVONPD = dao.propertyNPD(propertyId);
+    MainPropertyDetailVO madVONPD = dao.propertyNPD(propertyId); //숙소 이름 가져오기, 사진 가져오기, 숙소설명 가져오기
     MainPropertyDetailVO madVOloc = dao.propertyLocation(propertyId);//VO객체 생성 숙소 나라 도시
-    MainPropertyDetailVO madVObath= dao.propertyBath(propertyId);
-    MainPropertyDetailVO madVOAvgCount = dao.propertyAvgCount(propertyId);
-    MainPropertyDetailVO madVONameAt = dao.propertyHostName(propertyId);
+    MainPropertyDetailVO madVObath= dao.propertyBath(propertyId); //숙소 방 화장실 침대
+    MainPropertyDetailVO madVOAvgCount = dao.propertyAvgCount(propertyId);//후기 평균 개수
+    MainPropertyDetailVO madVONameAt = dao.propertyHostName(propertyId);//호스트의 이름 생성한 날짜.
+    List<Integer> listAmentie = dao.propertyAm(propertyId);
+    String amenties= "";
 	%>
 	<% // 2. 포맷터 설정
 	DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
@@ -147,6 +149,45 @@ body {
 	long totalYears = pastDateTime.until(now, ChronoUnit.YEARS);
 	long totalMonths = pastDateTime.until(now, ChronoUnit.MONTHS);
 	long remainMonths = totalMonths - (totalYears * 12);
+	%>
+	
+	<%
+	System.out.println(listAmentie.toString());
+	//listAmentie 무엇이 있는지.
+	for(Integer s : listAmentie){
+		switch (s){
+		case 1:
+			amenties += "WI-FI ";
+			break;
+		case 2:
+			amenties += "에어컨 ";
+			break;
+		case 3:
+			amenties += "난방 ";
+			break;
+		case 4:
+			amenties += "부엌 ";
+			break;
+		case 5:
+			amenties += "샤워실 ";
+			break;
+		case 6:
+			amenties += "헤어드라이기 ";
+			break;
+		case 7:
+			amenties += "무료주차장 ";
+			break;
+		case 8:
+			amenties += "수영장 ";
+			break;
+		case 9:
+			amenties += "헬스장 ";
+			break;
+		case 10:
+			amenties += "애완동물 가능 ";
+			break;
+		}
+	}
 	%>
 		<div class="title"><%= madVONPD.getProperty_name() %></div>
 		<div class="gallery">
@@ -165,7 +206,7 @@ body {
 					</li>
 					<li>⭐ <%= madVOAvgCount.getProperty_review_avg()%>
 					 · 후기 <%= madVOAvgCount.getProperty_review_count() %></li>
-					<li>무선 인터넷, 세탁기, 주방</li>
+					<li><%=amenties %></li>
 				</ul>
 				<div class="host">
 					<strong>호스트: <%= madVONameAt.getUser_name() %></strong><br /> 숙소 소개: <%=madVONPD.getProperty_description() %>

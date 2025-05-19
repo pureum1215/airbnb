@@ -29,6 +29,7 @@ public class MainPropertyDetailVO {
 	private int property_bathroom;
 	private int amenity_id;
 	
+	
 	private String host_id;
 	private String user_id;
 	private String user_name;

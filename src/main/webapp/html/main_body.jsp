@@ -75,7 +75,7 @@ body {
 <body>
 
 	<div>
-		<%@ include file="header.jsp"%>
+		<%@ include file="header_MainDetail.jsp"%>
 		<!-- 정적 포함 -->
 	</div>
 

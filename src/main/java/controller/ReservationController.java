@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import reservationPage.reservationRequest.ReservationAction;
 import reservationPage.reservationRequest.ReservationDefaultAction;
 
 
@@ -54,8 +55,11 @@ public class ReservationController extends HttpServlet {
 		forward = new ActionForward();
 		
 		// 예약 요청
-		if (command.equals("/reservation_request.re")) {
+		if (command.equals("/reservation_default.re")) {
 			action = new ReservationDefaultAction();
+		}
+		else if (command.equals("/reservation_request.re")) {
+			action = new ReservationAction();
 		}
 
 		

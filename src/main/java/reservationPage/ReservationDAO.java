@@ -47,7 +47,24 @@ public class ReservationDAO {
 	
 	// reservation default 값 불러오기
 	public String getReservationType(String propertyId) {
-		return null;
+	    String reservationDefault = null;
+		String sql = "SELECT property_reservation_request FROM property WHERE property_id = ?";
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, propertyId);
+			rs = pstmt.executeQuery();
+			
+	        if (rs.next()) {
+	        	reservationDefault = rs.getString("property_reservation_request");
+	        }
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		finally {
+			closeCon();
+		}
+	    return reservationDefault;
 	}
 	
 	public int reservation(ReservationRequestVO vo) {

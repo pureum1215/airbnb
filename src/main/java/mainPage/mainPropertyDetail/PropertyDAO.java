@@ -91,9 +91,9 @@ public class PropertyDAO {
 		MainPropertyDetailVO madVO = new MainPropertyDetailVO();
 		
 		try {
-			String sql = "SELECT lo.location_city, lo.location_country,lo.location_continent from property pr\n"
-					+ "left join location lo\n"
-					+ "on pr.location_id = lo.location_id\n"
+			String sql = "SELECT lo.location_city, lo.location_country,lo.location_continent from property pr "
+					+ "left join location lo "
+					+ "on pr.location_id = lo.location_id "
 					+ "where pr.property_id = ?";
 	        PreparedStatement pstmt = conn.prepareStatement(sql);
 	        pstmt.setString(1, propertyId);
@@ -149,10 +149,10 @@ public class PropertyDAO {
 		MainPropertyDetailVO madVO = new MainPropertyDetailVO();
 		
 		try {
-			String sql = "SELECT \n"
-					+ "    COUNT(*) AS review_count,\n"
-					+ "    ROUND(AVG(property_review_rating), 2) AS avg_rating\n"
-					+ "FROM property_review\n"
+			String sql = "SELECT "
+					+ "    COUNT(*) AS review_count, "
+					+ "    ROUND(AVG(property_review_rating), 2) AS avg_rating "
+					+ "FROM property_review "
 					+ "WHERE property_id = ?";
 	        PreparedStatement pstmt = conn.prepareStatement(sql);
 	        pstmt.setString(1, propertyId);
@@ -181,10 +181,10 @@ public class PropertyDAO {
 		MainPropertyDetailVO madVO = new MainPropertyDetailVO();
 		
 		try {
-			String sql = "SELECT u.user_name, h.host_created_at\n"
-					+ "FROM property p\n"
-					+ "JOIN host h ON p.host_id = h.host_id\n"
-					+ "JOIN user u ON h.user_id = u.user_id\n"
+			String sql = "SELECT u.user_name, h.host_created_at "
+					+ "FROM property p "
+					+ "JOIN host h ON p.host_id = h.host_id "
+					+ "JOIN user u ON h.user_id = u.user_id "
 					+ "WHERE p.property_id = ?";
 	        PreparedStatement pstmt = conn.prepareStatement(sql);
 	        pstmt.setString(1, propertyId);
@@ -213,8 +213,8 @@ public class PropertyDAO {
 		List<Integer> result = new ArrayList<>();
 		
 		try {
-			String sql = "select am.amenity_id from property_amenities as pa\n"
-					+ "join Amenities am on pa.amenity_id = am.amenity_id\n"
+			String sql = "select am.amenity_id from property_amenities as pa "
+					+ "join Amenities am on pa.amenity_id = am.amenity_id "
 					+ "where property_id = ?";
 	        PreparedStatement pstmt = conn.prepareStatement(sql);
 	        pstmt.setString(1, propertyId);
@@ -229,5 +229,39 @@ public class PropertyDAO {
 		}
 		
 		return result; 
+	}
+	
+	/***
+	 * 
+	 * @param propertyId
+	 * @return 리뷰 내용, 리뷰 생성일자, 리뷰를 쓴 유저 이름 리스트로 값 받아야 함.
+	 */
+	
+	public List<MainPropertyDetailVO> propertyReviewName(String propertyId) {
+		
+		List<MainPropertyDetailVO> madVO = new ArrayList<MainPropertyDetailVO>();
+		
+		try {
+			String sql = "select pr.property_review_content, pr.property_review_created_at, "
+					+ "u.user_name from property_review pr "
+					+ "join user u on pr.user_id = u.user_id where property_id= ?";
+	        PreparedStatement pstmt = conn.prepareStatement(sql);
+	        pstmt.setString(1, propertyId);
+	        ResultSet rs = pstmt.executeQuery();
+	        while (rs.next()) {
+	        	MainPropertyDetailVO vo = new MainPropertyDetailVO();
+	        	vo.setProperty_review_content(rs.getString(1));
+	        	vo.setProperty_review_created_at(rs.getString(2));
+	        	vo.setUser_name(rs.getString(3));
+	        	
+	        	madVO.add(vo);
+	        }
+			
+		}
+		catch(SQLException e) {
+			System.out.println("에러");
+		}
+
+		return madVO;
 	}
 }

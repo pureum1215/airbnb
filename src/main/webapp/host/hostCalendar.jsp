@@ -6,24 +6,31 @@
 <head>
 <title>hostCalendar</title>
 <style>
+
+/* 제정신 아닌놈 */
+@media (min-width: 1000px) {
+    .container {
+        max-width: 100vw;
+    }
+}
+
 .container {
 	display: flex;
-	width: 100%;
 }
 
 .calendar-wrapper {
-	flex: 3;
 	padding: 2rem;
+	width: 90%;
 }
 
 .sidebar {
-	width: 350px;
 	padding: 2rem;
 	border-left: 1px solid #ddd;
 	background-color: #fafafa;
 	height: 100vh;
 	position: sticky;
 	top: 0;
+	right: 0;
 }
 
 .month-title {
@@ -130,7 +137,8 @@
 
 				int totalCells = 42; // 6x7 grid
 			%>
-			<div class="month-title" data-month="<%=m%>월 2025"><%=m%>월 2025</div>
+			<div class="month-title" data-month="<%=m%>월 2025"><%=m%>월 2025
+			</div>
 			<div class="calendar-grid">
 				<%
 				for (int i = 0; i < totalCells; i++) {

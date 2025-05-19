@@ -5,7 +5,7 @@
 
 <!-- Airbnb 스타일 헤더 -->
 <header class="w-full border-b">
-  <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
+  <div class="w-full px-7 py-4 flex justify-between items-center">
     <!-- 왼쪽 로고 -->
     <div class="flex items-center space-x-2">
       <img src="https://cdn.icon-icons.com/icons2/2699/PNG/512/airbnb_logo_icon_170605.png" alt="airbnb logo" class="w-6 h-6">

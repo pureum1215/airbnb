@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import reservationPage.reservationRequest.ReservationAction;
+import reservationPage.reservationRequest.ReservationRequestAction;
 import reservationPage.reservationRequest.ReservationDefaultAction;
 
 
@@ -54,12 +54,13 @@ public class ReservationController extends HttpServlet {
 		ActionForward forward = null;
 		forward = new ActionForward();
 		
-		// 예약 요청
+		// 예약 defult 값 확인
 		if (command.equals("/reservation_default.re")) {
 			action = new ReservationDefaultAction();
 		}
+		// default 값이 예약 요청인 예약
 		else if (command.equals("/reservation_request.re")) {
-			action = new ReservationAction();
+			action = new ReservationRequestAction();
 		}
 
 		

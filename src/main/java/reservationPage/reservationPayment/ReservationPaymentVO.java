@@ -8,7 +8,7 @@ public class ReservationPaymentVO {
 	/**************************************************************************
 	 * 숙소 사진, 숙소 이름, 숙소 별점, 숙소 상세, 1박 가격, 
 	 * 예약 id, 숙소 id, 사용자 id, 체크인 날짜, 체크아웃 날짜,
-	 * 결제 id, 결제 방법, 결제 상태, 결제 내역 생성 날짜
+	 * 결제 id, 결제 가격, 결제 방법, 결제 상태, 결제 내역 생성 날짜
 	 **************************************************************************/
 	
 	private String property_photo_url;
@@ -24,6 +24,7 @@ public class ReservationPaymentVO {
 	private Date reservation_check_out;
 	
 	private String payment_id;
+	private int payment_price;
 	private String payment_method;
 	private String payment_status;
 	private Timestamp payment_created_at;
@@ -94,6 +95,12 @@ public class ReservationPaymentVO {
 	public void setPayment_id(String payment_id) {
 		this.payment_id = payment_id;
 	}
+	public int getPayment_price() {
+		return payment_price;
+	}
+	public void setPayment_price(int payment_price) {
+		this.payment_price = payment_price;
+	}
 	public String getPayment_method() {
 		return payment_method;
 	}
@@ -120,8 +127,8 @@ public class ReservationPaymentVO {
 				+ property_description + ", price_per_night=" + price_per_night + ", reservation_id=" + reservation_id
 				+ ", property_id=" + property_id + ", user_id=" + user_id + ", reservation_check_in="
 				+ reservation_check_in + ", reservation_check_out=" + reservation_check_out + ", payment_id="
-				+ payment_id + ", payment_method=" + payment_method + ", payment_status=" + payment_status
-				+ ", payment_created_at=" + payment_created_at + "]";
+				+ payment_id + ", payment_price=" + payment_price + ", payment_method=" + payment_method
+				+ ", payment_status=" + payment_status + ", payment_created_at=" + payment_created_at + "]";
 	}
 	
 }

@@ -21,41 +21,49 @@
 
 		<!-- 가운데 메뉴 -->
 		<nav class="relative font-sans">
-  <ul id="menuList" class="flex space-x-2 text-sm text-gray-700">
-    
-    <!-- 일반 메뉴 버튼 -->
-    <li>
-      <button class="menu-item px-4 py-2 rounded-full hover:bg-gray-100 font-medium">
-        달력
-      </button>
-    </li>
-    <li>
-      <button class="menu-item px-4 py-2 rounded-full hover:bg-gray-100 font-medium">
-        리스팅
-      </button>
-    </li>
-    <li>
-      <button class="menu-item px-4 py-2 rounded-full hover:bg-gray-100 font-medium">
-        예약목록
-      </button>
-    </li>
+			<ul id="menuList" class="flex space-x-2 text-sm text-gray-700">
 
-    <!-- "메뉴" 버튼과 드롭다운 -->
-    <li class="relative group">
-      <button id="menuToggle"
-        class="menu-item px-4 py-2 rounded-full hover:bg-gray-100 font-medium flex items-center space-x-1">
-        <span>메뉴</span>
-        <span class="text-xs">⌄</span>
-      </button>
-      <ul
-        class="absolute left-0 mt-2 w-24 bg-white border rounded shadow-lg hidden group-hover:block z-10 text-sm">
-        <li><a href="#" class="dropdown-item block px-4 py-2 hover:bg-gray-100">프로필</a></li>
-        <li><a href="#" class="dropdown-item block px-4 py-2 hover:bg-gray-100">통계</a></li>
-      </ul>
-    </li>
+				<!-- 일반 메뉴 버튼 -->
+				<li>
+					<button
+						class="menu-item px-4 py-2 rounded-full hover:bg-gray-100 font-medium">
+						달력</button>
+				</li>
+				<li>
+					<button
+						class="menu-item px-4 py-2 rounded-full hover:bg-gray-100 font-medium">
+						리스팅</button>
+				</li>
+				<li>
+					<button
+						class="menu-item px-4 py-2 rounded-full hover:bg-gray-100 font-medium">
+						예약목록</button>
+				</li>
 
+<!-- "메뉴" 버튼과 드롭다운 -->
+<li class="relative">
+  <button id="menuToggle"
+    class="menu-item px-4 py-2 rounded-full hover:bg-gray-100 font-medium flex items-center space-x-1">
+    <span>메뉴</span>
+    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4"
+      fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round"
+        stroke-width="2" d="M19 9l-7 7-7-7" />
+    </svg>
+  </button>
+
+  <!-- 클릭 시 토글될 드롭다운 -->
+  <ul id="dropdownMenu"
+    class="absolute left-0 mt-2 w-56 bg-white border rounded-lg shadow-lg hidden z-10 text-sm">
+    <li><a href="#"
+      class="dropdown-item block px-4 py-2 hover:bg-gray-100">프로필</a></li>
+    <li><a href="#"
+      class="dropdown-item block px-4 py-2 hover:bg-gray-100">통계</a></li>
   </ul>
-</nav>
+</li>
+
+			</ul>
+		</nav>
 
 		<!-- 오른쪽 메뉴 -->
 		<div class="flex items-center space-x-4 text-sm">
@@ -87,14 +95,16 @@
     const menuToggle = document.getElementById('menuToggle');
 
     function highlightMenu(target) {
-      // 모든 메뉴 스타일 초기화
-      menuItems.forEach(el => {
-        el.classList.remove('font-bold', 'border-2', 'border-black', 'bg-white');
-      });
+    	  // 모든 메뉴 스타일 초기화
+    	  menuItems.forEach(el => {
+    	    el.classList.remove('font-bold', 'border-2', 'border-black');
+    	    el.style.backgroundColor = ''; // 배경색 초기화
+    	  });
 
-      // 강조 스타일 추가
-      target.classList.add('font-bold', 'border-2', 'border-black', 'bg-white');
-    }
+    	  // 강조 스타일 추가
+    	  target.classList.add('font-bold', 'border-2', 'border-black');
+    	  target.style.backgroundColor = '#F7F7F7'; // 강조 배경색
+    	}
 
     menuItems.forEach(item => {
       item.addEventListener('click', function () {
@@ -109,3 +119,49 @@
     });
   });
 </script>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const menuItems = document.querySelectorAll('.menu-item');
+    const dropdownItems = document.querySelectorAll('.dropdown-item');
+    const menuToggle = document.getElementById('menuToggle');
+    const dropdownMenu = document.getElementById('dropdownMenu');
+
+    // 클릭 시 하이라이트 처리
+    function highlightMenu(target) {
+      menuItems.forEach(el => {
+        el.classList.remove('font-bold', 'border-2', 'border-black');
+        el.style.backgroundColor = '';
+      });
+      target.classList.add('font-bold', 'border-2', 'border-black');
+      target.style.backgroundColor = '#F7F7F7';
+    }
+
+    menuItems.forEach(item => {
+      item.addEventListener('click', function () {
+        highlightMenu(this);
+      });
+    });
+
+    dropdownItems.forEach(item => {
+      item.addEventListener('click', function () {
+        highlightMenu(menuToggle);
+        dropdownMenu.classList.add('hidden'); // 선택 시 자동으로 닫힘
+      });
+    });
+
+    // 클릭 시 드롭다운 메뉴 토글
+    menuToggle.addEventListener('click', function (e) {
+      e.stopPropagation(); // 이벤트 전파 막기
+      dropdownMenu.classList.toggle('hidden');
+    });
+
+    // 외부 클릭 시 드롭다운 닫기
+    document.addEventListener('click', function (e) {
+      if (!menuToggle.contains(e.target)) {
+        dropdownMenu.classList.add('hidden');
+      }
+    });
+  });
+</script>
+

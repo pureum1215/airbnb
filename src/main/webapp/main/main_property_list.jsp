@@ -195,7 +195,6 @@ body {
 </style>
 </head>
 <body>
-<<<<<<< HEAD
 	<%
 	MainPropertyListDAO dao = new MainPropertyListDAO();
 	

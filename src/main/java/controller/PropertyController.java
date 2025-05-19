@@ -56,6 +56,13 @@ public class PropertyController extends HttpServlet {
 		/****************************** 
 		 * 페이지 이동 작성 구간
 		 *****************************/
+		if(command.equals("/property.pr")) {
+			forward = new ActionForward();
+			forward.setPath("main/main_property_list.jsp");
+			forward.setRedirect(false);
+		}
+		
+		
 		
 		try {
 			if(action != null) {

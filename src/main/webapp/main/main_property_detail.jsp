@@ -1,8 +1,10 @@
 <%@page import="mainPage.mainPropertyDetail.MainPropertyDetailVO"%>
-<%@ page import="java.time.*, java.time.format.*, java.time.temporal.ChronoUnit, java.util.List, java.util.ArrayList" %>
+<%@ page
+	import="java.time.*, java.time.format.*, java.time.temporal.ChronoUnit, java.util.List, java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ page import="mainPage.mainPropertyDetail.PropertyDAO" %>
+	pageEncoding="UTF-8"%>
+<%@ page import="mainPage.mainPropertyDetail.*" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -55,7 +57,9 @@ body {
 .info-section {
 	display: flex;
 	justify-content: space-between;
+	align-items: flex-start;
 	gap: 32px;
+	flex-wrap: wrap; /* 화면이 좁을 때 줄바꿈 */
 }
 
 .details {
@@ -81,12 +85,17 @@ body {
 }
 
 .reservation {
-	flex: 1;
+	position: sticky;
+	top: 100px;
+	width: 350px; /* 고정 크기 */
+	min-width: 350px;
+	max-width: 350px;
 	border: 1px solid #ddd;
 	border-radius: 12px;
 	padding: 16px;
-	position: sticky;
-	top: 100px;
+	background-color: white;
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+	flex-shrink: 0; /* 줄어들지 않게 설정 */
 }
 
 .reservation .price {
@@ -119,101 +128,228 @@ body {
 	border-top: 1px solid #eee;
 	padding-top: 16px;
 }
+
+.review-box {
+	margin-top: 32px;
+	border-top: 1px solid #eee;
+	padding-top: 24px;
+}
+
+.review-box h3 {
+	font-size: 18px;
+	margin-bottom: 16px;
+}
+
+.review-card {
+	background-color: #f9f9f9;
+	border-radius: 12px;
+	padding: 16px;
+	margin-bottom: 16px;
+}
+
+.review-content {
+	font-style: italic;
+	margin-bottom: 12px;
+	color: #333;
+}
+
+.review-footer {
+	display: flex;
+	align-items: center;
+	gap: 12px;
+}
+
+.review-avatar {
+	width: 48px;
+	height: 48px;
+	border-radius: 50%;
+	object-fit: cover;
+}
+
+.review-meta {
+	font-size: 14px;
+	color: #555;
+}
+
+.review-name {
+	font-weight: bold;
+}
+
+.review-date {
+	font-size: 13px;
+	color: #888;
+}
+
+.hidden-review {
+	display: none;
+}
+
+.show-more-btn {
+	background-color: #ddd;
+	border: none;
+	padding: 8px 16px;
+	border-radius: 8px;
+	font-size: 14px;
+	cursor: pointer;
+}
 </style>
 </head>
 <body>
+	<div>
+		<%@ include file="property_header.jsp"%>
+		<!-- 정적 포함 -->
+	</div>
 	<!-- header -->
-	<jsp:include page="property_header.jsp" />
-	
 	<!-- body -->
 	<div class="container">
-	<%
-    String propertyId = "prop011"; //property_Id 로 검색
-    PropertyDAO dao = new PropertyDAO(); // DAO 객체 생성
-    MainPropertyDetailVO madVONPD = dao.propertyNPD(propertyId); //숙소 이름 가져오기, 사진 가져오기, 숙소설명 가져오기
-    MainPropertyDetailVO madVOloc = dao.propertyLocation(propertyId);//VO객체 생성 숙소 나라 도시
-    MainPropertyDetailVO madVObath= dao.propertyBath(propertyId); //숙소 방 화장실 침대
-    MainPropertyDetailVO madVOAvgCount = dao.propertyAvgCount(propertyId);//후기 평균 개수
-    MainPropertyDetailVO madVONameAt = dao.propertyHostName(propertyId);//호스트의 이름 생성한 날짜.
-    List<Integer> listAmentie = dao.propertyAm(propertyId);
-    String amenties= "";
-	%>
-	<% // 2. 포맷터 설정
-	DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+		<%
+		String propertyId = "prop011"; //property_Id 로 검색
+		PropertyDAO dao = new PropertyDAO(); // DAO 객체 생성
+		MainPropertyDetailVO madVONPD = dao.propertyNPD(propertyId); //숙소 이름 가져오기, 사진 가져오기, 숙소설명 가져오기
+		MainPropertyDetailVO madVOloc = dao.propertyLocation(propertyId);//VO객체 생성 숙소 나라 도시
+		MainPropertyDetailVO madVObath = dao.propertyBath(propertyId); //숙소 방 화장실 침대
+		MainPropertyDetailVO madVOAvgCount = dao.propertyAvgCount(propertyId);//후기 평균 개수
+		MainPropertyDetailVO madVONameAt = dao.propertyHostName(propertyId);//호스트의 이름 생성한 날짜.
+		List<Integer> listAmentie = dao.propertyAm(propertyId);
+		String amenties = "";
+		%>
+		<%
+		// 2. 포맷터 설정
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
-	// 3. 문자열 → LocalDateTime
-	LocalDateTime pastDateTime = LocalDateTime.parse(madVONameAt.getHost_created_at(), formatter);
-	LocalDateTime now = LocalDateTime.now();
+		// 3. 문자열 → LocalDateTime
+		LocalDateTime pastDateTime = LocalDateTime.parse(madVONameAt.getHost_created_at(), formatter);
+		LocalDateTime now = LocalDateTime.now();
+		%>
 
-	// 4. 년, 월, 일 차이 계산
-	long totalYears = pastDateTime.until(now, ChronoUnit.YEARS);
-	long totalMonths = pastDateTime.until(now, ChronoUnit.MONTHS);
-	long remainMonths = totalMonths - (totalYears * 12);
-	%>
-	
-	<%
-	System.out.println(listAmentie.toString());
-	//listAmentie 무엇이 있는지.
-	for(Integer s : listAmentie){
-		switch (s){
-		case 1:
+		<% 
+		// 4. 년, 월, 일 차이 계산
+		long totalYears = pastDateTime.until(now, ChronoUnit.YEARS);
+		long totalMonths = pastDateTime.until(now, ChronoUnit.MONTHS);
+		long remainMonths = totalMonths - (totalYears * 12);
+		%>
+
+		<%
+		System.out.println(listAmentie.toString());
+		//listAmentie 무엇이 있는지.
+		for (Integer s : listAmentie) {
+			switch (s) {
+				case 1 :
 			amenties += "WI-FI ";
 			break;
-		case 2:
+				case 2 :
 			amenties += "에어컨 ";
 			break;
-		case 3:
+				case 3 :
 			amenties += "난방 ";
 			break;
-		case 4:
+				case 4 :
 			amenties += "부엌 ";
 			break;
-		case 5:
+				case 5 :
 			amenties += "샤워실 ";
 			break;
-		case 6:
+				case 6 :
 			amenties += "헤어드라이기 ";
 			break;
-		case 7:
+				case 7 :
 			amenties += "무료주차장 ";
 			break;
-		case 8:
+				case 8 :
 			amenties += "수영장 ";
 			break;
-		case 9:
+				case 9 :
 			amenties += "헬스장 ";
 			break;
-		case 10:
+				case 10 :
 			amenties += "애완동물 가능 ";
 			break;
+			}
 		}
-	}
-	%>
-		<div class="title"><%= madVONPD.getProperty_name() %></div>
+		%>
+		<div class="title"><%=madVONPD.getProperty_name()%></div>
 		<div class="gallery">
-			<img src="/uploads/<%= madVONPD.getProperty_photo_url() %>" alt="숙소 대표 이미지" />
+			<img src="/uploads/<%=madVONPD.getProperty_photo_url()%>"
+				alt="숙소 대표 이미지" />
 		</div>
 
 		<div class="info-section">
 			<div class="details">
-				<h2><%= madVOloc.getLocation_city() %><br>
-					<%= madVOloc.getLocation_country() %><br>
-					<%= madVOloc.getLocation_continent() %>
+				<h2><%=madVOloc.getLocation_city()%><br>
+					<%=madVOloc.getLocation_country()%><br>
+					<%=madVOloc.getLocation_continent()%>
 				</h2>
 				<ul>
-					<li>화장실 개수: <%=madVObath.getProperty_bathroom() %> 방 개수 <%=madVObath.getProperty_room() %>
-					침대 개수:<%=madVObath.getProperty_bed() %>
+					<li>화장실 개수: <%=madVObath.getProperty_bathroom()%> 방 개수 <%=madVObath.getProperty_room()%>
+						침대 개수:<%=madVObath.getProperty_bed()%>
 					</li>
-					<li>⭐ <%= madVOAvgCount.getProperty_review_avg()%>
-					 · 후기 <%= madVOAvgCount.getProperty_review_count() %></li>
-					<li><%=amenties %></li>
+					<li>⭐ <%=madVOAvgCount.getProperty_review_avg()%> · 후기 <%=madVOAvgCount.getProperty_review_count()%></li>
+					<li><%=amenties%></li>
 				</ul>
 				<div class="host">
-					<strong>호스트: <%= madVONameAt.getUser_name() %></strong><br /> 숙소 소개: <%=madVONPD.getProperty_description() %>
+					<strong>호스트: <%=madVONameAt.getUser_name()%></strong><br /> 숙소
+					소개:
+					<%=madVONPD.getProperty_description()%>
 					숙소에서 휴식을 즐기세요.<br />
-					 <p><strong>호스트 생성일자:</strong> <%= totalYears %>년 <%= remainMonths %>개월  </p>
+					<p>
+						<strong>호스트 생성일자:</strong>
+						<%=totalYears%>년
+						<%=remainMonths%>개월
+					</p>
+
+				</div>
+
+				<!-- 리뷰 섹션 (임의 데이터) -->
+				<div class="review-box">
+					<h3><%=madVONameAt.getUser_name()%>
+						님에 대한 호스트의 후기
+					</h3>
+
+					<div class="review-card">
+						<p class="review-content">“푸름 그리고 그녀의 일행은 방을 깨끗하게 청소하고 숙소
+							이용규칙을 준중했습니다. 체크인 시 연락을 주셨는데 매우 도움이 되었습니다.”</p>
+						<div class="review-footer">
+							<img src="/images/profile1.png" class="review-avatar" />
+							<div class="review-meta">
+								<div class="review-name">Toshiko</div>
+								<div class="review-date">2023년 9월</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="review-card hidden-review">
+						<p class="review-content">“정시에 체크인하고 깔끔하게 정리해주셨어요. 다시 만나고 싶은
+							게스트입니다.”</p>
+						<div class="review-footer">
+							<img src="/images/profile2.png" class="review-avatar" />
+							<div class="review-meta">
+								<div class="review-name">Daniel</div>
+								<div class="review-date">2024년 1월</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="review-card hidden-review">
+						<p class="review-content">“연락도 빠르고 예의 바른 분이었습니다. 숙소를 정말 조심히
+							사용해주셨어요.”</p>
+						<div class="review-footer">
+							<img src="/images/profile3.png" class="review-avatar" />
+							<div class="review-meta">
+								<div class="review-name">Mina</div>
+								<div class="review-date">2024년 6월</div>
+							</div>
+						</div>
+					</div>
+					<!-- 후기 더보기 / 접기 텍스트 링크 -->
+					<div style="margin-top: 8px;">
+						<span id="toggleReviewLink" class="show-more-btn"
+							style="background: none; color: #222; text-decoration: underline; padding: 0; display: inline-block;">후기
+							더보기</span>
+					</div>
 				</div>
 			</div>
+
+
 
 			<div class="reservation">
 				<div class="price">₩20,280 /박</div>
@@ -230,11 +366,31 @@ body {
 					<p>서비스 수수료: ₩6,349</p>
 					<strong>총액: ₩118,417</strong>
 				</div>
+>>>>>>> main
 			</div>
 		</div>
 	</div>
-	
+
+
+<script>
+	document.addEventListener("DOMContentLoaded", function() {
+    const toggleLink = document.getElementById("toggleReviewLink");
+    const hiddenReviews = document.querySelectorAll(".hidden-review");
+
+    let expanded = false;
+
+    toggleLink.addEventListener("click", function() {
+        expanded = !expanded;
+        hiddenReviews.forEach(r => r.style.display = expanded ? "block" : "none");
+        toggleLink.textContent = expanded ? "접기" : "후기 더보기";
+    });
+});
+</script>
+
+
 	<!-- footer -->
 	<jsp:include page="property_footer.jsp" />
+
+
 </body>
 </html>

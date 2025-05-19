@@ -2,7 +2,7 @@
 <%@ page import="java.time.*, java.time.format.*, java.time.temporal.ChronoUnit, java.util.List, java.util.ArrayList" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="dao.PropertyDAO" %>
+<%@ page import="mainPage.mainPropertyDetail.PropertyDAO" %>
 <!DOCTYPE html>
 <html>
 <head>

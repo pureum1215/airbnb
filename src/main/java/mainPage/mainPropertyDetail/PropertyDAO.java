@@ -1,4 +1,4 @@
-package dao;
+package mainPage.mainPropertyDetail;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -10,8 +10,6 @@ import java.util.List;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
-
-import mainPage.mainPropertyDetail.MainPropertyDetailVO;
 
 public class PropertyDAO {
 

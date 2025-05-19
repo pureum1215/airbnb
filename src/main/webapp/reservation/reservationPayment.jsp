@@ -61,9 +61,18 @@
 
 			<!-- 결제 버튼 -->
 			<br> <br> <br> <br> <br>
-			<button
-				class="w-full bg-rose-600 hover:bg-rose-700 text-white font-semibold py-3 rounded-lg text-lg">
-				확인 및 결제</button>
+			<form action="${pageContext.request.contextPath}/reservation_payment.re" method="post">
+				
+				<!-- 숨겨진 값들 (서블릿으로 보내야 할 값들) -->
+				<input type="hidden" name="reservation_id" value=<%=request.getParameter("reservation_id")%>>
+				<input type="hidden" name="user_id" value="${sessionScope.user_id}">
+			
+				<!-- 결제 버튼 -->
+				<button type="submit"
+					class="w-full bg-rose-600 hover:bg-rose-700 text-white font-semibold py-3 rounded-lg text-lg">
+					확인 및 결제
+				</button>
+			</form>
 		</section>
 
 		<!-- 우측: 숙소 요약 카드 -->

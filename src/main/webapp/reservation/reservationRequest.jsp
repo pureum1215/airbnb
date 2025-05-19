@@ -5,154 +5,154 @@
 <head>
 <meta charset="UTF-8">
 <title>예약 요청</title>
-<style>
-body {
-	font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue",
-		Helvetica, Arial, sans-serif;
-	background-color: #fff;
-	margin: 0;
-	padding: 40px;
-}
-
-.container {
-	max-width: 1100px;
-	margin: 0 auto;
-	display: flex;
-	gap: 60px;
-}
-
-.left, .right {
-	flex: 1;
-}
-
-h1 {
-	font-size: 24px;
-	font-weight: 600;
-	margin-bottom: 24px;
-}
-
-.notice-box {
-	background-color: #f7f7f7;
-	border-radius: 12px;
-	padding: 16px 20px;
-	display: flex;
-	align-items: center;
-	justify-content: space-between;
-	font-size: 15px;
-	margin-bottom: 24px;
-	border: 1px solid #ddd;
-}
-
-.info-group {
-	margin-bottom: 24px;
-}
-
-.info-label {
-	font-weight: bold;
-	margin-bottom: 4px;
-}
-
-.info-content {
-	font-size: 15px;
-	margin-bottom: 8px;
-}
-
-.change-link {
-	color: #222;
-	font-size: 14px;
-	text-decoration: underline;
-	cursor: pointer;
-	float: right;
-}
-
-.submit-btn {
-	margin-top: 20px;
-	width: 100%;
-	padding: 14px;
-	background-color: #FF385C;
-	border: none;
-	color: white;
-	font-size: 16px;
-	font-weight: bold;
-	border-radius: 12px;
-	cursor: pointer;
-}
-
-.submit-btn:hover {
-	background-color: #e03150;
-}
-
-.summary-box {
-	border: 1px solid #ddd;
-	border-radius: 16px;
-	padding: 20px;
-}
-
-.room-info {
-	display: flex;
-	gap: 12px;
-	margin-bottom: 20px;
-}
-
-.room-info img {
-	width: 80px;
-	height: 80px;
-	border-radius: 12px;
-	object-fit: cover;
-}
-
-.room-details {
-	font-size: 14px;
-}
-
-.price-breakdown {
-	font-size: 15px;
-}
-
-.price-line {
-	display: flex;
-	justify-content: space-between;
-	margin: 6px 0;
-}
-
-.price-total {
-	border-top: 1px solid #ddd;
-	padding-top: 10px;
-	font-weight: bold;
-	font-size: 16px;
-}
-
-.tooltip-box {
-	position: absolute;
-	background: #fff;
-	border-radius: 12px;
-	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-	padding: 14px 18px;
-	font-size: 14px;
-	z-index: 100;
-	display: none;
-	max-width: 300px;
-	line-height: 1.4;
-	border: 1px solid #ddd;
-}
-
-.tooltip-close {
-	position: absolute;
-	top: 6px;
-	left: 8px;
-	background: none;
-	border: none;
-	font-size: 16px;
-	cursor: pointer;
-	color: #333;
-}
-
-.tooltip-trigger {
-	cursor: pointer;
-	text-decoration: underline;
-	position: relative;
-}
-</style>
+	<style>
+		body {
+			font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue",
+				Helvetica, Arial, sans-serif;
+			background-color: #fff;
+			margin: 0;
+			padding: 40px;
+		}
+		
+		.container {
+			max-width: 1100px;
+			margin: 0 auto;
+			display: flex;
+			gap: 60px;
+		}
+		
+		.left, .right {
+			flex: 1;
+		}
+		
+		h1 {
+			font-size: 24px;
+			font-weight: 600;
+			margin-bottom: 24px;
+		}
+		
+		.notice-box {
+			background-color: #f7f7f7;
+			border-radius: 12px;
+			padding: 16px 20px;
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			font-size: 15px;
+			margin-bottom: 24px;
+			border: 1px solid #ddd;
+		}
+		
+		.info-group {
+			margin-bottom: 24px;
+		}
+		
+		.info-label {
+			font-weight: bold;
+			margin-bottom: 4px;
+		}
+		
+		.info-content {
+			font-size: 15px;
+			margin-bottom: 8px;
+		}
+		
+		.change-link {
+			color: #222;
+			font-size: 14px;
+			text-decoration: underline;
+			cursor: pointer;
+			float: right;
+		}
+		
+		.submit-btn {
+			margin-top: 20px;
+			width: 100%;
+			padding: 14px;
+			background-color: #FF385C;
+			border: none;
+			color: white;
+			font-size: 16px;
+			font-weight: bold;
+			border-radius: 12px;
+			cursor: pointer;
+		}
+		
+		.submit-btn:hover {
+			background-color: #e03150;
+		}
+		
+		.summary-box {
+			border: 1px solid #ddd;
+			border-radius: 16px;
+			padding: 20px;
+		}
+		
+		.room-info {
+			display: flex;
+			gap: 12px;
+			margin-bottom: 20px;
+		}
+		
+		.room-info img {
+			width: 80px;
+			height: 80px;
+			border-radius: 12px;
+			object-fit: cover;
+		}
+		
+		.room-details {
+			font-size: 14px;
+		}
+		
+		.price-breakdown {
+			font-size: 15px;
+		}
+		
+		.price-line {
+			display: flex;
+			justify-content: space-between;
+			margin: 6px 0;
+		}
+		
+		.price-total {
+			border-top: 1px solid #ddd;
+			padding-top: 10px;
+			font-weight: bold;
+			font-size: 16px;
+		}
+		
+		.tooltip-box {
+			position: absolute;
+			background: #fff;
+			border-radius: 12px;
+			box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+			padding: 14px 18px;
+			font-size: 14px;
+			z-index: 100;
+			display: none;
+			max-width: 300px;
+			line-height: 1.4;
+			border: 1px solid #ddd;
+		}
+		
+		.tooltip-close {
+			position: absolute;
+			top: 6px;
+			left: 8px;
+			background: none;
+			border: none;
+			font-size: 16px;
+			cursor: pointer;
+			color: #333;
+		}
+		
+		.tooltip-trigger {
+			cursor: pointer;
+			text-decoration: underline;
+			position: relative;
+		}
+	</style>
 </head>
 <body>
 	<div>

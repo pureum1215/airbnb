@@ -42,8 +42,10 @@ public class ReservationPaymentAction implements Action {
 		dao.reservationPayment(vo);
 		
         ActionForward forward = new ActionForward();
-        forward.setPath("// 사용자 메뉴 - 예약 목록 페이지 //");
+        forward.setPath("user/userReservationList.jsp");
         forward.setRedirect(true);
+        
+        System.out.println("forward: " + forward);
         
         return forward;
 	}

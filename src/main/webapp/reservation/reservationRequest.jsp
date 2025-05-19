@@ -5,154 +5,154 @@
 <head>
 <meta charset="UTF-8">
 <title>예약 요청</title>
-<style>
-body {
-	font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue",
-		Helvetica, Arial, sans-serif;
-	background-color: #fff;
-	margin: 0;
-	padding: 40px;
-}
-
-.container {
-	max-width: 1100px;
-	margin: 0 auto;
-	display: flex;
-	gap: 60px;
-}
-
-.left, .right {
-	flex: 1;
-}
-
-h1 {
-	font-size: 24px;
-	font-weight: 600;
-	margin-bottom: 24px;
-}
-
-.notice-box {
-	background-color: #f7f7f7;
-	border-radius: 12px;
-	padding: 16px 20px;
-	display: flex;
-	align-items: center;
-	justify-content: space-between;
-	font-size: 15px;
-	margin-bottom: 24px;
-	border: 1px solid #ddd;
-}
-
-.info-group {
-	margin-bottom: 24px;
-}
-
-.info-label {
-	font-weight: bold;
-	margin-bottom: 4px;
-}
-
-.info-content {
-	font-size: 15px;
-	margin-bottom: 8px;
-}
-
-.change-link {
-	color: #222;
-	font-size: 14px;
-	text-decoration: underline;
-	cursor: pointer;
-	float: right;
-}
-
-.submit-btn {
-	margin-top: 20px;
-	width: 100%;
-	padding: 14px;
-	background-color: #FF385C;
-	border: none;
-	color: white;
-	font-size: 16px;
-	font-weight: bold;
-	border-radius: 12px;
-	cursor: pointer;
-}
-
-.submit-btn:hover {
-	background-color: #e03150;
-}
-
-.summary-box {
-	border: 1px solid #ddd;
-	border-radius: 16px;
-	padding: 20px;
-}
-
-.room-info {
-	display: flex;
-	gap: 12px;
-	margin-bottom: 20px;
-}
-
-.room-info img {
-	width: 80px;
-	height: 80px;
-	border-radius: 12px;
-	object-fit: cover;
-}
-
-.room-details {
-	font-size: 14px;
-}
-
-.price-breakdown {
-	font-size: 15px;
-}
-
-.price-line {
-	display: flex;
-	justify-content: space-between;
-	margin: 6px 0;
-}
-
-.price-total {
-	border-top: 1px solid #ddd;
-	padding-top: 10px;
-	font-weight: bold;
-	font-size: 16px;
-}
-
-.tooltip-box {
-	position: absolute;
-	background: #fff;
-	border-radius: 12px;
-	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-	padding: 14px 18px;
-	font-size: 14px;
-	z-index: 100;
-	display: none;
-	max-width: 300px;
-	line-height: 1.4;
-	border: 1px solid #ddd;
-}
-
-.tooltip-close {
-	position: absolute;
-	top: 6px;
-	left: 8px;
-	background: none;
-	border: none;
-	font-size: 16px;
-	cursor: pointer;
-	color: #333;
-}
-
-.tooltip-trigger {
-	cursor: pointer;
-	text-decoration: underline;
-	position: relative;
-}
-</style>
+	<style>
+		body {
+			font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue",
+				Helvetica, Arial, sans-serif;
+			background-color: #fff;
+			margin: 0;
+			padding: 40px;
+		}
+		
+		.container {
+			max-width: 1100px;
+			margin: 0 auto;
+			display: flex;
+			gap: 60px;
+		}
+		
+		.left, .right {
+			flex: 1;
+		}
+		
+		h1 {
+			font-size: 24px;
+			font-weight: 600;
+			margin-bottom: 24px;
+		}
+		
+		.notice-box {
+			background-color: #f7f7f7;
+			border-radius: 12px;
+			padding: 16px 20px;
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			font-size: 15px;
+			margin-bottom: 24px;
+			border: 1px solid #ddd;
+		}
+		
+		.info-group {
+			margin-bottom: 24px;
+		}
+		
+		.info-label {
+			font-weight: bold;
+			margin-bottom: 4px;
+		}
+		
+		.info-content {
+			font-size: 15px;
+			margin-bottom: 8px;
+		}
+		
+		.change-link {
+			color: #222;
+			font-size: 14px;
+			text-decoration: underline;
+			cursor: pointer;
+			float: right;
+		}
+		
+		.submit-btn {
+			margin-top: 20px;
+			width: 100%;
+			padding: 14px;
+			background-color: #FF385C;
+			border: none;
+			color: white;
+			font-size: 16px;
+			font-weight: bold;
+			border-radius: 12px;
+			cursor: pointer;
+		}
+		
+		.submit-btn:hover {
+			background-color: #e03150;
+		}
+		
+		.summary-box {
+			border: 1px solid #ddd;
+			border-radius: 16px;
+			padding: 20px;
+		}
+		
+		.room-info {
+			display: flex;
+			gap: 12px;
+			margin-bottom: 20px;
+		}
+		
+		.room-info img {
+			width: 80px;
+			height: 80px;
+			border-radius: 12px;
+			object-fit: cover;
+		}
+		
+		.room-details {
+			font-size: 14px;
+		}
+		
+		.price-breakdown {
+			font-size: 15px;
+		}
+		
+		.price-line {
+			display: flex;
+			justify-content: space-between;
+			margin: 6px 0;
+		}
+		
+		.price-total {
+			border-top: 1px solid #ddd;
+			padding-top: 10px;
+			font-weight: bold;
+			font-size: 16px;
+		}
+		
+		.tooltip-box {
+			position: absolute;
+			background: #fff;
+			border-radius: 12px;
+			box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+			padding: 14px 18px;
+			font-size: 14px;
+			z-index: 100;
+			display: none;
+			max-width: 300px;
+			line-height: 1.4;
+			border: 1px solid #ddd;
+		}
+		
+		.tooltip-close {
+			position: absolute;
+			top: 6px;
+			left: 8px;
+			background: none;
+			border: none;
+			font-size: 16px;
+			cursor: pointer;
+			color: #333;
+		}
+		
+		.tooltip-trigger {
+			cursor: pointer;
+			text-decoration: underline;
+			position: relative;
+		}
+	</style>
 </head>
 <body>
 	<div>
@@ -175,6 +175,10 @@ h1 {
 					날짜 <span class="change-link">수정</span>
 				</div>
 				<div class="info-content">10월 31일 ~ 11월 2일</div>
+				
+				<%-- chech_in, check_out 날짜 받아오기 --%>
+				
+				
 			</div>
 
 			<div class="info-group">
@@ -183,8 +187,16 @@ h1 {
 				</div>
 				<div class="info-content">게스트 1명</div>
 			</div>
+				
+			<form action="${pageContext.request.contextPath}/reservation_request.re" method="post">
 
-			<form action="submitBooking.us" method="post">
+				<%-- servlet으로 보낼 값, 체크인, 체크아웃 날짜 --%>
+				<input type="hidden" name="property_id" value="<%=request.getAttribute("property_id") %>">
+				<input type="hidden" name="reservation_check_in" value=<%=request.getAttribute("reservation_check_in") %>>
+				<input type="hidden" name="reservation_check_out" value=<%=request.getAttribute("reservation_check_in") %>>
+				<input type="hidden" name="user_id" value="${sessionScope.user_id}">
+
+				<%-- 예약 버튼 --%> 
 				<button type="submit" class="submit-btn">예약 요청</button>
 			</form>
 		</div>
@@ -246,62 +258,62 @@ h1 {
 	</div>
 
 	<script>
-  const tooltipTrigger = document.querySelector(".tooltip-trigger");
-  const tooltipBox = document.getElementById("tooltipBox");
-  const taxTrigger = document.querySelector(".tax-tooltip-trigger");
-  const tooltipBoxTax = document.getElementById("tooltipBoxTax");
-
-  taxTrigger.addEventListener("click", (e) => {
-    positionTooltip(e.target, tooltipBoxTax);
-  });
-
-  tooltipTrigger.addEventListener("click", (e) => {
-    positionTooltip(e.target, tooltipBox);
-  });
-
-  const feeTrigger = document.querySelector(".fee-tooltip-trigger");
-  const tooltipBoxFee = document.getElementById("tooltipBoxFee");
-
-  feeTrigger.addEventListener("click", (e) => {
-    positionTooltip(e.target, tooltipBoxFee);
-  });
-
-  function positionTooltip(target, box) {
-    const rect = target.getBoundingClientRect();
-    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-    const tooltipHeight = box.offsetHeight;
-
-    box.style.left = rect.left + "px";
-    box.style.top = (rect.top + scrollTop - tooltipHeight - 8) + "px";
-    box.style.display = "block";
-  }
-
-  function hideTooltip(id) {
-    document.getElementById(id).style.display = "none";
-  }
-
-  window.addEventListener("click", function (e) {
-    if (
-      !tooltipBox.contains(e.target) &&
-      !tooltipTrigger.contains(e.target)
-    ) {
-      tooltipBox.style.display = "none";
-    }
-
-    if (
-      !tooltipBoxFee.contains(e.target) &&
-      !feeTrigger.contains(e.target)
-    ) {
-      tooltipBoxFee.style.display = "none";
-    }
-    
-    if (
-    	    !tooltipBoxTax.contains(e.target) &&
-    	    !taxTrigger.contains(e.target)
-    	  ) {
-    	    tooltipBoxTax.style.display = "none";
-    	  }
-  });
+	  const tooltipTrigger = document.querySelector(".tooltip-trigger");
+	  const tooltipBox = document.getElementById("tooltipBox");
+	  const taxTrigger = document.querySelector(".tax-tooltip-trigger");
+	  const tooltipBoxTax = document.getElementById("tooltipBoxTax");
+	
+	  taxTrigger.addEventListener("click", (e) => {
+	    positionTooltip(e.target, tooltipBoxTax);
+	  });
+	
+	  tooltipTrigger.addEventListener("click", (e) => {
+	    positionTooltip(e.target, tooltipBox);
+	  });
+	
+	  const feeTrigger = document.querySelector(".fee-tooltip-trigger");
+	  const tooltipBoxFee = document.getElementById("tooltipBoxFee");
+	
+	  feeTrigger.addEventListener("click", (e) => {
+	    positionTooltip(e.target, tooltipBoxFee);
+	  });
+	
+	  function positionTooltip(target, box) {
+	    const rect = target.getBoundingClientRect();
+	    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+	    const tooltipHeight = box.offsetHeight;
+	
+	    box.style.left = rect.left + "px";
+	    box.style.top = (rect.top + scrollTop - tooltipHeight - 8) + "px";
+	    box.style.display = "block";
+	  }
+	
+	  function hideTooltip(id) {
+	    document.getElementById(id).style.display = "none";
+	  }
+	
+	  window.addEventListener("click", function (e) {
+	    if (
+	      !tooltipBox.contains(e.target) &&
+	      !tooltipTrigger.contains(e.target)
+	    ) {
+	      tooltipBox.style.display = "none";
+	    }
+	
+	    if (
+	      !tooltipBoxFee.contains(e.target) &&
+	      !feeTrigger.contains(e.target)
+	    ) {
+	      tooltipBoxFee.style.display = "none";
+	    }
+	    
+	    if (
+	    	    !tooltipBoxTax.contains(e.target) &&
+	    	    !taxTrigger.contains(e.target)
+	    	  ) {
+	    	    tooltipBoxTax.style.display = "none";
+	    	  }
+	  });
 </script>
 </body>
 </html>

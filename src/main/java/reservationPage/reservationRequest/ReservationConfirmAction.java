@@ -10,7 +10,7 @@ import controller.Action;
 import controller.ActionForward;
 import reservationPage.ReservationDAO;
 
-public class ReservationRequestAction implements Action {
+public class ReservationConfirmAction implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -42,7 +42,7 @@ public class ReservationRequestAction implements Action {
 		dao.reservationRequest(vo);
 		
         ActionForward forward = new ActionForward();
-        forward.setPath("// 예약 요청이 완료되었습니다 페이지 //");
+        forward.setPath("// 결제 페이지 //");
         forward.setRedirect(true);
         
         return forward;

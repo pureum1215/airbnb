@@ -4,7 +4,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ page import="mainPage.mainPropertyDetail.*" %>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -210,7 +211,7 @@ body {
 		MainPropertyDetailVO madVObath = dao.propertyBath(propertyId); //숙소 방 화장실 침대
 		MainPropertyDetailVO madVOAvgCount = dao.propertyAvgCount(propertyId);//후기 평균 개수
 		MainPropertyDetailVO madVONameAt = dao.propertyHostName(propertyId);//호스트의 이름 생성한 날짜.
-		
+		List<MainPropertyDetailVO> madVOReview = dao.propertyReviewName(propertyId);
 		List<Integer> listAmentie = dao.propertyAm(propertyId);
 		String amenties = "";
 		%>
@@ -305,42 +306,23 @@ body {
 					<h3><%=madVONameAt.getUser_name()%>
 						님에 대한 호스트의 후기
 					</h3>
-
-					<div class="review-card">
-						<p class="review-content">“푸름 그리고 그녀의 일행은 방을 깨끗하게 청소하고 숙소
-							이용규칙을 준중했습니다. 체크인 시 연락을 주셨는데 매우 도움이 되었습니다.”</p>
-						<div class="review-footer">
-							<img src="/images/profile1.png" class="review-avatar" />
-							<div class="review-meta">
-								<div class="review-name">Toshiko</div>
-								<div class="review-date">2023년 9월</div>
+					<c:forEach var="review" items="<%=madVOReview %>">
+						<div class="review-card">
+							<p class="review-content">“${review.property_review_content}”</p>
+							<div class="review-footer">
+								<img src="/images/profile1.png" class="review-avatar" />
+								<div class="review-meta">
+									<div class="review-name">${review.user_name}</div>
+									<div class="review-date">
+										<fmt:parseDate value="${review.property_review_created_at}" pattern="yyyy-MM-dd HH:mm:ss" var="parsedDate" />
+										<fmt:formatDate value="${parsedDate}" pattern="yyyy년 M월" />
+									</div>
+								</div>
 							</div>
 						</div>
-					</div>
-
-					<div class="review-card hidden-review">
-						<p class="review-content">“정시에 체크인하고 깔끔하게 정리해주셨어요. 다시 만나고 싶은
-							게스트입니다.”</p>
-						<div class="review-footer">
-							<img src="/images/profile2.png" class="review-avatar" />
-							<div class="review-meta">
-								<div class="review-name">Daniel</div>
-								<div class="review-date">2024년 1월</div>
-							</div>
-						</div>
-					</div>
-
-					<div class="review-card hidden-review">
-						<p class="review-content">“연락도 빠르고 예의 바른 분이었습니다. 숙소를 정말 조심히
-							사용해주셨어요.”</p>
-						<div class="review-footer">
-							<img src="/images/profile3.png" class="review-avatar" />
-							<div class="review-meta">
-								<div class="review-name">Mina</div>
-								<div class="review-date">2024년 6월</div>
-							</div>
-						</div>
-					</div>
+				</c:forEach>
+					
+					
 					<!-- 후기 더보기 / 접기 텍스트 링크 -->
 					<div style="margin-top: 8px;">
 						<span id="toggleReviewLink" class="show-more-btn"
@@ -349,8 +331,6 @@ body {
 					</div>
 				</div>
 			</div>
-
-
 
 			<div class="reservation">
 				<div class="price">₩20,280 /박</div>
@@ -367,7 +347,6 @@ body {
 					<p>서비스 수수료: ₩6,349</p>
 					<strong>총액: ₩118,417</strong>
 				</div>
->>>>>>> main
 			</div>
 		</div>
 	</div>

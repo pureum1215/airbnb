@@ -306,7 +306,7 @@ body {
 					<h3><%=madVONameAt.getUser_name()%>
 						님에 대한 호스트의 후기
 					</h3>
-					<c:forEach var="review" items="<%=madVOReview %>">
+					<c:forEach var="review" items="${madVOReview}">
 						<div class="review-card">
 							<p class="review-content">“${review.property_review_content}”</p>
 							<div class="review-footer">

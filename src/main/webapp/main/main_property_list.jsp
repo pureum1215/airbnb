@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ page import="mainPage.mainPropertyList.*" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -73,7 +74,10 @@ body {
 </style>
 </head>
 <body>
-
+	<%
+	MainPropertyListDAO dao = new MainPropertyListDAO();
+	
+     %>
 	<div>
 		<%@ include file="property_header.jsp"%>
 		<!-- 정적 포함 -->
@@ -85,8 +89,7 @@ body {
 	<div class="card-container">
 		<!-- 숙소 카드 1개 -->
 		<div class="card">
-			<img src="https://via.placeholder.com/400x300.png?text=Room+Image"
-				alt="숙소 이미지">
+			<img src="/uploads/<%= madVONPD.getProperty_photo_url() %>" alt="숙소 대표 이미지" />
 			<div class="card-content">
 				<!-- 예시 숙소 card -->
 				<div class="card-title">Les Halles의 다인실</div>

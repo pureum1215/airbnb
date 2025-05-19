@@ -67,7 +67,25 @@ public class ReservationDAO {
 	    return reservationDefault;
 	}
 	
-	public int reservation(ReservationRequestVO vo) {
+	// db에 저장된 마지막 예약 번호 가져오기
+	public String getLastReservationId() {
+	    String lastId = "res000";
+	    try {
+	        String sql = "SELECT reservation_id FROM reservation ORDER BY reservation_id DESC LIMIT 1";
+	        pstmt = conn.prepareStatement(sql);
+	        rs = pstmt.executeQuery();
+	        if (rs.next()) {
+	            lastId = rs.getString(1);
+	        }
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    } finally {
+	        closeCon();
+	    }
+	    return lastId;
+	}
+	
+	public int reservationRequest(ReservationRequestVO vo) {
 		int result = 0;
 		
 		return result;

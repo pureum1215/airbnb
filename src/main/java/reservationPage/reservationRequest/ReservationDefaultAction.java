@@ -28,17 +28,17 @@ public class ReservationDefaultAction implements Action {
 		// property_reservation_default가 바로 결제인지 요청 먼저인지 확인
         ReservationDAO reservationDAO = new ReservationDAO();
         String propertyId = request.getParameter("property_id");
-        String bookingType = reservationDAO.getReservationType(propertyId);
+        String ReservationType = reservationDAO.getReservationType(propertyId);
         
-        if (bookingType.equals("즉시 예약")) {
+        if ("즉시 예약".equals(ReservationType)) {
 	        ActionForward forward = new ActionForward();
-	        forward.setPath("//결제 페이지//");
+	        forward.setPath("//즉시 예약 페이지//");
 	        forward.setRedirect(true);
 	        
 	        return forward;
         }
         
-        else if (bookingType.equals("예약 요청")) {
+        else if ("예약 요청".equals(ReservationType)) {
             ActionForward forward = new ActionForward();
             forward.setPath("//예약 완료되었을 때 나타나는 페이지//");
             forward.setRedirect(true);

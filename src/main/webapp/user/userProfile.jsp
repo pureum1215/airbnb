@@ -8,6 +8,13 @@
 <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-white font-sans antialiased text-gray-900">
+
+	<div>
+		<%@ include file="../html/header_default.jsp"%>
+		<!-- 정적 포함 -->
+	</div>
+
+
 	<main class="max-w-6xl mx-auto px-6 py-10 grid md:grid-cols-3 gap-10">
 
 		<!-- 좌측 프로필 요약 -->

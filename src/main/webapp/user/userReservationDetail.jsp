@@ -8,6 +8,12 @@
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-white text-gray-900 font-sans antialiased">
+	<div>
+		<%@ include file="../html/header_default.jsp"%>
+		<!-- 정적 포함 -->
+	</div>
+
+
   <main class="max-w-6xl mx-auto px-6 py-12 grid md:grid-cols-2 gap-8">
 
     <!-- 왼쪽: 예약 정보 -->

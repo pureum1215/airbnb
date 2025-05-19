@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%
+// 더미 데이터 관련된 것들은 나중에 삭제 바랍니다.
 // 더미 데이터 선언 (Controller 또는 Servlet에서 전달받을 수도 있음)
 String listingTitle = "한옥 스테이 - 전주 한옥마을 중심";
 String status = "게시 중";
@@ -179,7 +180,7 @@ String[] amenities = { "Wi-Fi", "에어컨", "주방", "TV", "난방" };
 			</div>
 		</div>
 
-		<!-- 위치 -->
+		<!-- 위치(네이버 지도로 변경 예정) -->
 		<div class="section">
 			<h3>위치</h3>
 			<p><%=address%></p>

@@ -41,7 +41,8 @@ public class MainPropertyDetailVO {
 	private String property_review_id;
 	private int property_review_count; //리뷰 총 개수
 	private double property_review_avg; //리뷰 평균 별점
-	private Timestamp property_review_created_at;
+	private String property_review_content; //리뷰 내용
+	private String property_review_created_at;
 	
 	private int price_per_night;
 	private Date reservation_check_in;
@@ -168,7 +169,14 @@ public class MainPropertyDetailVO {
 		this.property_review_id = property_review_id;
 	}
 
+	
 
+	public String getProperty_review_content() {
+		return property_review_content;
+	}
+	public void setProperty_review_content(String property_review_content) {
+		this.property_review_content = property_review_content;
+	}
 	public int getProperty_review_count() {
 		return property_review_count;
 	}
@@ -181,10 +189,12 @@ public class MainPropertyDetailVO {
 	public void setProperty_review_avg(double property_review_avg) {
 		this.property_review_avg = property_review_avg;
 	}
-	public Timestamp getProperty_review_created_at() {
+
+	
+	public String getProperty_review_created_at() {
 		return property_review_created_at;
 	}
-	public void setProperty_review_created_at(Timestamp property_review_created_at) {
+	public void setProperty_review_created_at(String property_review_created_at) {
 		this.property_review_created_at = property_review_created_at;
 	}
 	public int getPrice_per_night() {
@@ -216,11 +226,15 @@ public class MainPropertyDetailVO {
 				+ ", user_id=" + user_id + ", user_name=" + user_name + ", host_created_at=" + host_created_at
 				+ ", location_x=" + location_x + ", location_y=" + location_y + ", property_review_id="
 				+ property_review_id + ", property_review_count=" + property_review_count + ", property_review_avg="
-				+ property_review_avg + ", property_review_created_at=" + property_review_created_at
-				+ ", price_per_night=" + price_per_night + ", reservation_check_in=" + reservation_check_in
-				+ ", reservation_check_out=" + reservation_check_out + "]";
+				+ property_review_avg + ", property_review_content=" + property_review_content
+				+ ", property_review_created_at=" + property_review_created_at + ", price_per_night=" + price_per_night
+				+ ", reservation_check_in=" + reservation_check_in + ", reservation_check_out=" + reservation_check_out
+				+ "]";
 	}
 
+	
+	
+	
 	
 	
 }

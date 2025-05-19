@@ -172,7 +172,7 @@ body.container {
 </style>
 </head>
 <body>
-	<%@ include file="../html/header_hostpage.jsp"%>
+	<%@ include file="header_hostpage.jsp"%>
 
 	<div class="container">
 		<br>

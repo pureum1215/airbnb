@@ -70,7 +70,7 @@
 </head>
 <body>
 	<div>
-		<%@ include file="../html/header_hostpage.jsp"%>
+		<%@ include file="header_hostpage.jsp"%>
 		<!-- 정적 포함 -->
 	</div>
 

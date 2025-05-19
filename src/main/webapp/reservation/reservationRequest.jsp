@@ -170,11 +170,16 @@
 				<span>흔치 않은 기회입니다. Catherine님의 숙소는 보통 예약이 가득 차 있습니다.</span> <span>💎</span>
 			</div>
 
+			<form action="${pageContext.request.contextPath}/reservation_request.re" method="post">
 			<div class="info-group">
 				<div class="info-label">
 					날짜 <span class="change-link">수정</span>
 				</div>
 				<div class="info-content">10월 31일 ~ 11월 2일</div>
+
+				<%-- servlet으로 보낼 값, 체크인, 체크아웃 날짜 --%>
+				<input type="hidden" name="reservation_check_in" value=<%=request.getParameter("reservation_check_in") %>>
+
 			</div>
 
 			<div class="info-group">
@@ -183,8 +188,8 @@
 				</div>
 				<div class="info-content">게스트 1명</div>
 			</div>
-
-			<form action="submitBooking.us" method="post">
+				
+				<%-- 예약 버튼 --%> 
 				<button type="submit" class="submit-btn">예약 요청</button>
 			</form>
 		</div>
@@ -246,62 +251,62 @@
 	</div>
 
 	<script>
-  const tooltipTrigger = document.querySelector(".tooltip-trigger");
-  const tooltipBox = document.getElementById("tooltipBox");
-  const taxTrigger = document.querySelector(".tax-tooltip-trigger");
-  const tooltipBoxTax = document.getElementById("tooltipBoxTax");
-
-  taxTrigger.addEventListener("click", (e) => {
-    positionTooltip(e.target, tooltipBoxTax);
-  });
-
-  tooltipTrigger.addEventListener("click", (e) => {
-    positionTooltip(e.target, tooltipBox);
-  });
-
-  const feeTrigger = document.querySelector(".fee-tooltip-trigger");
-  const tooltipBoxFee = document.getElementById("tooltipBoxFee");
-
-  feeTrigger.addEventListener("click", (e) => {
-    positionTooltip(e.target, tooltipBoxFee);
-  });
-
-  function positionTooltip(target, box) {
-    const rect = target.getBoundingClientRect();
-    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-    const tooltipHeight = box.offsetHeight;
-
-    box.style.left = rect.left + "px";
-    box.style.top = (rect.top + scrollTop - tooltipHeight - 8) + "px";
-    box.style.display = "block";
-  }
-
-  function hideTooltip(id) {
-    document.getElementById(id).style.display = "none";
-  }
-
-  window.addEventListener("click", function (e) {
-    if (
-      !tooltipBox.contains(e.target) &&
-      !tooltipTrigger.contains(e.target)
-    ) {
-      tooltipBox.style.display = "none";
-    }
-
-    if (
-      !tooltipBoxFee.contains(e.target) &&
-      !feeTrigger.contains(e.target)
-    ) {
-      tooltipBoxFee.style.display = "none";
-    }
-    
-    if (
-    	    !tooltipBoxTax.contains(e.target) &&
-    	    !taxTrigger.contains(e.target)
-    	  ) {
-    	    tooltipBoxTax.style.display = "none";
-    	  }
-  });
+	  const tooltipTrigger = document.querySelector(".tooltip-trigger");
+	  const tooltipBox = document.getElementById("tooltipBox");
+	  const taxTrigger = document.querySelector(".tax-tooltip-trigger");
+	  const tooltipBoxTax = document.getElementById("tooltipBoxTax");
+	
+	  taxTrigger.addEventListener("click", (e) => {
+	    positionTooltip(e.target, tooltipBoxTax);
+	  });
+	
+	  tooltipTrigger.addEventListener("click", (e) => {
+	    positionTooltip(e.target, tooltipBox);
+	  });
+	
+	  const feeTrigger = document.querySelector(".fee-tooltip-trigger");
+	  const tooltipBoxFee = document.getElementById("tooltipBoxFee");
+	
+	  feeTrigger.addEventListener("click", (e) => {
+	    positionTooltip(e.target, tooltipBoxFee);
+	  });
+	
+	  function positionTooltip(target, box) {
+	    const rect = target.getBoundingClientRect();
+	    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+	    const tooltipHeight = box.offsetHeight;
+	
+	    box.style.left = rect.left + "px";
+	    box.style.top = (rect.top + scrollTop - tooltipHeight - 8) + "px";
+	    box.style.display = "block";
+	  }
+	
+	  function hideTooltip(id) {
+	    document.getElementById(id).style.display = "none";
+	  }
+	
+	  window.addEventListener("click", function (e) {
+	    if (
+	      !tooltipBox.contains(e.target) &&
+	      !tooltipTrigger.contains(e.target)
+	    ) {
+	      tooltipBox.style.display = "none";
+	    }
+	
+	    if (
+	      !tooltipBoxFee.contains(e.target) &&
+	      !feeTrigger.contains(e.target)
+	    ) {
+	      tooltipBoxFee.style.display = "none";
+	    }
+	    
+	    if (
+	    	    !tooltipBoxTax.contains(e.target) &&
+	    	    !taxTrigger.contains(e.target)
+	    	  ) {
+	    	    tooltipBoxTax.style.display = "none";
+	    	  }
+	  });
 </script>
 </body>
 </html>

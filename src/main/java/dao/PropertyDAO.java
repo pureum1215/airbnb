@@ -101,6 +101,11 @@ public class PropertyDAO {
 		
 	}
 	
+	/***
+	 * 
+	 * @param propertyId
+	 * @return Locationcity, Location_country, Location_continent
+	 */
 	public MainPropertyDetailVO propertyLocation(String propertyId) {
 		MainPropertyDetailVO madVO = new MainPropertyDetailVO();
 		
@@ -113,9 +118,9 @@ public class PropertyDAO {
 	        pstmt.setString(1, propertyId);
 	        ResultSet rs = pstmt.executeQuery();
 	        if (rs.next()) {
-	        	madVO.setLocation_city(rs.getString("lo.location_city"));
-	            madVO.setLocation_country(rs.getString("lo.location_country"));
-	            madVO.setLocation_continent(rs.getString("lo.location_continent"));
+	        	madVO.setLocation_city(rs.getString(1));
+	            madVO.setLocation_country(rs.getString(2));
+	            madVO.setLocation_continent(rs.getString(3));
 	        }
 			
 		}
@@ -123,6 +128,32 @@ public class PropertyDAO {
 			System.out.println("에러");
 		}
 		
+		return madVO;
+	}
+	
+	
+	/***
+	 * 
+	 * @param propertyId
+	 * @return property_room, property_bed, property_bathroom
+	 */
+	public MainPropertyDetailVO propertyBath(String propertyId) {
+		MainPropertyDetailVO madVO = new MainPropertyDetailVO();
+		try {
+			String sql = "select property_room, property_bed, property_bathroom from property where property_id = ?";
+	        PreparedStatement pstmt = conn.prepareStatement(sql);
+	        pstmt.setString(1, propertyId);
+	        ResultSet rs = pstmt.executeQuery();
+	        if (rs.next()) {
+	        	madVO.setProperty_room(rs.getInt(1));
+	            madVO.setProperty_bed(rs.getInt(2));
+	            madVO.setProperty_bathroom(rs.getInt(3));
+	        }
+			
+		}
+		catch(SQLException e) {
+			System.out.println("에러");
+		}
 		return madVO;
 	}
 }

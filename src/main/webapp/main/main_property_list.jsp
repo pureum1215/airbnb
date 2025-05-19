@@ -131,8 +131,8 @@ body {
     PropertyDAO dao = new PropertyDAO(); // DAO 객체 생성
     String propertyName = dao.propertyName(propertyId); // DB에서 값 조회
     String propertyPhoto = dao.propertyPhoto(propertyId); //DB에서 값 조회
-    
-    MainPropertyDetailVO madVOloc = dao.propertyLocation(propertyId);//VO객체 생성 숙소 나라 도시  
+    MainPropertyDetailVO madVOloc = dao.propertyLocation(propertyId);//VO객체 생성 숙소 나라 도시
+    MainPropertyDetailVO madVObath= dao.propertyBath(propertyId);
 	%>
 	
 		<div class="title"><%= propertyName %></div>
@@ -147,7 +147,9 @@ body {
 					<%= madVOloc.getLocation_continent() %>
 				</h2>
 				<ul>
-					<li>최대 인원 3명 · 침실 1개 · 침대 1개 · 욕실 1개</li>
+					<li>화장실 개수: <%=madVObath.getProperty_bathroom() %> 방 개수 <%=madVObath.getProperty_room() %>
+					침대 개수:<%=madVObath.getProperty_bed() %>
+					</li>
 					<li>⭐ 4.93 · 후기 110개</li>
 					<li>무선 인터넷, 세탁기, 주방</li>
 				</ul>

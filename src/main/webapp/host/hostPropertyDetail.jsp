@@ -120,7 +120,7 @@ String[] amenities = { "Wi-Fi", "에어컨", "주방", "TV", "난방" };
 </head>
 <body>
 	<div>
-		<%@ include file="../html/header_hostpage.jsp"%>
+		<%@ include file="header_hostpage.jsp"%>
 		<!-- 정적 포함 -->
 	</div>
 	<div class="container">

@@ -210,6 +210,7 @@ body {
 		MainPropertyDetailVO madVObath = dao.propertyBath(propertyId); //숙소 방 화장실 침대
 		MainPropertyDetailVO madVOAvgCount = dao.propertyAvgCount(propertyId);//후기 평균 개수
 		MainPropertyDetailVO madVONameAt = dao.propertyHostName(propertyId);//호스트의 이름 생성한 날짜.
+		
 		List<Integer> listAmentie = dao.propertyAm(propertyId);
 		String amenties = "";
 		%>

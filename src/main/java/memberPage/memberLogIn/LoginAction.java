@@ -6,7 +6,7 @@ import javax.servlet.http.HttpSession;
 
 import controller.Action;
 import controller.ActionForward;
-import dao.UserDAO;
+import memberPage.UserDAO;
 
 public class LoginAction implements Action{
 

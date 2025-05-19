@@ -1,4 +1,4 @@
-package dao;
+package memberPage;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

@@ -9,6 +9,8 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
+import mainPage.mainPropertyDetail.MainPropertyDetailVO;
+
 public class PropertyDAO {
 
 	private Connection conn;
@@ -68,7 +70,7 @@ public class PropertyDAO {
 			
 		}
 		catch(SQLException e) {
-			System.out.println("wow");
+			System.out.println("에러");
 		}
 		return propertyName_rs;
 	}
@@ -92,10 +94,35 @@ public class PropertyDAO {
 			
 		}
 		catch(SQLException e) {
-			System.out.println("wow");
+			System.out.println("에러");
 		}
 		
 		return propertyPhoto_rs;
 		
+	}
+	
+	public MainPropertyDetailVO propertyLocation(String propertyId) {
+		MainPropertyDetailVO madVO = new MainPropertyDetailVO();
+		
+		try {
+			String sql = "SELECT lo.location_city, lo.location_country,lo.location_continent from property pr\n"
+					+ "left join location lo\n"
+					+ "on pr.location_id = lo.location_id\n"
+					+ "where pr.property_id = ?";
+	        PreparedStatement pstmt = conn.prepareStatement(sql);
+	        pstmt.setString(1, propertyId);
+	        ResultSet rs = pstmt.executeQuery();
+	        if (rs.next()) {
+	        	madVO.setLocation_city(rs.getString("lo.location_city"));
+	            madVO.setLocation_country(rs.getString("lo.location_country"));
+	            madVO.setLocation_continent(rs.getString("lo.location_continent"));
+	        }
+			
+		}
+		catch(SQLException e) {
+			System.out.println("에러");
+		}
+		
+		return madVO;
 	}
 }

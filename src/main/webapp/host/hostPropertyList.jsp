@@ -8,9 +8,14 @@
 </head>
 <body>
 	<div>
-		<%@ include file="header_hostpage.jsp"%> 
+		<%@ include file="header_hostpage.jsp"%>
 		<!-- 정적 포함 -->
 	</div>
+
+	<%-- listing.jsp --%>
+	<jsp:include page="header_hostpage.jsp">
+		<jsp:param name="activeMenu" value="listing" />
+	</jsp:include>
 
 	<!-- 리스팅 페이지 본문 -->
 	<main class="px-12 py-8 font-sans">
@@ -62,7 +67,8 @@
 						<td class="py-3 px-2 text-gray-600">숙소</td>
 						<td class="py-3 px-2 text-gray-600">Yongin-si, Gyeonggi-do</td>
 						<!-- 이 부분은 필요 없을 시 삭제 가능 -->
-						<td class="py-3 px-2"><span class="text-orange-600 font-medium text-sm">● 진행 중</span></td>
+						<td class="py-3 px-2"><span
+							class="text-orange-600 font-medium text-sm">● 진행 중</span></td>
 					</tr>
 				</tbody>
 			</table>
@@ -78,8 +84,10 @@
 					<img class="w-full h-60 object-cover"
 						src="https://modo-phinf.pstatic.net/20160324_63/1458757863703eouuM_JPEG/mosa320fGQ.jpeg?type=w720"
 						alt="listing image">
-						<!-- 이 부분은 필요 없을 시 삭제 가능 --> 
-						<span class="absolute top-2 left-2 bg-white text-sm font-medium rounded-full px-3 py-1 shadow text-orange-600">● 진행 중 </span>
+					<!-- 이 부분은 필요 없을 시 삭제 가능 -->
+					<span
+						class="absolute top-2 left-2 bg-white text-sm font-medium rounded-full px-3 py-1 shadow text-orange-600">●
+						진행 중 </span>
 				</div>
 				<div class="px-4 py-3">
 					<h2 class="font-medium text-base truncate">기흥기흥</h2>

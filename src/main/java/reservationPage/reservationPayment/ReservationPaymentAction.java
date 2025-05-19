@@ -5,6 +5,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import controller.Action;
 import controller.ActionForward;
+import reservationPage.ReservationDAO;
 
 public class ReservationPaymentAction implements Action {
 
@@ -16,9 +17,35 @@ public class ReservationPaymentAction implements Action {
 		// payment_id, payment_price, payment_status, payment_created_at 
 		
 		String paymentMethod = request.getParameter("payment_method");
+		String reservationId = request.getParameter("resesrvation_id");
+		String propertyId = request.getParameter("property_id");
 		
 		
-		return null;
+		// payment_id 값 정하기
+		ReservationDAO dao = new ReservationDAO();
+		String lastPaymentId = dao.getLastPaymentId();
+		int number = Integer.parseInt(lastPaymentId.substring(3));
+		String newPaymentId = String.format("res%03d", number + 1);
+		
+		// 총 비용 구하기
+		int totalPrice = dao.getTotalPrice(propertyId);
+		
+		
+		// vo에 값 세팅
+		ReservationPaymentVO vo = new ReservationPaymentVO();
+		vo.setPayment_id(newPaymentId);
+		vo.setReservation_id(reservationId);
+		vo.setPayment_price(totalPrice);
+		vo.setPayment_method(paymentMethod);
+		
+		// 결제 기능
+		dao.reservationPayment(vo);
+		
+        ActionForward forward = new ActionForward();
+        forward.setPath("// 사용자 메뉴 - 예약 목록 페이지 //");
+        forward.setRedirect(true);
+        
+        return forward;
 	}
 
 }

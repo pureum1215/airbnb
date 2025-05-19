@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -138,6 +140,13 @@ public class PropertyDAO {
 		return madVO;
 	}
 	
+	
+	
+	/***
+	 * 
+	 * @param propertyId
+	 * @return 후기 평균, 후기 개수
+	 */
 	public MainPropertyDetailVO propertyAvgCount(String propertyId) {
 		MainPropertyDetailVO madVO = new MainPropertyDetailVO();
 		
@@ -163,6 +172,13 @@ public class PropertyDAO {
 		return madVO;
 	}
 	
+	
+	/***
+	 * 
+	 * @param propertyId
+	 * @return 호스트 이름 가져오기, 호스트 생성일자 알기.
+	 */
+	
 	public MainPropertyDetailVO propertyHostName(String propertyId) {
 		MainPropertyDetailVO madVO = new MainPropertyDetailVO();
 		
@@ -187,5 +203,33 @@ public class PropertyDAO {
 		
 		
 		return madVO;
+	}
+	
+	
+	/***
+	 * 편의시설 id 가져온 이후 for 문 돌려서 무엇인지 체크
+	 * @param propertyId
+	 * @return 편의시설id
+	 */
+	public List<Integer> propertyAm(String propertyId){
+		List<Integer> result = new ArrayList<>();
+		
+		try {
+			String sql = "select am.amenity_id from property_amenities as pa\n"
+					+ "join Amenities am on pa.amenity_id = am.amenity_id\n"
+					+ "where property_id = ?";
+	        PreparedStatement pstmt = conn.prepareStatement(sql);
+	        pstmt.setString(1, propertyId);
+	        ResultSet rs = pstmt.executeQuery();
+	        while (rs.next()) {
+	        	result.add(rs.getInt(1));
+	        }
+			
+		}
+		catch(SQLException e) {
+			System.out.println("에러");
+		}
+		
+		return result; 
 	}
 }

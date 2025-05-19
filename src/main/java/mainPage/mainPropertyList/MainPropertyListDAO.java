@@ -116,5 +116,11 @@ public class MainPropertyListDAO {
 	    return list;
 	}
 
-
+	public MainPropertyListVO allgetProperty() {
+		MainPropertyListVO mpVO = new MainPropertyListVO();
+		
+		
+		
+		return mpVO;
+	}
 }

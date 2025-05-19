@@ -9,6 +9,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import reservationPage.reservationRequest.ReservationAction;
+import reservationPage.reservationRequest.ReservationDefaultAction;
+
 
 public class ReservationController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -51,9 +54,15 @@ public class ReservationController extends HttpServlet {
 		ActionForward forward = null;
 		forward = new ActionForward();
 		
-		/****************************** 
-		 * 페이지 이동 작성 구간
-		 *****************************/
+		// 예약 요청
+		if (command.equals("/reservation_default.re")) {
+			action = new ReservationDefaultAction();
+		}
+		else if (command.equals("/reservation_request.re")) {
+			action = new ReservationAction();
+		}
+
+		
 		
 		try {
 			if(action != null) {

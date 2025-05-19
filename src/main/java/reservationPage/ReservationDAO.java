@@ -8,6 +8,8 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
+import reservationPage.reservationRequest.ReservationRequestVO;
+
 public class ReservationDAO {
 	
 	private Connection conn;
@@ -41,6 +43,17 @@ public class ReservationDAO {
 				conn.close();
 		} catch (Exception e) {
 		}
+	}
+	
+	// reservation default 값 불러오기
+	public String getReservationType(String propertyId) {
+		return null;
+	}
+	
+	public int reservation(ReservationRequestVO vo) {
+		int result = 0;
+		
+		return result;
 	}
 	
 

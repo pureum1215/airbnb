@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>hostPropertyDetailModyfy</title>
+    <title>hostPropertyRegister</title>
     <link rel="stylesheet" href="/css/style.css">
     <style>
         body.container {
@@ -75,7 +75,7 @@
 	</div>
 
 <div class="container" style="margin-top: 40px;">
-    <h2>숙소 정보 수정하기</h2>
+    <h2>새 숙소 등록하기</h2>
 
     <form action="submitListing.jsp" method="post" enctype="multipart/form-data">
         <!-- 숙소 이름 -->

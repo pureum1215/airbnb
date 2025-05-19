@@ -42,7 +42,7 @@ public class ReservationConfirmAction implements Action {
 		dao.reservationRequest(vo);
 		
         ActionForward forward = new ActionForward();
-        forward.setPath("// 결제 페이지 //");
+        forward.setPath("reservation/reservationPayment.jsp");
         forward.setRedirect(true);
         
         return forward;

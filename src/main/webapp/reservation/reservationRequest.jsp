@@ -166,37 +166,34 @@
 		<div class="left">
 			<h1>예약 요청</h1>
 
-			<div class="notice-box">
-				<span>흔치 않은 기회입니다. Catherine님의 숙소는 보통 예약이 가득 차 있습니다.</span> <span>💎</span>
-			</div>
-
-			<div class="info-group">
-				<div class="info-label">
-					날짜 <span class="change-link">수정</span>
-				</div>
-				<div class="info-content">10월 31일 ~ 11월 2일</div>
-				
-				<%-- chech_in, check_out 날짜 받아오기 --%>
-				
-				
-			</div>
-
-			<div class="info-group">
-				<div class="info-label">
-					게스트 <span class="change-link">수정</span>
-				</div>
-				<div class="info-content">게스트 1명</div>
-			</div>
-				
 			<form action="${pageContext.request.contextPath}/reservation_request.re" method="post">
-
-				<%-- servlet으로 보낼 값, 체크인, 체크아웃 날짜 --%>
-				<input type="hidden" name="property_id" value="<%=request.getAttribute("property_id") %>">
-				<input type="hidden" name="reservation_check_in" value=<%=request.getAttribute("reservation_check_in") %>>
-				<input type="hidden" name="reservation_check_out" value=<%=request.getAttribute("reservation_check_in") %>>
-				<input type="hidden" name="user_id" value="${sessionScope.user_id}">
-
-				<%-- 예약 버튼 --%> 
+				<div class="notice-box">
+					<span>흔치 않은 기회입니다. Catherine님의 숙소는 보통 예약이 가득 차 있습니다.</span> <span>💎</span>
+				</div>
+	
+				<div class="info-group">
+					<div class="info-label">
+						날짜 <span class="change-link">수정</span>
+					</div>
+					<div class="info-content">10월 31일 ~ 11월 2일</div>
+					
+					
+					<%-- 앞에서 받았던 값을 여기서 바로 적용되게 변경하기 기능 추가 필요 --%>
+					<%-- servlet으로 보낼 값, 체크인, 체크아웃 날짜 --%>
+					<input type="hidden" name="property_id" value="<%= request.getAttribute("property_id") %>">
+					<input type="date" name="reservation_check_in" value="<%= request.getAttribute("reservation_check_in") %>" required>
+					<input type="date" name="reservation_check_out" value="<%= request.getAttribute("reservation_check_out") %>" required>
+					<input type="hidden" name="user_id" value="${sessionScope.user_id}">				
+					
+				</div>
+	
+				<div class="info-group">
+					<div class="info-label">
+						게스트 <span class="change-link">수정</span>
+					</div>
+					<div class="info-content">게스트 1명</div>
+				</div>
+					
 				<button type="submit" class="submit-btn">예약 요청</button>
 			</form>
 		</div>

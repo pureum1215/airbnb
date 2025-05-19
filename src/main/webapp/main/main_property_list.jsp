@@ -3,7 +3,8 @@
 	import="java.time.*, java.time.format.*, java.time.temporal.ChronoUnit, java.util.List, java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ page import="mainPage.mainPropertyDetail.PropertyDAO"%>
+<%@ page import="mainPage.mainPropertyList.*" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -194,6 +195,16 @@ body {
 </style>
 </head>
 <body>
+<<<<<<< HEAD
+	<%
+	MainPropertyListDAO dao = new MainPropertyListDAO();
+	
+     %>
+	<div>
+		<%@ include file="property_header.jsp"%>
+		<!-- 정적 포함 -->
+	</div>
+=======
 	<!-- header -->
 	<jsp:include page="property_header.jsp" />
 
@@ -217,7 +228,20 @@ body {
 		// 3. 문자열 → LocalDateTime
 		LocalDateTime pastDateTime = LocalDateTime.parse(madVONameAt.getHost_created_at(), formatter);
 		LocalDateTime now = LocalDateTime.now();
+		%>
 
+	<div class="card-container">
+		<!-- 숙소 카드 1개 -->
+		<div class="card">
+			<img src="/uploads/<%= madVONPD.getProperty_photo_url() %>" alt="숙소 대표 이미지" />
+			<div class="card-content">
+				<!-- 예시 숙소 card -->
+				<div class="card-title">Les Halles의 다인실</div>
+				<div class="card-desc">8월 15일~17일 · 게스트 선호</div>
+				<div class="card-price">₩554,430 · 2박</div>
+				<div class="card-rating">★ 4.88</div>
+
+		<% 
 		// 4. 년, 월, 일 차이 계산
 		long totalYears = pastDateTime.until(now, ChronoUnit.YEARS);
 		long totalMonths = pastDateTime.until(now, ChronoUnit.MONTHS);
@@ -361,6 +385,7 @@ body {
 					<p>서비스 수수료: ₩6,349</p>
 					<strong>총액: ₩118,417</strong>
 				</div>
+>>>>>>> main
 			</div>
 		</div>
 	</div>

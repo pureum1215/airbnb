@@ -12,41 +12,45 @@ public class ReservationDefaultAction implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		
+		System.out.println("execute 호출됨");
+		
 		request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
 		
         HttpSession session = request.getSession();
         String userId = (String) session.getAttribute("userId");
+        String propertyId = request.getParameter("property_id");
         
         // 로그인하지 않은 경우
         if (userId == null) {
             response.sendRedirect("/login.me");
             return null;
         }
-        
-        
+                
 		// property_reservation_default가 바로 결제인지 요청 먼저인지 확인
         ReservationDAO reservationDAO = new ReservationDAO();
-        String propertyId = request.getParameter("property_id");
         String ReservationType = reservationDAO.getReservationType(propertyId);
+        request.setAttribute("property_id", propertyId);
+        
+        System.out.println(ReservationType);
         
         if ("즉시 예약".equals(ReservationType)) {
-        	request.setAttribute("property_id", propertyId);
 	        ActionForward forward = new ActionForward();
-	        forward.setPath("//즉시 예약 페이지//");
-	        forward.setRedirect(true);
+	        forward.setPath("reservation/reservationConfirm.jsp");
+	        forward.setRedirect(false);
 	        
 	        return forward;
         }
         
         else if ("예약 요청".equals(ReservationType)) {
-        	request.setAttribute("property_id", propertyId);
-            ActionForward forward = new ActionForward();
-            forward.setPath("//예약 요청 페이지//");
-            forward.setRedirect(true);
+        	ActionForward forward = new ActionForward();
+            forward.setPath("reservation/reservationRequest.jsp");
+            forward.setRedirect(false);
             
             return forward;
         }
+        
         
         return null;
 	}

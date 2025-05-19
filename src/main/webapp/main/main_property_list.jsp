@@ -1,3 +1,4 @@
+<%@page import="mainPage.mainPropertyDetail.MainPropertyDetailVO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="dao.PropertyDAO" %>
@@ -129,22 +130,26 @@ body {
     String propertyId = "prop001"; //property_Id 로 검색
     PropertyDAO dao = new PropertyDAO(); // DAO 객체 생성
     String propertyName = dao.propertyName(propertyId); // DB에서 값 조회
+    String propertyPhoto = dao.propertyPhoto(propertyId); //DB에서 값 조회
+    MainPropertyDetailVO madVOloc = dao.propertyLocation(propertyId);//VO객체 생성 숙소 나라 도시
+    MainPropertyDetailVO madVObath= dao.propertyBath(propertyId);
 	%>
+	
 		<div class="title"><%= propertyName %></div>
-
 		<div class="gallery">
-			<img src="https://via.placeholder.com/600x400" alt="숙소 대표 이미지" /> <img
-				src="https://via.placeholder.com/300x200" /> <img
-				src="https://via.placeholder.com/300x200" /> <img
-				src="https://via.placeholder.com/300x200" /> <img
-				src="https://via.placeholder.com/300x200" />
+			<img src="/uploads/<%= propertyPhoto %>" alt="숙소 대표 이미지" />
 		</div>
 
 		<div class="info-section">
 			<div class="details">
-				<h2>Yesan-gun, 한국의 집 전체</h2>
+				<h2><%= madVOloc.getLocation_city() %><br>
+					<%= madVOloc.getLocation_country() %><br>
+					<%= madVOloc.getLocation_continent() %>
+				</h2>
 				<ul>
-					<li>최대 인원 3명 · 침실 1개 · 침대 1개 · 욕실 1개</li>
+					<li>화장실 개수: <%=madVObath.getProperty_bathroom() %> 방 개수 <%=madVObath.getProperty_room() %>
+					침대 개수:<%=madVObath.getProperty_bed() %>
+					</li>
 					<li>⭐ 4.93 · 후기 110개</li>
 					<li>무선 인터넷, 세탁기, 주방</li>
 				</ul>

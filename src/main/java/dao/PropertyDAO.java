@@ -9,6 +9,8 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
+import mainPage.mainPropertyDetail.MainPropertyDetailVO;
+
 public class PropertyDAO {
 
 	private Connection conn;
@@ -50,23 +52,108 @@ public class PropertyDAO {
 	 * (호스트의 숙소 수정, 관리자의 숙소 정보 삭제)
 	 ***********************************************************************/
 	
-	// 숙소 이름 가져오기
+	/***
+	 * 
+	 * @param propertyId
+	 * @return 숙소 이름 가져오기
+	 */
 	public String propertyName(String propertyId) {
-		String propertyName = null;
+		String propertyName_rs = null;
 		try {
 			String sql = "SELECT property_name FROM property WHERE property_id = ?";
 	        PreparedStatement pstmt = conn.prepareStatement(sql);
 	        pstmt.setString(1, propertyId);
 	        ResultSet rs = pstmt.executeQuery();
 	        if (rs.next()) {
-	            propertyName = rs.getString("property_name");
+	            propertyName_rs = rs.getString("property_name");
 	        }
 			
 		}
 		catch(SQLException e) {
-			System.out.println("wow");
+			System.out.println("에러");
 		}
-		return propertyName;
+		return propertyName_rs;
 	}
 	
+	/***
+	 * 
+	 * @param propertyId
+	 * @return 숙소 사진 가져오기
+	 */
+	public String propertyPhoto(String propertyId) {
+		String propertyPhoto_rs = null;
+		
+		try {
+			String sql = "SELECT property_photo_url FROM property WHERE property_id = ?";
+	        PreparedStatement pstmt = conn.prepareStatement(sql);
+	        pstmt.setString(1, propertyId);
+	        ResultSet rs = pstmt.executeQuery();
+	        if (rs.next()) {
+	            propertyPhoto_rs = rs.getString("property_photo_url");
+	        }
+			
+		}
+		catch(SQLException e) {
+			System.out.println("에러");
+		}
+		
+		return propertyPhoto_rs;
+		
+	}
+	
+	/***
+	 * 
+	 * @param propertyId
+	 * @return Locationcity, Location_country, Location_continent
+	 */
+	public MainPropertyDetailVO propertyLocation(String propertyId) {
+		MainPropertyDetailVO madVO = new MainPropertyDetailVO();
+		
+		try {
+			String sql = "SELECT lo.location_city, lo.location_country,lo.location_continent from property pr\n"
+					+ "left join location lo\n"
+					+ "on pr.location_id = lo.location_id\n"
+					+ "where pr.property_id = ?";
+	        PreparedStatement pstmt = conn.prepareStatement(sql);
+	        pstmt.setString(1, propertyId);
+	        ResultSet rs = pstmt.executeQuery();
+	        if (rs.next()) {
+	        	madVO.setLocation_city(rs.getString(1));
+	            madVO.setLocation_country(rs.getString(2));
+	            madVO.setLocation_continent(rs.getString(3));
+	        }
+			
+		}
+		catch(SQLException e) {
+			System.out.println("에러");
+		}
+		
+		return madVO;
+	}
+	
+	
+	/***
+	 * 
+	 * @param propertyId
+	 * @return property_room, property_bed, property_bathroom
+	 */
+	public MainPropertyDetailVO propertyBath(String propertyId) {
+		MainPropertyDetailVO madVO = new MainPropertyDetailVO();
+		try {
+			String sql = "select property_room, property_bed, property_bathroom from property where property_id = ?";
+	        PreparedStatement pstmt = conn.prepareStatement(sql);
+	        pstmt.setString(1, propertyId);
+	        ResultSet rs = pstmt.executeQuery();
+	        if (rs.next()) {
+	        	madVO.setProperty_room(rs.getInt(1));
+	            madVO.setProperty_bed(rs.getInt(2));
+	            madVO.setProperty_bathroom(rs.getInt(3));
+	        }
+			
+		}
+		catch(SQLException e) {
+			System.out.println("에러");
+		}
+		return madVO;
+	}
 }

@@ -156,4 +156,29 @@ public class PropertyDAO {
 		}
 		return madVO;
 	}
+	
+	public MainPropertyDetailVO propertyAvgCount(String propertyId) {
+		MainPropertyDetailVO madVO = new MainPropertyDetailVO();
+		
+		try {
+			String sql = "SELECT \n"
+					+ "    COUNT(*) AS review_count,\n"
+					+ "    ROUND(AVG(property_review_rating), 2) AS avg_rating\n"
+					+ "FROM property_review\n"
+					+ "WHERE property_id = ?";
+	        PreparedStatement pstmt = conn.prepareStatement(sql);
+	        pstmt.setString(1, propertyId);
+	        ResultSet rs = pstmt.executeQuery();
+	        if (rs.next()) {
+	        	madVO.setProperty_review_count(rs.getInt(1));
+	            madVO.setProperty_review_avg(rs.getDouble(2));
+	        }
+			
+		}
+		catch(SQLException e) {
+			System.out.println("에러");
+		}
+		
+		return madVO;
+	}
 }

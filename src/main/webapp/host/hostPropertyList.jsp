@@ -12,11 +12,6 @@
 		<!-- 정적 포함 -->
 	</div>
 
-	<%-- listing.jsp --%>
-	<jsp:include page="header_hostpage.jsp">
-		<jsp:param name="activeMenu" value="listing" />
-	</jsp:include>
-
 	<!-- 리스팅 페이지 본문 -->
 	<main class="px-12 py-8 font-sans">
 		<!-- 상단 제목 및 버튼 -->

@@ -61,8 +61,8 @@
 							alt="숙소 이미지"> <span class="font-medium">기흥기흥</span></td>
 						<td class="py-3 px-2 text-gray-600">숙소</td>
 						<td class="py-3 px-2 text-gray-600">Yongin-si, Gyeonggi-do</td>
-						<td class="py-3 px-2"><span
-							class="text-orange-600 font-medium text-sm">● 진행 중</span></td>
+						<!-- 이 부분은 필요 없을 시 삭제 가능 -->
+						<td class="py-3 px-2"><span class="text-orange-600 font-medium text-sm">● 진행 중</span></td>
 					</tr>
 				</tbody>
 			</table>
@@ -77,9 +77,9 @@
 				<div class="relative">
 					<img class="w-full h-60 object-cover"
 						src="https://modo-phinf.pstatic.net/20160324_63/1458757863703eouuM_JPEG/mosa320fGQ.jpeg?type=w720"
-						alt="listing image"> <span
-						class="absolute top-2 left-2 bg-white text-sm font-medium rounded-full px-3 py-1 shadow text-orange-600">
-						● 진행 중 </span>
+						alt="listing image">
+						<!-- 이 부분은 필요 없을 시 삭제 가능 --> 
+						<span class="absolute top-2 left-2 bg-white text-sm font-medium rounded-full px-3 py-1 shadow text-orange-600">● 진행 중 </span>
 				</div>
 				<div class="px-4 py-3">
 					<h2 class="font-medium text-base truncate">기흥기흥</h2>

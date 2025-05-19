@@ -31,6 +31,7 @@ public class ReservationDefaultAction implements Action {
         String ReservationType = reservationDAO.getReservationType(propertyId);
         
         if ("즉시 예약".equals(ReservationType)) {
+        	request.setAttribute("property_id", propertyId);
 	        ActionForward forward = new ActionForward();
 	        forward.setPath("//즉시 예약 페이지//");
 	        forward.setRedirect(true);
@@ -39,8 +40,9 @@ public class ReservationDefaultAction implements Action {
         }
         
         else if ("예약 요청".equals(ReservationType)) {
+        	request.setAttribute("property_id", propertyId);
             ActionForward forward = new ActionForward();
-            forward.setPath("//예약 완료되었을 때 나타나는 페이지//");
+            forward.setPath("//예약 요청 페이지//");
             forward.setRedirect(true);
             
             return forward;

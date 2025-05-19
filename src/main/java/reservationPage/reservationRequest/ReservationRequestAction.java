@@ -15,24 +15,22 @@ public class ReservationRequestAction implements Action {
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		
-		// 예약 날짜 detail에서 불러오기
-		// 날짜 수정 기능 가능, 예약 목록과 비교하여 클릭 안되게 만들기
-		// vo에 예약 날짜 담기
-		// property_id, user_id 필요
-		// reservation_id는 res001 형식
-		
 		String checkIn = request.getParameter("reservation_check_in");
 		String checkOut = request.getParameter("reservation_check_out");
 		
+		// user_id, property_id 가져오기
 		HttpSession session = request.getSession();
 		String userId = (String) session.getAttribute("user_id");
 		String propertyId = request.getParameter("property_id");
-
+		
+		// reservation_id 값 정하기
 		ReservationDAO dao = new ReservationDAO();
 		String lastReservationId = dao.getLastReservationId();
 		int number = Integer.parseInt(lastReservationId.substring(3));
 		String newReservationId = String.format("res%03d", number + 1);
 		
+		
+		// vo에 값 세팅
 		ReservationRequestVO vo = new ReservationRequestVO();
 		vo.setReservation_id(newReservationId);
 		vo.setUser_id(userId);
@@ -40,6 +38,7 @@ public class ReservationRequestAction implements Action {
 		vo.setReservation_check_in(Date.valueOf(checkIn));
 		vo.setReservation_check_out(Date.valueOf(checkOut));
 		
+		// 예약 요청 기능
 		dao.reservationRequest(vo);
 		
         ActionForward forward = new ActionForward();

@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import reservationPage.reservationRequest.ReservationRequestAction;
+import reservationPage.reservationPayment.ReservationPaymentAction;
 import reservationPage.reservationRequest.ReservationConfirmAction;
 import reservationPage.reservationRequest.ReservationDefaultAction;
 
@@ -66,6 +67,10 @@ public class ReservationController extends HttpServlet {
 		// default 값이 즉시 예약인 예약
 		else if (command.equals("/reservation_confirm.re")) {
 			action = new ReservationConfirmAction();
+		}
+		// 결제 페이지로 이동
+		else if (command.equals("/reservation_payment.re")) {
+			action = new ReservationPaymentAction();
 		}
 
 		

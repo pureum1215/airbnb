@@ -129,16 +129,15 @@ body {
 	<%
     String propertyId = "prop011"; //property_Id 로 검색
     PropertyDAO dao = new PropertyDAO(); // DAO 객체 생성
-    String propertyName = dao.propertyName(propertyId); // DB에서 값 조회
-    String propertyPhoto = dao.propertyPhoto(propertyId); //DB에서 값 조회
+    MainPropertyDetailVO madVONPD = dao.propertyNPD(propertyId);
     MainPropertyDetailVO madVOloc = dao.propertyLocation(propertyId);//VO객체 생성 숙소 나라 도시
     MainPropertyDetailVO madVObath= dao.propertyBath(propertyId);
     MainPropertyDetailVO madVOAvgCount = dao.propertyAvgCount(propertyId);
 	%>
 	
-		<div class="title"><%= propertyName %></div>
+		<div class="title"><%= madVONPD.getProperty_name() %></div>
 		<div class="gallery">
-			<img src="/uploads/<%= propertyPhoto %>" alt="숙소 대표 이미지" />
+			<img src="/uploads/<%= madVONPD.getProperty_photo_url() %>" alt="숙소 대표 이미지" />
 		</div>
 
 		<div class="info-section">
@@ -156,7 +155,7 @@ body {
 					<li>무선 인터넷, 세탁기, 주방</li>
 				</ul>
 				<div class="host">
-					<strong>호스트: Sylvia 님</strong><br /> 숙소 소개: 예산시장과 도고온천 인근. 감성적인 한옥
+					<strong>호스트: Sylvia 님</strong><br /> 숙소 소개: <%=madVONPD.getProperty_description() %>
 					숙소에서 휴식을 즐기세요.<br />
 				</div>
 			</div>

@@ -38,8 +38,8 @@ public class MainPropertyDetailVO {
 	private double location_y;
 	
 	private String property_review_id;
-	private String property_review_rating;
-	private String property_review_content;
+	private int property_review_count; //리뷰 총 개수
+	private double property_review_avg; //리뷰 평균 별점
 	private Timestamp property_review_created_at;
 	
 	private int price_per_night;
@@ -166,17 +166,19 @@ public class MainPropertyDetailVO {
 	public void setProperty_review_id(String property_review_id) {
 		this.property_review_id = property_review_id;
 	}
-	public String getProperty_review_rating() {
-		return property_review_rating;
+
+
+	public int getProperty_review_count() {
+		return property_review_count;
 	}
-	public void setProperty_review_rating(String property_review_rating) {
-		this.property_review_rating = property_review_rating;
+	public void setProperty_review_count(int property_review_count) {
+		this.property_review_count = property_review_count;
 	}
-	public String getProperty_review_content() {
-		return property_review_content;
+	public double getProperty_review_avg() {
+		return property_review_avg;
 	}
-	public void setProperty_review_content(String property_review_content) {
-		this.property_review_content = property_review_content;
+	public void setProperty_review_avg(double property_review_avg) {
+		this.property_review_avg = property_review_avg;
 	}
 	public Timestamp getProperty_review_created_at() {
 		return property_review_created_at;
@@ -202,7 +204,6 @@ public class MainPropertyDetailVO {
 	public void setReservation_check_out(Date reservation_check_out) {
 		this.reservation_check_out = reservation_check_out;
 	}
-	
 	@Override
 	public String toString() {
 		return "MainPropertyDetailVO [property_id=" + property_id + ", property_photo_url=" + property_photo_url
@@ -213,10 +214,12 @@ public class MainPropertyDetailVO {
 				+ ", property_bathroom=" + property_bathroom + ", amenity_id=" + amenity_id + ", host_id=" + host_id
 				+ ", user_id=" + user_id + ", user_name=" + user_name + ", host_created_at=" + host_created_at
 				+ ", location_x=" + location_x + ", location_y=" + location_y + ", property_review_id="
-				+ property_review_id + ", property_review_rating=" + property_review_rating
-				+ ", property_review_content=" + property_review_content + ", property_review_created_at="
-				+ property_review_created_at + ", price_per_night=" + price_per_night + ", reservation_check_in="
-				+ reservation_check_in + ", reservation_check_out=" + reservation_check_out + "]";
+				+ property_review_id + ", property_review_count=" + property_review_count + ", property_review_avg="
+				+ property_review_avg + ", property_review_created_at=" + property_review_created_at
+				+ ", price_per_night=" + price_per_night + ", reservation_check_in=" + reservation_check_in
+				+ ", reservation_check_out=" + reservation_check_out + "]";
 	}
 
+	
+	
 }

@@ -5,7 +5,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import controller.Action;
 import controller.ActionForward;
-import dao.UserDAO;
+import memberPage.UserDAO;
 
 public class SignInAction implements Action{
 

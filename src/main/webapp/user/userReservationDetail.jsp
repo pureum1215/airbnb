@@ -9,7 +9,7 @@
 </head>
 <body class="bg-white text-gray-900 font-sans antialiased">
 	<div>
-		<%@ include file="../html/header_default.jsp"%>
+		<%@ include file="header_default.jsp"%>
 		<!-- 정적 포함 -->
 	</div>
 

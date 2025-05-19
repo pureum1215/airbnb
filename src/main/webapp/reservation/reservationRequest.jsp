@@ -156,7 +156,7 @@ h1 {
 </head>
 <body>
 	<div>
-		<%@ include file="../html/header_default.jsp"%>
+		<%@ include file="header_default.jsp"%>
 		<!-- 정적 포함 -->
 	</div>
 	<br>

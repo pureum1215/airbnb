@@ -198,7 +198,7 @@ body {
 </style>
 </head>
 <body>
-	<%@ include file="../html/header_hostpage.jsp"%>
+	<%@ include file="header_hostpage.jsp"%>
 
 	<div class="container">
 		<!-- 왼쪽 패널 -->
@@ -321,6 +321,6 @@ body {
 		});
 	</script>
 
-	<%@ include file="../html/footer.jsp"%>
+	<%@ include file="footer_hostpage.jsp"%>
 </body>
 </html>

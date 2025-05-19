@@ -8,13 +8,19 @@
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-white text-gray-900 font-sans antialiased">
+
+	<div>
+		<%@ include file="../html/header_default.jsp"%>
+		<!-- 정적 포함 -->
+	</div>
+
   <main class="max-w-7xl mx-auto px-6 py-10 space-y-6">
     <!-- 위시리스트 제목 -->
     <h1 class="text-2xl font-bold">위시리스트</h1>
 
     <!-- 카드 리스트 -->
     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-      <%-- 반복되는 카드 시작 --%>
+      <%-- 임시 카드1 --%>
       <div class="border rounded-2xl overflow-hidden shadow-sm">
         <div class="relative">
           <img src="https://static.hubzum.zumst.com/hubzum/2023/12/18/14/9c73367c393e4a55b922c457a7574ee9.jpg" alt="숙소 이미지" class="w-full h-48 object-cover" />
@@ -39,7 +45,7 @@
         </div>
       </div>
 
-      <%-- 카드 복제 2개 --%>
+      <%-- 임시 카드1 --%>
       <div class="border rounded-2xl overflow-hidden shadow-sm">
         <div class="relative">
           <img src="https://static.hubzum.zumst.com/hubzum/2023/12/18/14/9c73367c393e4a55b922c457a7574ee9.jpg" alt="숙소 이미지" class="w-full h-48 object-cover" />
@@ -63,7 +69,8 @@
           <p class="text-sm text-gray-700">★ 4.86</p>
         </div>
       </div>
-
+      
+      <%-- 임시 카드1 --%>
       <div class="border rounded-2xl overflow-hidden shadow-sm">
         <div class="relative">
           <img src="https://static.hubzum.zumst.com/hubzum/2023/12/18/14/9c73367c393e4a55b922c457a7574ee9.jpg" alt="숙소 이미지" class="w-full h-48 object-cover" />

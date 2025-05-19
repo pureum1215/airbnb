@@ -1,4 +1,5 @@
 <%@page import="mainPage.mainPropertyDetail.MainPropertyDetailVO"%>
+<%@ page import="java.time.*, java.time.format.*, java.time.temporal.ChronoUnit" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="dao.PropertyDAO" %>
@@ -133,8 +134,20 @@ body {
     MainPropertyDetailVO madVOloc = dao.propertyLocation(propertyId);//VO객체 생성 숙소 나라 도시
     MainPropertyDetailVO madVObath= dao.propertyBath(propertyId);
     MainPropertyDetailVO madVOAvgCount = dao.propertyAvgCount(propertyId);
+    MainPropertyDetailVO madVONameAt = dao.propertyHostName(propertyId);
 	%>
-	
+	<% // 2. 포맷터 설정
+	DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+
+	// 3. 문자열 → LocalDateTime
+	LocalDateTime pastDateTime = LocalDateTime.parse(madVONameAt.getHost_created_at(), formatter);
+	LocalDateTime now = LocalDateTime.now();
+
+	// 4. 년, 월, 일 차이 계산
+	long totalYears = pastDateTime.until(now, ChronoUnit.YEARS);
+	long totalMonths = pastDateTime.until(now, ChronoUnit.MONTHS);
+	long remainMonths = totalMonths - (totalYears * 12);
+	%>
 		<div class="title"><%= madVONPD.getProperty_name() %></div>
 		<div class="gallery">
 			<img src="/uploads/<%= madVONPD.getProperty_photo_url() %>" alt="숙소 대표 이미지" />
@@ -155,8 +168,9 @@ body {
 					<li>무선 인터넷, 세탁기, 주방</li>
 				</ul>
 				<div class="host">
-					<strong>호스트: Sylvia 님</strong><br /> 숙소 소개: <%=madVONPD.getProperty_description() %>
+					<strong>호스트: <%= madVONameAt.getUser_name() %></strong><br /> 숙소 소개: <%=madVONPD.getProperty_description() %>
 					숙소에서 휴식을 즐기세요.<br />
+					 <p><strong>호스트 생성일자:</strong> <%= totalYears %>년 <%= remainMonths %>개월  </p>
 				</div>
 			</div>
 

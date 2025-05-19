@@ -10,6 +10,9 @@ import javax.sql.DataSource;
 
 import reservationPage.reservationRequest.ReservationRequestVO;
 
+import java.sql.Date;
+import java.sql.Timestamp;
+
 public class ReservationDAO {
 	
 	private Connection conn;
@@ -88,6 +91,27 @@ public class ReservationDAO {
 	public int reservationRequest(ReservationRequestVO vo) {
 		int result = 0;
 		
+	    try {
+	        String sql = "INSERT INTO reservation (reservation_id, property_id, user_id, reservation_check_in, reservation_check_out, reservation_created_at) " +
+	                     "VALUES (?, ?, ?, ?, ?, NOW())";
+
+	        pstmt = conn.prepareStatement(sql);
+	        pstmt.setString(1, vo.getReservation_id());
+	        pstmt.setString(2, vo.getProperty_id());
+	        pstmt.setString(3, vo.getUser_id());
+	        pstmt.setDate(4, vo.getReservation_check_in());
+	        pstmt.setDate(5, vo.getReservation_check_out());
+
+	        result = pstmt.executeUpdate();
+
+	    } 
+	    catch (Exception e) {
+	        e.printStackTrace();
+	    } 
+	    finally {
+	        closeCon();
+	    }
+	    
 		return result;
 	}
 	

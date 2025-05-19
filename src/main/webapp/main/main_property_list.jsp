@@ -120,6 +120,7 @@ body {
 </style>
 </head>
 <body>
+
 	<!-- header -->
 	<jsp:include page="property_header.jsp" />
 	
@@ -129,15 +130,11 @@ body {
     String propertyId = "prop001"; //property_Id 로 검색
     PropertyDAO dao = new PropertyDAO(); // DAO 객체 생성
     String propertyName = dao.propertyName(propertyId); // DB에서 값 조회
+    String propertyPhoto = dao.propertyPhoto(propertyId);
 	%>
 		<div class="title"><%= propertyName %></div>
-
 		<div class="gallery">
-			<img src="https://via.placeholder.com/600x400" alt="숙소 대표 이미지" /> <img
-				src="https://via.placeholder.com/300x200" /> <img
-				src="https://via.placeholder.com/300x200" /> <img
-				src="https://via.placeholder.com/300x200" /> <img
-				src="https://via.placeholder.com/300x200" />
+			<img src="/uploads/<%= propertyPhoto %>" alt="숙소 대표 이미지" />
 		</div>
 
 		<div class="info-section">

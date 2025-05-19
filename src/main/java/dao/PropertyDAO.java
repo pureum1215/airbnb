@@ -50,23 +50,52 @@ public class PropertyDAO {
 	 * (호스트의 숙소 수정, 관리자의 숙소 정보 삭제)
 	 ***********************************************************************/
 	
-	// 숙소 이름 가져오기
+	/***
+	 * 
+	 * @param propertyId
+	 * @return 숙소 이름 가져오기
+	 */
 	public String propertyName(String propertyId) {
-		String propertyName = null;
+		String propertyName_rs = null;
 		try {
 			String sql = "SELECT property_name FROM property WHERE property_id = ?";
 	        PreparedStatement pstmt = conn.prepareStatement(sql);
 	        pstmt.setString(1, propertyId);
 	        ResultSet rs = pstmt.executeQuery();
 	        if (rs.next()) {
-	            propertyName = rs.getString("property_name");
+	            propertyName_rs = rs.getString("property_name");
 	        }
 			
 		}
 		catch(SQLException e) {
 			System.out.println("wow");
 		}
-		return propertyName;
+		return propertyName_rs;
 	}
 	
+	/***
+	 * 
+	 * @param propertyId
+	 * @return 숙소 사진 가져오기
+	 */
+	public String propertyPhoto(String propertyId) {
+		String propertyPhoto_rs = null;
+		
+		try {
+			String sql = "SELECT property_photo_url FROM property WHERE property_id = ?";
+	        PreparedStatement pstmt = conn.prepareStatement(sql);
+	        pstmt.setString(1, propertyId);
+	        ResultSet rs = pstmt.executeQuery();
+	        if (rs.next()) {
+	            propertyPhoto_rs = rs.getString("property_photo_url");
+	        }
+			
+		}
+		catch(SQLException e) {
+			System.out.println("wow");
+		}
+		
+		return propertyPhoto_rs;
+		
+	}
 }

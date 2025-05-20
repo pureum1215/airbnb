@@ -203,8 +203,13 @@
 	<script>
 	document.querySelectorAll(".showMoreBtn").forEach((btn, index) => {
 	    btn.addEventListener("click", function() {
+	    	console.log("abc");
 	        const moreReviews = document.querySelectorAll(".moreReviews")[index];
+	        
+	        console.log("bb3");
 	        if (!moreReviews) return;
+	        
+	        console.log(moreReviews);
 	
 	        moreReviews.classList.toggle("hidden");
 	

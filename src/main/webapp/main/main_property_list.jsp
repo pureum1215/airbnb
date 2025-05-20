@@ -170,23 +170,24 @@ System.out.println("jsp: "+propertyList.get(1).getProperty_id());
 		<div class="property-grid">
 
 			<!-- 카드 1: 일반 숙소 -->
-			<%-- <c:forEach var="property" items="${propertyList}">--%>
-			<% for(int i = 0 ; i < propertyList.size(); i++) { %>
-				<div class="property-card">
-					<img src="/uploads/${property.property_photo_url}"
-						alt="숙소 대표 이미지" />
-						<img src="/uploads/<%=propertyList.get(i).getProperty_photo_url()%>"
-						alt="숙소 대표 이미지" />
-					<!-- <button class="wishlist-button" onclick="toggleHeart(this)">♡</button> -->
-					<div class="property-info">
-						<div class="property-location"></div>
-						<div class="property-name"></div>
-						<div class="property-rating">⭐ 후기 </div>
-						<div class="property-price"></div>
-					</div>
-				</div>
-			<% } %>
-			<%--</c:forEach>--%>
+	<% for(int i = 0 ; i < propertyList.size(); i++) { 
+     String propertyId = propertyList.get(i).getProperty_id();
+     String propertyName = propertyList.get(i).getProperty_name();
+     String photoUrl = propertyList.get(i).getProperty_photo_url();
+	%>
+    <a href="main_property_detail.jsp?property_id=<%=propertyId%>" class="property-card-link">
+        <div class="property-card">
+            <img src="/uploads/<%=photoUrl%>" alt="숙소 대표 이미지" />
+            <div class="property-info">
+                <div class="property-location"></div>
+                <div class="property-name"><%=propertyName%></div>
+                <div class="property-rating">⭐ 후기 </div>
+                <div class="property-price"></div>
+                <!-- hidden input은 필요 없음, GET 파라미터로 전달됨 -->
+            </div>
+        </div>
+    </a>
+<% } %>
 
 
 			<!-- 카드 2: 게스트 선호 뱃지 포함 숙소 -->

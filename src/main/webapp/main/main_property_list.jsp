@@ -4,10 +4,9 @@
 <!-- ====== Java import ====== -->
 <%@ page
 	import="java.util.*, java.time.*, java.time.format.*, java.time.temporal.ChronoUnit"%>
-<%@ page import="mainPage.mainPropertyDetail.MainPropertyDetailVO"%>
 <%@ page
 	import="mainPage.mainPropertyList.*, mainPage.mainPropertyList.MainPropertyListVO"%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -153,7 +152,9 @@ body {
 </style>
 </head>
 <body>
-
+<%
+MainPropertyListDAO dao = new MainPropertyListDAO();
+List<MainPropertyListVO> propertyList = dao.allgetProperty(); %>
 	<!-- ====== 공통 헤더 ====== -->
 	<jsp:include page="property_header.jsp" />
 
@@ -162,18 +163,20 @@ body {
 		<div class="property-grid">
 
 			<!-- 카드 1: 일반 숙소 -->
-			<div class="property-card">
-				<img
-					src="https://img.hourplace.co.kr/place/user/33920/2024/04/04/fbbe0f84-2c2a-4432-b884-15f309fa2f51?s=2000x2000&t=inside&q=80"
-					alt="숙소 이미지" />
-				<button class="wishlist-button" onclick="toggleHeart(this)">♡</button>
-				<div class="property-info">
-					<div class="property-location">서울, 대한민국</div>
-					<div class="property-name">도심 속 감성 스튜디오</div>
-					<div class="property-rating">⭐ 4.91 후기 135개</div>
-					<div class="property-price">₩89,000 /박</div>
+			<c:forEach var="property" items="${propertyList}">
+				<div class="property-card">
+					<img src="/uploads/${property.property_photo_url}"
+						alt="숙소 대표 이미지" />
+					<!-- <button class="wishlist-button" onclick="toggleHeart(this)">♡</button> -->
+					<div class="property-info">
+						<div class="property-location"></div>
+						<div class="property-name"></div>
+						<div class="property-rating">⭐ 후기 </div>
+						<div class="property-price"></div>
+					</div>
 				</div>
-			</div>
+			</c:forEach>
+
 
 			<!-- 카드 2: 게스트 선호 뱃지 포함 숙소 -->
 			<div class="property-card">

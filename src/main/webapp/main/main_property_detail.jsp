@@ -305,18 +305,22 @@ body {
 					<h3><%=madVONameAt.getUser_name()%>
 						님에 대한 호스트의 후기
 					</h3>
-
-					<div class="review-card">
-						<p class="review-content">“푸름 그리고 그녀의 일행은 방을 깨끗하게 청소하고 숙소
-							이용규칙을 준중했습니다. 체크인 시 연락을 주셨는데 매우 도움이 되었습니다.”</p>
-						<div class="review-footer">
-							<img src="/images/profile1.png" class="review-avatar" />
-							<div class="review-meta">
-								<div class="review-name">Toshiko</div>
-								<div class="review-date">2023년 9월</div>
+					<c:forEach var="review" items="${madVOReview}">
+						<div class="review-card">
+							<p class="review-content">“${review.property_review_content}”</p>
+							<div class="review-footer">
+								<img src="/images/profile1.png" class="review-avatar" />
+								<div class="review-meta">
+									<div class="review-name">${review.user_name}</div>
+									<div class="review-date">
+										<fmt:parseDate value="${review.property_review_created_at}" pattern="yyyy-MM-dd HH:mm:ss" var="parsedDate" />
+										<fmt:formatDate value="${parsedDate}" pattern="yyyy년 M월" />
+									</div>
+								</div>
 							</div>
 						</div>
-					</div>
+					</c:forEach>
+
 
 					<div class="review-card hidden-review">
 						<p class="review-content">“정시에 체크인하고 깔끔하게 정리해주셨어요. 다시 만나고 싶은

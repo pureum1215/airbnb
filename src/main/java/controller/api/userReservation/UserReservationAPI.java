@@ -13,11 +13,14 @@ import javax.servlet.http.HttpSession;
 
 import com.google.gson.Gson;
 
+import userPage.userReservationList.UserReservationHistoryAction;
 import userPage.userReservationList.UserReservationListDAO;
 import userPage.userReservationList.UserReservationListVO;
+import userPage.userReservationList.UserReservationUpcomingAction;
+import util.ResponseData;
 
 
-public class UserReservationHistoryAPI extends HttpServlet {
+public class UserReservationAPI extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) 
 			throws ServletException, IOException {
 		doProcess(request, response);
@@ -36,27 +39,22 @@ public class UserReservationHistoryAPI extends HttpServlet {
 		System.out.println("api호출: " + command);
 		
 		Gson gson = new Gson();
+		ResponseData responseData = null;
 		
-		// 세션에서 user_id 가져오기
-        HttpSession session = request.getSession();
-        String userId = (String) session.getAttribute("userId");
-        
-        // 로그인 안 된 경우 처리
-        if (userId == null) {
-            response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "로그인이 필요합니다.");
-            return;
-        }
-        
-        // DAO에서 예약 목록 가져오기
-        UserReservationListDAO dao = new UserReservationListDAO();
-        List<UserReservationListVO> historyList = dao.getHistoryReservations(userId);
-
-		
+		if (command.equals("/user_reservation_upcoming.ura")) {
+			UserReservationUpcomingAction action = new UserReservationUpcomingAction();
+			responseData = action.execute(request, response);
+		}
+		else if (command.equals("/user_reservation_history.ura")) {
+			UserReservationHistoryAction action = new UserReservationHistoryAction();
+			responseData = action.execute(request, response);
+		}
+	
 		response.setCharacterEncoding("UTF-8");
 		response.setContentType("application/json; charset=UTF-8");
 
 		PrintWriter out = response.getWriter();
-		out.print(gson.toJson(historyList));
+		out.print(gson.toJson(responseData));
 		out.flush();
 
 	}

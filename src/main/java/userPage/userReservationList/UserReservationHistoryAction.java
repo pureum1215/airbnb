@@ -10,7 +10,7 @@ import com.google.gson.Gson;
 
 import util.ResponseData;
 
-public class UserReservationUpcomingAction {
+public class UserReservationHistoryAction {
 
 	public ResponseData execute(HttpServletRequest request, HttpServletResponse response) {
 
@@ -25,9 +25,10 @@ public class UserReservationUpcomingAction {
         
         // DAO에서 예약 목록 가져오기
 		UserReservationListDAO dao = new UserReservationListDAO();
-		List<UserReservationListVO> upcomingList = dao.getUpcomingReservations(userId);
+		List<UserReservationListVO> historyList = dao.getUpcomingReservations(userId);
 
-		return new ResponseData(upcomingList);
+		return new ResponseData(historyList);
 
 	}	
+
 }

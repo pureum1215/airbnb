@@ -25,11 +25,9 @@ public class UserReservationListAction implements Action {
 		HttpSession session = request.getSession();
 		String userId = (String) session.getAttribute("user_id");
 		
-
-		// dao method 호출 부분
 		
-		request.setAttribute("list", list);
-		request.setAttribute("contentPage", "board/boardList.jsp");
+		// 코드 작성 부분
+
 		
 		ActionForward forward = new ActionForward();
 		forward.setPath("user/UserReservationList.jsp");

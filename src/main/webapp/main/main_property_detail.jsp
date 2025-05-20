@@ -203,8 +203,8 @@ body {
 	<!-- body -->
 	<div class="container">
 		<%
-		//String propertyId = request.getParameter("property_id");
-		String propertyId = "prop011"; //property_Id 로 검색
+		String propertyId = request.getParameter("property_id");
+		//String propertyId = "prop011"; //property_Id 로 검색
 		PropertyDAO dao = new PropertyDAO(); // DAO 객체 생성
 		MainPropertyDetailVO madVONPD = dao.propertyNPD(propertyId); //숙소 이름 가져오기, 사진 가져오기, 숙소설명 가져오기
 		MainPropertyDetailVO madVOloc = dao.propertyLocation(propertyId);//VO객체 생성 숙소 나라 도시
@@ -212,6 +212,11 @@ body {
 		MainPropertyDetailVO madVOAvgCount = dao.propertyAvgCount(propertyId);//후기 평균 개수
 		MainPropertyDetailVO madVONameAt = dao.propertyHostName(propertyId);//호스트의 이름 생성한 날짜.
 		List<MainPropertyDetailVO> madVOReviewList = dao.propertyReviewName(propertyId);
+		boolean checkcount = true;
+		if(madVOReviewList.size()==0){
+			checkcount = false;
+		}
+		
 		List<Integer> listAmentie = dao.propertyAm(propertyId);
 		String amenties = "";
 		%>
@@ -307,6 +312,7 @@ body {
 						님에 대한 호스트의 후기
 					</h3>
 					<%
+				if(checkcount){
 					for(int i=0; i<2;i++)
 					{
 						String reivew_content = madVOReviewList.get(i).getProperty_review_content();
@@ -343,7 +349,9 @@ body {
 							</div>
 						</div>
 					</div>
-					<%} %>
+					<%} 
+				}
+					%>
 					
 					<!-- 후기 더보기 / 접기 텍스트 링크 -->
 					<div style="margin-top: 8px;">

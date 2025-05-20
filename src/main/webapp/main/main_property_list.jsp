@@ -159,10 +159,6 @@ System.out.println("jsp: "+propertyList.get(1).getProperty_id());
 	<!-- ====== 공통 헤더 ====== -->
 	<jsp:include page="property_header.jsp" />
 	
-	<h1>여기</h1>
-	${propertyList.get(1).getProperty_id() }
-	<c:out value="${propertyList.get(1).getProperty_id()}" />
-	<%=propertyList.get(1).getProperty_id() %>
 
 	<!-- ====== 본문 영역 (숙소 카드 목록) ====== -->
 	<div class="container">
@@ -174,7 +170,8 @@ System.out.println("jsp: "+propertyList.get(1).getProperty_id());
      String propertyName = propertyList.get(i).getProperty_name();
      String photoUrl = propertyList.get(i).getProperty_photo_url();
 	%>
-    <a href="main_property_detail.jsp?property_id=<%=propertyId%>" class="property-card-link">
+	
+    <a href="/main_datail.ma?property_id=<%=propertyId%>" class="property-card-link">
         <div class="property-card">
             <img src="/uploads/<%=photoUrl%>" alt="숙소 대표 이미지" />
             <div class="property-info">
@@ -187,22 +184,6 @@ System.out.println("jsp: "+propertyList.get(1).getProperty_id());
         </div>
     </a>
 <% } %>
-
-
-			<!-- 카드 2: 게스트 선호 뱃지 포함 숙소 -->
-			<div class="property-card">
-				<img
-					src="https://img.hourplace.co.kr/place/user/33920/2024/04/04/fbbe0f84-2c2a-4432-b884-15f309fa2f51?s=2000x2000&t=inside&q=80"
-					alt="숙소 이미지" />
-				<div class="badge">게스트 선호</div>
-				<button class="wishlist-button" onclick="toggleHeart(this)">♡</button>
-				<div class="property-info">
-					<div class="property-location">서울, 대한민국</div>
-					<div class="property-name">자벨의 방</div>
-					<div class="property-rating">⭐ 4.97 후기 198개</div>
-					<div class="property-price">₩396,382 · 2박</div>
-				</div>
-			</div>
 
 		</div>
 	</div>

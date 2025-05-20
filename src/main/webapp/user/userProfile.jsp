@@ -1,3 +1,4 @@
+<%@page import="userPage.userProfile.UserProfileDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -14,6 +15,10 @@
 		<!-- 정적 포함 -->
 	</div>
 
+	<%
+	UserProfileDAO dao = new UserProfileDAO();
+	
+	%>
 
 	<main class="max-w-6xl mx-auto px-6 py-10 grid md:grid-cols-3 gap-10">
 

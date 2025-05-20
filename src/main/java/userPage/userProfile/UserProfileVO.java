@@ -11,25 +11,28 @@ public class UserProfileVO {
 	 **************************************************************************/
 	
 	private String user_id;
-	private String user_name;
+	private String user_name; //유저 이름.
 	private String user_email;
 	private String user_phone_number;
 	private String user_birthday;
-	private Timestamp user_created_at;
+	private Timestamp user_created_at;//유저 생성날짜ㅣ
 	private String user_delete_yn;
 	
 	private String user_review_id;
 	private String host_id;
-	private int user_review_rating;
-	private String user_review_content;
-	private Timestamp user_review_created_at;
+	private int user_review_rating;// 별점.
+	private String host_name; //숙소 호스트 이름.
+	private String user_review_content; //숙소에서 쓰는 유저에 대한 리뷰
+	private Timestamp user_review_created_at; //숙소에서 쓰는 유저 리뷰 생성날짜
 	
 	private String property_review_id;
 	private String property_id;
-	private String property_name;
-	private int property_review_rating;
-	private String property_review_content;
-	private Timestamp property_review_created_at;
+	private String property_photo_url; // 숙소 사진 url
+	private String property_name; //숙소 이름
+	private int property_review_rating; // 별점
+	private String property_review_content;//유저가 쓰는 리뷰
+	private int property_review_count;//유저가 적은 후기 개수
+	private Timestamp property_review_created_at; //유저가 쓰는 리뷰 생성일자
 	
 	public String getUser_id() {
 		return user_id;

@@ -40,27 +40,25 @@
 						예약목록</button>
 				</li>
 
-<!-- "메뉴" 버튼과 드롭다운 -->
-<li class="relative">
-  <button id="menuToggle"
-    class="menu-item px-4 py-2 rounded-full hover:bg-gray-100 font-medium flex items-center space-x-1">
-    <span>메뉴</span>
-    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4"
-      fill="none" viewBox="0 0 24 24" stroke="currentColor">
+				<!-- "메뉴" 버튼과 드롭다운 -->
+				<li class="relative">
+					<button id="menuToggle"
+						class="menu-item px-4 py-2 rounded-full hover:bg-gray-100 font-medium flex items-center space-x-1">
+						<span>메뉴</span>
+						<svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4"
+							fill="none" viewBox="0 0 24 24" stroke="currentColor">
       <path stroke-linecap="round" stroke-linejoin="round"
-        stroke-width="2" d="M19 9l-7 7-7-7" />
+								stroke-width="2" d="M19 9l-7 7-7-7" />
     </svg>
-  </button>
-
-  <!-- 클릭 시 토글될 드롭다운 -->
-  <ul id="dropdownMenu"
-    class="absolute left-0 mt-2 w-56 bg-white border rounded-lg shadow-lg hidden z-10 text-sm">
-    <li><a href="#"
-      class="dropdown-item block px-4 py-2 hover:bg-gray-100">프로필</a></li>
-    <li><a href="#"
-      class="dropdown-item block px-4 py-2 hover:bg-gray-100">통계</a></li>
-  </ul>
-</li>
+					</button> <!-- 클릭 시 토글될 드롭다운 -->
+					<ul id="dropdownMenu"
+						class="absolute left-0 mt-2 w-56 bg-white border rounded-lg shadow-lg hidden z-10 text-sm">
+						<li><a href="#"
+							class="dropdown-item block px-4 py-2 hover:bg-gray-100">프로필</a></li>
+						<li><a href="#"
+							class="dropdown-item block px-4 py-2 hover:bg-gray-100">통계</a></li>
+					</ul>
+				</li>
 
 			</ul>
 		</nav>

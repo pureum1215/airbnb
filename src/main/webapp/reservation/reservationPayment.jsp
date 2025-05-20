@@ -27,9 +27,16 @@
 					<button id="paymentToggle"
 						class="w-full border rounded-lg p-4 flex justify-between items-center text-left">
 						<div class="flex items-center space-x-2" id="selectedPayment">
-							<span class="text-sm text-gray-500">결제 수단 선택</span>
+							<img id="selectedPaymentIcon" class="w-6 h-6 hidden" src=""
+								alt="" /> <span id="selectedPaymentText"
+								class="text-sm text-gray-500">결제 수단 선택</span>
 						</div>
-						<span class="text-xl">⌄</span>
+						<svg xmlns="http://www.w3.org/2000/svg"
+							class="w-5 h-5 text-gray-500" fill="none" viewBox="0 0 24 24"
+							stroke="currentColor">
+							<path stroke-linecap="round" stroke-linejoin="round"
+								stroke-width="2" d="M19 9l-7 7-7-7" />
+						</svg>
 					</button>
 
 					<!-- 결제 옵션 목록 -->
@@ -37,9 +44,9 @@
 						class="absolute z-10 w-full border rounded-lg bg-white shadow-md mt-1 hidden">
 						<div
 							class="hover:bg-gray-100 px-4 py-3 flex items-center cursor-pointer"
-							onclick="selectPayment('신용카드', 'https://img.icons8.com/ios/50/000000/bank-card-back-side.png')">
+							onclick="selectPayment('신용카드 또는 체크카드', 'https://img.icons8.com/ios-filled/50/000000/bank-card-back-side.png')">
 							<img
-								src="https://img.icons8.com/ios/50/000000/bank-card-back-side.png"
+								src="https://img.icons8.com/ios-filled/50/000000/bank-card-back-side.png"
 								class="w-6 h-6 mr-2" /> <span>신용카드 또는 체크카드</span>
 						</div>
 						<div
@@ -50,9 +57,8 @@
 						</div>
 						<div
 							class="hover:bg-gray-100 px-4 py-3 flex items-center cursor-pointer"
-							onclick="selectPayment('Google Pay', 'https://img.icons8.com/color/48/000000/google-pay-india.png')">
-							<img
-								src="https://img.icons8.com/color/48/000000/google-pay-india.png"
+							onclick="selectPayment('Google Pay', 'https://img.icons8.com/color/48/000000/google-pay.png')">
+							<img src="https://img.icons8.com/color/48/000000/google-pay.png"
 								class="w-6 h-6 mr-2" /> <span>Google Pay</span>
 						</div>
 					</div>
@@ -61,23 +67,23 @@
 
 			<br> <br> <br> <br> <br>
 
-			<form action="${pageContext.request.contextPath}/reservation_payment.re" method="post">
-				
+			<form
+				action="${pageContext.request.contextPath}/reservation_payment.re"
+				method="post">
+
 				<%-- servlet으로 보낼 값 --%>
-				<input type="hidden" name="reservation_id" value=<%=request.getAttribute("reservation_id")%>>
-				<input type="hidden" name="user_id" value="${sessionScope.user_id}">
-			
-				<%-- 결제 버튼 --%>
+				<input type="hidden" name="reservation_id"
+					value=<%=request.getAttribute("reservation_id")%>> <input
+					type="hidden" name="user_id" value="${sessionScope.user_id}">
+
 				<button type="submit"
-					class="w-full bg-rose-600 hover:bg-rose-700 text-white font-semibold py-3 rounded-lg text-lg">
-					확인 및 결제
-				</button>
+					class="bg-rose-600 hover:bg-rose-700 text-white font-semibold py-3 px-6 rounded-lg text-base">
+					확인 및 결제</button>
 			</form>
 		</section>
 
 		<!-- 우측: 숙소 요약 카드 -->
 		<aside class="border rounded-xl p-5 shadow-md space-y-4 bg-white">
-			<!-- 숙소 요약 -->
 			<div class="flex space-x-4">
 				<img
 					src="https://dayoff.co.kr/whatsinmytrip/wp-content/uploads/2024/06/%EA%B0%95%EB%A6%89-%EC%88%99%EC%86%8C-%EC%B6%94%EC%B2%9C-%EB%A9%94%EC%9D%B8.webp"
@@ -90,43 +96,34 @@
 				</div>
 			</div>
 
-			<!-- 취소 정책 -->
 			<div class="text-sm text-gray-700">
 				<p class="font-medium">취소 수수료 없음</p>
 				<p>예약 후 48시간 이내에 취소하면 요금 전액이 환불됩니다.</p>
 			</div>
 
-			<!-- 여행 정보 -->
 			<div class="text-sm space-y-1">
 				<div class="flex justify-between">
 					<p class="font-semibold">여행 세부 정보</p>
 					<button class="text-gray-600 underline text-sm">변경</button>
 				</div>
 				<p>2025년 6월 9일~14일</p>
-				<p>성인 1명</p>
 			</div>
 
-			<!-- 요금 정보 -->
 			<div class="text-sm space-y-1">
 				<p class="font-semibold">요금 세부 정보</p>
 				<div class="flex justify-between mt-1">
-					<p>¥ 21,347 × 5박</p>
-					<p>¥ 106,733</p>
-				</div>
-				<div class="flex justify-between text-green-600">
-					<p>장기 숙박 할인</p>
-					<p>− ¥ 5,335</p>
+					<p>₩ 20,000 × 5박</p>
+					<p>₩ 100,000</p>
 				</div>
 				<div class="flex justify-between">
-					<p>에어비앤비 서비스 수수료</p>
-					<p>¥ 17,019</p>
+					<p>에어비앤비 서비스 수수료(10%)</p>
+					<p>₩ 10,000</p>
 				</div>
 			</div>
 
-			<!-- 총액 -->
 			<div class="flex justify-between border-t pt-3 font-bold text-base">
-				<p>총액 JPY</p>
-				<p>¥ 118,417</p>
+				<p>총액 KRW</p>
+				<p>₩ 110,000</p>
 			</div>
 
 			<a href="#" class="text-sm underline text-gray-600 block">요금 상세
@@ -136,22 +133,26 @@
 
 	<!-- 드롭다운 스크립트 -->
 	<script>
-    const toggle = document.getElementById("paymentToggle");
-    const options = document.getElementById("paymentOptions");
-    const selected = document.getElementById("selectedPayment");
+		const toggle = document.getElementById("paymentToggle");
+		const options = document.getElementById("paymentOptions");
 
-    toggle.addEventListener("click", () => {
-        options.classList.toggle("hidden");
-    });
+		toggle.addEventListener("click", () => {
+			options.classList.toggle("hidden");
+		});
 
-    function selectPayment(name, iconUrl, detail = "") {
-        selected.innerHTML = `
-            <img src="${iconUrl}" class="w-6 h-6"/>
-            <span class="text-sm">${detail ? detail : name}</span>
-        `;
-        options.classList.add("hidden");
-    }
-</script>
+		function selectPayment(name, iconUrl) {
+			const icon = document.getElementById("selectedPaymentIcon");
+			const text = document.getElementById("selectedPaymentText");
+
+			icon.src = iconUrl;
+			icon.alt = name;
+			icon.classList.remove("hidden");
+
+			text.textContent = name;
+
+			options.classList.add("hidden");
+		}
+	</script>
 
 </body>
 </html>

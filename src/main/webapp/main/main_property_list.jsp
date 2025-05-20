@@ -175,8 +175,8 @@ System.out.println("jsp: "+propertyList.get(1).getProperty_id());
         <div class="property-card">
             <img src="/uploads/<%=photoUrl%>" alt="숙소 대표 이미지" />
             <div class="property-info">
-                <div class="property-location"></div>
                 <div class="property-name"><%=propertyName%></div>
+                <div class="property-location"></div>
                 <div class="property-rating">⭐ 후기 </div>
                 <div class="property-price"></div>
                 <!-- hidden input은 필요 없음, GET 파라미터로 전달됨 -->

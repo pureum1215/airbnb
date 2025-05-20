@@ -3,6 +3,7 @@ package mainPage.mainPropertyList;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -116,10 +117,26 @@ public class MainPropertyListDAO {
 	    return list;
 	}
 
-	public MainPropertyListVO allgetProperty() {
-		MainPropertyListVO mpVO = new MainPropertyListVO();
+	public List<MainPropertyListVO> allgetProperty() {
+		List<MainPropertyListVO> mpVO = new ArrayList<MainPropertyListVO>();
 		
-		
+		try {
+			String sql = "select property_id, property_name, property_photo_url from property";
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			ResultSet rs = pstmt.executeQuery();
+			while(rs.next()) {
+				MainPropertyListVO vo = new MainPropertyListVO();
+				vo.setProperty_id(rs.getString(1));
+				vo.setProperty_name(rs.getString(2));
+				vo.setProperty_photo_url(rs.getString(3));
+				mpVO.add(vo);
+			}
+			
+		} catch (SQLException e) {
+			// TODO: handle exception
+			System.out.println("오류");
+			
+		}
 		
 		return mpVO;
 	}

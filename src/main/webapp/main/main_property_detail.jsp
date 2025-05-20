@@ -203,8 +203,8 @@ body {
 	<!-- body -->
 	<div class="container">
 		<%
-		//String propertyId = request.getParameter("property_id");
-		String propertyId = "prop011"; //property_Id 로 검색
+		String propertyId = request.getParameter("property_id");
+		//String propertyId = "prop011"; //property_Id 로 검색
 		PropertyDAO dao = new PropertyDAO(); // DAO 객체 생성
 		MainPropertyDetailVO madVONPD = dao.propertyNPD(propertyId); //숙소 이름 가져오기, 사진 가져오기, 숙소설명 가져오기
 		MainPropertyDetailVO madVOloc = dao.propertyLocation(propertyId);//VO객체 생성 숙소 나라 도시

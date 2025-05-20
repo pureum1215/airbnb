@@ -3,6 +3,7 @@ package controller;
 import java.io.IOException;
 import java.util.List;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -47,8 +48,40 @@ public class MainController extends HttpServlet {
 	
 	protected void process(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		request.setCharacterEncoding("UTF-8");
+		response.setCharacterEncoding("UTF-8");
+		
+		String url = request.getRequestURI();
+		String path = request.getContextPath();
+		String command = url.substring(path.length());
+		System.out.println("command: "+command);
+		
+		Action action = null;
+		ActionForward forward = null;
+		
+		/****************************** 
+		 * 페이지 이동 작성 구간
+		 *****************************/
 		
 		
+		if(command.equals("/main_datail.ma")) {
+			forward = new ActionForward();
+			forward.setPath("main/main_property_detail.jsp");
+			forward.setRedirect(false);
+		}else if(command.equals("/main_list.ma")) {
+			forward = new ActionForward();
+			forward.setPath("main/main_property_list.jsp");
+			forward.setRedirect(false);
+		}
+		
+		
+		if(forward.isRedirect()) {
+			response.sendRedirect(forward.getPath());
+		}
+		else {
+			RequestDispatcher dispatcher = request.getRequestDispatcher(forward.getPath());
+			dispatcher.forward(request, response);
+		}
 	}
 
 }

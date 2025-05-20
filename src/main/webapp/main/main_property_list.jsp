@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!-- ====== Java import ====== -->
 <%@ page
@@ -172,7 +171,7 @@ System.out.println("jsp: "+propertyList.get(1).getProperty_id());
      String photoUrl = propertyList.get(i).getProperty_photo_url();
 	%>
 	
-    <a href="main_property_detail.jsp?property_id=<%=propertyId%>" class="property-card-link">
+    <a href="/main_datail.ma?property_id=<%=propertyId%>" class="property-card-link">
         <div class="property-card">
             <img src="/uploads/<%=photoUrl%>" alt="숙소 대표 이미지" />
             <div class="property-info">

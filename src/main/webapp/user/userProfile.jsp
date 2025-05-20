@@ -79,8 +79,8 @@
 				<h2 class="text-xl font-semibold mb-3"><%=upNCvo.getUser_name()%> 님에 대한 호스트의 후기</h2>
 
 			<%
-			if(checkcount1){
-				for(int i=0; i<2; i++){
+			if(checkcount1 && uvoList!=null && uvoList.size()>0){
+				for(int i=0; i < Math.min(2, uvoList.size()); i++){
 				String hostname = uvoList.get(i).getHost_name();
 				String content = uvoList.get(i).getUser_review_content();
 				String created_at = uvoList.get(i).getUser_review_created_at();

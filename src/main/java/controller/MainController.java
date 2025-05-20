@@ -64,7 +64,7 @@ public class MainController extends HttpServlet {
 		 *****************************/
 		
 		
-		if(command.equals("/main_datail.ma")) {
+		if(command.equals("/main_detail.ma")) {
 			forward = new ActionForward();
 			forward.setPath("main/main_property_detail.jsp");
 			forward.setRedirect(false);
@@ -74,6 +74,14 @@ public class MainController extends HttpServlet {
 			forward.setRedirect(false);
 		}
 		
+		try {
+			if ( action != null ) {
+				forward = action.execute(request, response);
+			}
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
 		
 		if(forward.isRedirect()) {
 			response.sendRedirect(forward.getPath());

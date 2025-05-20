@@ -312,8 +312,8 @@ body {
 						님에 대한 호스트의 후기
 					</h3>
 					<%
-				if(checkcount){
-					for(int i=0; i<2;i++)
+				if(checkcount && madVOReviewList!=null && madVOReviewList.size()>0){
+					for(int i=0; i< Math.min(2, madVOReviewList.size());i++)
 					{
 						String reivew_content = madVOReviewList.get(i).getProperty_review_content();
 						String user_name = madVOReviewList.get(i).getUser_name();

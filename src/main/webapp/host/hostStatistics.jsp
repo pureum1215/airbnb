@@ -55,6 +55,21 @@ body {
 	margin-bottom: 30px;
 }
 
+.month-buttons button.active {
+	background-color: #FF385C;
+	color: white;
+	border-color: #FF385C;
+}
+
+.income-title, .income-value {
+	transition: opacity 0.3s ease-in-out;
+	opacity: 1;
+}
+
+.income-title.fade-out, .income-value.fade-out {
+	opacity: 0;
+}
+
 .month-buttons button {
 	padding: 6px 12px;
 	border: 1px solid #ccc;
@@ -169,6 +184,7 @@ canvas {
 				<%
 				}
 				%>
+				<button onclick="showYearlyIncome()">2025년</button>
 			</div>
 
 			<div class="chart-container">
@@ -217,75 +233,142 @@ canvas {
 	</div>
 
 	<script>
-  const incomeData = [135000, 88000, 150000, 170000, 142000, 158000, 190000, 175000, 160000, 185000, 120000, 98000];
-  const incomeLabels = ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'];
+	  const incomeData = [135000, 88000, 150000, 170000, 142000, 158000, 190000, 175000, 160000, 185000, 120000, 98000];
+	  const incomeLabels = ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'];
 
-  const ctx = document.getElementById('incomeChart').getContext('2d');
-  const incomeChart = new Chart(ctx, {
-    type: 'line',
-    data: {
-      labels: incomeLabels,
-      datasets: [{
-        label: '월별 수입',
-        data: incomeData,
-        fill: false,
-        borderColor: '#FF385C',
-        tension: 0.3,
-        pointBackgroundColor: '#FF385C',
-        pointRadius: 5,
-        pointHoverRadius: 7
-      }]
-    },
-    options: {
-      responsive: true,
-      plugins: { legend: { display: false } },
-      onClick: (e) => {
-        const points = incomeChart.getElementsAtEventForMode(e, 'nearest', { intersect: true }, true);
-        if (points.length) updateIncome(points[0].index);
-      },
-      scales: {
-        y: {
-          beginAtZero: true,
-          ticks: {
-            callback: function(value) {
-              return '₩' + value.toLocaleString();
-            }
-          }
-        }
-      }
-    }
-  });
+	  const ctx = document.getElementById('incomeChart').getContext('2d');
+	  const incomeChart = new Chart(ctx, {
+	    type: 'bar',  // ✅ 막대 그래프로 변경
+	    data: {
+	      labels: incomeLabels,
+	      datasets: [{
+	        label: '월별 수입',
+	        data: incomeData,
+	        backgroundColor: '#FF385C',
+	        borderRadius: 6,
+	        barThickness: 30
+	      }]
+	    },
+	    options: {
+	      responsive: true,
+	      plugins: {
+	        legend: { display: false }
+	      },
+	      onClick: (e) => {
+	        const points = incomeChart.getElementsAtEventForMode(e, 'nearest', { intersect: true }, true);
+	        if (points.length) updateIncome(points[0].index);
+	      },
+	      scales: {
+	    	  y: {
+	    	    beginAtZero: true,
+	    	    min: 0,
+	    	    max: 200000,
+	    	    ticks: {
+	    	      stepSize: 20000,
+	    	      callback: function(value) {
+	    	        return '₩' + value.toLocaleString();
+	    	      }
+	    	    }
+	    	  }
+	    	}
+	    }
+	  });
 
-  function formatKRW(num) {
-    return '₩' + Math.round(num).toLocaleString();
-  }
+	  function showYearlyIncome() {
+		  // 버튼 active 처리
+		  document.querySelectorAll('.month-buttons button').forEach(btn => btn.classList.remove('active'));
+		  // 마지막 버튼 (2025년)을 active로
+		  document.querySelectorAll('.month-buttons button')[12].classList.add('active');
 
-  function updateIncome(index) {
-	  const amount = incomeData[index];
-	  document.getElementById('monthlyIncome').textContent = formatKRW(amount);
-	  document.querySelector('.income-title').textContent = incomeLabels[index] + ' 수입';
-	}
+		  // 텍스트 페이드 아웃
+		  const incomeTitle = document.querySelector('.income-title');
+		  const incomeValue = document.getElementById('monthlyIncome');
+		  incomeTitle.classList.add('fade-out');
+		  incomeValue.classList.add('fade-out');
 
-//요약 정보 반영
-  document.addEventListener('DOMContentLoaded', () => {
-    const janToMay = incomeData.slice(0, 5);
-    const totalIncome = janToMay.reduce((a, b) => a + b, 0);
-    const adjustment = 30000;
-    const serviceFee = totalIncome * 0.03;
-    const tax = totalIncome * 0.05;
-    const final = totalIncome + adjustment - serviceFee - tax;
+		  // 텍스트 변경 후 페이드 인
+		  setTimeout(() => {
+		    const total = incomeData.reduce((a, b) => a + b, 0);
+		    incomeTitle.textContent = '2025년 전체 수입';
+		    incomeValue.textContent = formatKRW(total);
 
-    document.getElementById('sum-total').textContent = formatKRW(totalIncome);
-    document.getElementById('adjustment').textContent = formatKRW(adjustment);
-    document.getElementById('fee').textContent = formatKRW(serviceFee);
-    document.getElementById('tax').textContent = formatKRW(tax);
-    document.getElementById('final').textContent = formatKRW(final);
+		    incomeTitle.classList.remove('fade-out');
+		    incomeValue.classList.remove('fade-out');
+		  }, 300);
 
-    // ⬇️ 초기 표시: 5월 수입
-    document.querySelector('.income-title').textContent = incomeLabels[4] + ' 수입';
-    document.getElementById('monthlyIncome').textContent = formatKRW(incomeData[4]);
-  });
-</script>
+		  // 차트 전체 데이터 복구
+		  incomeChart.data.datasets[0].data = incomeData;
+		  incomeChart.update();
+		}
+	  
+	  function formatKRW(num) {
+	    return '₩' + Math.round(num).toLocaleString();
+	  }
+
+	  function updateIncome(index) {
+		  // 버튼 active 처리
+		  document.querySelectorAll('.month-buttons button').forEach(btn => btn.classList.remove('active'));
+		  document.querySelectorAll('.month-buttons button')[index].classList.add('active');
+
+		  // 텍스트 페이드 아웃
+		  const incomeTitle = document.querySelector('.income-title');
+		  const incomeValue = document.getElementById('monthlyIncome');
+		  incomeTitle.classList.add('fade-out');
+		  incomeValue.classList.add('fade-out');
+
+		  // 텍스트 변경 후 페이드 인
+		  setTimeout(() => {
+		    const amount = incomeData[index];
+		    incomeTitle.textContent = incomeLabels[index] + ' 수입';
+		    incomeValue.textContent = formatKRW(amount);
+
+		    incomeTitle.classList.remove('fade-out');
+		    incomeValue.classList.remove('fade-out');
+		  }, 300);
+
+		  // ✅ 차트 데이터 부드럽게 업데이트
+		  incomeChart.data.datasets[0].data = incomeData.map((val, i) => i === index ? val : 0);
+		  incomeChart.update();
+		}
+
+	  // 요약 정보 반영
+	  document.addEventListener('DOMContentLoaded', () => {
+	    const janToMay = incomeData.slice(0, 5);
+	    const totalIncome = janToMay.reduce((a, b) => a + b, 0);
+	    const adjustment = 30000;
+	    const serviceFee = totalIncome * 0.03;
+	    const tax = totalIncome * 0.05;
+	    const final = totalIncome + adjustment - serviceFee - tax;
+
+	    document.getElementById('sum-total').textContent = formatKRW(totalIncome);
+	    document.getElementById('adjustment').textContent = formatKRW(adjustment);
+	    document.getElementById('fee').textContent = formatKRW(serviceFee);
+	    document.getElementById('tax').textContent = formatKRW(tax);
+	    document.getElementById('final').textContent = formatKRW(final);
+
+	    // ⬇️ 초기 표시: 5월 수입
+	    document.querySelector('.income-title').textContent = incomeLabels[4] + ' 수입';
+	    document.getElementById('monthlyIncome').textContent = formatKRW(incomeData[4]);
+	  });
+	  
+	  document.addEventListener('DOMContentLoaded', () => {
+		  const janToMay = incomeData.slice(0, 5);
+		  const totalIncome = janToMay.reduce((a, b) => a + b, 0);
+		  const adjustment = 30000;
+		  const serviceFee = totalIncome * 0.03;
+		  const tax = totalIncome * 0.05;
+		  const final = totalIncome + adjustment - serviceFee - tax;
+
+		  document.getElementById('sum-total').textContent = formatKRW(totalIncome);
+		  document.getElementById('adjustment').textContent = formatKRW(adjustment);
+		  document.getElementById('fee').textContent = formatKRW(serviceFee);
+		  document.getElementById('tax').textContent = formatKRW(tax);
+		  document.getElementById('final').textContent = formatKRW(final);
+
+		  // 초기 표시: 5월 수입
+		  updateIncome(4); // index 4 = 5월
+		});
+	</script>
 
 </body>
 </html>

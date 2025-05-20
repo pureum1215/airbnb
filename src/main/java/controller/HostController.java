@@ -9,17 +9,23 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import controller.Action;
-import controller.ActionForward;
+import reservationPage.reservationPayment.ReservationPaymentAction;
+import reservationPage.reservationRequest.ReservationConfirmAction;
+import reservationPage.reservationRequest.ReservationDefaultAction;
+import reservationPage.reservationRequest.ReservationRequestAction;
 
-
-public class PropertyController extends HttpServlet {
+/**
+ * Servlet implementation class HostController
+ */
+@WebServlet("/HostController")
+public class HostController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
+       
     /**
-     * Default constructor. 
+     * @see HttpServlet#HttpServlet()
      */
-    public PropertyController() {
+    public HostController() {
+        super();
         // TODO Auto-generated constructor stub
     }
 
@@ -53,16 +59,11 @@ public class PropertyController extends HttpServlet {
 		ActionForward forward = null;
 		forward = new ActionForward();
 		
+		
 		/****************************** 
 		 * 페이지 이동 작성 구간
 		 *****************************/
-		if(command.equals("/property.pr")) {
-			forward = new ActionForward();
-			forward.setPath("main/main_property_list.jsp");
-			forward.setRedirect(false);
-		}
-		
-		
+
 		
 		try {
 			if(action != null) {
@@ -82,5 +83,4 @@ public class PropertyController extends HttpServlet {
 		}
 		
 	}
-
 }

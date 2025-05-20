@@ -10,13 +10,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 
-public class StatisticsController extends HttpServlet {
+public class AdministerController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public StatisticsController() {
+    public AdministerController() {
         super();
         // TODO Auto-generated constructor stub
     }

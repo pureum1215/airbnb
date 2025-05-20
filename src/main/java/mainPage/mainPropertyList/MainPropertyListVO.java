@@ -22,6 +22,7 @@ public class MainPropertyListVO {
 	private String property_id;
 	private String property_delete_yn;
 	
+	private String property_name; //숙소 이름
 	private String property_photo_url;
 	private int property_review_rating;
 	private String property_description;
@@ -31,6 +32,14 @@ public class MainPropertyListVO {
 	private String user_name;
 	private String user_delete_yn;
 	
+	
+	
+	public String getProperty_name() {
+		return property_name;
+	}
+	public void setProperty_name(String property_name) {
+		this.property_name = property_name;
+	}
 	public String getLocation_id() {
 		return location_id;
 	}
@@ -128,15 +137,21 @@ public class MainPropertyListVO {
 		this.user_delete_yn = user_delete_yn;
 	}
 	
+	
 	@Override
 	public String toString() {
 		return "MainPropertyListVO [location_id=" + location_id + ", location_continent=" + location_continent
 				+ ", location_country=" + location_country + ", location_city=" + location_city + ", amenity_id="
 				+ amenity_id + ", reservation_check_in=" + reservation_check_in + ", reservation_check_out="
 				+ reservation_check_out + ", property_id=" + property_id + ", property_delete_yn=" + property_delete_yn
-				+ ", property_photo_url=" + property_photo_url + ", property_review_rating=" + property_review_rating
-				+ ", property_description=" + property_description + ", price_per_night=" + price_per_night
-				+ ", user_id=" + user_id + ", user_name=" + user_name + ", user_delete_yn=" + user_delete_yn + "]";
+				+ ", property_name=" + property_name + ", property_photo_url=" + property_photo_url
+				+ ", property_review_rating=" + property_review_rating + ", property_description="
+				+ property_description + ", price_per_night=" + price_per_night + ", user_id=" + user_id
+				+ ", user_name=" + user_name + ", user_delete_yn=" + user_delete_yn + "]";
 	}
+	
+
+	
+	
 
 }

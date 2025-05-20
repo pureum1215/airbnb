@@ -51,7 +51,6 @@ public class ReservationDefaultAction implements Action {
             return forward;
         }
         
-        
         return null;
 	}
 

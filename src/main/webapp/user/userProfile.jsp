@@ -16,6 +16,7 @@
 	</div>
 
 	<%
+	String userId = "user001";
 	UserProfileDAO dao = new UserProfileDAO();
 	
 	%>

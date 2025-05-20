@@ -3,6 +3,7 @@ package userPage.userProfile;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -42,5 +43,24 @@ public class UserProfileDAO {
 		}
 	}
 	
-	
+	public UserProfileVO profileNC(String userId) {
+		UserProfileVO uVO = new UserProfileVO();
+		
+		try {
+			String sql = "select user_name, user_created_at from user where user_id = ?";
+	        PreparedStatement pstmt = conn.prepareStatement(sql);
+	        pstmt.setString(1, userId);
+	        ResultSet rs = pstmt.executeQuery();
+	        if (rs.next()) {
+	            uVO.setUser_name(rs.getString(1));
+	            uVO.setUser_created_at(rs.getString(2));
+	        }
+			
+		}
+		catch(SQLException e) {
+			System.out.println("에러");
+		}
+		
+		return uVO;
+	}
 }

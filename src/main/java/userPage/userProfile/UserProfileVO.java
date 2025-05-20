@@ -15,7 +15,7 @@ public class UserProfileVO {
 	private String user_email;
 	private String user_phone_number;
 	private String user_birthday;
-	private Timestamp user_created_at;//유저 생성날짜ㅣ
+	private String user_created_at;//유저 생성날짜ㅣ
 	private String user_delete_yn;
 	
 	private String user_review_id;
@@ -23,7 +23,7 @@ public class UserProfileVO {
 	private int user_review_rating;// 별점.
 	private String host_name; //숙소 호스트 이름.
 	private String user_review_content; //숙소에서 쓰는 유저에 대한 리뷰
-	private Timestamp user_review_created_at; //숙소에서 쓰는 유저 리뷰 생성날짜
+	private String user_review_created_at; //숙소에서 쓰는 유저 리뷰 생성날짜
 	
 	private String property_review_id;
 	private String property_id;
@@ -32,7 +32,9 @@ public class UserProfileVO {
 	private int property_review_rating; // 별점
 	private String property_review_content;//유저가 쓰는 리뷰
 	private int property_review_count;//유저가 적은 후기 개수
-	private Timestamp property_review_created_at; //유저가 쓰는 리뷰 생성일자
+	private String property_review_created_at; //유저가 쓰는 리뷰 생성일자
+	
+	
 	
 	public String getUser_id() {
 		return user_id;
@@ -64,10 +66,10 @@ public class UserProfileVO {
 	public void setUser_birthday(String user_birthday) {
 		this.user_birthday = user_birthday;
 	}
-	public Timestamp getUser_created_at() {
+	public String getUser_created_at() {
 		return user_created_at;
 	}
-	public void setUser_created_at(Timestamp user_created_at) {
+	public void setUser_created_at(String user_created_at) {
 		this.user_created_at = user_created_at;
 	}
 	public String getUser_delete_yn() {
@@ -94,18 +96,21 @@ public class UserProfileVO {
 	public void setUser_review_rating(int user_review_rating) {
 		this.user_review_rating = user_review_rating;
 	}
+	public String getHost_name() {
+		return host_name;
+	}
+	public void setHost_name(String host_name) {
+		this.host_name = host_name;
+	}
 	public String getUser_review_content() {
 		return user_review_content;
 	}
 	public void setUser_review_content(String user_review_content) {
 		this.user_review_content = user_review_content;
 	}
-	public Timestamp getUser_review_created_at() {
-		return user_review_created_at;
-	}
-	public void setUser_review_created_at(Timestamp user_review_created_at) {
-		this.user_review_created_at = user_review_created_at;
-	}
+
+	
+	
 	public String getProperty_review_id() {
 		return property_review_id;
 	}
@@ -117,6 +122,12 @@ public class UserProfileVO {
 	}
 	public void setProperty_id(String property_id) {
 		this.property_id = property_id;
+	}
+	public String getProperty_photo_url() {
+		return property_photo_url;
+	}
+	public void setProperty_photo_url(String property_photo_url) {
+		this.property_photo_url = property_photo_url;
 	}
 	public String getProperty_name() {
 		return property_name;
@@ -136,23 +147,26 @@ public class UserProfileVO {
 	public void setProperty_review_content(String property_review_content) {
 		this.property_review_content = property_review_content;
 	}
-	public Timestamp getProperty_review_created_at() {
+	public int getProperty_review_count() {
+		return property_review_count;
+	}
+	public void setProperty_review_count(int property_review_count) {
+		this.property_review_count = property_review_count;
+	}
+	public String getUser_review_created_at() {
+		return user_review_created_at;
+	}
+	public void setUser_review_created_at(String user_review_created_at) {
+		this.user_review_created_at = user_review_created_at;
+	}
+	public String getProperty_review_created_at() {
 		return property_review_created_at;
 	}
-	public void setProperty_review_created_at(Timestamp property_review_created_at) {
+	public void setProperty_review_created_at(String property_review_created_at) {
 		this.property_review_created_at = property_review_created_at;
 	}
+
 	
-	@Override
-	public String toString() {
-		return "UserProfileVO [user_id=" + user_id + ", user_name=" + user_name + ", user_email=" + user_email
-				+ ", user_phone_number=" + user_phone_number + ", user_birthday=" + user_birthday + ", user_created_at="
-				+ user_created_at + ", user_delete_yn=" + user_delete_yn + ", user_review_id=" + user_review_id
-				+ ", host_id=" + host_id + ", user_review_rating=" + user_review_rating + ", user_review_content="
-				+ user_review_content + ", user_review_created_at=" + user_review_created_at + ", property_review_id="
-				+ property_review_id + ", property_id=" + property_id + ", property_name=" + property_name
-				+ ", property_review_rating=" + property_review_rating + ", property_review_content="
-				+ property_review_content + ", property_review_created_at=" + property_review_created_at + "]";
-	}
 	
+
 }

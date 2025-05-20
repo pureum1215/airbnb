@@ -22,7 +22,11 @@
 	String userId = "user001";// 예시
 	UserProfileDAO dao = new UserProfileDAO();
 	UserProfileVO upNCvo = dao.profileNC(userId); //user name created_at
-	
+	List<UserProfileVO> uvoList = dao.userReview(userId);
+	boolean checkcount1 = true;
+	if(uvoList.size()==0){
+		checkcount1 = false;
+	}
 	%>
 		<%
 		// 2. 포맷터 설정
@@ -72,31 +76,34 @@
 
 			<!-- 후기 목록 -->
 			<div>
-				<h2 class="text-xl font-semibold mb-3">푸름 님에 대한 호스트의 후기</h2>
+				<h2 class="text-xl font-semibold mb-3"><%=upNCvo.getUser_name()%> 님에 대한 호스트의 후기</h2>
 
+			<%
+			if(checkcount1){
+				for(int i=0; i<2; i++){
+				String hostname = uvoList.get(i).getHost_name();
+				String content = uvoList.get(i).getUser_review_content();
+				String created_at = uvoList.get(i).getUser_review_created_at();
+			%>
 				<!-- 후기 목록 -->
 				<div id="reviewList" class="space-y-6">
 					<!-- 후기 1 -->
 					<div class="border rounded-xl p-4">
-						<p class="text-sm">“푸름 그리고 그녀의 일행은 방을 깨끗하게 청소하고 숙소 이용규칙을
-							존중했습니다. 체크인 시 연락을 주셨는데 매우 도움이 되었습니다.”</p>
+						<p class="text-sm"><%=content %></p>
 						<div class="flex items-center mt-3 text-sm text-gray-600">
 							<img src="https://randomuser.me/api/portraits/women/1.jpg"
-								class="w-6 h-6 rounded-full mr-2" /> <span>Toshiko ·
-								2023년 9월</span>
+								class="w-6 h-6 rounded-full mr-2" /> <span><%=hostname %> ·
+								<fmt:parseDate value="<%=created_at %>" pattern="yyyy-MM-dd HH:mm:ss"
+								 var="parsedDate" />
+										<fmt:formatDate value="${parsedDate}" pattern="yyyy년 M월" /></span>
 						</div>
 					</div>
-
-					<!-- 후기 2 -->
-					<div class="border rounded-xl p-4">
-						<p class="text-sm">“정말 예의 바른 게스트였습니다. 집을 깨끗하게 사용해주셔서 감사드려요.”</p>
-						<div class="flex items-center mt-3 text-sm text-gray-600">
-							<img src="https://randomuser.me/api/portraits/men/2.jpg"
-								class="w-6 h-6 rounded-full mr-2" /> <span>David · 2022년
-								12월</span>
-						</div>
-					</div>
-
+			<%} %>
+			<%
+			for(int i=2; i<uvoList.size();i++){
+				
+			
+			%>
 					<!-- 숨겨진 후기 -->
 					<div id="moreReviews" class="hidden space-y-6">
 						<!-- 후기 3 -->
@@ -108,17 +115,10 @@
 									6월</span>
 							</div>
 						</div>
-
-						<!-- 후기 4 -->
-						<div class="border rounded-xl p-4">
-							<p class="text-sm">“좋은 에너지의 게스트였어요. 체크인과 체크아웃 모두 원활했습니다.”</p>
-							<div class="flex items-center mt-3 text-sm text-gray-600">
-								<img src="https://randomuser.me/api/portraits/women/4.jpg"
-									class="w-6 h-6 rounded-full mr-2" /> <span>Sara · 2021년
-									11월</span>
-							</div>
-						</div>
 					</div>
+					<%
+					}
+					}%>
 				</div>
 
 				<!-- 후기 더보기 버튼 -->

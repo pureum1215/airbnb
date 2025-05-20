@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -62,5 +64,37 @@ public class UserProfileDAO {
 		}
 		
 		return uVO;
+	}
+	
+	public List<UserProfileVO> userReview(String userId) {
+		List<UserProfileVO> uvoList = new ArrayList<UserProfileVO>();
+		
+		try {
+			String sql = "SELECT "
+					+ "ur.user_review_rating, ur.user_review_content, "
+					+ "ur.user_review_created_at, u2.user_name "
+					+ "FROM user_review ur "
+					+ "JOIN host h ON ur.host_id = h.host_id "
+					+ "JOIN user u2 ON h.user_id = u2.user_id "
+					+ "where ur.user_id = ?";
+	        PreparedStatement pstmt = conn.prepareStatement(sql);
+	        pstmt.setString(1, userId);
+	        ResultSet rs = pstmt.executeQuery();
+	        while (rs.next()) {
+	        	UserProfileVO vo = new UserProfileVO();
+	            vo.setUser_review_rating(rs.getInt(1)); //rs 첫번째 값은 별점.
+	        	vo.setUser_review_content(rs.getString(2));//rs 두번째 값은 후기 내용.
+	        	vo.setUser_review_created_at(rs.getString(3));//rs 세번째 값은 생성일자
+	        	vo.setHost_name(rs.getString(4));//rs 네번째 값은 후기를 쓴 호스트 이름.
+	        	
+	        	uvoList.add(vo);
+	        }
+			
+		}
+		catch(SQLException e) {
+			System.out.println("에러");
+		}
+		
+		return uvoList;
 	}
 }

@@ -176,6 +176,16 @@
 						this.textContent = "접기";
 					}
 				});
+		document.addEventListener("DOMContentLoaded", function() {
+		    document.getElementById("showMoreBtn").addEventListener("click", function() {
+		        // 숨겨진 후기 모두 표시
+		        const hiddenReviews = document.querySelectorAll('.hidden-review');
+		        hiddenReviews.forEach(item => item.style.display = 'block');
+
+		        // 버튼 숨기기
+		        this.style.display = 'none';
+		    });
+		});
 	</script>
 </body>
 </html>

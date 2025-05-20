@@ -45,6 +45,12 @@ public class UserProfileDAO {
 		}
 	}
 	
+	/***
+	 * 
+	 * @param userId
+	 * @return 유저의 이름 생성일자
+	 */
+	
 	public UserProfileVO profileNC(String userId) {
 		UserProfileVO uVO = new UserProfileVO();
 		
@@ -66,6 +72,12 @@ public class UserProfileDAO {
 		return uVO;
 	}
 	
+	/***
+	 * 
+	 * @param userId
+	 * @return	별점  후기 내용  생성일자   후기를 쓴 호스트 이름    
+	 */
+	
 	public List<UserProfileVO> userReview(String userId) {
 		List<UserProfileVO> uvoList = new ArrayList<UserProfileVO>();
 		
@@ -86,6 +98,42 @@ public class UserProfileDAO {
 	        	vo.setUser_review_content(rs.getString(2));//rs 두번째 값은 후기 내용.
 	        	vo.setUser_review_created_at(rs.getString(3));//rs 세번째 값은 생성일자
 	        	vo.setHost_name(rs.getString(4));//rs 네번째 값은 후기를 쓴 호스트 이름.
+	        	
+	        	uvoList.add(vo);
+	        }
+			
+		}
+		catch(SQLException e) {
+			System.out.println("에러");
+		}
+		
+		return uvoList;
+	}
+	
+	/***
+	 * 
+	 * @param userId
+	 * @return 숙소 별점, 리뷰 내용,리뷰 생성 날짜 ,숙소 이름, 숙소사진
+	 */
+	
+	public List<UserProfileVO> propertyReview(String userId){
+		List<UserProfileVO> uvoList = new ArrayList<UserProfileVO>();
+		
+		try {
+			String sql = "select property_review_rating, property_review_content, "
+					+ "property_review_created_at ,property_name, property_photo_url "
+					+ "from property_review pr join property p on pr.property_id= p.property_id "
+					+ "where pr.user_id =?";
+	        PreparedStatement pstmt = conn.prepareStatement(sql);
+	        pstmt.setString(1, userId);
+	        ResultSet rs = pstmt.executeQuery();
+	        while (rs.next()) {
+	        	UserProfileVO vo = new UserProfileVO();
+	            vo.setProperty_review_rating(rs.getInt(1));
+	        	vo.setProperty_review_content(rs.getString(2));
+	        	vo.setProperty_review_created_at(rs.getString(3));
+	            vo.setProperty_name(rs.getString(4));
+	            vo.setProperty_photo_url(rs.getString(5));	        	
 	        	
 	        	uvoList.add(vo);
 	        }

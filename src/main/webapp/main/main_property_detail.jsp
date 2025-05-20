@@ -3,13 +3,14 @@
 	import="java.time.*, java.time.format.*, java.time.temporal.ChronoUnit, java.util.List, java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ page import="mainPage.mainPropertyDetail.*" %>
+<%@ page import="mainPage.mainPropertyDetail.*"%>
 
 <!DOCTYPE html>
 <html>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>mainPropertyDetail</title>
 <style>
 * {
 	box-sizing: border-box;
@@ -192,6 +193,39 @@ body {
 	font-size: 14px;
 	cursor: pointer;
 }
+
+  .amenities-container {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .amenity-item {
+    width: 50%;
+    display: flex;
+    align-items: center;
+    margin-bottom: 12px;
+    font-size: 17px;
+  }
+
+  .amenity-icon {
+    font-size: 22px;
+    margin-right: 8px;
+  }
+  
+	.heart-icon {
+	  font-size: 24px;
+	  color: #bbb;
+	  cursor: pointer;
+	  margin-right: 8px;
+	  transition: color 0.3s ease;
+	}
+	
+	.heart-icon.active {
+	  color: #ff385c;
+	}
 </style>
 </head>
 <body>
@@ -213,10 +247,10 @@ body {
 		MainPropertyDetailVO madVONameAt = dao.propertyHostName(propertyId);//호스트의 이름 생성한 날짜.
 		List<MainPropertyDetailVO> madVOReviewList = dao.propertyReviewName(propertyId);
 		boolean checkcount = true;
-		if(madVOReviewList.size()==0){
+		if (madVOReviewList.size() == 0) {
 			checkcount = false;
 		}
-		
+
 		List<Integer> listAmentie = dao.propertyAm(propertyId);
 		String amenties = "";
 		%>
@@ -229,7 +263,7 @@ body {
 		LocalDateTime now = LocalDateTime.now();
 		%>
 
-		<% 
+		<%
 		// 4. 년, 월, 일 차이 계산
 		long totalYears = pastDateTime.until(now, ChronoUnit.YEARS);
 		long totalMonths = pastDateTime.until(now, ChronoUnit.MONTHS);
@@ -274,7 +308,10 @@ body {
 			}
 		}
 		%>
-		<div class="title"><%=madVONPD.getProperty_name()%></div>
+		<div class="title">
+			<%=madVONPD.getProperty_name()%>
+			<i id="wishlist-heart" class="fa-regular fa-heart heart-icon"></i>
+		</div>
 		<div class="gallery">
 			<img src="/uploads/<%=madVONPD.getProperty_photo_url()%>"
 				alt="숙소 대표 이미지" />
@@ -287,23 +324,55 @@ body {
 					<%=madVOloc.getLocation_continent()%>
 				</h2>
 				<ul>
-					<li>화장실 개수: <%=madVObath.getProperty_bathroom()%> 방 개수 <%=madVObath.getProperty_room()%>
-						침대 개수:<%=madVObath.getProperty_bed()%>
+					<li>침실 <%=madVObath.getProperty_room()%> 개, 침대 <%=madVObath.getProperty_bed()%>
+						개, 욕실 <%=madVObath.getProperty_bathroom()%> 개
 					</li>
 					<li>⭐ <%=madVOAvgCount.getProperty_review_avg()%> · 후기 <%=madVOAvgCount.getProperty_review_count()%></li>
 					<li><%=amenties%></li>
 				</ul>
 				<div class="host">
-					<strong>호스트: <%=madVONameAt.getUser_name()%></strong><br /> 숙소
-					소개:
 					<%=madVONPD.getProperty_description()%>
-					숙소에서 휴식을 즐기세요.<br />
-					<p>
-						<strong>호스트 생성일자:</strong>
-						<%=totalYears%>년
-						<%=remainMonths%>개월
-					</p>
+					숙소에서 휴식을 즐기세요.<br /><br /><br />
 
+					
+					<!-- 호스트 소개 -->
+					<div style="display: flex; align-items: center; margin-bottom: 30px;">
+						<div style="
+							width: 60px;
+							height: 60px;
+							background-color: #d2b4f0;
+							border-radius: 50%;
+							display: flex;
+							align-items: center;
+							justify-content: center;
+							font-weight: bold;
+							color: white;
+							font-size: 14px;
+							margin-right: 16px;
+						">
+							<%=madVONameAt.getUser_name()%>
+						</div>
+						<p>
+							<strong>호스트: <%=madVONameAt.getUser_name()%></strong><br />
+							<strong>호스팅 경력: </strong>
+							<%=totalYears%>년
+							<%=remainMonths%>개월
+						</p>
+					</div>
+
+				</div>
+
+				<!-- 어메니티 박스 -->
+				<div>
+				  <h2 style="margin-top: 0; font-size: 22px;">어메니티 종류</h2>
+				  <ul class="amenities-container">
+				    <li class="amenity-item"><span class="amenity-icon">📶</span> 와이파이</li>
+				    <li class="amenity-item"><span class="amenity-icon">🧺</span> 세탁기</li>
+				    <li class="amenity-item"><span class="amenity-icon">🐾</span> 반려동물 출입 가능</li>
+				    <li class="amenity-item"><span class="amenity-icon">🅿️</span> 무료 주차</li>
+				    <li class="amenity-item"><span class="amenity-icon">❄️</span> 에어컨</li>
+				    <!-- 계속 추가 가능 -->
+				  </ul>
 				</div>
 
 				<!-- 리뷰 섹션 (임의 데이터) -->
@@ -312,47 +381,50 @@ body {
 						님에 대한 호스트의 후기
 					</h3>
 					<%
-				if(checkcount && madVOReviewList!=null && madVOReviewList.size()>0){
-					for(int i=0; i< Math.min(2, madVOReviewList.size());i++)
-					{
-						String reivew_content = madVOReviewList.get(i).getProperty_review_content();
-						String user_name = madVOReviewList.get(i).getUser_name();
-						String review_created_at = madVOReviewList.get(i).getProperty_review_created_at();
+					if (checkcount && madVOReviewList != null && madVOReviewList.size() > 0) {
+						for (int i = 0; i < Math.min(2, madVOReviewList.size()); i++) {
+							String reivew_content = madVOReviewList.get(i).getProperty_review_content();
+							String user_name = madVOReviewList.get(i).getUser_name();
+							String review_created_at = madVOReviewList.get(i).getProperty_review_created_at();
 					%>
 					<!--  <c:forEach var="review" items="${madVOReview}">-->
-						<div class="review-card">
-							<p class="review-content"><%=reivew_content %></p>
-							<div class="review-footer">
-								<div class="review-meta">
-									<div class="review-name"><%=user_name %></div>
-									<div class="review-date">
-										<fmt:parseDate value="<%=review_created_at %>" pattern="yyyy-MM-dd HH:mm:ss" var="parsedDate" />
-										<fmt:formatDate value="${parsedDate}" pattern="yyyy년 M월" />
-									</div>
-								</div>
+					<div class="review-card">
+					<div class="review-name"><%=user_name%></div>⭐5.0
+						<p class="review-content"><%=reivew_content%></p>
+						<div class="review-date">
+							<fmt:parseDate value="<%=review_created_at%>" pattern="yyyy-MM-dd HH:mm:ss" var="parsedDate" />
+							<fmt:formatDate value="${parsedDate}" pattern="yyyy년 M월" />
+						</div>
+						<div class="review-footer">
+							<div class="review-meta">
+
 							</div>
 						</div>
+					</div>
 					<!--  </c:forEach>-->
-					<%} %>
 					<%
-					for(int i=2; i<madVOReviewList.size(); i++){
+					}
+					%>
+					<%
+					for (int i = 2; i < madVOReviewList.size(); i++) {
 						String reivew_content = madVOReviewList.get(i).getProperty_review_content();
 						String user_name = madVOReviewList.get(i).getUser_name();
 						String review_created_at = madVOReviewList.get(i).getProperty_review_created_at();
 					%>
 					<div class="review-card hidden-review">
-						<p class="review-content"><%=reivew_content %></p>
+						<p class="review-content"><%=reivew_content%></p>
 						<div class="review-footer">
 							<div class="review-meta">
-								<div class="review-name"><%=user_name %></div>
-								<div class="review-date"><%=review_created_at %></div>
+								<div class="review-name"><%=user_name%></div>
+								<div class="review-date"><%=review_created_at%></div>
 							</div>
 						</div>
 					</div>
-					<%} 
-				}
+					<%
+					}
+					}
 					%>
-					
+
 					<!-- 후기 더보기 / 접기 텍스트 링크 -->
 					<div style="margin-top: 8px;">
 						<span id="toggleReviewLink" class="show-more-btn"
@@ -365,27 +437,24 @@ body {
 
 
 			<div class="reservation">
-				<div class="price">₩20,280 /박</div>
+				<div class="price">₩20,280 / 1박</div>
 				<label>체크인</label> <input type="date" value="2025-06-09" /> <label>체크아웃</label>
-				<input type="date" value="2025-06-14" /> <label>게스트</label> <select>
-					<option>1명</option>
-					<option>2명</option>
-					<option>3명</option>
-				</select>
-				
+				<input type="date" value="2025-06-14" />
+
 				<%-- 예약하기 버튼 --%>
-				<form action="${pageContext.request.contextPath}/reservation_default.re" method="post">
-					
+				<form
+					action="${pageContext.request.contextPath}/reservation_default.re"
+					method="post">
+
 					<%-- servlet에 넘겨줄 값 --%>
-					<input type="hidden" name="property_id" value="<%=propertyId %>">
-					  <button type="submit">예약하기</button>
+					<input type="hidden" name="property_id" value="<%=propertyId%>">
+					<button type="submit">예약하기</button>
 				</form>
-				
+
 				<div class="summary">
-					<p>총 숙박 요금: ₩106,733</p>
-					<p>청소비: ₩5,335</p>
-					<p>서비스 수수료: ₩6,349</p>
-					<strong>총액: ₩118,417</strong>
+					<p>총 숙박 요금: ₩100,000</p>
+					<p>수수료(10%): ₩10,000</p>
+					<strong>총액: ₩110,000</strong>
 				</div>
 			</div>
 		</div>
@@ -393,18 +462,30 @@ body {
 
 
 <script>
-	document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function () {
+	  const heart = document.getElementById("wishlist-heart");
+
+	  heart.addEventListener("click", function () {
+	    heart.classList.toggle("active");
+	    if (heart.classList.contains("active")) {
+	      heart.classList.remove("fa-regular");
+	      heart.classList.add("fa-solid");
+	    } else {
+	      heart.classList.remove("fa-solid");
+	      heart.classList.add("fa-regular");
+	    }
+	  });
+	  
     const toggleLink = document.getElementById("toggleReviewLink");
     const hiddenReviews = document.querySelectorAll(".hidden-review");
-
     let expanded = false;
 
-    toggleLink.addEventListener("click", function() {
-        expanded = !expanded;
-        hiddenReviews.forEach(r => r.style.display = expanded ? "block" : "none");
-        toggleLink.textContent = expanded ? "접기" : "후기 더보기";
+    toggleLink.addEventListener("click", function () {
+      expanded = !expanded;
+      hiddenReviews.forEach((r) => r.style.display = expanded ? "block" : "none");
+      toggleLink.textContent = expanded ? "접기" : "후기 더보기";
     });
-});
+  });
 </script>
 
 

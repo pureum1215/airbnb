@@ -100,7 +100,7 @@
 <body>
     <div class="container">
         <h1>로그인</h1>
-        <form action="${pageContext.request.contextPath}loginProcess.us" method="post">
+        <form action="${pageContext.request.contextPath}loginProcess.me" method="post">
             <div class="form-group">
                 <label for="user_email">이메일</label>
                 <input type="text" id="user_email" name="user_email" required>
@@ -112,7 +112,7 @@
             <button type="submit" class="btn">로그인</button>
         </form>
         <div class="register-link">
-            계정이 없으신가요? <a href="${pageContext.request.contextPath}register.us">회원가입</a>
+            계정이 없으신가요? <a href="${pageContext.request.contextPath}register.me">회원가입</a>
         </div>
     </div>
   </div>

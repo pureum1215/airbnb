@@ -38,7 +38,7 @@ public class LoginAction implements Action{
 			return forward;
 		}
 		userDAO.closeCon();
-		forward.setPath("login.us");
+		forward.setPath("login.me");
 		
 		return forward;
 	}

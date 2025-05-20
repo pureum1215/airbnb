@@ -26,10 +26,10 @@ public class SignInAction implements Action{
 		//성공했을 시,
 		if(userDAO.SignIn(msVO)) {
 			System.out.println("회원가입성공");
-			forward.setPath("login.us");
+			forward.setPath("login.me");
 			forward.setRedirect(true);
 		}else {
-			forward.setPath("register.us");
+			forward.setPath("register.me");
 			forward.setRedirect(false);
 		}
 		

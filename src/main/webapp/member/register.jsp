@@ -93,7 +93,7 @@
 <body>
   <div class="container">
     <h1>회원가입</h1>
-    <form action="${pageContext.request.contextPath}/registerProcess.us" method="post">
+    <form action="${pageContext.request.contextPath}/registerProcess.me" method="post">
       <div class="form-group">
         <input type="email" name="user_email" placeholder="이메일" required>
       </div>
@@ -116,7 +116,7 @@
     </form>
     <div class="login-link">
       이미 계정이 있으신가요?
-      <a href="${pageContext.request.contextPath}/login.us">로그인</a>
+      <a href="${pageContext.request.contextPath}/login.me">로그인</a>
     </div>
   </div>
 </body>

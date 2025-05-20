@@ -47,9 +47,8 @@ public class UserWishListAddAction implements Action {
     	
     	
     	// 왔던 jsp로 다시 돌아가기
-    	String referer = request.getHeader("Referer");
-
     	ActionForward forward = new ActionForward();
+    	String referer = request.getHeader("Referer");
     	
     	// 기본값은 메인 화면으로 돌아가게 하기
     	forward.setPath(referer != null ? referer : "/main_property_list.jsp");

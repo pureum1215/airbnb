@@ -25,17 +25,17 @@
 
 				<!-- 일반 메뉴 버튼 -->
 				<li>
-					<button
+					<button id="header_calendar"
 						class="menu-item px-4 py-2 rounded-full hover:bg-gray-100 font-medium">
 						달력</button>
 				</li>
 				<li>
-					<button
+					<button id="header_listing"
 						class="menu-item px-4 py-2 rounded-full hover:bg-gray-100 font-medium">
 						리스팅</button>
 				</li>
 				<li>
-					<button
+					<button id="header_reservation"
 						class="menu-item px-4 py-2 rounded-full hover:bg-gray-100 font-medium">
 						예약목록</button>
 				</li>
@@ -124,6 +124,29 @@
     const dropdownItems = document.querySelectorAll('.dropdown-item');
     const menuToggle = document.getElementById('menuToggle');
     const dropdownMenu = document.getElementById('dropdownMenu');
+    
+    // 현재 URL 불러오기 + 소문자 변경
+    //✨✨✨✨✨✨✨✨✨✨✨✨ WebController servlet 정의 하게 되면, 그 명칭에 맞게
+    // equals 할 것.
+    // 안 되면 내 탓 아님, ★ 희승 ★
+    
+    /*** No Korean
+    When defining a WebController servlet
+    , it will be equals according to its name. 
+    // If it doesn't work, it's not my fault, ★ Heeseung ★
+    **/    
+    const url = window.location.pathname.toLowerCase(); //현재 url 정보 불러오기
+    
+    const header_calendar = document.getElementById('header_calendar');
+    const header_listing = document.getElementById('header_listing');
+    const header_reservation = document.getElementById('header_reservation');
+    // const menuToggle = document.getElementById('menuToggle'); // 얘 위에 존재 함
+    
+    //자동으로 해당 페이지 올 때, 선택하게 하기
+    if(url.indexOf('calendar') != -1) {
+    	highlightMenu(header_calendar);
+    }
+    
 
     // 클릭 시 하이라이트 처리
     function highlightMenu(target) {

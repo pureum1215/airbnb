@@ -8,8 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import memberPage.memberLogIn.LoginAction;
-import memberPage.memberSignIn.SignInAction;
+import userPage.userWishList.UserWishListAddAction;
 
 
 
@@ -57,24 +56,10 @@ public class UserController extends HttpServlet {
 		 * 페이지 이동 작성 구간
 		 *****************************/
 		
-		if(command.equals("/login.us")) {
-			forward = new ActionForward();
-			forward.setPath("member/login.jsp");
-			forward.setRedirect(false);
+		if (command.equals("/wishlist_add.us")) {
+			action = new UserWishListAddAction();
 		}
-		else if(command.equals("/register.us")) {
-			forward = new ActionForward();
-			forward.setPath("member/register.jsp");
-			forward.setRedirect(false);
-		}
-		else if(command.equals("/registerProcess.us")) {
-			action = new SignInAction();
-			
-		}
-		else if(command.equals("/loginProcess.us")) {
-			action = new LoginAction();
-			
-		}
+		
 		
 		try {
 			if(action != null) {

@@ -118,7 +118,7 @@ public class MainPropertyListDAO {
 	}
 
 	public List<MainPropertyListVO> allgetProperty() {
-		List<MainPropertyListVO> mpVO = new ArrayList<MainPropertyListVO>();
+		List<MainPropertyListVO> lists = new ArrayList<MainPropertyListVO>();
 		
 		try {
 			String sql = "select property_id, property_name, property_photo_url from property";
@@ -129,7 +129,7 @@ public class MainPropertyListDAO {
 				vo.setProperty_id(rs.getString(1));
 				vo.setProperty_name(rs.getString(2));
 				vo.setProperty_photo_url(rs.getString(3));
-				mpVO.add(vo);
+				lists.add(vo);
 			}
 			
 		} catch (SQLException e) {
@@ -138,6 +138,7 @@ public class MainPropertyListDAO {
 			
 		}
 		
-		return mpVO;
+		System.out.println("check-d: "+lists.size());
+		return lists;
 	}
 }

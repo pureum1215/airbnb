@@ -65,19 +65,38 @@ public class UserWishListDAO {
 	}
 	
 	// 위시리스트에 등록
-	public int wishListAdd(String user_id, String property_id) {
-		int result = 0;
-		
-		// 위시리스트 추가
-		String sql = "INSERT INTO WISHLIST (user_id, property_id) "
-				+ "VALUES (?, ?)";
-		
-		return result;
+	public void wishListAdd(String user_id, String property_id) {
+	    try {
+	    	String sql = "INSERT INTO WISHLIST (user_id, property_id) "
+	    			+ "VALUES (?, ?)";
+	        pstmt = conn.prepareStatement(sql);
+	        pstmt.setString(1, user_id);
+	        pstmt.setString(2, property_id);
+	        pstmt.executeUpdate();
+	    } 
+	    catch (Exception e) {
+	        e.printStackTrace();
+	    } 
+	    finally {
+	        closeCon();
+	    }
 	}
 	
 	// 위시리스트에서 삭제
-	
-	
-	
+	public void wishListDelete(String user_id, String property_id) {
+	    try {
+	    	String sql = "DELETE FROM WISHLIST WHERE user_id = ? AND property_id = ?";
+	        pstmt = conn.prepareStatement(sql);
+	        pstmt.setString(1, user_id);
+	        pstmt.setString(2, property_id);
+	        pstmt.executeUpdate();
+	    } 
+	    catch (Exception e) {
+	        e.printStackTrace();
+	    } 
+	    finally {
+	        closeCon();
+	    }
+	}
 
 }

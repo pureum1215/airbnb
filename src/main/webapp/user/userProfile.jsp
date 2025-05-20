@@ -1,6 +1,9 @@
+<%@page import="userPage.userProfile.UserProfileVO"%>
 <%@page import="userPage.userProfile.UserProfileDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ page
+	import="java.time.*, java.time.format.*, java.time.temporal.ChronoUnit, java.util.List, java.util.ArrayList"%>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -16,19 +19,33 @@
 	</div>
 
 	<%
-	String userId = "user001";
+	String userId = "user001";// 예시
 	UserProfileDAO dao = new UserProfileDAO();
+	UserProfileVO upNCvo = dao.profileNC(userId); //user name created_at
 	
 	%>
+		<%
+		// 2. 포맷터 설정
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
+		// 3. 문자열 → LocalDateTime
+		LocalDateTime pastDateTime = LocalDateTime.parse(upNCvo.getUser_created_at(), formatter);
+		LocalDateTime now = LocalDateTime.now();
+		
+		// 4. 년, 월, 일 차이 계산
+		long totalYears = pastDateTime.until(now, ChronoUnit.YEARS);
+		long totalMonths = pastDateTime.until(now, ChronoUnit.MONTHS);
+		long remainMonths = totalMonths - (totalYears * 12);
+		%>
 	<main class="max-w-6xl mx-auto px-6 py-10 grid md:grid-cols-3 gap-10">
 
 		<!-- 좌측 프로필 요약 -->
 		<aside class="md:col-span-1">
 			<div class="bg-white border rounded-xl p-6 shadow-sm text-center">
 				<div
-					class="w-24 h-24 mx-auto rounded-full bg-black text-white text-4xl flex items-center justify-center font-bold">푸</div>
-				<h2 class="text-lg font-semibold mt-3">푸름</h2>
+					class="w-24 h-24 mx-auto rounded-full bg-black text-white text-4xl flex items-center justify-center font-bold">
+					<%=upNCvo.getUser_name() %></div>
+				<h2 class="text-lg font-semibold mt-3"><%=upNCvo.getUser_name() %></h2>
 				<p class="text-sm text-gray-500">게스트</p>
 
 				<div class="mt-4 space-y-1 text-sm text-gray-700">
@@ -36,7 +53,7 @@
 						후기 <span class="font-semibold">1개</span>
 					</p>
 					<p>
-						에어비앤비 가입 기간 <span class="font-semibold">4년</span>
+						에어비앤비 가입 기간 <span class="font-semibold"><%=totalYears %>년 <%=remainMonths %>개월</span>
 					</p>
 				</div>
 			</div>
@@ -47,7 +64,7 @@
 
 			<!-- 프로필 소개 -->
 			<div>
-				<h1 class="text-2xl font-bold">푸름 님 소개</h1>
+				<h1 class="text-2xl font-bold"><%=upNCvo.getUser_name()%> 님 소개</h1>
 				<button
 					class="mt-2 text-sm font-medium border px-4 py-2 rounded-md hover:bg-gray-50">프로필
 					수정하기</button>

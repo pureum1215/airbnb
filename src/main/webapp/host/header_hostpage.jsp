@@ -146,6 +146,13 @@
     if(url.indexOf('calendar') != -1) {
     	highlightMenu(header_calendar);
     }
+    else if(url.indexOf('propertylist') != -1) {
+    	highlightMenu(header_listing);
+    } 
+    else if(url.indexOf('reservationlist') != -1) {
+    	highlightMenu(header_reservation);
+    }
+    
     
 
     // 클릭 시 하이라이트 처리

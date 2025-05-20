@@ -22,11 +22,17 @@
 	String userId = "user001";// 예시
 	UserProfileDAO dao = new UserProfileDAO();
 	UserProfileVO upNCvo = dao.profileNC(userId); //user name created_at
-	List<UserProfileVO> uvoList = dao.userReview(userId);
+	List<UserProfileVO> uvoList = dao.userReview(userId); //별점  후기 내용  생성일자   후기를 쓴 호스트 이름 
+	List<UserProfileVO> pvoList = dao.propertyReview(userId); //숙소 별점, 리뷰 내용, 숙소 이름, 숙소사진
 	boolean checkcount1 = true;
-	if(uvoList.size()==0){
+	if(uvoList.size()==0 && uvoList!=null && uvoList.size()>0){
 		checkcount1 = false;
 	}
+	boolean checkcount2 = true;
+	if(pvoList.size()==0 && pvoList!= null && pvoList.size()>0){
+		checkcount2 = false;
+	}
+	
 	%>
 		<%
 		// 2. 포맷터 설정
@@ -79,17 +85,18 @@
 				<h2 class="text-xl font-semibold mb-3"><%=upNCvo.getUser_name()%> 님에 대한 호스트의 후기</h2>
 
 			<%
-			if(checkcount1 && uvoList!=null && uvoList.size()>0){
+			if(checkcount1){
 				for(int i=0; i < Math.min(2, uvoList.size()); i++){
 				String hostname = uvoList.get(i).getHost_name();
 				String content = uvoList.get(i).getUser_review_content();
 				String created_at = uvoList.get(i).getUser_review_created_at();
+				int reviewRating = uvoList.get(i).getUser_review_rating();
 			%>
 				<!-- 후기 목록 -->
 				<div id="reviewList" class="space-y-6">
 					<!-- 후기 1 -->
 					<div class="border rounded-xl p-4">
-						<p class="text-sm"><%=content %></p>
+						<p class="text-sm">⭐<%=reviewRating %> 후기:<%=content %></p>
 						<div class="flex items-center mt-3 text-sm text-gray-600">
 							<img src="https://randomuser.me/api/portraits/women/1.jpg"
 								class="w-6 h-6 rounded-full mr-2" /> <span><%=hostname %> ·
@@ -101,20 +108,25 @@
 			<%} %>
 			<%
 			for(int i=2; i<uvoList.size();i++){
-				
-			
+				String hostname = uvoList.get(i).getHost_name();
+				String content = uvoList.get(i).getUser_review_content();
+				String created_at = uvoList.get(i).getUser_review_created_at();
+				int reviewRating = uvoList.get(i).getUser_review_rating();
 			%>
 					<!-- 숨겨진 후기 -->
-					<div id="moreReviews" class="hidden space-y-6">
+					<div class="moreReviews hidden space-y-6">
+					
 						<!-- 후기 3 -->
 						<div class="border rounded-xl p-4">
-							<p class="text-sm">“훌륭한 커뮤니케이션과 시간 엄수! 언제든지 다시 모시고 싶습니다.”</p>
-							<div class="flex items-center mt-3 text-sm text-gray-600">
-								<img src="https://randomuser.me/api/portraits/men/3.jpg"
-									class="w-6 h-6 rounded-full mr-2" /> <span>Alex · 2022년
-									6월</span>
-							</div>
+						<p class="text-sm">⭐<%=reviewRating %>후기:<%=content %></p>
+						<div class="flex items-center mt-3 text-sm text-gray-600">
+							<img src="https://randomuser.me/api/portraits/women/1.jpg"
+								class="w-6 h-6 rounded-full mr-2" /> <span><%=hostname %> ·
+								<fmt:parseDate value="<%=created_at %>" pattern="yyyy-MM-dd HH:mm:ss"
+								 var="parsedDate" />
+										<fmt:formatDate value="${parsedDate}" pattern="yyyy년 M월" /></span>
 						</div>
+					</div>
 					</div>
 					<%
 					}
@@ -122,40 +134,64 @@
 				</div>
 
 				<!-- 후기 더보기 버튼 -->
-				<button id="showMoreBtn"
-					class="mt-4 text-sm font-medium underline text-gray-700 hover:text-black">
-					후기 더보기</button>
+				<button class="showMoreBtn mt-4 text-sm font-medium underline text-gray-700 hover:text-black">
+				    후기 더보기
+				</button>
 
 				<!-- 내가 작성한 후기 -->
+				<%
+				if(checkcount2){
+					for(int i=0; i < Math.min(2, pvoList.size()); i++){
+						int propertyrating= pvoList.get(i).getProperty_review_rating();	
+						String propertyContent = pvoList.get(i).getProperty_review_content();
+						String propertyat = pvoList.get(i).getProperty_review_created_at();
+						String propertyphoto = pvoList.get(i).getProperty_photo_url();
+						String propertyname = pvoList.get(i).getProperty_name();
+				%>
 				<div class="mt-10">
 					<h2 class="text-xl font-semibold mb-3">내가 작성한 후기</h2>
 
 					<div class="space-y-6">
 						<!-- 내가 쓴 후기 1 -->
 						<div class="border rounded-xl p-4">
-							<p class="text-sm">“호스트가 정말 친절하고 응답이 빨랐어요. 숙소도 사진보다 훨씬
-								좋았습니다!”</p>
+							<p class="text-sm">⭐<%=propertyrating %> 후기: <%=propertyContent %></p>
 							<div class="flex items-center mt-3 text-sm text-gray-600">
-								<img src="https://randomuser.me/api/portraits/men/5.jpg"
-									class="w-6 h-6 rounded-full mr-2" /> <span>호스트: John ·
-									2024년 2월</span>
+								<img src="/uploads/<%=propertyphoto %>"width="300" height="200"
+									alt="숙소 대표 이미지" /> <span>숙소 이름<%=propertyname %> ·
+									<%=propertyat %>></span>
 							</div>
 						</div>
-
-						<!-- 내가 쓴 후기 2 -->
+						
+					</div>
+					<%}%>
+					<%
+			for(int i=2; i<pvoList.size();i++){
+				int propertyrating= pvoList.get(i).getProperty_review_rating();	
+				String propertyContent = pvoList.get(i).getProperty_review_content();
+				String propertyat = pvoList.get(i).getProperty_review_created_at();
+				String propertyphoto = pvoList.get(i).getProperty_photo_url();
+				String propertyname = pvoList.get(i).getProperty_name();
+			%>
+					<!-- 숨겨진 후기 -->
+					<div class="moreReviews hidden space-y-6">
+					
+						<!-- 후기 3 -->
 						<div class="border rounded-xl p-4">
-							<p class="text-sm">“깨끗하고 조용한 숙소였어요. 위치도 좋고 다음에도 꼭 다시 예약하고
-								싶어요.”</p>
+							<p class="text-sm">⭐<%=propertyrating %> 후기: <%=propertyContent %></p>
 							<div class="flex items-center mt-3 text-sm text-gray-600">
-								<img src="https://randomuser.me/api/portraits/women/6.jpg"
-									class="w-6 h-6 rounded-full mr-2" /> <span>호스트: Emily ·
-									2023년 8월</span>
+								<img src="/uploads/<%=propertyphoto %>"width="300" height="200"
+									alt="숙소 대표 이미지" /> <span>숙소 이름<%=propertyname %> ·
+									<%=propertyat %>></span>
 							</div>
 						</div>
 					</div>
-					<button id="showMoreBtn"
-						class="mt-4 text-sm font-medium underline text-gray-700 hover:text-black">
-						후기 더보기</button>
+					<%
+					}	
+				} %>
+					
+					<button class="showMoreBtn mt-4 text-sm font-medium underline text-gray-700 hover:text-black">
+					    후기 더보기
+					</button>
 				</div>
 
 			</div>
@@ -165,27 +201,22 @@
 
 	<!-- 후기 더보기 스크립트 -->
 	<script>
-		document.getElementById("showMoreBtn").addEventListener("click",
-				function() {
-					const moreReviews = document.getElementById("moreReviews");
-					moreReviews.classList.toggle("hidden");
-
-					if (moreReviews.classList.contains("hidden")) {
-						this.textContent = "후기 더보기";
-					} else {
-						this.textContent = "접기";
-					}
-				});
-		document.addEventListener("DOMContentLoaded", function() {
-		    document.getElementById("showMoreBtn").addEventListener("click", function() {
-		        // 숨겨진 후기 모두 표시
-		        const hiddenReviews = document.querySelectorAll('.hidden-review');
-		        hiddenReviews.forEach(item => item.style.display = 'block');
-
-		        // 버튼 숨기기
-		        this.style.display = 'none';
-		    });
-		});
+	document.querySelectorAll(".showMoreBtn").forEach((btn, index) => {
+	    btn.addEventListener("click", function() {
+	        const moreReviews = document.querySelectorAll(".moreReviews")[index];
+	        if (!moreReviews) return;
+	
+	        moreReviews.classList.toggle("hidden");
+	
+	        if (moreReviews.classList.contains("hidden")) {
+	            this.textContent = "후기 더보기";
+	        } else {
+	            this.textContent = "접기";
+	        }
+	    });
+	});
 	</script>
+
+
 </body>
 </html>

@@ -12,6 +12,19 @@
 
 
 <!-- - - - - - - - - - - - - - - - - - - - - - - - - 
+	UserReservationAPI - 사용자 페이지에서 예약 목록 확인
+- - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <servlet>
+	<servlet-name>UserReservationAPI</servlet-name>
+    <servlet-class>controller.api.userReservation.UserReservationAPI</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>UserReservationAPI</servlet-name>
+    <url-pattern>*.ura</url-pattern>
+  </servlet-mapping>
+	  
+
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - 
 	Member - 로그인, 회원가입
 - - - - - - - - - - - - - - - - - - - - - - - - - - -->
   <servlet>

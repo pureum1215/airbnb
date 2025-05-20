@@ -1,12 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!-- ====== Java import ====== -->
 <%@ page
 	import="java.util.*, java.time.*, java.time.format.*, java.time.temporal.ChronoUnit"%>
 <%@ page
 	import="mainPage.mainPropertyList.*, mainPage.mainPropertyList.MainPropertyListVO"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -154,18 +154,28 @@ body {
 <body>
 <%
 MainPropertyListDAO dao = new MainPropertyListDAO();
-List<MainPropertyListVO> propertyList = dao.allgetProperty(); %>
+List<MainPropertyListVO> propertyList = dao.allgetProperty();
+System.out.println("jsp: "+propertyList.get(1).getProperty_id());
+%>
 	<!-- ====== 공통 헤더 ====== -->
 	<jsp:include page="property_header.jsp" />
+	
+	<h1>여기</h1>
+	${propertyList.get(1).getProperty_id() }
+	<c:out value="${propertyList.get(1).getProperty_id()}" />
+	<%=propertyList.get(1).getProperty_id() %>
 
 	<!-- ====== 본문 영역 (숙소 카드 목록) ====== -->
 	<div class="container">
 		<div class="property-grid">
 
 			<!-- 카드 1: 일반 숙소 -->
-			<c:forEach var="property" items="${propertyList}">
+			<%-- <c:forEach var="property" items="${propertyList}">--%>
+			<% for(int i = 0 ; i < propertyList.size(); i++) { %>
 				<div class="property-card">
 					<img src="/uploads/${property.property_photo_url}"
+						alt="숙소 대표 이미지" />
+						<img src="/uploads/<%=propertyList.get(i).getProperty_photo_url()%>"
 						alt="숙소 대표 이미지" />
 					<!-- <button class="wishlist-button" onclick="toggleHeart(this)">♡</button> -->
 					<div class="property-info">
@@ -175,7 +185,8 @@ List<MainPropertyListVO> propertyList = dao.allgetProperty(); %>
 						<div class="property-price"></div>
 					</div>
 				</div>
-			</c:forEach>
+			<% } %>
+			<%--</c:forEach>--%>
 
 
 			<!-- 카드 2: 게스트 선호 뱃지 포함 숙소 -->

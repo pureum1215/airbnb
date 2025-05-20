@@ -171,6 +171,7 @@ System.out.println("jsp: "+propertyList.get(1).getProperty_id());
      String propertyName = propertyList.get(i).getProperty_name();
      String photoUrl = propertyList.get(i).getProperty_photo_url();
 	%>
+	
     <a href="main_property_detail.jsp?property_id=<%=propertyId%>" class="property-card-link">
         <div class="property-card">
             <img src="/uploads/<%=photoUrl%>" alt="숙소 대표 이미지" />

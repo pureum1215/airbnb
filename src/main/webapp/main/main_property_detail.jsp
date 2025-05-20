@@ -212,6 +212,11 @@ body {
 		MainPropertyDetailVO madVOAvgCount = dao.propertyAvgCount(propertyId);//후기 평균 개수
 		MainPropertyDetailVO madVONameAt = dao.propertyHostName(propertyId);//호스트의 이름 생성한 날짜.
 		List<MainPropertyDetailVO> madVOReviewList = dao.propertyReviewName(propertyId);
+		boolean checkcount = true;
+		if(madVOReviewList.size()==0){
+			checkcount = false;
+		}
+		
 		List<Integer> listAmentie = dao.propertyAm(propertyId);
 		String amenties = "";
 		%>
@@ -307,6 +312,7 @@ body {
 						님에 대한 호스트의 후기
 					</h3>
 					<%
+				if(checkcount){
 					for(int i=0; i<2;i++)
 					{
 						String reivew_content = madVOReviewList.get(i).getProperty_review_content();
@@ -343,7 +349,9 @@ body {
 							</div>
 						</div>
 					</div>
-					<%} %>
+					<%} 
+				}
+					%>
 					
 					<!-- 후기 더보기 / 접기 텍스트 링크 -->
 					<div style="margin-top: 8px;">

@@ -32,7 +32,7 @@
   	<servlet-class>controller.MainController</servlet-class>
   </servlet>
   <servlet-mapping>
-  	<servlet-name>List</servlet-name>
+  	<servlet-name>Main</servlet-name>
   	<url-pattern>*.ma</url-pattern>
   </servlet-mapping> 
     

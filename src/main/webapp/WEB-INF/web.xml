@@ -10,6 +10,20 @@
     <welcome-file>default.htm</welcome-file>
   </welcome-file-list>
 
+
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - 
+	List - 예약 내역 확인, 리뷰 작성 
+- - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <servlet>
+  	<servlet-name>Member</servlet-name>
+  	<servlet-class>controller.MemberController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>Member</servlet-name>
+  	<url-pattern>*.me</url-pattern>
+  </servlet-mapping> 
+  
+
 <!-- - - - - - - - - - - - - - - - - - - - - - - - - 
 	List - 예약 내역 확인, 리뷰 작성 
 - - - - - - - - - - - - - - - - - - - - - - - - - - -->

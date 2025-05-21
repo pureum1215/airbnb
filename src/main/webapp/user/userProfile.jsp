@@ -33,7 +33,14 @@
 	
   // 1. 사용자 정보 및 후기 데이터 가져오기
   //String userId = "user001";//로그인 안하고, 이 페이지만 사용할때
-  String userId = (String)session.getAttribute("user_id");//로그인하고 이용할 때
+  System.out.println("test");
+  String userId = (String) session.getAttribute("user_id");//로그인하고 이용할 때
+  System.out.println("t2");
+  if(userId == null) {
+	  System.out.println("is null");
+  } else {
+	  System.out.println("not null");
+  }
   UserProfileDAO dao = new UserProfileDAO();
   UserProfileVO upNCvo = dao.profileNC(userId); // 이름, 생성일 등 프로필 정보,개인정보
   List<UserProfileVO> uvoList = dao.userReview(userId); // 호스트가 남긴 후기 리스트

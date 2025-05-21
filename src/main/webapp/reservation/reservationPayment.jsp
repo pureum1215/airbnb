@@ -16,6 +16,12 @@
 
 	<main class="max-w-6xl mx-auto px-6 py-10 grid md:grid-cols-3 gap-10">
 
+	<form
+		action="${pageContext.request.contextPath}/reservation_payment.re"
+		method="post">
+		
+		<input type="hidden" id="paymentMethodInput" name="payment_method" />
+				
 		<!-- 좌측: 결제수단 -->
 		<section class="md:col-span-2 space-y-8">
 			<h1 class="text-3xl font-bold mb-6">확인 및 결제</h1>
@@ -24,7 +30,7 @@
 			<div>
 				<h2 class="text-lg font-semibold mb-3">결제 수단</h2>
 				<div class="relative">
-					<button id="paymentToggle"
+					<button id="paymentToggle" type="button"
 						class="w-full border rounded-lg p-4 flex justify-between items-center text-left">
 						<div class="flex items-center space-x-2" id="selectedPayment">
 							<img id="selectedPaymentIcon" class="w-6 h-6 hidden" src=""
@@ -44,20 +50,20 @@
 						class="absolute z-10 w-full border rounded-lg bg-white shadow-md mt-1 hidden">
 						<div
 							class="hover:bg-gray-100 px-4 py-3 flex items-center cursor-pointer"
-							onclick="selectPayment('신용카드 또는 체크카드', 'https://img.icons8.com/ios-filled/50/000000/bank-card-back-side.png')">
+							onclick="selectPayment('신용카드 또는 체크카드', 'https://img.icons8.com/ios-filled/50/000000/bank-card-back-side.png', 'card')">
 							<img
 								src="https://img.icons8.com/ios-filled/50/000000/bank-card-back-side.png"
 								class="w-6 h-6 mr-2" /> <span>신용카드 또는 체크카드</span>
 						</div>
 						<div
 							class="hover:bg-gray-100 px-4 py-3 flex items-center cursor-pointer"
-							onclick="selectPayment('페이팔', 'https://img.icons8.com/color/48/000000/paypal.png')">
+							onclick="selectPayment('페이팔', 'https://img.icons8.com/color/48/000000/paypal.png', 'paypal')">
 							<img src="https://img.icons8.com/color/48/000000/paypal.png"
 								class="w-6 h-6 mr-2" /> <span>페이팔</span>
 						</div>
 						<div
 							class="hover:bg-gray-100 px-4 py-3 flex items-center cursor-pointer"
-							onclick="selectPayment('Google Pay', 'https://img.icons8.com/color/48/000000/google-pay.png')">
+							onclick="selectPayment('Google Pay', 'https://img.icons8.com/color/48/000000/google-pay.png', 'google pay')">
 							<img src="https://img.icons8.com/color/48/000000/google-pay.png"
 								class="w-6 h-6 mr-2" /> <span>Google Pay</span>
 						</div>
@@ -67,19 +73,16 @@
 
 			<br> <br> <br> <br> <br>
 
-			<form
-				action="${pageContext.request.contextPath}/reservation_payment.re"
-				method="post">
 
-				<%-- servlet으로 보낼 값 --%>
-				<input type="hidden" name="reservation_id"
-					value=<%=request.getAttribute("reservation_id")%>> <input
-					type="hidden" name="user_id" value="${sessionScope.user_id}">
+		<%-- servlet으로 보낼 값 --%>
+		<input type="hidden" name="payment_method" id="paymentMethodInput" />
+		<input type="hidden" name="reservation_id" value=<%=request.getAttribute("reservation_id")%>> 
+		<input type="hidden" name="property_id" value="<%= request.getAttribute("property_id") %>">
 
-				<button type="submit"
-					class="bg-rose-600 hover:bg-rose-700 text-white font-semibold py-3 px-6 rounded-lg text-base">
-					확인 및 결제</button>
-			</form>
+		<button type="submit"
+			class="bg-rose-600 hover:bg-rose-700 text-white font-semibold py-3 px-6 rounded-lg text-base">
+			확인 및 결제</button>
+	</form>
 		</section>
 
 		<!-- 우측: 숙소 요약 카드 -->
@@ -133,14 +136,15 @@
 
 	<!-- 드롭다운 스크립트 -->
 	<script>
+	
 		const toggle = document.getElementById("paymentToggle");
 		const options = document.getElementById("paymentOptions");
 
-		toggle.addEventListener("click", () => {
+		toggle.addEventListener("click", (event) => {
 			options.classList.toggle("hidden");
 		});
 
-		function selectPayment(name, iconUrl) {
+		function selectPayment(name, iconUrl, value) {
 			const icon = document.getElementById("selectedPaymentIcon");
 			const text = document.getElementById("selectedPaymentText");
 
@@ -149,6 +153,9 @@
 			icon.classList.remove("hidden");
 
 			text.textContent = name;
+			
+			// 실제 저장할 값 설정
+			document.getElementById("paymentMethodInput").value = value;
 
 			options.classList.add("hidden");
 		}

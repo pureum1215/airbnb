@@ -24,6 +24,10 @@ public class ReservationPaymentAction implements Action {
 		String propertyId = request.getParameter("property_id");
 		
 		ReservationDAO dao = new ReservationDAO();
+		
+		System.out.println("paymentMethod: " + paymentMethod);
+		System.out.println("reservationId: " + reservationId);
+		System.out.println("propertyId: " + propertyId);
 
 		
 		try {

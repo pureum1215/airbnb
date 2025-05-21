@@ -30,8 +30,10 @@
 <%@ include file="header_default.jsp" %>
 
 <%
+	
   // 1. 사용자 정보 및 후기 데이터 가져오기
-  String userId = "user001";
+  
+  String userId = (String)session.getAttribute("user_id");
   UserProfileDAO dao = new UserProfileDAO();
   UserProfileVO upNCvo = dao.profileNC(userId); // 이름, 생성일 등 프로필 정보
   List<UserProfileVO> uvoList = dao.userReview(userId); // 호스트가 남긴 후기 리스트
@@ -47,6 +49,7 @@
   LocalDateTime now = LocalDateTime.now();
   long years = joinedDate.until(now, ChronoUnit.YEARS);
   long months = joinedDate.until(now, ChronoUnit.MONTHS) - (years * 12);
+
 %>
 
 <main class="max-w-6xl mx-auto px-6 py-10 grid md:grid-cols-3 gap-10">

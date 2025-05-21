@@ -1,8 +1,13 @@
 package memberPage.memberLogIn;
 
+import java.net.MalformedURLException;
+import java.net.URL;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+import org.eclipse.jdt.internal.compiler.parser.RecoveredElement;
 
 import controller.Action;
 import controller.ActionForward;
@@ -30,23 +35,36 @@ public class LoginAction implements Action{
 			HttpSession session = request.getSession(); // 세션 객체를 먼저 얻어와야 함
 			
 			/*************************
-			 * 여기에 else if 적용할 것. 지금은 어디에 필요한지 모름
+			 * 여기에 redirecturl 지움.
 			 *************************/
-			String redirectUrl = (String) session.getAttribute("prevPage");
-			if (redirectUrl == null) {
-			    redirectUrl = "main_list.ma"; // 기본값
-			}else{
-				redirectUrl = "main_list.ma"; // 이곳에서 else if 사 이곳 수정
-			}
 			
-			forward.setPath(redirectUrl);
-			forward.setRedirect(true);
-
+//			String redirectUrl = (String) session.getAttribute("prevPage");
+//			System.out.println(redirectUrl);
+//			if (redirectUrl != null) {
+//				
+//				try {
+//			        // referer에서 contextPath 이후 경로만 추출
+//			        URL url = new URL(redirectUrl);
+//			        String path = url.getPath(); // "/airbnb/reservation.ur"
+//
+//			        // contextPath("/airbnb") 제거
+//			        String contextPath = request.getContextPath(); // "/airbnb"
+//			        if (path.startsWith(contextPath)) {
+//			            path = path.substring(contextPath.length()); // "/reservation.ur"
+//			            System.out.println(path);
+//			        }
+//			        forward.setPath(path);
+//
+//			    } catch (MalformedURLException e) {
+//			        e.printStackTrace();
+//			    }
+//				
+//			}
 			
 			//dao에 들러서 user 정보 다시 가져와 session 에 넣기
 			mlVOC = userDAO.infoSession(mlVO.getUser_email());
 			
-			forward.setPath(request.getContextPath()+"/main_list.ma");// 이부분 수정
+			forward.setPath(request.getContextPath()+"/main_list.ma");
 			forward.setRedirect(true);
 
 			// 세션 등록 과정

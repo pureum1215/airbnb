@@ -99,4 +99,8 @@ public class UserWishListDAO {
 	    }
 	}
 
+	public void wishListProp(String user_id) {
+		
+	}
+	
 }

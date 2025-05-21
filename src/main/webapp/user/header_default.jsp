@@ -381,7 +381,7 @@ body {
 
 <body>
 	<%
-	String userId = (String) session.getAttribute("user_id");
+	String userId1 = (String) session.getAttribute("user_id");
 	%>
 
 	<div class="biggest_box">
@@ -397,9 +397,9 @@ body {
 				<button class="host-mode-btn">호스트 모드로 전환</button>
 				<div class="circle-btn">
 					<%
-					if (userId != null) {
+					if (userId1 != null) {
 					%>
-					<%=userId%>
+					<%=userId1%>
 					<%
 					} else {
 					%>x
@@ -461,7 +461,7 @@ body {
 					<div class="user-info-container" id="userInfoContainerID">
 					
 						<%
-						if (userId != null) {
+						if (userId1 != null) {
 						%> 
 						
 						<!-- 회원일때 --> 

@@ -475,13 +475,13 @@ body {
 							<span>예약목록</span>
 						</div>
 						
-						<div class="menu-list">
+						<div class="menu-list" onclick="togglebutton('profile')">
 						<img src="https://cdn-icons-png.flaticon.com/512/6522/6522516.png" />
 							<span>프로필</span>
 						</div>
 						<div style="margin-left: 20px; margin-right: 20px; border-bottom: 1px solid #5B5956;"></div>
 					
-						<div class="menu-list">
+						<div class="menu-list" onclick="togglebutton('logout')">
 							<span>로그아웃</span>
 						</div>
 						
@@ -490,7 +490,7 @@ body {
 						 %>
 						 
 						<!-- 비회원일때 --> 
-						<div class="menu-list">
+						<div class="menu-list" onclick="togglebutton('login')">
 							<span>로그인</span>
 						</div>
 
@@ -510,6 +510,7 @@ body {
 				</div>
 			</div>
 		</div>
+
 
 		<!-- Search Bar -->
 		<div class="search-bar">
@@ -554,20 +555,24 @@ body {
 		}
 	}
 	
-/* 	// userInfo 버튼 , menu 버튼
+	
+ 	// userInfo 버튼 , menu 버튼
 	function togglebutton(menu) {
 		if(menu === 'wish') {
-			alert('wish');
-			// location.href = ?
-		} else if{
-			alert('reservation');
-			// location.href = ?
-		} else if{
-			alert('reservation');
-			// location.href = ?
+			location.href = "wishlist.jsp";
+		} else if(menu === 'reservation') {
+			location.href = "reservation.jsp";
+		} else if(menu === 'profile') {
+			location.href = "userProfile.us";
+		} 
+		else if(menu === 'login') {
+			location.href = "login.me";
+		} 
+		else if(menu === 'logout') {
+			location.href = "logout.ma";
 		} 
 	} 
-*/
+
 	
 	
 	

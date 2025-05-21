@@ -28,6 +28,8 @@ public class ReservationConfirmAction implements Action {
 		ReservationDAO dao = new ReservationDAO();
 		String newReservationId = "";
 		
+		System.out.println("check_in: " + checkIn);
+		System.out.println("check_out: " + checkOut);
 		
 		try {
 			// reservation_id 값 정하기

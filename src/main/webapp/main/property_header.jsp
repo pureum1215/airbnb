@@ -309,10 +309,15 @@ body {
 .amenity-btn:hover {
 	background-color: #e0e0e0;
 }
+.hidden {
+    display: none;
+}
 </style>
 </head>
 
 <body>
+<%String userId =(String)session.getAttribute("user_id");%>
+
 	<div class="biggest_box">
 		<!-- Header -->
 		<div class="header">
@@ -324,12 +329,25 @@ body {
 			<div class="nav"></div>
 			<div class="actions">
 				<span>호스트 모드로 전환</span>
-				<div class="circle-btn">준</div>
 				<div class="circle-btn">
-					<i class="fas fa-bars"></i>
+				<% if(userId != null) { %>
+    			<%=userId %>
+    			<%} else {%>x
+    			<%} %>
+  				</div>
+				<div class="circle-btn">
+					<div id="userMenuToggle" style="cursor: pointer;">
+						<i class="fas fa-bars"></i>
+					</div>
 				</div>
 			</div>
 		</div>
+			<div id="userMenu" class="hidden" style="position: absolute; top: 60px; right: 20px; background: white; border: 1px solid #ccc; border-radius: 5px; padding: 10px;">
+			    <ul style="list-style: none; padding: 0; margin: 0;">
+			        <li><a href="/userProfile.jsp">내 정보</a></li>
+			        <li><a href="/logout.ma">로그아웃</a></li>
+			    </ul>
+			</div>
 
 		<!-- Search Bar -->
 		<div class="search-bar">
@@ -358,6 +376,23 @@ body {
 	<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 
 	<script>
+	
+	document.addEventListener("DOMContentLoaded", function () {
+	    const toggleBtn = document.getElementById("userMenuToggle");
+	    const menu = document.getElementById("userMenu");
+
+	    toggleBtn.addEventListener("click", function () {
+	        menu.classList.toggle("hidden");
+	    });
+
+	    // 바깥 클릭 시 메뉴 닫기
+	    document.addEventListener("click", function (event) {
+	        if (!toggleBtn.contains(event.target) && !menu.contains(event.target)) {
+	            menu.classList.add("hidden");
+	        }
+	    });
+	});
+	
 	// === 변수 정의 ===
 	const panel = document.getElementById('dropdownPanel');
 	const sections = document.querySelectorAll('.search-bar .section');
@@ -435,7 +470,6 @@ body {
 		    </div>
 		  `;
 		}
-	
 		// === 필터 제어용 함수 ===
 		function updatePriceDisplay() {
 			 let min = parseInt(document.getElementById('priceMin').value);

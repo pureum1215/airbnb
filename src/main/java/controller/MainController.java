@@ -72,7 +72,11 @@ public class MainController extends HttpServlet {
 			forward = new ActionForward();
 			forward.setPath("main/main_property_list.jsp");
 			forward.setRedirect(false);
+		}else if(command.equals("/logout.ma")) {
+			
 		}
+		
+		
 		
 		try {
 			if ( action != null ) {

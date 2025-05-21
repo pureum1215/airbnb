@@ -345,7 +345,11 @@ body {
 			<div id="userMenu" class="hidden" style="position: absolute; top: 60px; right: 20px; background: white; border: 1px solid #ccc; border-radius: 5px; padding: 10px;">
 			    <ul style="list-style: none; padding: 0; margin: 0;">
 			        <li><a href="/userProfile.jsp">내 정보</a></li>
-			        <li><a href="/logout.ma">로그아웃</a></li>
+			        <li><% if(userId != null) { %>
+			  		<li><a href="/logout.ma">로그아웃</a></li>
+			  		<%} else { %>
+			        <li><a href="/login.me">로그인</a>
+			        <%} %>
 			    </ul>
 			</div>
 

@@ -9,7 +9,11 @@
 <body>
 <h1>response 연결 부분</h1>
 <%
+
 response.sendRedirect(request.getContextPath()+"/main_list.ma");
+
+
+
 %>
 </body>
 </html>

@@ -55,13 +55,15 @@ public class UserProfileDAO {
 		UserProfileVO uVO = new UserProfileVO();
 		
 		try {
-			String sql = "select user_name, user_created_at from user where user_id = ?";
+			String sql = "select user_name, user_created_at, user_email, user_phone_number from user where user_id = ?";
 	        PreparedStatement pstmt = conn.prepareStatement(sql);
 	        pstmt.setString(1, userId);
 	        ResultSet rs = pstmt.executeQuery();
 	        if (rs.next()) {
 	            uVO.setUser_name(rs.getString(1));
 	            uVO.setUser_created_at(rs.getString(2));
+	            uVO.setUser_email(rs.getString(3));
+	            uVO.setUser_phone_number(rs.getString(4));
 	        }
 			
 		}

@@ -149,6 +149,18 @@ body {
 </head>
 <body>
 
+<%-- -----------------------------------------------------------------
+
+	코드 확인용 세션 주입
+	로그인 연결 후 삭제하기 
+
+----------------------------------------------------------------- --%>
+<%	
+	session.setAttribute("user_id", "user099");
+%>
+<%-- --------------------- 여기까지 ------------------------------- --%>
+
+
 <%
 MainPropertyListDAO dao = new MainPropertyListDAO();
 List<MainPropertyListVO> propertyList = dao.allgetProperty();

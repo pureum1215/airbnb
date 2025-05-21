@@ -46,7 +46,7 @@ public class UserReservationListDAO {
 	}
 	
 	// user page 에서 upcoming 예약 목록 불러오기
-	public List<UserReservationListVO> getUpcomingReservations(String userId) {
+	public List<UserReservationListVO> getUpcomingReservations(String user_id) {
 	    List<UserReservationListVO> list = new ArrayList<>();
 	    try {
 	    	String sql = "SELECT r.reservation_id, p.property_name, p.property_photo_url,"
@@ -58,7 +58,7 @@ public class UserReservationListDAO {
         		+ "AND r.reservation_check_in > CURRENT_DATE"
         		+ "ORDER BY r.reservation_check_in ASC;";
 	        pstmt = conn.prepareStatement(sql);
-	        pstmt.setString(1, userId);
+	        pstmt.setString(1, user_id);
 	        rs = pstmt.executeQuery();
 
 	        while (rs.next()) {
@@ -79,7 +79,7 @@ public class UserReservationListDAO {
 	    return list;
 	} 
 	
-	public List<UserReservationListVO> getHistoryReservations(String userId) {
+	public List<UserReservationListVO> getHistoryReservations(String user_id) {
 	    List<UserReservationListVO> list = new ArrayList<>();
 	    try {
 	    	String sql = "SELECT r.reservation_id, p.property_name, p.property_photo_url,"
@@ -90,7 +90,7 @@ public class UserReservationListDAO {
         		+ "WHERE r.user_id = ?"
         		+ "ORDER BY r.reservation_check_in ASC;";
 	        pstmt = conn.prepareStatement(sql);
-	        pstmt.setString(1, userId);
+	        pstmt.setString(1, user_id);
 	        rs = pstmt.executeQuery();
 
 	        while (rs.next()) {

@@ -326,7 +326,6 @@ body {
 					alt="숙소 대표 이미지" />
 			</div>
 			<div id="map" style="width:350px;height:350px;"></div>
-			<p>위도: <%= locationX %> 경도: <%= locationY %></p>
 		</div>
 
 		<div class="info-section">

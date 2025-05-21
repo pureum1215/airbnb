@@ -32,10 +32,10 @@
 <%
 	
   // 1. 사용자 정보 및 후기 데이터 가져오기
-  
-  String userId = (String)session.getAttribute("user_id");
+  //String userId = "user001";//로그인 안하고, 이 페이지만 사용할때
+  String userId = (String)session.getAttribute("user_id");//로그인하고 이용할 때
   UserProfileDAO dao = new UserProfileDAO();
-  UserProfileVO upNCvo = dao.profileNC(userId); // 이름, 생성일 등 프로필 정보
+  UserProfileVO upNCvo = dao.profileNC(userId); // 이름, 생성일 등 프로필 정보,개인정보
   List<UserProfileVO> uvoList = dao.userReview(userId); // 호스트가 남긴 후기 리스트
   List<UserProfileVO> pvoList = dao.propertyReview(userId); // 사용자가 작성한 후기 리스트
 
@@ -76,7 +76,8 @@
 
     <!-- 사용자 소개 섹션 -->
     <div>
-      <h1 class="text-2xl font-bold"><%= upNCvo.getUser_name() %> 님 소개</h1>
+      <h1 class="text-2xl font-bold"><%= upNCvo.getUser_name() %> 님 정보</h1>
+      <h2>이메일: <%=upNCvo.getUser_email() %>,전화번호: <%=upNCvo.getUser_phone_number() %> </h2>
       <button class="mt-2 text-sm font-medium border px-4 py-2 rounded-md hover:bg-gray-50">프로필 수정하기</button>
     </div>
 

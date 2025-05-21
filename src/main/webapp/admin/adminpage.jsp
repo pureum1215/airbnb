@@ -53,6 +53,8 @@ body {
 	padding: 1rem;
 	border-radius: 8px;
 	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+	
+	scroll-margin-top: 6rem;
 }
 
 .section h3 {
@@ -173,7 +175,7 @@ th:last-child, td:last-child {
 	<!-- 왼쪽 고정 사이드바 -->
 	<div class="sidebar">
 		<h2>관리자 모드</h2>
-		<a href="#dashboard">📊 요약</a> <a href="#statistics">👥 통계 분석</a> <a
+		<a href="#dashboard">📊 요약</a> <a href="#stats">👥 통계 분석</a> <a
 			href="#users">👥 사용자 관리</a> <a href="#listings">🏠 숙소 관리</a> <a
 			href="#bookings">📅 예약 관리</a> <a href="#admin">🔐 관리자 설정</a>
 	</div>

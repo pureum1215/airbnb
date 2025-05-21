@@ -17,7 +17,7 @@ public class UserWishListAddAction implements Action {
         
         // 로그인 체크
         HttpSession session = request.getSession();
-        String userId = (String) session.getAttribute("userId");
+        String userId = (String) session.getAttribute("user_id");
         
         if (userId == null) {
             // 로그인하지 않은 경우 로그인 페이지로 리다이렉트

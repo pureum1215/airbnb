@@ -19,8 +19,10 @@ public class ReservationDefaultAction implements Action {
         response.setCharacterEncoding("UTF-8");
 		
         HttpSession session = request.getSession();
-        String userId = (String) session.getAttribute("userId");
+        String userId = (String) session.getAttribute("user_id");
         String propertyId = request.getParameter("property_id");
+        
+        System.out.println(userId);
         
         // 로그인하지 않은 경우
         if (userId == null) {
@@ -35,7 +37,7 @@ public class ReservationDefaultAction implements Action {
         
         System.out.println(ReservationType);
         
-        if ("즉시 예약".equals(ReservationType)) {
+        if ("즉시 가능".equals(ReservationType)) {
 	        ActionForward forward = new ActionForward();
 	        forward.setPath("reservation/reservationConfirm.jsp");
 	        forward.setRedirect(false);

@@ -16,7 +16,7 @@ public class UserReservationHistoryAction {
 
 		// 세션에서 user_id 가져오기
         HttpSession session = request.getSession();
-        String userId = (String) session.getAttribute("userId");
+        String userId = (String) session.getAttribute("user_id");
         
         // 로그인 안 된 경우 처리
         if (userId == null) {

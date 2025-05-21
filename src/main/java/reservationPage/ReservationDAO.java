@@ -1,8 +1,10 @@
 package reservationPage;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -20,6 +22,8 @@ public class ReservationDAO {
 	private ResultSet rs;
 
 	public ReservationDAO() {
+		System.out.println("생성 체크");
+		
 		try {
 			Context init = new InitialContext();
 			DataSource ds = (DataSource) init.lookup("java:comp/env/jdbc/MysqlDB");
@@ -71,70 +75,53 @@ public class ReservationDAO {
 	}
 	
 	// db에 저장된 마지막 예약 번호 가져오기
-	public String getLastReservationId() {
+	public String getLastReservationId() throws SQLException, IOException{
 	    String lastId = "res000";
-	    try {
-	        String sql = "SELECT reservation_id FROM reservation ORDER BY reservation_id DESC LIMIT 1";
-	        pstmt = conn.prepareStatement(sql);
-	        rs = pstmt.executeQuery();
-	        if (rs.next()) {
-	            lastId = rs.getString(1);
-	        }
-	    } 
-	    catch (Exception e) {
-	        e.printStackTrace();
-	    } 
-	    finally {
-	        closeCon();
-	    }
+	    
+        String sql = "SELECT reservation_id FROM reservation ORDER BY reservation_id DESC LIMIT 1";
+        pstmt = conn.prepareStatement(sql);
+        rs = pstmt.executeQuery();
+        if (rs.next()) {
+            lastId = rs.getString(1);
+        }
+	        
 	    return lastId;
 	}
 	
 	// 예약 db에 값 등록
-	public int reservationRequest(ReservationRequestVO vo) {
+	public int reservationRequest(ReservationRequestVO vo) throws SQLException, IOException {
+		System.out.println("reservationRequest 호출 됨");
+		
 		int result = 0;
 		
-	    try {
-	        String sql = "INSERT INTO reservation (reservation_id, property_id, user_id, reservation_check_in, reservation_check_out, reservation_created_at) " +
-	                     "VALUES (?, ?, ?, ?, ?, NOW())";
+		
+        String sql = "INSERT INTO Reservation (reservation_id, property_id, user_id, reservation_check_in, reservation_check_out, reservation_created_at) " +
+                     "VALUES (?, ?, ?, ?, ?, NOW())";
 
-	        pstmt = conn.prepareStatement(sql);
-	        pstmt.setString(1, vo.getReservation_id());
-	        pstmt.setString(2, vo.getProperty_id());
-	        pstmt.setString(3, vo.getUser_id());
-	        pstmt.setDate(4, vo.getReservation_check_in());
-	        pstmt.setDate(5, vo.getReservation_check_out());
+        pstmt = conn.prepareStatement(sql);
+        pstmt.setString(1, vo.getReservation_id());
+        pstmt.setString(2, vo.getProperty_id());
+        pstmt.setString(3, vo.getUser_id());
+        pstmt.setDate(4, vo.getReservation_check_in());
+        pstmt.setDate(5, vo.getReservation_check_out());
 
-	        result = pstmt.executeUpdate();
-
-	    } 
-	    catch (Exception e) {
-	        e.printStackTrace();
-	    } 
-	    finally {
-	        closeCon();
-	    }
-	    
+        result = pstmt.executeUpdate();
+        System.out.println("DB 저장 결과: " + result);
+    
 		return result;
 	}
 	
 	// db에 저장된 마지막 payment id 불러오기
-	public String getLastPaymentId() {
+	public String getLastPaymentId() throws SQLException, IOException {
 		String lastId = "pay000";
-	    try {
-	        String sql = "SELECT payment_id FROM payment ORDER BY payment_id DESC LIMIT 1";
-	        pstmt = conn.prepareStatement(sql);
-	        rs = pstmt.executeQuery();
-	        if (rs.next()) {
-	            lastId = rs.getString(1);
-	        }
+
+	    String sql = "SELECT payment_id FROM payment ORDER BY payment_id DESC LIMIT 1";
+	    pstmt = conn.prepareStatement(sql);
+	    rs = pstmt.executeQuery();
+	    if (rs.next()) {
+	    	lastId = rs.getString(1);
 	    }
-	    catch (Exception e) {
-	        e.printStackTrace();
-	    } 
-	    finally {
-	        closeCon();
-	    }
+
 	    return lastId;
 	}
 	

@@ -30,24 +30,18 @@
 			<div>
 				<h2 class="text-lg font-semibold mb-3">결제 수단</h2>
 				<div class="relative">
-					<button id="paymentToggle" type="button"
-						class="w-full border rounded-lg p-4 flex justify-between items-center text-left">
+					<button id="paymentToggle" type="button" class="w-full border rounded-lg p-4 flex justify-between items-center text-left">
 						<div class="flex items-center space-x-2" id="selectedPayment">
-							<img id="selectedPaymentIcon" class="w-6 h-6 hidden" src=""
-								alt="" /> <span id="selectedPaymentText"
-								class="text-sm text-gray-500">결제 수단 선택</span>
+							<img id="selectedPaymentIcon" class="w-6 h-6 hidden" src="" alt="" /> 
+							<span id="selectedPaymentText" class="text-sm text-gray-500">결제 수단 선택</span>
 						</div>
-						<svg xmlns="http://www.w3.org/2000/svg"
-							class="w-5 h-5 text-gray-500" fill="none" viewBox="0 0 24 24"
-							stroke="currentColor">
-							<path stroke-linecap="round" stroke-linejoin="round"
-								stroke-width="2" d="M19 9l-7 7-7-7" />
+							<svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
 						</svg>
 					</button>
 
 					<!-- 결제 옵션 목록 -->
-					<div id="paymentOptions"
-						class="absolute z-10 w-full border rounded-lg bg-white shadow-md mt-1 hidden">
+					<div id="paymentOptions" class="absolute z-10 w-full border rounded-lg bg-white shadow-md mt-1 hidden">
 						<div
 							class="hover:bg-gray-100 px-4 py-3 flex items-center cursor-pointer"
 							onclick="selectPayment('신용카드 또는 체크카드', 'https://img.icons8.com/ios-filled/50/000000/bank-card-back-side.png', 'card')">

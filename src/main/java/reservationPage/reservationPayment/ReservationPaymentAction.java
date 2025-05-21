@@ -36,13 +36,14 @@ public class ReservationPaymentAction implements Action {
 			
 			// 총 비용 구하기
 			int totalPrice = dao.getTotalPrice(reservationId);
+			int totalWithTax = (int) Math.round(totalPrice * 1.1);
 			
 			
 			// vo에 값 세팅
 			ReservationPaymentVO vo = new ReservationPaymentVO();
 			vo.setPayment_id(newPaymentId);
 			vo.setReservation_id(reservationId);
-			vo.setPayment_price(totalPrice);
+			vo.setPayment_price(totalWithTax);
 			vo.setPayment_method(paymentMethod);
 			
 			// 결제 기능

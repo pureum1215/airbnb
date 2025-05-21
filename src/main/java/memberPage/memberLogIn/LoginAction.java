@@ -26,6 +26,23 @@ public class LoginAction implements Action{
 		mlVOB = userDAO.login(mlVO.getUser_email());
 		
 		if(mlVOB != null&& mlVO.getUser_password().equals(mlVOB.getUser_password())) {
+			
+			HttpSession session = request.getSession(); // 세션 객체를 먼저 얻어와야 함
+			
+			/*************************
+			 * 여기에 else if 적용할 것. 지금은 어디에 필요한지 모름
+			 *************************/
+			String redirectUrl = (String) session.getAttribute("prevPage");
+			if (redirectUrl == null) {
+			    redirectUrl = "main_list.ma"; // 기본값
+			}else{
+				redirectUrl = "main_list.ma"; // 이곳에서 else if 사 이곳 수정
+			}
+			
+			forward.setPath(redirectUrl);
+			forward.setRedirect(true);
+
+			
 			//dao에 들러서 user 정보 다시 가져와 session 에 넣기
 			mlVOC = userDAO.infoSession(mlVO.getUser_email());
 			
@@ -33,7 +50,6 @@ public class LoginAction implements Action{
 			forward.setRedirect(true);
 
 			// 세션 등록 과정
-			HttpSession session = request.getSession();
 			session.setAttribute("userInfo", mlVOC);
 			session.setAttribute("user_id", mlVOC.getUser_id());			
 			return forward;

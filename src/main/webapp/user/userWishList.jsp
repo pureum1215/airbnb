@@ -8,7 +8,11 @@
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-white text-gray-900 font-sans antialiased">
-
+	<%
+	//String userId = (String)session.getAttribute("user_id");//실제 사
+	String userId ="user002";//테스트
+	
+	%>
 	<div>
 		<%@ include file="header_default.jsp"%>
 		<!-- 정적 포함 -->

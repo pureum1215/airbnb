@@ -35,6 +35,7 @@ public class LoginAction implements Action{
 			// 세션 등록 과정
 			HttpSession session = request.getSession();
 			session.setAttribute("userInfo", mlVOC);
+			session.setAttribute("user_id", mlVOC.getUser_id());			
 			return forward;
 		}
 		userDAO.closeCon();

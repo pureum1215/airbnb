@@ -126,7 +126,7 @@ public class ReservationDAO {
 	}
 	
 	// 전체 요금 가져오기
-	public int getTotalPrice(String propertyId) throws SQLException, IOException {
+	public int getTotalPrice(String reservationId) throws SQLException, IOException {
 		int totalPrice = 0;
 
 		String sql = "SELECT r.reservation_check_in, r.reservation_check_out, p.price_per_night "
@@ -134,7 +134,7 @@ public class ReservationDAO {
 	            + "JOIN property p ON r.property_id = p.property_id "
 	            + "WHERE r.reservation_id = ?";
         pstmt = conn.prepareStatement(sql);
-        pstmt.setString(1, propertyId);
+        pstmt.setString(1, reservationId);
         rs = pstmt.executeQuery();
         if (rs.next()) {
             Date checkIn = rs.getDate("reservation_check_in");

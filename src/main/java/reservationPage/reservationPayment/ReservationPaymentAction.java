@@ -20,7 +20,7 @@ public class ReservationPaymentAction implements Action {
 		// payment_id, payment_price, payment_status, payment_created_at 
 		
 		String paymentMethod = request.getParameter("payment_method");
-		String reservationId = request.getParameter("resesrvation_id");
+		String reservationId = request.getParameter("reservation_id");
 		String propertyId = request.getParameter("property_id");
 		
 		ReservationDAO dao = new ReservationDAO();

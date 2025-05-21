@@ -64,10 +64,10 @@ public class ReservationConfirmAction implements Action {
 		
 		
         ActionForward forward = new ActionForward();
-        request.setAttribute("reservation_id", propertyId);
         request.setAttribute("reservation_id", newReservationId);
+        request.setAttribute("property_id", propertyId);
         forward.setPath("reservation/reservationPayment.jsp");
-        forward.setRedirect(true);
+        forward.setRedirect(false);
         
         return forward;
 	}

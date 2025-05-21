@@ -76,9 +76,9 @@
 
 		<%-- servlet으로 보낼 값 --%>
 		<input type="hidden" name="payment_method" id="paymentMethodInput" />
-		<input type="hidden" name="reservation_id" value=<%=request.getAttribute("reservation_id")%>> 
-		<input type="hidden" name="property_id" value="<%= request.getAttribute("property_id") %>">
-
+		<input type="hidden" name="reservation_id" value="<%=request.getAttribute("reservation_id") %>"> 
+		<input type="hidden" name="property_id" value="<%=request.getAttribute("property_id") %>">
+	
 		<button type="submit"
 			class="bg-rose-600 hover:bg-rose-700 text-white font-semibold py-3 px-6 rounded-lg text-base">
 			확인 및 결제</button>

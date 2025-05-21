@@ -98,6 +98,13 @@
   </style>
 </head>
 <body>
+<%
+    String referer = request.getHeader("Referer");
+	System.out.println("REFERER: " + referer);
+    if (referer != null && !referer.contains("login")) {
+        session.setAttribute("prevPage", referer);
+    }
+%>
     <div class="container">
         <h1>로그인</h1>
         <form action="${pageContext.request.contextPath}loginProcess.me" method="post">

@@ -165,12 +165,10 @@ body {
 	MemberLogInVO loginVO = (MemberLogInVO) session.getAttribute("userInfo");
 
 	if (loginVO != null) {
-		String userId = loginVO.getUser_id();
-		String userName = loginVO.getUser_name();
-		session.setAttribute("user_id", userId);
-	}else{
-		session.setAttribute("user_id", null);
+		String loginuserId = loginVO.getUser_id();
+		String loginuserName = loginVO.getUser_name();
 	}
+
 %>
 
 

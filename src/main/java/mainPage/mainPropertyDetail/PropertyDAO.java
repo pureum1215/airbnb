@@ -264,4 +264,30 @@ public class PropertyDAO {
 
 		return madVO;
 	}
+	
+	
+	// 지도 생성용 위도, 경도 가져오기
+	public MainPropertyDetailVO getPropertyLatLng(String propertyId) {
+	    MainPropertyDetailVO vo = new MainPropertyDetailVO();
+
+	    try {
+	        String sql = "SELECT l.location_x, l.location_y FROM property p " +
+                    "JOIN location l ON p.location_id = l.location_id " +
+                    "WHERE p.property_id = ?";
+	        PreparedStatement pstmt = conn.prepareStatement(sql);
+	        pstmt.setString(1, propertyId);
+	        ResultSet rs = pstmt.executeQuery();
+
+	        if (rs.next()) {
+	            vo.setLocation_x(rs.getDouble("location_x"));
+	            vo.setLocation_y(rs.getDouble("location_y"));
+	        }
+
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+
+	    return vo;
+	}
+	
 }

@@ -308,13 +308,25 @@ body {
 			}
 		}
 		%>
+		
+		<%
+		// 지도 위도, 경도 가져오기
+		    MainPropertyDetailVO mapInfo = dao.getPropertyLatLng(propertyId);
+		    double locationX = mapInfo.getLocation_x();
+		    double locationY = mapInfo.getLocation_y();
+		%>
+		
 		<div class="title">
 			<%=madVONPD.getProperty_name()%>
 			<i id="wishlist-heart" class="fa-regular fa-heart heart-icon"></i>
 		</div>
 		<div class="gallery">
-			<img src="/uploads/<%=madVONPD.getProperty_photo_url()%>"
-				alt="숙소 대표 이미지" />
+			<div>
+				<img src="/uploads/<%=madVONPD.getProperty_photo_url()%>"
+					alt="숙소 대표 이미지" />
+			</div>
+			<div id="map" style="width:350px;height:350px;"></div>
+			<p>위도: <%= locationX %> 경도: <%= locationY %></p>
 		</div>
 
 		<div class="info-section">
@@ -460,7 +472,7 @@ body {
 		</div>
 	</div>
 
-
+<script type="text/javascript" src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=991e8640696acefd76255f05e2328d69&autoload=false" ></script>
 <script>
 document.addEventListener("DOMContentLoaded", function () {
 	  const heart = document.getElementById("wishlist-heart");
@@ -486,6 +498,32 @@ document.addEventListener("DOMContentLoaded", function () {
       toggleLink.textContent = expanded ? "접기" : "후기 더보기";
     });
   });
+  
+  
+	// 지도 기능  
+	kakao.maps.load(function () {
+		// 지도 표시할 div와 옵션
+	    var mapContainer = document.getElementById('map');
+	    var mapOption = {
+	      center: new kakao.maps.LatLng(<%=locationY%>, <%=locationX%>),
+	      level: 3
+	    };
+	
+	    // 지도 생성
+	    var map = new kakao.maps.Map(mapContainer, mapOption);
+	
+	    // 마커 위치
+	    var markerPosition = new kakao.maps.LatLng(<%=locationY%>, <%=locationX%>);
+	
+	    // 마커 생성
+	    var marker = new kakao.maps.Marker({
+	      position: markerPosition
+	    });
+	
+	    // 마커 지도에 표시
+	    marker.setMap(map);
+	});
+	
 </script>
 
 

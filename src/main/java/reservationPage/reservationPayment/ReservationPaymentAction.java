@@ -21,13 +21,11 @@ public class ReservationPaymentAction implements Action {
 		
 		String paymentMethod = request.getParameter("payment_method");
 		String reservationId = request.getParameter("reservation_id");
-		String propertyId = request.getParameter("property_id");
 		
 		ReservationDAO dao = new ReservationDAO();
 		
 		System.out.println("paymentMethod: " + paymentMethod);
 		System.out.println("reservationId: " + reservationId);
-		System.out.println("propertyId: " + propertyId);
 
 		
 		try {
@@ -37,7 +35,7 @@ public class ReservationPaymentAction implements Action {
 			String newPaymentId = String.format("res%03d", number + 1);
 			
 			// 총 비용 구하기
-			int totalPrice = dao.getTotalPrice(propertyId);
+			int totalPrice = dao.getTotalPrice(reservationId);
 			
 			
 			// vo에 값 세팅

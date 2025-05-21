@@ -255,7 +255,8 @@ body {
 
 .price-sliders {
 	display: flex;
-	flex-direction: column; align-items : center;
+	flex-direction: column;
+	align-items: center;
 	gap: 10px;
 	align-items: center;
 }
@@ -309,14 +310,69 @@ body {
 .amenity-btn:hover {
 	background-color: #e0e0e0;
 }
+
 .hidden {
-    display: none;
+	display: none;
+}
+
+.host-mode-btn {
+	display: flex;
+	align-items: center;
+	gap: 0.5rem;
+	border: 1px solid #FCFCFC; /* gray-300 */
+	background-color: #FCFCFC;
+	color: black;
+	font-weight: 500;
+	border-radius: 9999px; /* rounded-full */
+	transition: background-color 0.2s ease;
+	cursor: pointer;
+}
+
+.host-mode-btn:hover {
+	background-color: #f9fafb; /* hover:bg-gray-50 */
+}
+
+.host-mode-icon {
+	width: 1.25rem; /* w-5 */
+	height: 1.25rem; /* h-5 */
+	color: #4b5563; /* text-gray-600 */
+}
+
+.dropdown {
+	position: absolute;
+	top: 110%; /* 메뉴 버튼 아래로 */
+	right: 0;
+	background-color: white;
+	border: 1px solid #ddd;
+	border-radius: 12px;
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+	width: 220px;
+	padding: 12px 0;
+	z-index: 100;
+	display: none;
+}
+
+.dropdown.active {
+	display: block;
+}
+
+.dropdown-item {
+	padding: 10px 16px;
+	font-size: 14px;
+	color: #333;
+	cursor: pointer;
+}
+
+.dropdown-item:hover {
+	background-color: #f5f5f5;
 }
 </style>
 </head>
 
 <body>
-<%String userId =(String)session.getAttribute("user_id");%>
+	<%
+	String userId = (String) session.getAttribute("user_id");
+	%>
 
 	<div class="biggest_box">
 		<!-- Header -->
@@ -328,13 +384,25 @@ body {
 			</div>
 			<div class="nav"></div>
 			<div class="actions">
-				<span>호스트 모드로 전환</span>
+				<button class="host-mode-btn">호스트 모드로 전환</button>
 				<div class="circle-btn">
-				<% if(userId != null) { %>
-    			<%=userId %>
-    			<%} else {%>x
-    			<%} %>
-  				</div>
+					<%
+					if (userId != null) {
+					%>
+					<%=userId%>
+					<%
+					} else {
+					%>x
+					<%
+					}
+					%>
+				</div>
+				
+				<style>
+				
+				
+				</style>
+				
 				<div class="circle-btn">
 					<div id="userMenuToggle" style="cursor: pointer;">
 						<i class="fas fa-bars"></i>
@@ -342,16 +410,28 @@ body {
 				</div>
 			</div>
 		</div>
-			<div id="userMenu" class="hidden" style="position: absolute; top: 60px; right: 20px; background: white; border: 1px solid #ccc; border-radius: 5px; padding: 10px;">
-			    <ul style="list-style: none; padding: 0; margin: 0;">
-			        <li><a href="/userProfile.jsp">내 정보</a></li>
-			        <li><% if(userId != null) { %>
-			  		<li><a href="/logout.ma">로그아웃</a></li>
-			  		<%} else { %>
-			        <li><a href="/login.me">로그인</a>
-			        <%} %>
-			    </ul>
-			</div>
+		
+
+		
+		
+		<div id="userMenu" class="hidden"
+			style="position: absolute; top: 60px; right: 20px; background: white; border: 1px solid #ccc; border-radius: 5px; padding: 10px;">
+			<ul style="list-style: none; padding: 0; margin: 0;">
+				<li></li>
+				<li>
+					<%
+					if (userId != null) {
+					%> <!-- 여기로 이동 예정 --> <%
+					 } else {
+					 %> <a href="./user/userProfile.jsp">위시리스트</a> <a
+										href="./user/userProfile.jsp">예약목록</a> <a
+										href="./user/userProfile.jsp">프로필</a>
+									<li><a href="logout.ma">로그아웃</a></li>
+									<li><a href="login.me">로그인 또는 회원 가입</a> <%
+					 }
+					 %>
+			</ul>
+		</div>
 
 		<!-- Search Bar -->
 		<div class="search-bar">

@@ -130,8 +130,8 @@ public class ReservationDAO {
 		int totalPrice = 0;
 
 		String sql = "SELECT r.reservation_check_in, r.reservation_check_out, p.price_per_night "
-				+ "FROM reservation r"
-	            + "JOIN property p ON r.property_id = p.property_id"
+				+ "FROM reservation r "
+	            + "JOIN property p ON r.property_id = p.property_id "
 	            + "WHERE r.reservation_id = ?";
         pstmt = conn.prepareStatement(sql);
         pstmt.setString(1, propertyId);

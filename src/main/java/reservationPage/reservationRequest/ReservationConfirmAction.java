@@ -26,13 +26,16 @@ public class ReservationConfirmAction implements Action {
 		String propertyId = request.getParameter("property_id");
 		
 		ReservationDAO dao = new ReservationDAO();
+		String newReservationId = "";
 		
+		System.out.println("check_in: " + checkIn);
+		System.out.println("check_out: " + checkOut);
 		
 		try {
 			// reservation_id 값 정하기
 			String lastReservationId = dao.getLastReservationId();
 			int number = Integer.parseInt(lastReservationId.substring(3));
-			String newReservationId = String.format("res%03d", number + 1);
+			newReservationId = String.format("res%03d", number + 1);
 			
 			
 			// vo에 값 세팅
@@ -63,8 +66,10 @@ public class ReservationConfirmAction implements Action {
 		
 		
         ActionForward forward = new ActionForward();
+        request.setAttribute("reservation_id", newReservationId);
+        request.setAttribute("property_id", propertyId);
         forward.setPath("reservation/reservationPayment.jsp");
-        forward.setRedirect(true);
+        forward.setRedirect(false);
         
         return forward;
 	}

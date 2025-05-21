@@ -163,7 +163,7 @@ public class ReservationDAO {
 	        pstmt.setString(2, vo.getReservation_id());
 	        pstmt.setInt(3, vo.getPayment_price());
 	        pstmt.setString(4, vo.getPayment_method());
-	        pstmt.setString(5, "결제 완료");
+	        pstmt.setString(5, "완료");
 
 	        result = pstmt.executeUpdate();
 		

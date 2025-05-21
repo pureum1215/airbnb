@@ -126,42 +126,35 @@ public class ReservationDAO {
 	}
 	
 	// 전체 요금 가져오기
-	public int getTotalPrice(String propertyId) {
+	public int getTotalPrice(String propertyId) throws SQLException, IOException {
 		int totalPrice = 0;
-		try {
-			String sql = "SELECT r.reservation_check_in, r.reservation_check_out, p.price_per_night "
-					+ "FROM reservation r"
-		            + "JOIN property p ON r.property_id = p.property_id"
-		            + "WHERE r.reservation_id = ?";
-	        pstmt = conn.prepareStatement(sql);
-	        pstmt.setString(1, propertyId);
-	        rs = pstmt.executeQuery();
-	        if (rs.next()) {
-	            Date checkIn = rs.getDate("reservation_check_in");
-	            Date checkOut = rs.getDate("reservation_check_out");
-	            int pricePerNight = rs.getInt("price_per_night");
 
-	            // 일수 계산 (체크아웃 - 체크인)
-	            long millis = checkOut.getTime() - checkIn.getTime();
-	            int days = (int) (millis / (1000 * 60 * 60 * 24));
+		String sql = "SELECT r.reservation_check_in, r.reservation_check_out, p.price_per_night "
+				+ "FROM reservation r"
+	            + "JOIN property p ON r.property_id = p.property_id"
+	            + "WHERE r.reservation_id = ?";
+        pstmt = conn.prepareStatement(sql);
+        pstmt.setString(1, propertyId);
+        rs = pstmt.executeQuery();
+        if (rs.next()) {
+            Date checkIn = rs.getDate("reservation_check_in");
+            Date checkOut = rs.getDate("reservation_check_out");
+            int pricePerNight = rs.getInt("price_per_night");
 
-	            totalPrice = days * pricePerNight;
-	        }
-	    } 
-		catch (Exception e) {
-	        e.printStackTrace();
-	    } 
-		finally {
-	        closeCon();
-	    }
+            // 일수 계산 (체크아웃 - 체크인)
+            long millis = checkOut.getTime() - checkIn.getTime();
+            int days = (int) (millis / (1000 * 60 * 60 * 24));
+
+            totalPrice = days * pricePerNight;
+        }
+        
 		return totalPrice;
 	}
 	
 	// 결제 db에 값 등록
-	public int reservationPayment(ReservationPaymentVO vo) {
+	public int reservationPayment(ReservationPaymentVO vo) throws SQLException, IOException {
 		int result = 0;
 		
-	    try {
 	        String sql = "INSERT INTO payment (payment_id, reservation_id, payment_price, payment_method, payment_status, payment_created_at) "
 	        		+ "VALUES (?, ?, ?, ?, ?, NOW())";
 
@@ -173,13 +166,6 @@ public class ReservationDAO {
 	        pstmt.setString(5, "결제 완료");
 
 	        result = pstmt.executeUpdate();
-	    } 
-	    catch (Exception e) {
-	        e.printStackTrace();
-	    } 
-	    finally {
-	        closeCon();
-	    }
 		
 		return result;
 	}

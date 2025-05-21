@@ -3,6 +3,7 @@ package userPage.userWishList;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -99,8 +100,32 @@ public class UserWishListDAO {
 	    }
 	}
 
-	public void wishListProp(String user_id) {
+	//숙소 이름, 숙소 가격, 숙소 사진, 숙소설명, 숙소 침대 수
+	public UserWishListVO wishListProp(String user_id) {
+		UserWishListVO vo = new UserWishListVO();
 		
+		try {
+			String sql = "select p.property_name, p.price_per_night, p.property_photo_url, "
+					+ "p.property_description, p.property_bed "
+					+ "from wish_list w "
+					+ "join property p on w.property_id = p.property_id "
+					+ "where w.user_id = ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, user_id);
+			ResultSet rs = pstmt.executeQuery();
+			if(rs.next()) {
+				// 여기서부터 하면 됨
+			}
+			
+			
+		} catch (SQLException e) {
+			// TODO: handle exception
+		}
+		
+		return vo;
 	}
 	
+	
+	
+	//숙소의 별점 없는 경우 위의 쿼리에 담기지 않아서 따로 담음
 }

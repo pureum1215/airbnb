@@ -1,3 +1,5 @@
+<%@page import="userPage.userWishList.UserWishListVO"%>
+<%@page import="userPage.userWishList.UserWishListDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -11,7 +13,8 @@
 	<%
 	//String userId = (String)session.getAttribute("user_id");//실제 사
 	String userId ="user002";//테스트
-	
+	UserWishListDAO dao = new UserWishListDAO();
+	UserWishListVO propvo = dao.wishListProp(userId);
 	%>
 	<div>
 		<%@ include file="header_default.jsp"%>

@@ -23,7 +23,7 @@ public class UserWishListAddAction implements Action {
             // 로그인하지 않은 경우 로그인 페이지로 리다이렉트
             ActionForward forward = new ActionForward();
             forward.setRedirect(true);
-            forward.setPath("login.co");
+            forward.setPath("login.me");
             return forward;
         }
 		
@@ -51,7 +51,7 @@ public class UserWishListAddAction implements Action {
     	String referer = request.getHeader("Referer");
     	
     	// 기본값은 메인 화면으로 돌아가게 하기
-    	forward.setPath(referer != null ? referer : "/main_property_list.jsp");
+    	forward.setPath(referer != null ? referer : "/main_list.ma");
     	forward.setRedirect(true);
 
     	return forward;

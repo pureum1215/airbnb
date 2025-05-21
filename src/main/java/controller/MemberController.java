@@ -77,6 +77,17 @@ public class MemberController extends HttpServlet {
 				
 			}
 			
+			try {
+				if ( action != null ) {
+					forward = action.execute(request, response);
+				}
+			}
+			catch (Exception e) {
+				e.printStackTrace();
+			}
+			
+			
+			
 			if(forward.isRedirect()) {
 				response.sendRedirect(forward.getPath());
 			}

@@ -1,9 +1,10 @@
+<%@page import="memberPage.memberLogIn.MemberLogInVO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
 <%@ page import="java.util.*, java.time.*, java.time.format.*, java.time.temporal.ChronoUnit"%>
 <%@ page import="mainPage.mainPropertyList.*, mainPage.mainPropertyList.MainPropertyListVO"%>
-
+<%@ page import="memberPage.memberLogIn.*" %>
 
 <!DOCTYPE html>
 <html>
@@ -155,10 +156,22 @@ body {
 	로그인 연결 후 삭제하기 
 
 ----------------------------------------------------------------- --%>
-<%	
+<%--잠깐 주석 <%	
 	session.setAttribute("user_id", "user099");
-%>
+%> --%>
 <%-- --------------------- 여기까지 ------------------------------- --%>
+
+<%
+	MemberLogInVO loginVO = (MemberLogInVO) session.getAttribute("userInfo");
+
+	if (loginVO != null) {
+		String userId = loginVO.getUser_id();
+		String userName = loginVO.getUser_name();
+		session.setAttribute("user_id", userId);
+	}else{
+		session.setAttribute("user_id", null);
+	}
+%>
 
 
 <%

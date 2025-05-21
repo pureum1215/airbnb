@@ -71,7 +71,16 @@ body {
 	justify-content: center;
 	font-size: 14px;
 	font-weight: bold;
+	
+	position: relative;
 }
+
+
+
+
+
+
+
 
 /* === Search Bar === */
 .search-bar {
@@ -255,7 +264,8 @@ body {
 
 .price-sliders {
 	display: flex;
-	flex-direction: column; align-items : center;
+	flex-direction: column;
+	align-items: center;
 	gap: 10px;
 	align-items: center;
 }
@@ -309,14 +319,70 @@ body {
 .amenity-btn:hover {
 	background-color: #e0e0e0;
 }
+
 .hidden {
-    display: none;
+	display: none;
 }
+
+.host-mode-btn {
+	display: flex;
+	align-items: center;
+	gap: 0.5rem;
+	border: 1px solid #FCFCFC; /* gray-300 */
+	background-color: #FCFCFC;
+	color: black;
+	font-weight: 500;
+	border-radius: 9999px; /* rounded-full */
+	transition: background-color 0.2s ease;
+	cursor: pointer;
+}
+
+.host-mode-btn:hover {
+	background-color: #f9fafb; /* hover:bg-gray-50 */
+}
+
+.host-mode-icon {
+	width: 1.25rem; /* w-5 */
+	height: 1.25rem; /* h-5 */
+	color: #4b5563; /* text-gray-600 */
+}
+
+.dropdown {
+	position: absolute;
+	top: 110%; /* 메뉴 버튼 아래로 */
+	right: 0;
+	background-color: white;
+	border: 1px solid #ddd;
+	border-radius: 12px;
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+	width: 220px;
+	padding: 12px 0;
+	z-index: 100;
+	display: none;
+}
+
+.dropdown.active {
+	display: block;
+}
+
+.dropdown-item {
+	padding: 10px 16px;
+	font-size: 14px;
+	color: #333;
+	cursor: pointer;
+}
+
+.dropdown-item:hover {
+	background-color: #f5f5f5;
+}
+
 </style>
 </head>
 
 <body>
-<%String userId =(String)session.getAttribute("user_id");%>
+	<%
+	String userId = (String) session.getAttribute("user_id");
+	%>
 
 	<div class="biggest_box">
 		<!-- Header -->
@@ -328,30 +394,123 @@ body {
 			</div>
 			<div class="nav"></div>
 			<div class="actions">
-				<span>호스트 모드로 전환</span>
+				<button class="host-mode-btn">호스트 모드로 전환</button>
 				<div class="circle-btn">
-				<% if(userId != null) { %>
-    			<%=userId %>
-    			<%} else {%>x
-    			<%} %>
-  				</div>
-				<div class="circle-btn">
-					<div id="userMenuToggle" style="cursor: pointer;">
+					<%
+					if (userId != null) {
+					%>
+					<%=userId%>
+					<%
+					} else {
+					%>x
+					<%
+					}
+					%>
+				</div>
+		
+		<style>		
+			/** user info container */
+		.header .actions .circle-btn .user-info-container {
+			display: none;
+			position: absolute;
+			right: 0;
+			top: 50px;
+			
+			padding: 10px 0px;
+			
+			width: 200px;
+		    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+			border-radius: 10px;
+			background-color: #fff;
+			z-index: 10;
+		}
+		
+		.header .actions .circle-btn .user-info-container.action {
+			display: block;
+		}
+		
+		.user-info-container .menu-list {
+			padding: 15px 30px;
+			display: flex;
+			justify-content: start;
+			align-items: center;
+			font-size: 16px;
+   			font-weight: bold;
+   			cursor: pointer;
+		}
+		
+		.user-info-container .menu-list:hover {
+			background-color: #F7F7F7;			
+		}
+		
+		.user-info-container .menu-list img {
+			margin-right: 10px;
+			width: 26px;
+			height: 26px;
+		}
+		
+		</style>
+				
+				
+				<!--  user info 버튼 ( 햄버거 버튼) -->
+				<div class="circle-btn" onclick="fn_userinfo_header()" style="cursor: pointer;">
+					<div id="userMenuToggle">
 						<i class="fas fa-bars"></i>
 					</div>
+					
+					<div class="user-info-container" id="userInfoContainerID">
+					
+						<%
+						if (userId != null) {
+						%> 
+						
+						<!-- 회원일때 --> 
+						<div class="menu-list" onclick="togglebutton('wish')">
+						<img src="https://cdn-icons-png.flaticon.com/512/3132/3132924.png" />
+							<span>위시리스트</span>
+						</div>
+					
+						<div class="menu-list" onclick="togglebutton('reservation')">
+						<img src="https://cdn-icons-png.flaticon.com/512/2796/2796326.png" />
+							<span>예약목록</span>
+						</div>
+						
+						<div class="menu-list" onclick="togglebutton('profile')">
+						<img src="https://cdn-icons-png.flaticon.com/512/6522/6522516.png" />
+							<span>프로필</span>
+						</div>
+						<div style="margin-left: 20px; margin-right: 20px; border-bottom: 1px solid #5B5956;"></div>
+					
+						<div class="menu-list" onclick="togglebutton('logout')">
+							<span>로그아웃</span>
+						</div>
+						
+						<%
+						 } else {
+						 %>
+						 
+						<!-- 비회원일때 --> 
+						<div class="menu-list" onclick="togglebutton('login')">
+							<span>로그인</span>
+						</div>
+
+						<%
+						 }
+						 %>
+
+						
+					</div>
+					
+					
+					<div class="relative">
+
+				</div>
+					
+					
 				</div>
 			</div>
 		</div>
-			<div id="userMenu" class="hidden" style="position: absolute; top: 60px; right: 20px; background: white; border: 1px solid #ccc; border-radius: 5px; padding: 10px;">
-			    <ul style="list-style: none; padding: 0; margin: 0;">
-			        <li><a href="userProfile.us">내 정보</a></li>
-			        <li><% if(userId != null) { %>
-			  		<li><a href="logout.ma">로그아웃</a></li>
-			  		<%} else { %>
-			        <li><a href="login.me">로그인</a>
-			        <%} %>
-			    </ul>
-			</div>
+
 
 		<!-- Search Bar -->
 		<div class="search-bar">
@@ -381,21 +540,41 @@ body {
 
 	<script>
 	
-	document.addEventListener("DOMContentLoaded", function () {
-	    const toggleBtn = document.getElementById("userMenuToggle");
-	    const menu = document.getElementById("userMenu");
+	
+	/****
+		user Info 버튼 토글 버튼 ( 햄버거 버트 )
+	
+	**/
+	function fn_userinfo_header() {
+		const target = document.getElementById('userInfoContainerID');
+		console.log(target);
+		if (target.classList.contains('action')) {
+			target.classList.remove('action');
+		} else {
+			target.classList.add('action');
+		}
+	}
+	
+	
+ 	// userInfo 버튼 , menu 버튼
+	function togglebutton(menu) {
+		if(menu === 'wish') {
+			location.href = "wishlist.jsp";
+		} else if(menu === 'reservation') {
+			location.href = "reservation.jsp";
+		} else if(menu === 'profile') {
+			location.href = "userProfile.us";
+		} 
+		else if(menu === 'login') {
+			location.href = "login.me";
+		} 
+		else if(menu === 'logout') {
+			location.href = "logout.ma";
+		} 
+	} 
 
-	    toggleBtn.addEventListener("click", function () {
-	        menu.classList.toggle("hidden");
-	    });
-
-	    // 바깥 클릭 시 메뉴 닫기
-	    document.addEventListener("click", function (event) {
-	        if (!toggleBtn.contains(event.target) && !menu.contains(event.target)) {
-	            menu.classList.add("hidden");
-	        }
-	    });
-	});
+	
+	
 	
 	// === 변수 정의 ===
 	const panel = document.getElementById('dropdownPanel');

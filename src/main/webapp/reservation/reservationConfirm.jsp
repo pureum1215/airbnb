@@ -6,7 +6,7 @@
 <meta charset="UTF-8">
 <title>즉시 예약</title>
 	<style>
-		body {
+		body .container {
 			font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue",
 				Helvetica, Arial, sans-serif;
 			background-color: #fff;

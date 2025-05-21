@@ -6,7 +6,7 @@
 <meta charset="UTF-8">
 <title>예약 요청</title>
 	<style>
-		body {
+		body .container {
 			font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue",
 				Helvetica, Arial, sans-serif;
 			background-color: #fff;

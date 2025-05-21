@@ -7,6 +7,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import userPage.userWishList.UserWishListAddAction;
 
@@ -55,9 +56,28 @@ public class UserController extends HttpServlet {
 		/****************************** 
 		 * 페이지 이동 작성 구간
 		 *****************************/
-		
+		HttpSession session = request.getSession(); // 세션 객체를 먼저 얻어와야 함
+		String userId = (String)session.getAttribute("user_id");
 		if (command.equals("/wishlist_add.us")) {
 			action = new UserWishListAddAction();
+		}else if(command.equals("/userProfile.us")){
+			forward = new ActionForward();
+			if(userId!= null) {
+				forward.setPath("user/userProfile.jsp");
+				forward.setRedirect(false);
+			}else {
+				forward.setPath("member/login.jsp");
+				forward.setRedirect(false);
+			}
+		}else if(command.equals("/userwishlist.us")) {
+			forward = new ActionForward();
+			if(userId!= null) {
+				forward.setPath("user/userWishList.jsp");
+				forward.setRedirect(false);
+			}else {
+				forward.setPath("member/login.jsp");
+				forward.setRedirect(false);
+			}
 		}
 		
 		

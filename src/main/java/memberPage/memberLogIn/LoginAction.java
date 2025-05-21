@@ -29,7 +29,7 @@ public class LoginAction implements Action{
 			//dao에 들러서 user 정보 다시 가져와 session 에 넣기
 			mlVOC = userDAO.infoSession(mlVO.getUser_email());
 			
-			forward.setPath("main/main_property_list.jsp");
+			forward.setPath(request.getContextPath()+"/main_list.ma");// 이부분 수정
 			forward.setRedirect(true);
 
 			// 세션 등록 과정

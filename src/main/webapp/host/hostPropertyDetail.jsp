@@ -10,8 +10,14 @@ String description = "전통 한옥에서의 특별한 하루를 보내보세요
 String address = "전주시 완산구 풍남동3가";
 String thumbnailUrl = "https://img.gqkorea.co.kr/gq/2020/07/style_5f02a9fd0f28d.jpg";
 
-// 편의시설 더미 리스트
+// 편의시설 리스트
 String[] amenities = { "Wi-Fi", "에어컨", "난방", "부엌", "샤워실", "헤어드라이기", "무료주차장", "수영장", "헬스장", "반려동물 가능"};
+
+// 숙소가 소유한 편의시설
+String[] haveAmenities = { "Wi-Fi", "에어컨", "부엌", "샤워실", "수영장", "반려동물 가능"};
+
+// 승인 요청 설정 ( true: 예약 요청, false: 즉시 예약)
+boolean requestReservation = true;
 %>
 	
 
@@ -105,6 +111,7 @@ body {
 .section-reserve h2 {
 	font-size: 22px;
 	font-weight: 600;
+	margin-top: 80px;
 	margin-bottom: 12px;
 	color: #222;
 }
@@ -117,7 +124,8 @@ body {
 	line-height: 1.6;
 }
 
-.amenities span {
+/* 숙소가 소유하지 않은 편의시설 */
+span.amenities {
 	display: inline-block;
 	margin: 5px 8px;
 	background: #f7f7f7;
@@ -126,6 +134,18 @@ body {
 	font-size: 14px;
 	color: #333;
 	border: 1px solid #ddd;
+}
+
+/* 숙소가 소유한 편의시설 */
+.property-amenities { 
+	display: inline-block;
+	margin: 5px 8px;
+	background: #4DC6F4;
+	padding: 8px 14px;
+	border-radius: 20px;
+	font-size: 14px;
+	color: white; 
+	border: 1px solid #4DC6F4; 
 }
 
 .section-reserve button {
@@ -145,19 +165,56 @@ body {
 }
 
 .btn-edit,
-.btn-delete,
-.btn-direct,
-.btn-request {
+.btn-delete {
   background-color: transparent;
   color: #222;
   padding: 12px 20px;
   border: none;
   border-radius: 20px;
   cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  transition: background-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* 현재 선택O 항목 표시를 위한 버튼 style */
+.btn-direct-ch,
+.btn-request-ch {
+  color: white;
+  background-color: #4DC6F4;
+  border: 1px solid #4DC6F4;
+  padding: 12px 20px;
+  border-radius: 20px;
+  cursor: pointer;
   font-size: 16px;
   font-weight: 600;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   transition: background-color 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* 현재 선택X 항목 표시를 위한 버튼 style */
+.btn-direct,
+.btn-request {
+  color: gray;
+  border: 1px solid gray;
+  padding: 12px 20px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 600;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  transition: background-color 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Hover 효과: 연한 회색 배경 + 그림자 */
+.btn-direct-ch:hover,
+.btn-request-ch:hover {
+  color: white;
+  background-color: #4DC6F4;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
 }
 
 /* Hover 효과: 연한 회색 배경 + 그림자 */
@@ -183,8 +240,8 @@ body {
 			<h2 class="title">Listing</h2>
 			<!-- 관리 버튼 -->
 			<div class="btn-group">
-				<button class="btn btn-edit">수정하기</button>
-				<button class="btn btn-delete">삭제</button>
+				<button class="btn-edit">수정하기</button>
+				<button class="btn-delete">삭제</button>
 			</div>
 		</div>
 
@@ -235,8 +292,18 @@ body {
 		<div class="section-reserve">
      	    <h2 style="font-size: 24px;">승인 요청 설정</h2>
      	    <div>
-	     	    <button class="btn-direct">즉시 예약</button>
-				<button class="btn-request">예약 요청</button>
+     	    <% 
+     	    	/* 선택: 즉시 예약 */
+     	    	if (requestReservation != true) { %>
+     	    		<button class="btn-direct-ch">즉시 예약</button>
+					<button class="btn-request">예약 요청</button>
+     	    	<%}
+     	   		/* 선택: 예약 요청 */
+     	    	else { %>
+     	    		<button class="btn-direct">즉시 예약</button>
+					<button class="btn-request-ch">예약 요청</button>
+     	    	<%}
+     	    %>
 			</div>
 		</div>
 
@@ -246,11 +313,26 @@ body {
 			<div class="amenities">
 				<%
 				for (int i = 0; i < amenities.length; i++) {
-				%>
-				<span><%=amenities[i]%></span>
-				<%
-				}
-				%>
+					
+					boolean haveAmenitiesCheck = false; // 편의 시설, 존재 여부 체크
+					for(int j = 0; j < haveAmenities.length; j++) {
+						
+						
+						if(amenities[i].equals(haveAmenities[j])) {
+
+							haveAmenitiesCheck = true;
+							break;
+						
+						}
+				} // 체크 완료
+					
+				if(haveAmenitiesCheck) {%>
+					<span class="property-amenities"><%=amenities[i] %></span>
+				<%} else {%>
+					<span class="amenities"><%=amenities[i] %></span>
+				<%}
+			}
+			%>
 			</div>
 		</div>
 
@@ -261,21 +343,6 @@ body {
 		<%@ include file="footer_hostpage.jsp"%>
 	</div>
 	
-
-
-
-	<%-- 
-			<!-- 위치(네이버 지도로 변경 예정) -->
-		<div class="section">
-			<h3>위치</h3>
-			<p><%=address%></p>
-			<iframe width="100%" height="300"
-				style="border: 0; border-radius: 12px;" loading="lazy"
-				allowfullscreen
-				src="https://maps.google.com/maps?q=<%=java.net.URLEncoder.encode(address, "UTF-8")%>&output=embed">
-			</iframe>
-		</div>
-		 --%>
 
 
 </body>

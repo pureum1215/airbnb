@@ -9,6 +9,7 @@ public class UserWishListVO {
 	private String property_id;
 	private String property_photo_url;
 	private String property_name;
+	private String property_description; //숙소 설명
 	private int property_review_rating;
 	private String location_id;
 	private String location_city;
@@ -27,6 +28,14 @@ public class UserWishListVO {
 	}
 	public void setProperty_photo_url(String property_photo_url) {
 		this.property_photo_url = property_photo_url;
+	}
+	
+	
+	public String getProperty_description() {
+		return property_description;
+	}
+	public void setProperty_description(String property_description) {
+		this.property_description = property_description;
 	}
 	public String getProperty_name() {
 		return property_name;
@@ -70,14 +79,22 @@ public class UserWishListVO {
 	public void setPrice_per_night(int price_per_night) {
 		this.price_per_night = price_per_night;
 	}
-	
 	@Override
 	public String toString() {
 		return "UserWishListVO [property_id=" + property_id + ", property_photo_url=" + property_photo_url
-				+ ", property_name=" + property_name + ", property_review_rating=" + property_review_rating
-				+ ", location_id=" + location_id + ", location_city=" + location_city + ", location_country="
-				+ location_country + ", location_detail=" + location_detail + ", price_per_night=" + price_per_night
-				+ "]";
+				+ ", property_name=" + property_name + ", property_description=" + property_description
+				+ ", property_review_rating=" + property_review_rating + ", location_id=" + location_id
+				+ ", location_city=" + location_city + ", location_country=" + location_country + ", location_detail="
+				+ location_detail + ", price_per_night=" + price_per_night + ", getProperty_id()=" + getProperty_id()
+				+ ", getProperty_photo_url()=" + getProperty_photo_url() + ", getProperty_description()="
+				+ getProperty_description() + ", getProperty_name()=" + getProperty_name()
+				+ ", getProperty_review_rating()=" + getProperty_review_rating() + ", getLocation_id()="
+				+ getLocation_id() + ", getLocation_city()=" + getLocation_city() + ", getLocation_country()="
+				+ getLocation_country() + ", getLocation_detail()=" + getLocation_detail() + ", getPrice_per_night()="
+				+ getPrice_per_night() + ", getClass()=" + getClass() + ", hashCode()=" + hashCode() + ", toString()="
+				+ super.toString() + "]";
 	}
+	
+	
 	
 }

@@ -750,11 +750,13 @@ body {
 
 	// === 외부 클릭 시 패널 닫기 ===
 	document.addEventListener('click', function(e) {
-		if (!e.target.closest('.search-bar') && !e.target.closest('#dropdownPanel')) {
 			panel.classList.remove('active');
 			currentType = null;
 		}
 	});
+	
+
+	
 	</script>
 </body>
 </html>

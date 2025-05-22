@@ -63,7 +63,13 @@ public class HostController extends HttpServlet {
 		/****************************** 
 		 * 페이지 이동 작성 구간
 		 *****************************/
-
+		if(command.equals("/hostList.ho")) {
+			forward = new ActionForward();
+			forward.setPath("host/hostPropertyList.jsp");
+			forward.setRedirect(false);
+		}
+		
+		
 		
 		try {
 			if(action != null) {

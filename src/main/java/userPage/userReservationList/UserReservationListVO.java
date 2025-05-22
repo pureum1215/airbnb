@@ -6,6 +6,7 @@ public class UserReservationListVO {
 	
 	/**************************************************************************
 	 * 사용자 id, 예약 id, 숙소 id, 숙소 사진, 숙소 이름, 체크인 날짜, 체크아웃 날짜 
+	 * 도시, 나라
 	 **************************************************************************/
 	
 	private String user_id;
@@ -15,7 +16,21 @@ public class UserReservationListVO {
 	private String property_name;
 	private Date reservation_check_in;
 	private Date reservation_check_out;
+	private String city;
+	private String country;
 	
+	public String getCity() {
+		return city;
+	}
+	public void setCity(String city) {
+		this.city = city;
+	}
+	public String getCountry() {
+		return country;
+	}
+	public void setCountry(String country) {
+		this.country = country;
+	}
 	public String getUser_id() {
 		return user_id;
 	}

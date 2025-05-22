@@ -1,3 +1,5 @@
+<%@page import="hostPage.hostPropertyList.*"%>
+<%@page import="java.util.*" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -7,6 +9,18 @@
 <title>hostPropoertyList</title>
 </head>
 <body>
+
+<!-- 테스트용 Host host001 -->
+<%	
+	session.setAttribute("host_id", "host050");
+%>
+<%
+	String hostId = (String)session.getAttribute("host_id");
+
+	HostPropertyListDAO dao = new HostPropertyListDAO();
+	List<HostPropertyListVO> hostpro = dao.hostProperty(hostId);
+	
+%>
 	<div>
 		<%@ include file="header_hostpage.jsp"%>
 		<!-- 정적 포함 -->
@@ -55,15 +69,21 @@
 				</thead>
 				<tbody>
 					<tr class="border-b hover:bg-gray-50">
+					<%
+					for(int i=0; i<hostpro.size(); i++){
+						String proname = hostpro.get(i).getProperty_name();
+						String prophoto = hostpro.get(i).getProperty_photo_url();
+					
+					%>
 						<td class="py-3 px-2 flex items-center space-x-3"><img
 							class="w-14 h-14 object-cover rounded-xl"
-							src="https://modo-phinf.pstatic.net/20160324_63/1458757863703eouuM_JPEG/mosa320fGQ.jpeg?type=w720"
-							alt="숙소 이미지"> <span class="font-medium">기흥기흥</span></td>
+							src="/uploads/<%=prophoto%>"
+							alt="숙소 이미지"> <span class="font-medium"><%=proname %></span></td>
 						<td class="py-3 px-2 text-gray-600">숙소</td>
-						<td class="py-3 px-2 text-gray-600">Yongin-si, Gyeonggi-do</td>
 						<!-- 이 부분은 필요 없을 시 삭제 가능 -->
 						<td class="py-3 px-2"><span
 							class="text-orange-600 font-medium text-sm">● 진행 중</span></td>
+					<%} %>
 					</tr>
 				</tbody>
 			</table>

@@ -43,11 +43,20 @@ public class MainPropertyDetailVO {
 	private double property_review_avg; //리뷰 평균 별점
 	private String property_review_content; //리뷰 내용
 	private String property_review_created_at;
+	private int property_review_rating; //별점 
 	
 	private int price_per_night;
 	private Date reservation_check_in;
 	private Date reservation_check_out;
 	
+	
+	
+	public int getProperty_review_rating() {
+		return property_review_rating;
+	}
+	public void setProperty_review_rating(int property_review_rating) {
+		this.property_review_rating = property_review_rating;
+	}
 	public String getProperty_id() {
 		return property_id;
 	}

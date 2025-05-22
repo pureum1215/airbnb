@@ -68,13 +68,13 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr class="border-b hover:bg-gray-50">
 					<%
 					for(int i=0; i<hostpro.size(); i++){
 						String proname = hostpro.get(i).getProperty_name();
 						String prophoto = hostpro.get(i).getProperty_photo_url();
-					
+						String proId = hostpro.get(i).getProperty_id();
 					%>
+					<tr class="border-b hover:bg-gray-50" onclick="location.href='/hostprdetail.ho?property_id=<%=proId%>'">
 						<td class="py-3 px-2 flex items-center space-x-3"><img
 							class="w-14 h-14 object-cover rounded-xl"
 							src="/uploads/<%=prophoto%>"
@@ -97,9 +97,11 @@
 			for(int i=0; i<hostpro.size(); i++){
 					String proname = hostpro.get(i).getProperty_name();
 					String prophoto = hostpro.get(i).getProperty_photo_url();
+					String proId = hostpro.get(i).getProperty_id();
 					%>
 			<div
-				class="rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition border cursor-pointer">
+				class="rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition border cursor-pointer" 
+				onclick="location.href='/hostprdetail.ho?property_id=<%=proId%>'">
 				<div class="relative">
 					<img class="w-full h-60 object-cover"
 						src="/uploads/<%=prophoto%>"

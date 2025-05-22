@@ -50,7 +50,7 @@ public class HostPropertyListDAO {
 		List<HostPropertyListVO> voList = new ArrayList<HostPropertyListVO>();
 		
 		try {
-			String sql = "select p.property_name, p.property_photo_url "
+			String sql = "select p.property_name, p.property_photo_url, p.property_id "
 					+ "from host h join property p on h.host_id =p.host_id "
 					+ "where h.host_id = ?";
 			PreparedStatement pstmt = conn.prepareStatement(sql);
@@ -60,6 +60,7 @@ public class HostPropertyListDAO {
 				HostPropertyListVO vo = new HostPropertyListVO();
 				vo.setProperty_name(rs.getString(1));
 				vo.setProperty_photo_url(rs.getString(2));
+				vo.setProperty_id(rs.getString(3));
 				
 				voList.add(vo);
 			}

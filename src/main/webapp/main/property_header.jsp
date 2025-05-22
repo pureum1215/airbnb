@@ -756,7 +756,7 @@ body {
       }
    });
    document.querySelector('.host-mode-btn').addEventListener('click', function() {
-	    window.location.href = '/hostList.ho'; // 이동할 경로로 수정
+	    window.location.href = 'hostList.ho'; // 이동할 경로로 수정
 	  });
    </script>
 </body>

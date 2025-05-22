@@ -211,6 +211,7 @@ HostProfileDAO dao = new HostProfileDAO();
 HostProfileVO hvo1 = dao.hostProfile1(hostId);
 HostProfileVO hvo2 = dao.hostProfile2(hostId);
 List<HostProfileVO> hvoList3 = dao.hostProfile3(hostId);
+List<HostProfileVO> hvolist5 = dao.hostProfile5(hostId);
 
 String hostName =hvo1.getUser_name();
 String hostBio = hvo1.getHost_bio();
@@ -306,36 +307,34 @@ int hostCount= hvo2.getCount();
 				<!-- 토글 버튼 -->
 				<button id="toggleReviewsBtn">후기 더 보기</button>
 			</div>
+			
 			<!-- Toshiko 님의 숙소 -->
 			<div style="margin-top: 64px;">
-				<div class="section-title">Toshiko 님의 숙소</div>
+				<div class="section-title"><%=hostName %> 님의 숙소</div>
 				<div class="listing-carousel">
 					<!-- 숙소 카드 1 -->
+					<%
+					for(int i=0; i<hvolist5.size(); i++){
+						String proname = hvolist5.get(i).getProperty_name();
+						String prophoto = hvolist5.get(i).getProperty_photo_url();
+					%>
+					
 					<div class="listing-card">
 						<img
-							src="https://content.r9cdn.net/rimg/himg/60/bd/6c/agoda-2975064-129665769-167419.jpg?width=1366&height=768&crop=true"
+							src="/uploads/<%=prophoto%>"
 							alt="오두막">
 						<div class="listing-info">
-							<div class="listing-type">오두막</div>
-							<div class="listing-name">Machiya 1DK ・ #01</div>
-							<div class="listing-rating">⭐ 4.99</div>
+							<div class="listing-name"><%=proname %></div>
 						</div>
 					</div>
-
-					<!-- 숙소 카드 2 -->
-					<div class="listing-card">
-						<img
-							src="https://st2.depositphotos.com/1007034/6589/i/450/depositphotos_65894943-stock-photo-luxury-villa-bunker.jpg"
-							alt="공동 주택">
-						<div class="listing-info">
-							<div class="listing-type">공동 주택</div>
-							<div class="listing-name">#401 Matsujyuju 2LDK 100㎡
-								Ebisucho...</div>
-							<div class="listing-rating">⭐ 4.98</div>
-						</div>
-					</div>
+					<%
+					} 
+					%>
 				</div>
 			</div>
+			
+			
+			
 		</div>
 	</div>
 

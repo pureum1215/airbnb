@@ -10,6 +10,8 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
+import hostPage.hostPropertyList.HostPropertyListVO;
+
 public class HostProfileDAO {
 
 	private Connection conn;
@@ -139,6 +141,31 @@ public class HostProfileDAO {
 			return vo;
 		}
 		
-		//호스트가 가지고 있는 숙소
-		
+		//호스트가 가지고 있는 숙소 숙소이름, 숙소 사
+		public List<HostProfileVO> hostProfile5(String hostId){
+			List<HostProfileVO> voList = new ArrayList<HostProfileVO>();
+			
+			try {
+				String sql = "select p.property_name, p.property_photo_url, p.property_id "
+						+ "from host h join property p on h.host_id =p.host_id "
+						+ "where h.host_id = ?";
+				PreparedStatement pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, hostId);
+				ResultSet rs = pstmt.executeQuery();
+				while(rs.next()) {
+					HostProfileVO vo = new HostProfileVO();
+					vo.setProperty_name(rs.getString(1));
+					vo.setProperty_photo_url(rs.getString(2));
+					vo.setProperty_id(rs.getString(3));
+					
+					voList.add(vo);
+				}
+				
+				
+			} catch (Exception e) {
+				// TODO: handle exception
+			}
+			
+			return voList;
+		}
 }

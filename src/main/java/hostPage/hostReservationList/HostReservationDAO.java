@@ -91,7 +91,7 @@ public class HostReservationDAO {
 	        	vo.setLocation_city(rs.getString("location_city"));
 	        	vo.setTotal_price(totalPrice);
 	        	vo.setReservation_id(rs.getString("reservation_id"));
-	        	vo.setUser_id(rs.getString(""));
+	        	vo.setUser_id(rs.getString("user_id"));
 	        	vo.setUser_name(rs.getString("user_name"));
 	        	vo.setReservation_check_in(rs.getDate("reservation_check_in"));
 	        	vo.setReservation_check_out(rs.getDate("reservation_check_out"));
@@ -152,7 +152,7 @@ public class HostReservationDAO {
 	        	vo.setLocation_city(rs.getString("location_city"));
 	        	vo.setTotal_price(totalPrice);
 	        	vo.setReservation_id(rs.getString("reservation_id"));
-	        	vo.setUser_id(rs.getString(""));
+	        	vo.setUser_id(rs.getString("user_id"));
 	        	vo.setUser_name(rs.getString("user_name"));
 	        	vo.setReservation_check_in(rs.getDate("reservation_check_in"));
 	        	vo.setReservation_check_out(rs.getDate("reservation_check_out"));

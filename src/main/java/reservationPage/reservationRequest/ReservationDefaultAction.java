@@ -22,7 +22,7 @@ public class ReservationDefaultAction implements Action {
         String userId = (String) session.getAttribute("user_id");
         String propertyId = request.getParameter("property_id");
         
-        System.out.println(userId);
+        System.out.println("userId: " + userId);
         
         // 로그인하지 않은 경우
         if (userId == null) {

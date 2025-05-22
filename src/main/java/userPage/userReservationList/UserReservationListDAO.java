@@ -63,7 +63,7 @@ public class UserReservationListDAO {
 
 	        while (rs.next()) {
 	        	UserReservationListVO vo = new UserReservationListVO();
-	        	vo.setProperty_id(rs.getString("Property_id"));
+	        	vo.setProperty_id(rs.getString("property_id"));
 	        	vo.setReservation_check_in(rs.getDate("check_in"));
 	        	vo.setReservation_check_out(rs.getDate("check_out"));
 	            list.add(vo);

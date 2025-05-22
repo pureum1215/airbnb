@@ -29,13 +29,18 @@
     	class="px-4 py-2 text-sm font-medium text-gray-500 hover:text-[#FF5A5F]">
     	지난 예약</button>
 	</div>
-	<div id="reservation-content"></div>
+	<div class="space-y-8">
+		<div id="reservation-content"></div>
+	</div>
 	<br/>
 	
 	<%-- ---------------------------------------- 
 		코드 수정 부분
 	------------------------------------------- --%>
 	
+	<%-- ---------------------------------------- 
+				css 예시 부분
+	------------------------------------------- 
     <div class="space-y-8">
       
       <!-- 여행 항목 1 -->
@@ -59,10 +64,24 @@
       </div>
 
     </div>
+     ---------------------------------------- 
+				css 예시 부분
+	------------------------------------------- --%>
+    
   </main>
 
 	<script src="../jquery-3.7.1.min.js"></script>  
  	<script>
+
+		function showUpcoming() {
+			setActiveTab('upcoming');
+			loadUpcomingReservations();
+ 		}
+
+ 		function showHistory() {
+			setActiveTab('history');
+			loadHistoryReservations();
+ 		}
 
 		function formatDate(dateStr) {
 			  const date = new Date(dateStr);
@@ -88,20 +107,10 @@
  		    	upcomingBtn.classList.add('text-gray-500');
 			}
 		}
-
-		function showUpcoming() {
-			setActiveTab('upcoming');
-			loadUpcomingReservations();
- 		}
-
- 		function showHistory() {
-			setActiveTab('history');
-			loadHistoryReservations();
- 		}
  	
-		function loadReservations() {
+		function loadUpcomingReservations() {
 			$.ajax({
-				url: '${pageContext.request.contextPath}/user-reservation-upcoming.api',
+				url: '${pageContext.request.contextPath}/user_reservation_upcoming.ura',
 				type: 'post',
 				dataType: 'json',
 				success: function(data) {
@@ -113,9 +122,9 @@
 			});
 		}
 
-		function loadPastReservations() {
+		function loadHistoryReservations() {
 			$.ajax({
-				url: '${pageContext.request.contextPath}/user-reservation-past.api',
+				url: '${pageContext.request.contextPath}/user_reservation_history.ura',
 				type: 'post',
 				dataType: 'json',
 				success: function(data) {

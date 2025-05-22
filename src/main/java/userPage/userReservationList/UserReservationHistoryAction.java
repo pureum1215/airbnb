@@ -14,6 +14,8 @@ public class UserReservationHistoryAction {
 
 	public ResponseData execute(HttpServletRequest request, HttpServletResponse response) {
 
+		ResponseData data = null;
+		
 		// 세션에서 user_id 가져오기
         HttpSession session = request.getSession();
         String userId = (String) session.getAttribute("user_id");
@@ -30,7 +32,14 @@ public class UserReservationHistoryAction {
 
 		System.out.println("가져온 예약 수: " + historyList.size());
 		
-		return new ResponseData(historyList);
+		if ( historyList.size() != 0 ) {
+			data = new ResponseData();
+			data.setData(historyList);
+		}
+		else {
+			data = new ResponseData(500, "서버 에러");
+		}
+		return data;
 
 	}	
 

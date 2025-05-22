@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -101,31 +103,62 @@ public class UserWishListDAO {
 	}
 
 	//숙소 이름, 숙소 가격, 숙소 사진, 숙소설명, 숙소 침대 수
-	public UserWishListVO wishListProp(String user_id) {
-		UserWishListVO vo = new UserWishListVO();
+	public List<UserWishListVO> wishListProp(String user_id) {
+		List<UserWishListVO> voList = new ArrayList<UserWishListVO>();
 		
 		try {
 			String sql = "select p.property_name, p.price_per_night, p.property_photo_url, "
-					+ "p.property_description, p.property_bed "
+					+ "p.property_description, p.property_id "
 					+ "from wish_list w "
 					+ "join property p on w.property_id = p.property_id "
 					+ "where w.user_id = ?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, user_id);
 			ResultSet rs = pstmt.executeQuery();
-			if(rs.next()) {
-				// 여기서부터 하면 됨
+			while(rs.next()) {
+				UserWishListVO vo = new UserWishListVO();
+				vo.setProperty_name(rs.getString(1));
+				vo.setPrice_per_night(rs.getInt(2));
+				vo.setProperty_photo_url(rs.getString(3));
+				vo.setProperty_description(rs.getString(4));
+				vo.setProperty_id(rs.getString(5));
+				
+				voList.add(vo);
 			}
 			
 			
 		} catch (SQLException e) {
 			// TODO: handle exception
+			System.out.println("에러");
 		}
 		
-		return vo;
+		return voList;
 	}
 	
 	
 	
 	//숙소의 별점 없는 경우 위의 쿼리에 담기지 않아서 따로 담음
+	public List<Integer> wishListRating(String user_id) {
+		List<Integer> voList = new ArrayList<Integer>();
+		
+		try {
+			String sql = "select pr.property_review_rating from wish_list w join property_review pr "
+					+ "on w.property_id = pr.property_id "
+					+ "where w.user_id = ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, user_id);
+			ResultSet rs = pstmt.executeQuery();
+			while(rs.next()) {
+				voList.add(rs.getInt(1));
+			}
+			
+			
+		} catch (SQLException e) {
+			// TODO: handle exception
+			System.out.println("에러");
+		}
+		
+		return voList;
+	}
+	
 }

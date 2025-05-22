@@ -13,6 +13,8 @@ public class HostProfileVO {
 	 * 사용자 리뷰 id (호스트가 작성한 사용자에 대한 리뷰), 호스트가 준 별점, 내용, 리뷰 생성 시간, 
 	 **************************************************************************/
 	
+	private int count; //호스트가 가진 숙소에 평가 개수
+	private double avg; //호스트가 가진 숙소에 대한 평점 평균
 	private String user_id;
 	private String host_id;
 	private String user_name;
@@ -31,7 +33,7 @@ public class HostProfileVO {
 	
 	private String property_name;
 	private String property_review_content;
-	private Timestamp property_review_created_at;
+	private String property_review_created_at;
 	
 	private String property_photo_url;
 	private String location_id;
@@ -44,7 +46,18 @@ public class HostProfileVO {
 	private int user_review_rating;
 	private String user_review_content;
 	private Timestamp user_review_created_at;
-	
+	public int getCount() {
+		return count;
+	}
+	public void setCount(int count) {
+		this.count = count;
+	}
+	public double getAvg() {
+		return avg;
+	}
+	public void setAvg(double avg) {
+		this.avg = avg;
+	}
 	public String getUser_id() {
 		return user_id;
 	}
@@ -135,10 +148,10 @@ public class HostProfileVO {
 	public void setProperty_review_content(String property_review_content) {
 		this.property_review_content = property_review_content;
 	}
-	public Timestamp getProperty_review_created_at() {
+	public String getProperty_review_created_at() {
 		return property_review_created_at;
 	}
-	public void setProperty_review_created_at(Timestamp property_review_created_at) {
+	public void setProperty_review_created_at(String property_review_created_at) {
 		this.property_review_created_at = property_review_created_at;
 	}
 	public String getProperty_photo_url() {
@@ -201,21 +214,24 @@ public class HostProfileVO {
 	public void setUser_review_created_at(Timestamp user_review_created_at) {
 		this.user_review_created_at = user_review_created_at;
 	}
-	
 	@Override
 	public String toString() {
-		return "HostProfileVO [user_id=" + user_id + ", host_id=" + host_id + ", user_name=" + user_name
-				+ ", host_delete_yn=" + host_delete_yn + ", property_review_id=" + property_review_id + ", property_id="
-				+ property_id + ", property_review_rating=" + property_review_rating + ", host_created_at="
-				+ host_created_at + ", user_email=" + user_email + ", user_phone_number=" + user_phone_number
-				+ ", user_birthday=" + user_birthday + ", user_created_at=" + user_created_at + ", host_bio=" + host_bio
-				+ ", property_name=" + property_name + ", property_review_content=" + property_review_content
-				+ ", property_review_created_at=" + property_review_created_at + ", property_photo_url="
-				+ property_photo_url + ", location_id=" + location_id + ", location_city=" + location_city
-				+ ", location_country=" + location_country + ", location_detail=" + location_detail
-				+ ", price_per_night=" + price_per_night + ", user_review_id=" + user_review_id
-				+ ", user_review_rating=" + user_review_rating + ", user_review_content=" + user_review_content
-				+ ", user_review_created_at=" + user_review_created_at + "]";
+		return "HostProfileVO [count=" + count + ", avg=" + avg + ", user_id=" + user_id + ", host_id=" + host_id
+				+ ", user_name=" + user_name + ", host_delete_yn=" + host_delete_yn + ", property_review_id="
+				+ property_review_id + ", property_id=" + property_id + ", property_review_rating="
+				+ property_review_rating + ", host_created_at=" + host_created_at + ", user_email=" + user_email
+				+ ", user_phone_number=" + user_phone_number + ", user_birthday=" + user_birthday + ", user_created_at="
+				+ user_created_at + ", host_bio=" + host_bio + ", property_name=" + property_name
+				+ ", property_review_content=" + property_review_content + ", property_review_created_at="
+				+ property_review_created_at + ", property_photo_url=" + property_photo_url + ", location_id="
+				+ location_id + ", location_city=" + location_city + ", location_country=" + location_country
+				+ ", location_detail=" + location_detail + ", price_per_night=" + price_per_night + ", user_review_id="
+				+ user_review_id + ", user_review_rating=" + user_review_rating + ", user_review_content="
+				+ user_review_content + ", user_review_created_at=" + user_review_created_at + "]";
 	}
+	
+	
+	
+	
 	
 }

@@ -49,13 +49,12 @@ public class HostReservationDAO {
 	}
 	
 	// host page 에서 upcoming 예약 목록 불러오기
-	public List<HostReservationListVO> getUpcomingReservations(String user_id) {
+	public List<HostReservationListVO> getUpcomingReservations(String host_id) {
 	    List<HostReservationListVO> list = new ArrayList<>();
 	    try {
 	    	String sql = "SELECT r.reservation_id, r.property_id, r.user_id, "
 	    			+ "r.reservation_check_in, r.reservation_check_out, r.reservation_created_at, r.reservation_confirm, " 
 	    			+ "p.property_name, p.price_per_night, p.property_photo_url, "
-	                + "h.host_id, "
 	                + "u.user_name, "
 	                + "l.location_city, l.location_country, "
 	                + "pay.payment_id, pay.payment_status "
@@ -65,11 +64,11 @@ public class HostReservationDAO {
 	                + "JOIN user u ON r.user_id = u.user_id "
 	                + "JOIN location l ON p.location_id = l.location_id "
 	                + "LEFT JOIN payment pay ON r.reservation_id = pay.reservation_id "
-	                + "WHERE r.reservation_id = ? "
+	                + "WHERE h.host_id = ? "
 	        		+ "AND r.reservation_check_in > CURRENT_DATE "
 	        		+ "ORDER BY r.reservation_created_at ASC;";
 	        pstmt = conn.prepareStatement(sql);
-	        pstmt.setString(1, user_id);
+	        pstmt.setString(1, host_id);
 	        rs = pstmt.executeQuery();
 
 	        while (rs.next()) {
@@ -93,8 +92,8 @@ public class HostReservationDAO {
 	        	vo.setReservation_id(rs.getString("reservation_id"));
 	        	vo.setUser_id(rs.getString("user_id"));
 	        	vo.setUser_name(rs.getString("user_name"));
-	        	vo.setReservation_check_in(rs.getDate("reservation_check_in"));
-	        	vo.setReservation_check_out(rs.getDate("reservation_check_out"));
+	        	vo.setReservation_check_in(checkIn);
+	        	vo.setReservation_check_out(checkOut);
 	        	vo.setReservation_confirm(rs.getString("reservation_confirm"));
 	        	vo.setPayment_status(rs.getString("payment_status"));
 	        	vo.setReservation_created_at(rs.getTimestamp("reservation_created_at"));
@@ -111,13 +110,12 @@ public class HostReservationDAO {
 	    return list;
 	} 
 	
-	public List<HostReservationListVO> getHistoryReservations(String user_id) {
+	public List<HostReservationListVO> getHistoryReservations(String host_id) {
 	    List<HostReservationListVO> list = new ArrayList<>();
 	    try {
 	    	String sql = "SELECT r.reservation_id, r.property_id, r.user_id, "
 	    			+ "r.reservation_check_in, r.reservation_check_out, r.reservation_created_at, r.reservation_confirm, " 
 	    			+ "p.property_name, p.price_per_night, p.property_photo_url, "
-	                + "h.host_id, "
 	                + "u.user_name, "
 	                + "l.location_city, l.location_country, "
 	                + "pay.payment_id, pay.payment_status "
@@ -127,10 +125,10 @@ public class HostReservationDAO {
 	                + "JOIN user u ON r.user_id = u.user_id "
 	                + "JOIN location l ON p.location_id = l.location_id "
 	                + "LEFT JOIN payment pay ON r.reservation_id = pay.reservation_id "
-	                + "WHERE r.reservation_id = ? "
+	                + "WHERE h.host_id = ? "
 	        		+ "ORDER BY r.reservation_created_at ASC;";
 	        pstmt = conn.prepareStatement(sql);
-	        pstmt.setString(1, user_id);
+	        pstmt.setString(1, host_id);
 	        rs = pstmt.executeQuery();
 
 	        while (rs.next()) {
@@ -154,8 +152,8 @@ public class HostReservationDAO {
 	        	vo.setReservation_id(rs.getString("reservation_id"));
 	        	vo.setUser_id(rs.getString("user_id"));
 	        	vo.setUser_name(rs.getString("user_name"));
-	        	vo.setReservation_check_in(rs.getDate("reservation_check_in"));
-	        	vo.setReservation_check_out(rs.getDate("reservation_check_out"));
+	        	vo.setReservation_check_in(checkIn);
+	        	vo.setReservation_check_out(checkOut);
 	        	vo.setReservation_confirm(rs.getString("reservation_confirm"));
 	        	vo.setPayment_status(rs.getString("payment_status"));
 	        	vo.setReservation_created_at(rs.getTimestamp("reservation_created_at"));

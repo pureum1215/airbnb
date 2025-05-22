@@ -95,9 +95,9 @@ public class HostReservationDAO {
 	        	vo.setUser_name(rs.getString("user_name"));
 	        	vo.setReservation_check_in(rs.getDate("reservation_check_in"));
 	        	vo.setReservation_check_out(rs.getDate("reservation_check_out"));
-	        	vo.setReservation_confirm(rs.getString(""));
-	        	vo.setPayment_status(rs.getString(""));
-	        	vo.setReservation_created_at(rs.getTimestamp(""));
+	        	vo.setReservation_confirm(rs.getString("reservation_confirm"));
+	        	vo.setPayment_status(rs.getString("payment_status"));
+	        	vo.setReservation_created_at(rs.getTimestamp("reservation_created_at"));
 	            list.add(vo);
 	        }
 	    } 
@@ -156,9 +156,9 @@ public class HostReservationDAO {
 	        	vo.setUser_name(rs.getString("user_name"));
 	        	vo.setReservation_check_in(rs.getDate("reservation_check_in"));
 	        	vo.setReservation_check_out(rs.getDate("reservation_check_out"));
-	        	vo.setReservation_confirm(rs.getString(""));
-	        	vo.setPayment_status(rs.getString(""));
-	        	vo.setReservation_created_at(rs.getTimestamp(""));
+	        	vo.setReservation_confirm(rs.getString("reservation_confirm"));
+	        	vo.setPayment_status(rs.getString("payment_status"));
+	        	vo.setReservation_created_at(rs.getTimestamp("reservation_created_at"));
 	            list.add(vo);
 	        }
 	    } 

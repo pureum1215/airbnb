@@ -252,7 +252,7 @@ body {
 		MainPropertyDetailVO madVObath = dao.propertyBath(propertyId); //숙소 방 화장실 침대
 		MainPropertyDetailVO madVOAvgCount = dao.propertyAvgCount(propertyId);//후기 평균 개수
 		MainPropertyDetailVO madVONameAt = dao.propertyHostName(propertyId);//호스트의 이름 생성한 날짜.
-		List<MainPropertyDetailVO> madVOReviewList = dao.propertyReviewName(propertyId);
+		List<MainPropertyDetailVO> madVOReviewList = dao.propertyReviewName(propertyId); //리뷰 내용, 리뷰 생성일자, 리뷰를 쓴 유저 이름 별점
 		boolean checkcount = true;
 		if (madVOReviewList.size() == 0) {
 			checkcount = false;
@@ -404,10 +404,11 @@ body {
 							String reivew_content = madVOReviewList.get(i).getProperty_review_content();
 							String user_name = madVOReviewList.get(i).getUser_name();
 							String review_created_at = madVOReviewList.get(i).getProperty_review_created_at();
+							int propertyReview = madVOReviewList.get(i).getProperty_review_rating();
 					%>
 					<!--  <c:forEach var="review" items="${madVOReview}">-->
 					<div class="review-card">
-					<div class="review-name"><%=user_name%></div>⭐5.0
+					<div class="review-name"><%=user_name%></div>⭐<%=propertyReview %>
 						<p class="review-content"><%=reivew_content%></p>
 						<div class="review-date">
 							<fmt:parseDate value="<%=review_created_at%>" pattern="yyyy-MM-dd HH:mm:ss" var="parsedDate" />
@@ -428,8 +429,10 @@ body {
 						String reivew_content = madVOReviewList.get(i).getProperty_review_content();
 						String user_name = madVOReviewList.get(i).getUser_name();
 						String review_created_at = madVOReviewList.get(i).getProperty_review_created_at();
+						int propertyReview = madVOReviewList.get(i).getProperty_review_rating();
 					%>
 					<div class="review-card hidden-review">
+						<div class="review-name"><%=user_name%></div>⭐<%=propertyReview %>
 						<p class="review-content"><%=reivew_content%></p>
 						<div class="review-footer">
 							<div class="review-meta">

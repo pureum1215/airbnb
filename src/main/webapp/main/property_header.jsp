@@ -559,7 +559,7 @@ body {
  	// userInfo 버튼 , menu 버튼
 	function togglebutton(menu) {
 		if(menu === 'wish') {
-			location.href = "${pageContext.request.contextPath}/user/userWishlist.jsp";
+			location.href = "userwishlist.us";
 		} else if(menu === 'reservation') {
 			location.href = "${pageContext.request.contextPath}/user/userReservationList.jsp";
 		} else if(menu === 'profile') {

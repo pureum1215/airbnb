@@ -13,6 +13,8 @@ public class HostProfileVO {
 	 * 사용자 리뷰 id (호스트가 작성한 사용자에 대한 리뷰), 호스트가 준 별점, 내용, 리뷰 생성 시간, 
 	 **************************************************************************/
 	
+	private int count; //호스트가 가진 숙소에 평가 개수
+	private double avg; //호스트가 가진 숙소에 대한 평점 평균
 	private String user_id;
 	private String host_id;
 	private String user_name;
@@ -45,6 +47,20 @@ public class HostProfileVO {
 	private String user_review_content;
 	private Timestamp user_review_created_at;
 	
+	
+	
+	public int getCount() {
+		return count;
+	}
+	public void setCount(int count) {
+		this.count = count;
+	}
+	public double getAvg() {
+		return avg;
+	}
+	public void setAvg(double avg) {
+		this.avg = avg;
+	}
 	public String getUser_id() {
 		return user_id;
 	}

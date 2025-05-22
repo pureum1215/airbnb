@@ -36,7 +36,8 @@
 				</li>
 				<li>
 					<button id="header_listing"
-						class="menu-item px-4 py-2 rounded-full hover:bg-gray-100 font-medium">
+						class="menu-item px-4 py-2 rounded-full hover:bg-gray-100 font-medium"
+						onclick="location.href='/hostList.ho'">
 						리스팅</button>
 				</li>
 				<li>

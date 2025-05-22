@@ -48,7 +48,7 @@ public class UserProfileDAO {
 	/***
 	 * 
 	 * @param userId
-	 * @return 유저의 이름 생성일자
+	 * @return 유저의 이름 ,생성일자 , 이메일 , 휴대전화 번
 	 */
 	
 	public UserProfileVO profileNC(String userId) {

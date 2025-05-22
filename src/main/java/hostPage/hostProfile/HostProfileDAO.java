@@ -91,13 +91,13 @@ public class HostProfileDAO {
 			return vo;
 		}
 		
-		//필요한 것  후기내용
+		//필요한 것  후기내용, 후기 
 		public List<HostProfileVO> hostProfile3(String hostId) {
 			List<HostProfileVO> voList = new ArrayList<HostProfileVO>();
 			
 			try {
-				String sql = "select pr.property_review_content, pr.property_review_rating from host h "
-						+ "join property p on h.host_id = p.host_id "
+				String sql = "select pr.property_review_content, pr.property_review_rating, pr.property_review_id  "
+						+ "from host h join property p on h.host_id = p.host_id "
 						+ "join property_review pr on p.property_id= pr.property_id where h.host_id = ?";
 				PreparedStatement pstmt = conn.prepareStatement(sql);
 				pstmt.setString(1, hostId);
@@ -107,7 +107,7 @@ public class HostProfileDAO {
 		        	HostProfileVO vo = new HostProfileVO();
 		        	vo.setProperty_review_content(rs.getString(1));
 		        	vo.setProperty_review_rating(rs.getInt(2));
-		        	
+		        	vo.setProperty_review_id(rs.getString(3));
 		        	voList.add(vo);
 		        }
 		        
@@ -117,19 +117,28 @@ public class HostProfileDAO {
 			
 			return voList;
 		}
-		//필요한 것 가지고 있는 숙소
-		public HostProfileVO hostProfile4(String hostId) {
+		//필요한 것 별점 후기 남긴 사람 이름,날짜 review_created_at u.user_name
+		public HostProfileVO hostProfile4(String propreviwId) {
 			HostProfileVO vo = new HostProfileVO();
 			
 			try {
-				String sql = "";
+				String sql = "select u.user_name,pr.property_review_created_at from property_review "
+						+ "pr join user u on pr.user_id =u.user_id where property_review_id = ?";
 				PreparedStatement pstmt = conn.prepareStatement(sql);
-				pstmt.setString(1, hostId);
+				pstmt.setString(1, propreviwId);
 		        ResultSet rs = pstmt.executeQuery();
+		        if(rs.next()) {
+		        	vo.setUser_name(rs.getString(1));
+		        	vo.setProperty_review_created_at(rs.getString(2));
+		        }
+		        
 			} catch (Exception e) {
 				// TODO: handle exception
 			}
 			
 			return vo;
 		}
+		
+		//호스트가 가지고 있는 숙소
+		
 }

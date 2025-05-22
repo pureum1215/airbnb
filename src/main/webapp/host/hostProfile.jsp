@@ -263,13 +263,17 @@ int hostCount= hvo2.getCount();
 				for(int i=0; i<2; i++){
 					String review_content = hvoList3.get(i).getProperty_review_content();
 					int review_rating = hvoList3.get(i).getProperty_review_rating();
+					String review_id = hvoList3.get(i).getProperty_review_id();
+					HostProfileVO hvo4 = dao.hostProfile4(review_id);
+					String user = hvo4.getUser_name();
+					String created_at =hvo4.getProperty_review_created_at();
+					
 				%>
 				<div class="review-list">
 					<div class="review">
 						<div class="reviewer">
-							<img src="https://i.pravatar.cc/150?img=5" alt="리뷰어 사진">
 							<div class="reviewer-info">
-							 리뷰어 이름<br>날짜
+							 <%=user %><br>날짜<%=created_at %>
 							</div>
 						</div>
 						<div class="content">⭐<%=review_rating %>, 후기: <%=review_content %></div>
@@ -281,13 +285,15 @@ int hostCount= hvo2.getCount();
 					for(int i=2; i<hvoList3.size(); i++){
 						String review_content = hvoList3.get(i).getProperty_review_content();
 						int review_rating = hvoList3.get(i).getProperty_review_rating();
-					
+						String review_id = hvoList3.get(i).getProperty_review_id();
+						HostProfileVO hvo4 = dao.hostProfile4(review_id);
+						String user = hvo4.getUser_name();
+						String created_at =hvo4.getProperty_review_created_at();
 					%>
 					<div class="review" style="display: none;">
 						<div class="reviewer">
-							<img src="https://i.pravatar.cc/150?img=6" alt="리뷰어 사진">
 							<div class="reviewer-info">
-							 리뷰어 이름<br>날짜
+							 <%=user %><br>날짜<%=created_at %>
 							</div>
 						</div>
 						<div class="content">⭐<%=review_rating %>, 후기: <%=review_content %></div>

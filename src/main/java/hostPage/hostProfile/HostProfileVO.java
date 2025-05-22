@@ -33,7 +33,7 @@ public class HostProfileVO {
 	
 	private String property_name;
 	private String property_review_content;
-	private Timestamp property_review_created_at;
+	private String property_review_created_at;
 	
 	private String property_photo_url;
 	private String location_id;
@@ -46,9 +46,6 @@ public class HostProfileVO {
 	private int user_review_rating;
 	private String user_review_content;
 	private Timestamp user_review_created_at;
-	
-	
-	
 	public int getCount() {
 		return count;
 	}
@@ -151,10 +148,10 @@ public class HostProfileVO {
 	public void setProperty_review_content(String property_review_content) {
 		this.property_review_content = property_review_content;
 	}
-	public Timestamp getProperty_review_created_at() {
+	public String getProperty_review_created_at() {
 		return property_review_created_at;
 	}
-	public void setProperty_review_created_at(Timestamp property_review_created_at) {
+	public void setProperty_review_created_at(String property_review_created_at) {
 		this.property_review_created_at = property_review_created_at;
 	}
 	public String getProperty_photo_url() {
@@ -217,21 +214,24 @@ public class HostProfileVO {
 	public void setUser_review_created_at(Timestamp user_review_created_at) {
 		this.user_review_created_at = user_review_created_at;
 	}
-	
 	@Override
 	public String toString() {
-		return "HostProfileVO [user_id=" + user_id + ", host_id=" + host_id + ", user_name=" + user_name
-				+ ", host_delete_yn=" + host_delete_yn + ", property_review_id=" + property_review_id + ", property_id="
-				+ property_id + ", property_review_rating=" + property_review_rating + ", host_created_at="
-				+ host_created_at + ", user_email=" + user_email + ", user_phone_number=" + user_phone_number
-				+ ", user_birthday=" + user_birthday + ", user_created_at=" + user_created_at + ", host_bio=" + host_bio
-				+ ", property_name=" + property_name + ", property_review_content=" + property_review_content
-				+ ", property_review_created_at=" + property_review_created_at + ", property_photo_url="
-				+ property_photo_url + ", location_id=" + location_id + ", location_city=" + location_city
-				+ ", location_country=" + location_country + ", location_detail=" + location_detail
-				+ ", price_per_night=" + price_per_night + ", user_review_id=" + user_review_id
-				+ ", user_review_rating=" + user_review_rating + ", user_review_content=" + user_review_content
-				+ ", user_review_created_at=" + user_review_created_at + "]";
+		return "HostProfileVO [count=" + count + ", avg=" + avg + ", user_id=" + user_id + ", host_id=" + host_id
+				+ ", user_name=" + user_name + ", host_delete_yn=" + host_delete_yn + ", property_review_id="
+				+ property_review_id + ", property_id=" + property_id + ", property_review_rating="
+				+ property_review_rating + ", host_created_at=" + host_created_at + ", user_email=" + user_email
+				+ ", user_phone_number=" + user_phone_number + ", user_birthday=" + user_birthday + ", user_created_at="
+				+ user_created_at + ", host_bio=" + host_bio + ", property_name=" + property_name
+				+ ", property_review_content=" + property_review_content + ", property_review_created_at="
+				+ property_review_created_at + ", property_photo_url=" + property_photo_url + ", location_id="
+				+ location_id + ", location_city=" + location_city + ", location_country=" + location_country
+				+ ", location_detail=" + location_detail + ", price_per_night=" + price_per_night + ", user_review_id="
+				+ user_review_id + ", user_review_rating=" + user_review_rating + ", user_review_content="
+				+ user_review_content + ", user_review_created_at=" + user_review_created_at + "]";
 	}
+	
+	
+	
+	
 	
 }

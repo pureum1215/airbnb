@@ -93,11 +93,16 @@
 		<div id="gridView"
 			class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
 			<!-- 카드 1 -->
+			<%
+			for(int i=0; i<hostpro.size(); i++){
+					String proname = hostpro.get(i).getProperty_name();
+					String prophoto = hostpro.get(i).getProperty_photo_url();
+					%>
 			<div
 				class="rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition border cursor-pointer">
 				<div class="relative">
 					<img class="w-full h-60 object-cover"
-						src="https://modo-phinf.pstatic.net/20160324_63/1458757863703eouuM_JPEG/mosa320fGQ.jpeg?type=w720"
+						src="/uploads/<%=prophoto%>"
 						alt="listing image">
 					<!-- 이 부분은 필요 없을 시 삭제 가능 -->
 					<span
@@ -105,11 +110,10 @@
 						진행 중 </span>
 				</div>
 				<div class="px-4 py-3">
-					<h2 class="font-medium text-base truncate">기흥기흥</h2>
-					<p class="text-sm text-gray-500 truncate">Yongin-si,
-						Gyeonggi-do</p>
+					<h2 class="font-medium text-base truncate"><%=proname %></h2>
 				</div>
 			</div>
+			<%} %>
 		</div>
 	</main>
 

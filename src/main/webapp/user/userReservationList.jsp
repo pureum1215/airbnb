@@ -5,30 +5,175 @@
 <head>
   <meta charset="UTF-8" />
   <title>이전 여행</title>
-  <script src="https://cdn.tailwindcss.com"></script>
+
+<style>
+
+	.body {
+      background-color: white;        /* bg-white */
+      color: #1f2937;                 /* text-gray-900 */
+      font-family: sans-serif;       /* font-sans */
+      -webkit-font-smoothing: antialiased; /* antialiased */
+      -moz-osx-font-smoothing: grayscale;  /* antialiased */
+    }
+    
+    .main-container {
+      max-width: 896px;         /* max-w-4xl */
+      margin-left: auto;        /* mx-auto */
+      margin-right: auto;       /* mx-auto */
+      padding-left: 24px;       /* px-6 */
+      padding-right: 24px;      /* px-6 */
+      padding-top: 48px;        /* py-12 */
+      padding-bottom: 48px;     /* py-12 */
+    }
+    
+    .title-sytle{
+      font-size: 24px;        /* text-2xl */
+      line-height: 32px;      /* text-2xl */
+      font-weight: 700;       /* font-bold */
+      margin-bottom: 32px;    /* mb-8 */
+    }
+    
+    .tab-container {
+      display: flex;                          /* flex */
+      border-bottom: 1px solid #e5e7eb;       /* border-b + border-gray-200 */
+    }
+    
+    .list-container > * + * {
+      margin-top: 32px; /* space-y-8 */
+    }
+
+    .reservation-list {
+      display: flex;        /* flex */
+      flex-direction: column; /* flex-col */
+    }
+
+    .reservation-list > * + * {
+      margin-top: 16px; /* space-y-4 */
+    }    
+
+	.card-container {
+	  display: flex;
+	  align-items: flex-start;
+	  gap: 16px;
+	  border-bottom: 1px solid #e5e7eb; /* 구분선 추가 (필요시) */
+	  padding-bottom: 16px;
+	}
+	
+	.card-image {
+	  width: 112px;
+	  height: 112px;
+	  border-radius: 8px;
+	  object-fit: cover;
+	  flex-shrink: 0;
+	}
+	
+	.card-info {
+	  flex-grow: 1;
+	  display: flex;
+	  flex-direction: column;
+	  justify-content: space-between;
+	}
+	
+	.card-info-top {
+	  /* 왼쪽: 숙소 이름, 위치, 더보기 */
+	}
+	
+	.card-info-bottom {
+	  /* 오른쪽: 체크인~체크아웃, 결제/예약중 영역 */
+	  display: flex;
+	  flex-direction: column;
+	  justify-content: space-between;
+	  text-align: right;
+	  min-width: 160px;
+	}
+	
+	.card-title {
+	  font-size: 18px;
+	  font-weight: 600;
+	  margin: 0;
+	}
+	
+	.card-location {
+	  font-size: 14px;
+	  color: #4B5563;
+	  margin: 4px 0;
+	}
+	
+	.card-more-btn {
+	  background: none;
+	  border: none;
+	  color: #FF5A5F;
+	  cursor: pointer;
+	  font-size: 14px;
+	  padding: 0;
+	  text-decoration: underline;
+	}
+	
+	.card-date {
+	  font-size: 14px;
+	  color: #6B7280;
+	  margin-bottom: 8px;
+	}
+	
+	.card-action-btn {
+	  background-color: #FF5A5F;
+	  color: white;
+	  border: none;
+	  padding: 6px 12px;
+	  border-radius: 4px;
+	  cursor: pointer;
+	  font-size: 14px;
+	}
+	
+	.card-reserving-text {
+	  font-size: 14px;
+	  color: #6B7280;
+	  font-style: italic;
+	}
+
+	
+	.tab-button {
+	  padding: 8px 16px;
+	  font-size: 14px;
+	  line-height: 20px;
+	  font-weight: 500;
+	  color: #6B7280; /* 기본: 회색 */
+	  background: none;
+	  border: none;
+	  border-bottom: none;
+	  cursor: pointer;
+	}
+	
+	.tab-button.active {
+	  color: #FF5A5F; /* 선택된 탭: 빨강 */
+	  border-bottom: 2px solid #FF5A5F;
+	}
+    
+</style>
+
 </head>
-<body class="bg-white text-gray-900 font-sans antialiased" onload="pagestart()">
+<body onload="pagestart()">
 
 	<div>
 		<%@ include file="header_default.jsp"%>
 		<!-- 정적 포함 -->
 	</div>
 
-  <main class="max-w-4xl mx-auto px-6 py-12">
-    <h1 class="text-2xl font-bold mb-8">이전 여행</h1>
+  <main class="main-container">
+    <h1 class="title-style">이전 여행</h1>
 	
-	<div class="flex border-b border-gray-200">
-	<button type="button" id="tab-upcoming" class="px-4 py-2 text-sm font-medium text-[#FF5A5F] border-b-2 border-[#FF5A5F]" 
-		onclick="showUpcomingList()" >
-    	다가오는 예약</button>
-	<button type="button" id="tab-history" class="px-4 py-2 text-sm font-medium text-gray-500 hover:text-[#FF5A5F]" 
-    	onclick="showHistoryList()">
-    	지난 예약</button>
-	</div>
-	<div class="space-y-8">
-		<div id="reservation-content"></div>
+	<div class="tab-container">
+		<button type="button" id="tab-upcoming" class="tab-button active" onclick="showUpcomingList()">
+		    다가오는 예약
+		</button>
+		<button type="button" id="tab-history" class="tab-button" onclick="showHistoryList()">
+		    지난 예약
+		</button>
 	</div>
 	<br/>
+	<div class="list-container">
+		<div id="reservation-content" class="reservation-list" ></div>
+	</div>
     
   </main>
 
@@ -40,7 +185,7 @@
 		function pagestart() {
 			showUpcomingList();
 		}
-		
+
 		function showUpcomingList() {
 			setActiveTab('upcoming');
 			showUpcoming();
@@ -55,16 +200,14 @@
  		function setActiveTab(tab) {
 			const upcomingBtn = document.getElementById('tab-upcoming');
 			const historyBtn = document.getElementById('tab-history');
-
+			
 			if (tab === 'upcoming') {
- 		    	upcomingBtn.classList.add('text-[#FF5A5F]', 'border-b-2', 'border-[#FF5A5F]');
- 		    	historyBtn.classList.remove('text-[#FF5A5F]', 'border-b-2', 'border-[#FF5A5F]');
- 		    	historyBtn.classList.add('text-gray-500');
+				upcomingBtn.classList.add('active');
+				historyBtn.classList.remove('active');
 			} 
-			else {
- 		    	historyBtn.classList.add('text-[#FF5A5F]', 'border-b-2', 'border-[#FF5A5F]');
- 		    	upcomingBtn.classList.remove('text-[#FF5A5F]', 'border-b-2', 'border-[#FF5A5F]');
- 		    	upcomingBtn.classList.add('text-gray-500');
+			else if (tab === 'history') {
+				historyBtn.classList.add('active');
+				upcomingBtn.classList.remove('active');
 			}
 		}
 		
@@ -85,13 +228,26 @@
     					res.data.forEach(item => {
     						console.log('예약 항목:', item);
     						
-    						card += '<div class="flex items-center gap-4 mb-6">';
-    						card += '<img src="'+ item.property_photo_url +'" alt="숙소 이미지" class="w-28 h-28 rounded-lg object-cover" />';
-    						card += '<div>';
-    						card += '<h2 class="text-lg font-semibold">'+ item.property_name +'</h2>';
-    						card += '<p class="text-sm text-gray-600">'+item.country + item.city +'</p>';
-    						card += '<p class="text-sm text-gray-500">'+ item.reservation_check_in +' ~ '+ item.reservation_check_out +'</p>';
-    						card += '</div></div>';
+    						card += '<div class="card-container">';
+    						card += '  <img src="/uploads/' + item.property_photo_url + '" alt="숙소 이미지" class="card-image" />';
+    						card += '  <div class="card-info">';
+    						card += '    <div class="card-info-top">';
+    						card += '      <h2 class="card-title">' + item.property_name + '</h2>';
+    						card += '      <p class="card-location">' + item.country + ' ' + item.city + '</p>';
+    						card += '      <button class="card-more-btn" onclick="location.href=\'/property_detail?propertyId=' + item.property_id + '\'">더보기</button>';
+    						card += '    </div>';
+    						card += '    <div class="card-info-bottom">';
+    						card += '      <p class="card-date">' + item.reservation_check_in + ' ~ ' + item.reservation_check_out + '</p>';
+    						if (item.payment_status === 'paid') {
+    						  card += '      <button class="card-action-btn" onclick="location.href=\'/payment?reservationId=' + item.reservation_id + '\'">결제하기</button>';
+    						} else if (item.payment_status === 'pending') {
+    						  card += '      <span class="card-reserving-text">예약중</span>';
+    						} else {
+    						  card += '      <span class="card-reserving-text">상태 알 수 없음</span>';
+    						}
+    						card += '    </div>';
+    						card += '  </div>';
+    						card += '</div>';
     					});
    						container.innerHTML = card;
     				}	
@@ -118,13 +274,26 @@
     					res.data.forEach(item => {
     						console.log('예약 항목2:', item);
     						
-    						card += '<div class="flex items-center gap-4 mb-6">';
-    						card += '<img src="'+ item.property_photo_url +'" alt="숙소 이미지" class="w-28 h-28 rounded-lg object-cover" />';
-    						card += '<div>';
-    						card += '<h2 class="text-lg font-semibold">'+ item.property_name +'</h2>';
-    						card += '<p class="text-sm text-gray-600">'+item.country + item.city +'</p>';
-    						card += '<p class="text-sm text-gray-500">'+ item.reservation_check_in +' ~ '+ item.reservation_check_out +'</p>';
-    						card += '</div></div>';
+    						card += '<div class="card-container">';
+    						card += '  <img src="/uploads/' + item.property_photo_url + '" alt="숙소 이미지" class="card-image" />';
+    						card += '  <div class="card-info">';
+    						card += '    <div class="card-info-top">';
+    						card += '      <h2 class="card-title">' + item.property_name + '</h2>';
+    						card += '      <p class="card-location">' + item.country + ' ' + item.city + '</p>';
+    						card += '      <button class="card-more-btn" onclick="location.href=\'/property_detail?propertyId=' + item.property_id + '\'">더보기</button>';
+    						card += '    </div>';
+    						card += '    <div class="card-info-bottom">';
+    						card += '      <p class="card-date">' + item.reservation_check_in + ' ~ ' + item.reservation_check_out + '</p>';
+    						if (item.payment_status === 'paid') {
+    						  card += '      <button class="card-action-btn" onclick="location.href=\'/payment?reservationId=' + item.reservation_id + '\'">결제하기</button>';
+    						} else if (item.payment_status === 'pending') {
+    						  card += '      <span class="card-reserving-text">예약중</span>';
+    						} else {
+    						  card += '      <span class="card-reserving-text">상태 알 수 없음</span>';
+    						}
+    						card += '    </div>';
+    						card += '  </div>';
+    						card += '</div>';
     					});
     					
     					console.log(card);

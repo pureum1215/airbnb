@@ -49,13 +49,13 @@ public class UserReservationListDAO {
 	public List<UserReservationListVO> getUpcomingReservations(String user_id) {
 	    List<UserReservationListVO> list = new ArrayList<>();
 	    try {
-	    	String sql = "SELECT r.reservation_id, p.property_name, p.property_photo_url,"
-        		+ "l.location_city, l.location_country, r.reservation_check_in, r.reservation_check_out"
-        		+ "FROM reservation"
-        		+ "JOIN property p ON r.property_id = p.property_id"
-        		+ "JOIN location l ON p.location_id = l.location_id"
-        		+ "WHERE r.user_id = ?"
-        		+ "AND r.reservation_check_in > CURRENT_DATE"
+	    	String sql = "SELECT r.reservation_id, r.property_id, p.property_name, p.property_photo_url,"
+        		+ "l.location_city, l.location_country, r.reservation_check_in, r.reservation_check_out "
+        		+ "FROM reservation r "
+        		+ "JOIN property p ON r.property_id = p.property_id "
+        		+ "JOIN location l ON p.location_id = l.location_id "
+        		+ "WHERE r.user_id = ? "
+        		+ "AND r.reservation_check_in > CURRENT_DATE "
         		+ "ORDER BY r.reservation_check_in ASC;";
 	        pstmt = conn.prepareStatement(sql);
 	        pstmt.setString(1, user_id);
@@ -64,8 +64,8 @@ public class UserReservationListDAO {
 	        while (rs.next()) {
 	        	UserReservationListVO vo = new UserReservationListVO();
 	        	vo.setProperty_id(rs.getString("property_id"));
-	        	vo.setReservation_check_in(rs.getDate("check_in"));
-	        	vo.setReservation_check_out(rs.getDate("check_out"));
+	        	vo.setReservation_check_in(rs.getDate("reservation_check_in"));
+	        	vo.setReservation_check_out(rs.getDate("reservation_check_out"));
 	            list.add(vo);
 	        }
 	    } 
@@ -83,11 +83,11 @@ public class UserReservationListDAO {
 	    List<UserReservationListVO> list = new ArrayList<>();
 	    try {
 	    	String sql = "SELECT r.reservation_id, p.property_name, p.property_photo_url,"
-        		+ "l.location_city, l.location_country, r.reservation_check_in, r.reservation_check_out"
-        		+ "FROM reservation"
-        		+ "JOIN property p ON r.property_id = p.property_id"
-        		+ "JOIN location l ON p.location_id = l.location_id"
-        		+ "WHERE r.user_id = ?"
+        		+ "l.location_city, l.location_country, r.reservation_check_in, r.reservation_check_out "
+        		+ "FROM reservation r "
+        		+ "JOIN property p ON r.property_id = p.property_id "
+        		+ "JOIN location l ON p.location_id = l.location_id "
+        		+ "WHERE r.user_id = ? "
         		+ "ORDER BY r.reservation_check_in ASC;";
 	        pstmt = conn.prepareStatement(sql);
 	        pstmt.setString(1, user_id);
@@ -96,8 +96,8 @@ public class UserReservationListDAO {
 	        while (rs.next()) {
 	        	UserReservationListVO vo = new UserReservationListVO();
 	        	vo.setProperty_id(rs.getString("Property_id"));
-	        	vo.setReservation_check_in(rs.getDate("check_in"));
-	        	vo.setReservation_check_out(rs.getDate("check_out"));
+	        	vo.setReservation_check_in(rs.getDate("reservation_check_in"));
+	        	vo.setReservation_check_out(rs.getDate("reservation_check_out"));
 	            list.add(vo);
 	        }
 	    } 

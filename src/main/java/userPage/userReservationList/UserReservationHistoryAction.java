@@ -28,6 +28,8 @@ public class UserReservationHistoryAction {
 		UserReservationListDAO dao = new UserReservationListDAO();
 		List<UserReservationListVO> historyList = dao.getUpcomingReservations(userId);
 
+		System.out.println("가져온 예약 수: " + historyList.size());
+		
 		return new ResponseData(historyList);
 
 	}	

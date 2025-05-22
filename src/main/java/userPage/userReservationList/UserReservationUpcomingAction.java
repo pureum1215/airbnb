@@ -13,7 +13,9 @@ import util.ResponseData;
 public class UserReservationUpcomingAction {
 
 	public ResponseData execute(HttpServletRequest request, HttpServletResponse response) {
-
+		
+		ResponseData data = null;
+		
 		// 세션에서 user_id 가져오기
         HttpSession session = request.getSession();
         String userId = (String) session.getAttribute("user_id");
@@ -27,8 +29,17 @@ public class UserReservationUpcomingAction {
         // DAO에서 예약 목록 가져오기
 		UserReservationListDAO dao = new UserReservationListDAO();
 		List<UserReservationListVO> upcomingList = dao.getUpcomingReservations(userId);
-
-		return new ResponseData(upcomingList);
+		
+		System.out.println("가져온 예약 수: " + upcomingList.size());
+		
+		if ( upcomingList.size() != 0 ) {
+			data = new ResponseData();
+			data.setData(upcomingList);
+		}
+		else {
+			data = new ResponseData(500, "서버 에러");
+		}
+		return data;
 
 	}	
 }

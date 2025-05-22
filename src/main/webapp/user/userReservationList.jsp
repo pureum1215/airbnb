@@ -52,35 +52,85 @@
     }    
 
 	.card-container {
-	  display: flex;                 /* flex */
-	  align-items: center;          /* items-center */
-	  gap: 16px;                    /* gap-4 */
+	  display: flex;
+	  align-items: flex-start;
+	  gap: 16px;
+	  border-bottom: 1px solid #e5e7eb; /* 구분선 추가 (필요시) */
+	  padding-bottom: 16px;
 	}
 	
 	.card-image {
-	  width: 112px;                 /* w-28 */
-	  height: 112px;                /* h-28 */
-	  border-radius: 8px;           /* rounded-lg */
-	  object-fit: cover;            /* object-cover */
+	  width: 112px;
+	  height: 112px;
+	  border-radius: 8px;
+	  object-fit: cover;
+	  flex-shrink: 0;
+	}
+	
+	.card-info {
+	  flex-grow: 1;
+	  display: flex;
+	  flex-direction: column;
+	  justify-content: space-between;
+	}
+	
+	.card-info-top {
+	  /* 왼쪽: 숙소 이름, 위치, 더보기 */
+	}
+	
+	.card-info-bottom {
+	  /* 오른쪽: 체크인~체크아웃, 결제/예약중 영역 */
+	  display: flex;
+	  flex-direction: column;
+	  justify-content: space-between;
+	  text-align: right;
+	  min-width: 160px;
 	}
 	
 	.card-title {
-	  font-size: 18px;              /* text-lg */
-	  line-height: 28px;
-	  font-weight: 600;             /* font-semibold */
+	  font-size: 18px;
+	  font-weight: 600;
+	  margin: 0;
 	}
 	
 	.card-location {
-	  font-size: 14px;              /* text-sm */
-	  line-height: 20px;
-	  color: #4B5563;               /* text-gray-600 */
+	  font-size: 14px;
+	  color: #4B5563;
+	  margin: 4px 0;
+	}
+	
+	.card-more-btn {
+	  background: none;
+	  border: none;
+	  color: #FF5A5F;
+	  cursor: pointer;
+	  font-size: 14px;
+	  padding: 0;
+	  text-decoration: underline;
 	}
 	
 	.card-date {
-	  font-size: 14px;              /* text-sm */
-	  line-height: 20px;
-	  color: #6B7280;               /* text-gray-500 */
+	  font-size: 14px;
+	  color: #6B7280;
+	  margin-bottom: 8px;
 	}
+	
+	.card-action-btn {
+	  background-color: #FF5A5F;
+	  color: white;
+	  border: none;
+	  padding: 6px 12px;
+	  border-radius: 4px;
+	  cursor: pointer;
+	  font-size: 14px;
+	}
+	
+	.card-reserving-text {
+	  font-size: 14px;
+	  color: #6B7280;
+	  font-style: italic;
+	}
+
 	
 	.tab-button {
 	  padding: 8px 16px;
@@ -135,7 +185,7 @@
 		function pagestart() {
 			showUpcomingList();
 		}
-		
+
 		function showUpcomingList() {
 			setActiveTab('upcoming');
 			showUpcoming();
@@ -150,20 +200,14 @@
  		function setActiveTab(tab) {
 			const upcomingBtn = document.getElementById('tab-upcoming');
 			const historyBtn = document.getElementById('tab-history');
-
+			
 			if (tab === 'upcoming') {
-				upcomingBtn.classList.add('tab-active');
-				upcomingBtn.classList.remove('tab-default');
-				
-				historyBtn.classList.remove('tab-active');
-				historyBtn.classList.add('tab-default');
+				upcomingBtn.classList.add('active');
+				historyBtn.classList.remove('active');
 			} 
-			else {
-				historyBtn.classList.add('tab-active');
-				historyBtn.classList.remove('tab-default');
-				
-				upcomingBtn.classList.remove('tab-active');
-				upcomingBtn.classList.add('tab-default');
+			else if (tab === 'history') {
+				historyBtn.classList.add('active');
+				upcomingBtn.classList.remove('active');
 			}
 		}
 		
@@ -185,12 +229,25 @@
     						console.log('예약 항목:', item);
     						
     						card += '<div class="card-container">';
-    						card += '<img src="/uploads/' + item.property_photo_url + '" alt="숙소 이미지" class="card-image" />';
-    						card += '<div>';
-    						card += '<h2 class="card-title">' + item.property_name + '</h2>';
-    						card += '<p class="card-location">' + item.country + item.city + '</p>';
-    						card += '<p class="card-date">' + item.reservation_check_in + ' ~ ' + item.reservation_check_out + '</p>';
-    						card += '</div></div>';
+    						card += '  <img src="/uploads/' + item.property_photo_url + '" alt="숙소 이미지" class="card-image" />';
+    						card += '  <div class="card-info">';
+    						card += '    <div class="card-info-top">';
+    						card += '      <h2 class="card-title">' + item.property_name + '</h2>';
+    						card += '      <p class="card-location">' + item.country + ' ' + item.city + '</p>';
+    						card += '      <button class="card-more-btn" onclick="location.href=\'/property_detail?propertyId=' + item.property_id + '\'">더보기</button>';
+    						card += '    </div>';
+    						card += '    <div class="card-info-bottom">';
+    						card += '      <p class="card-date">' + item.reservation_check_in + ' ~ ' + item.reservation_check_out + '</p>';
+    						if (item.payment_status === 'paid') {
+    						  card += '      <button class="card-action-btn" onclick="location.href=\'/payment?reservationId=' + item.reservation_id + '\'">결제하기</button>';
+    						} else if (item.payment_status === 'pending') {
+    						  card += '      <span class="card-reserving-text">예약중</span>';
+    						} else {
+    						  card += '      <span class="card-reserving-text">상태 알 수 없음</span>';
+    						}
+    						card += '    </div>';
+    						card += '  </div>';
+    						card += '</div>';
     					});
    						container.innerHTML = card;
     				}	
@@ -218,12 +275,25 @@
     						console.log('예약 항목2:', item);
     						
     						card += '<div class="card-container">';
-    						card += '<img src="/uploads/' + item.property_photo_url + '" alt="숙소 이미지" class="card-image" />';
-    						card += '<div>';
-    						card += '<h2 class="card-title">' + item.property_name + '</h2>';
-    						card += '<p class="card-location">' + item.country + item.city + '</p>';
-    						card += '<p class="card-date">' + item.reservation_check_in + ' ~ ' + item.reservation_check_out + '</p>';
-    						card += '</div></div>';
+    						card += '  <img src="/uploads/' + item.property_photo_url + '" alt="숙소 이미지" class="card-image" />';
+    						card += '  <div class="card-info">';
+    						card += '    <div class="card-info-top">';
+    						card += '      <h2 class="card-title">' + item.property_name + '</h2>';
+    						card += '      <p class="card-location">' + item.country + ' ' + item.city + '</p>';
+    						card += '      <button class="card-more-btn" onclick="location.href=\'/property_detail?propertyId=' + item.property_id + '\'">더보기</button>';
+    						card += '    </div>';
+    						card += '    <div class="card-info-bottom">';
+    						card += '      <p class="card-date">' + item.reservation_check_in + ' ~ ' + item.reservation_check_out + '</p>';
+    						if (item.payment_status === 'paid') {
+    						  card += '      <button class="card-action-btn" onclick="location.href=\'/payment?reservationId=' + item.reservation_id + '\'">결제하기</button>';
+    						} else if (item.payment_status === 'pending') {
+    						  card += '      <span class="card-reserving-text">예약중</span>';
+    						} else {
+    						  card += '      <span class="card-reserving-text">상태 알 수 없음</span>';
+    						}
+    						card += '    </div>';
+    						card += '  </div>';
+    						card += '</div>';
     					});
     					
     					console.log(card);

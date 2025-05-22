@@ -1,3 +1,6 @@
+<%@page import="hostPage.hostProfile.HostProfileVO"%>
+<%@page import="hostPage.hostProfile.HostProfileDAO"%>
+<%@page import="java.util.*" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -199,15 +202,31 @@ body {
 </head>
 <body>
 	<%@ include file="header_hostpage.jsp"%>
+<%
+String hostId = "host050";
+//String hostId = (String)session.getAttribute("host_id");
+//필요한 것 호스트가 가진 숙소에 대한 별점, 후기 개수, 후기내용, 호스트 이름 
 
+HostProfileDAO dao = new HostProfileDAO();
+HostProfileVO hvo1 = dao.hostProfile1(hostId);
+HostProfileVO hvo2 = dao.hostProfile2(hostId);
+List<HostProfileVO> hvoList3 = dao.hostProfile3(hostId);
+List<HostProfileVO> hvolist5 = dao.hostProfile5(hostId);
+
+String hostName =hvo1.getUser_name();
+String hostBio = hvo1.getHost_bio();
+double hostAvg = hvo2.getAvg();
+int hostCount= hvo2.getCount();
+
+
+%>
 	<div class="container">
 		<!-- 왼쪽 패널 -->
 		<div class="left-panel">
 			<div class="profile-box">
 				<img src="https://i.pravatar.cc/150?img=11" alt="Toshiko 프로필 사진">
-				<h2>Toshiko</h2>
-				<div class="rating">⭐ 4.98 ・ 후기 1037개</div>
-				<div class="badge">슈퍼호스트</div>
+				<h2><%=hostName %></h2>
+				<div class="rating">⭐ <%=hostAvg %> ・ 후기 <%=hostCount %>개</div>
 			</div>
 
 			<div class="verify-box">
@@ -221,88 +240,101 @@ body {
 		<!-- 임시로 넣어놓음 -->
 		<!-- 오른쪽 패널 -->
 		<div class="right-panel">
-			<div class="section-title">Toshiko 님 소개</div>
+			<div class="section-title"><%=hostName %> 님 숙소 소개</div>
 
 			<div class="info-list">
-			---해당 영역에 내용 추가 요청--- <br><br>
-				직업/직장: 직원<br> 취미: 만화 체험<br> 숙소의 특별한 점: 공용 및 실내 통석<br>
-				게스트를 위해 노력하는 일: 깨끗한 숙소 제공하기<br> 음성 언어: 70대여성<br> 출신 학교:
-				日本理容美容専門学校<br> 가장 쓸모있는 재능: 디테일이 걱정되네요<br> 요즘 푹 빠져 있는 것:
-				스트레칭<br> 구사 언어: 영어, 일본어 및 중국어<br> 거주 지역: 오사카, 일본<br>
-				조식 메뉴: 프라이팬
+			 <br><br>
+				<%=hostBio %>
 			</div>
 
 			<div class="introduction">
-				안녕하세요, 저는 Toshiko입니다. <br> <br> 카가와현에서 태어난 저는 오사카에서 대만 해외
+				<!-- 안녕하세요, 저는 Toshiko입니다. <br> <br> 카가와현에서 태어난 저는 오사카에서 대만 해외
 				중국인 남편을 만났고, 지금은 남편과 함께 에어비앤비를 운영하고 있습니다.<br> 저는 중국어를 할 수 없지만,
 				남편은 중국어를 구사합니다.<br> <br> 제 취미는 여행과 이 동네에서 현지 음식을 먹는 것을
 				좋아합니다. 저는 남편의 동생이 대만에 살고 있기 때문에 대만에 자주 갑니다.<br> <br> 2살과
 				11세 어린이로 인해 안타깝게도 체크인 시 만날 수 없습니다. 남편과 직원이 에어비앤비에서 대신 기시모토를 통해 연락
-				가능합니다.<br> <br> 오사카에서 20년정도 살았는데 궁금하신 점 있으시면 언제든지 연락주세요!
+				가능합니다.<br> <br> 오사카에서 20년정도 살았는데 궁금하신 점 있으시면 언제든지 연락주세요! -->
 			</div>
 
 			<div class="review-box" style="border-bottom: 1px solid #e4e4e4;">
 				<div class="section-title">Toshiko 님의 후기</div>
 
 				<!-- 후기 리스트 -->
+				<%
+				for(int i=0; i<2; i++){
+					String review_content = hvoList3.get(i).getProperty_review_content();
+					int review_rating = hvoList3.get(i).getProperty_review_rating();
+					String review_id = hvoList3.get(i).getProperty_review_id();
+					HostProfileVO hvo4 = dao.hostProfile4(review_id);
+					String user = hvo4.getUser_name();
+					String created_at =hvo4.getProperty_review_created_at();
+					
+				%>
 				<div class="review-list">
 					<div class="review">
 						<div class="reviewer">
-							<img src="https://i.pravatar.cc/150?img=5" alt="리뷰어 사진">
 							<div class="reviewer-info">
-								Terii<br>2025년 5월
+							 <%=user %><br>날짜<%=created_at %>
 							</div>
 						</div>
-						<div class="content">"...이곳에서 즐거운 시간을 보냈습니다. 매우 깨끗하고 공간 내에
-							멋진 현대적인 분위기가 있었습니다..."</div>
+						<div class="content">⭐<%=review_rating %>, 후기: <%=review_content %></div>
 					</div>
-
+			<%}
+			%>
 					<!-- 두 번째 후기 (예시) -->
+					<%
+					for(int i=2; i<hvoList3.size(); i++){
+						String review_content = hvoList3.get(i).getProperty_review_content();
+						int review_rating = hvoList3.get(i).getProperty_review_rating();
+						String review_id = hvoList3.get(i).getProperty_review_id();
+						HostProfileVO hvo4 = dao.hostProfile4(review_id);
+						String user = hvo4.getUser_name();
+						String created_at =hvo4.getProperty_review_created_at();
+					%>
 					<div class="review" style="display: none;">
 						<div class="reviewer">
-							<img src="https://i.pravatar.cc/150?img=6" alt="리뷰어 사진">
 							<div class="reviewer-info">
-								Haruka<br>2025년 4월
+							 <%=user %><br>날짜<%=created_at %>
 							</div>
 						</div>
-						<div class="content">"호스트가 너무 친절하고 숙소 위치도 완벽했습니다. 다음에도 꼭 다시
-							예약하고 싶어요."</div>
+						<div class="content">⭐<%=review_rating %>, 후기: <%=review_content %></div>
 					</div>
+					<%
+					}
+					%>
 				</div>
 
 				<!-- 토글 버튼 -->
 				<button id="toggleReviewsBtn">후기 더 보기</button>
 			</div>
+			
 			<!-- Toshiko 님의 숙소 -->
 			<div style="margin-top: 64px;">
-				<div class="section-title">Toshiko 님의 숙소</div>
+				<div class="section-title"><%=hostName %> 님의 숙소</div>
 				<div class="listing-carousel">
 					<!-- 숙소 카드 1 -->
+					<%
+					for(int i=0; i<hvolist5.size(); i++){
+						String proname = hvolist5.get(i).getProperty_name();
+						String prophoto = hvolist5.get(i).getProperty_photo_url();
+					%>
+					
 					<div class="listing-card">
 						<img
-							src="https://content.r9cdn.net/rimg/himg/60/bd/6c/agoda-2975064-129665769-167419.jpg?width=1366&height=768&crop=true"
+							src="/uploads/<%=prophoto%>"
 							alt="오두막">
 						<div class="listing-info">
-							<div class="listing-type">오두막</div>
-							<div class="listing-name">Machiya 1DK ・ #01</div>
-							<div class="listing-rating">⭐ 4.99</div>
+							<div class="listing-name"><%=proname %></div>
 						</div>
 					</div>
-
-					<!-- 숙소 카드 2 -->
-					<div class="listing-card">
-						<img
-							src="https://st2.depositphotos.com/1007034/6589/i/450/depositphotos_65894943-stock-photo-luxury-villa-bunker.jpg"
-							alt="공동 주택">
-						<div class="listing-info">
-							<div class="listing-type">공동 주택</div>
-							<div class="listing-name">#401 Matsujyuju 2LDK 100㎡
-								Ebisucho...</div>
-							<div class="listing-rating">⭐ 4.98</div>
-						</div>
-					</div>
+					<%
+					} 
+					%>
 				</div>
 			</div>
+			
+			
+			
 		</div>
 	</div>
 

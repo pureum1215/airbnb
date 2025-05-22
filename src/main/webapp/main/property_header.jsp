@@ -399,7 +399,7 @@ body {
 					<%
 					if (userId != null) {
 					%>
-					<%=userId%>
+					<%= userId.substring(0, 1) %>
 					<%
 					} else {
 					%>x

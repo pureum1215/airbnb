@@ -37,15 +37,13 @@ body {
 }
 
 .gallery {
-	display: grid;
-	grid-template-columns: 2fr 1fr;
-	grid-template-rows: repeat(2, 180px);
-	gap: 8px;
+	display: flex;
 	margin-bottom: 24px;
+	height: 500px;
 }
 
 .gallery img {
-	width: 100%;
+	width: 95%;
 	height: 100%;
 	object-fit: cover;
 	border-radius: 8px;
@@ -53,6 +51,14 @@ body {
 
 .gallery img:first-child {
 	grid-row: span 2;
+}
+	
+.mapbox {
+	width:370px;
+	height:370px;
+	object-fit: cover;
+	border-radius: 8px;
+	border: 1px solid gray;
 }
 
 .info-section {
@@ -226,6 +232,7 @@ body {
 	.heart-icon.active {
 	  color: #ff385c;
 	}
+
 </style>
 </head>
 <body>
@@ -325,7 +332,7 @@ body {
 				<img src="/uploads/<%=madVONPD.getProperty_photo_url()%>"
 					alt="숙소 대표 이미지" />
 			</div>
-			<div id="map" style="width:350px;height:350px;"></div>
+			<div id="map" class="mapbox"></div>
 		</div>
 
 		<div class="info-section">

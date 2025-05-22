@@ -7,7 +7,6 @@
 <head>
   <meta charset="UTF-8" />
   <title>게스트 프로필</title>
-  <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
     /* 내가 작성한 후기 보기 버튼 스타일 */
@@ -22,6 +21,77 @@
     .myreview:hover {
       color: #000000;
     }
+    
+	.user-session {
+	    padding: 24px;
+	    border: 1px solid #ddd;
+	    border-radius: 16px;
+	    background-color: #ffffff;
+	    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+	    display: flex;
+	    flex-direction: column;
+	    gap: 16px;
+	    font-family: 'Arial', sans-serif;
+	    max-width: 600px;
+	}
+
+
+	.profile-aside {
+	  grid-column: span 1;
+	}
+	
+	.profile-box {
+	  	padding: 24px;
+	    border: 1px solid #ddd;
+	    border-radius: 16px;
+	    background-color: #ffffff;
+	    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+	    display: flex;
+	    flex-direction: column;
+	    gap: 16px;
+	    font-family: 'Arial', sans-serif;
+	    max-width: 600px;
+	}
+	
+	.profile-avatar {
+	  width: 96px;
+	  height: 96px;
+	  margin: 0 auto;
+	  border-radius: 50%;
+	  background-color: black;
+	  color: white;
+	  font-size: 32px;
+	  display: flex;
+	  align-items: center;
+	  justify-content: center;
+	  font-weight: bold;
+	}
+	
+	.profile-name {
+	  font-size: 18px;
+	  font-weight: 600;
+	  margin-top: 12px;
+	}
+	
+	.profile-role {
+	  font-size: 14px;
+	  color: #6b7280; /* Tailwind의 gray-500 */
+	  margin-top: 4px;
+	}
+	
+	.profile-meta {
+	  margin-top: 16px;
+	  font-size: 14px;
+	  color: #374151; /* Tailwind의 gray-700 */
+	}
+	
+	.profile-meta p {
+	  margin: 4px 0;
+	}
+	
+	.font-semibold {
+	  font-weight: 600;
+	}
   </style>
 </head>
 <body class="bg-white font-sans antialiased text-gray-900">
@@ -61,30 +131,29 @@
 
 <main class="max-w-6xl mx-auto px-6 py-10 grid md:grid-cols-3 gap-10">
   <!-- ▒▒ 좌측 프로필 영역 ▒▒ -->
-  <aside class="md:col-span-1">
-    <div class="bg-white border rounded-xl p-6 shadow-sm text-center">
-      <!-- 사용자 프로필 이니셜 (임시 이미지 대신 텍스트 사용) -->
-      <div class="w-24 h-24 mx-auto rounded-full bg-black text-white text-4xl flex items-center justify-center font-bold">
-        <%= upNCvo.getUser_name() %>
-      </div>
-      <h2 class="text-lg font-semibold mt-3"><%= upNCvo.getUser_name() %></h2>
-      <p class="text-sm text-gray-500">게스트</p>
-
-      <!-- 후기 개수 및 가입 기간 표시 -->
-      <div class="mt-4 space-y-1 text-sm text-gray-700">
-        <p>후기 <span class="font-semibold"><%= uvoList.size() %>개</span></p>
-        <p>에어비앤비 가입 기간 <span class="font-semibold"><%= years %>년 <%= months %>개월</span></p>
-      </div>
-    </div>
-  </aside>
+	<aside class="profile-aside">
+	  <div class="profile-box">
+	    <div class="profile-avatar">
+	      <%= upNCvo.getUser_name() %>
+	    </div>
+	    <h2 class="profile-name"><%= upNCvo.getUser_name() %></h2>
+	    <p class="profile-role">게스트</p>
+	
+	    <div class="profile-meta">
+	      <p>후기 <span class="font-semibold"><%= uvoList.size() %>개</span></p>
+	      <p>에어비앤비 가입 기간 <span class="font-semibold"><%= years %>년 <%= months %>개월</span></p>
+	    </div>
+	  </div>
+	</aside>
 
   <!-- ▒▒ 우측 콘텐츠 영역 ▒▒ -->
   <section class="md:col-span-2 space-y-6">
 
     <!-- 사용자 소개 섹션 -->
-    <div>
+    <div class="user-session">
       <h1 class="text-2xl font-bold"><%= upNCvo.getUser_name() %> 님 정보</h1>
-      <h2>이메일: <%=upNCvo.getUser_email() %>,전화번호: <%=upNCvo.getUser_phone_number() %> </h2>
+      <h2>이메일: <%=upNCvo.getUser_email() %> </h2>
+      <h2>전화번호: <%=upNCvo.getUser_phone_number() %> </h2>
       <button class="mt-2 text-sm font-medium border px-4 py-2 rounded-md hover:bg-gray-50">프로필 수정하기</button>
     </div>
 

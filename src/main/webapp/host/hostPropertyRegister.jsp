@@ -62,6 +62,7 @@
             border-radius: 10px;
             font-size: 16px;
             cursor: pointer;
+			margin-left: 1050px;
         }
         .btn-submit:hover {
             background-color: #e03150;
@@ -74,7 +75,7 @@
 		<!-- 정적 포함 -->
 	</div>
 
-<div class="container" style="margin-top: 40px;">
+<div class="container" style="margin-top: 40px; margin-bottom: 40px;">
     <h2>새 숙소 등록하기</h2>
 
     <form action="submitListing.jsp" method="post" enctype="multipart/form-data">
@@ -85,10 +86,6 @@
         <!-- 숙소 유형 -->
         <label for="type">숙소 유형</label>
         <input type="text" id="type" name="type" placeholder="예: 전통 한옥, 아파트, 빌라" required>
-
-        <!-- 수용 인원 -->
-        <label for="guests">최대 수용 인원</label>
-        <input type="number" id="guests" name="guests" min="1" required>
 
         <!-- 침실 / 침대 / 욕실 -->
         <label for="bedrooms">침실 수</label>
@@ -126,6 +123,10 @@
         <!-- 등록 버튼 -->
         <button type="submit" class="btn-submit">숙소 등록</button>
     </form>
+</div>
+
+<div>
+	<%@ include file="footer_hostpage.jsp"%>
 </div>
 </body>
 </html>

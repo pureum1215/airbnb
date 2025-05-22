@@ -150,8 +150,8 @@ public class PropertyDAO {
 		
 		try {
 			String sql = "SELECT "
-					+ "    COUNT(*) AS review_count, "
-					+ "    ROUND(AVG(property_review_rating), 2) AS avg_rating "
+					+ "COUNT(*) AS review_count, "
+					+ "ROUND(AVG(property_review_rating), 2) AS avg_rating "
 					+ "FROM property_review "
 					+ "WHERE property_id = ?";
 	        PreparedStatement pstmt = conn.prepareStatement(sql);
@@ -243,7 +243,7 @@ public class PropertyDAO {
 		
 		try {
 			String sql = "select pr.property_review_content, pr.property_review_created_at, "
-					+ "u.user_name from property_review pr "
+					+ "u.user_name, pr.property_review_rating from property_review pr "
 					+ "join user u on pr.user_id = u.user_id where property_id= ?";
 	        PreparedStatement pstmt = conn.prepareStatement(sql);
 	        pstmt.setString(1, propertyId);
@@ -253,7 +253,7 @@ public class PropertyDAO {
 	        	vo.setProperty_review_content(rs.getString(1));
 	        	vo.setProperty_review_created_at(rs.getString(2));
 	        	vo.setUser_name(rs.getString(3));
-	        	
+	        	vo.setProperty_review_rating(rs.getInt(4));
 	        	madVO.add(vo);
 	        }
 			

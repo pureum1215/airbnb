@@ -26,7 +26,7 @@ public class UserReservationHistoryAction {
         
         // DAO에서 예약 목록 가져오기
 		UserReservationListDAO dao = new UserReservationListDAO();
-		List<UserReservationListVO> historyList = dao.getUpcomingReservations(userId);
+		List<UserReservationListVO> historyList = dao.getHistoryReservations(userId);
 
 		System.out.println("가져온 예약 수: " + historyList.size());
 		

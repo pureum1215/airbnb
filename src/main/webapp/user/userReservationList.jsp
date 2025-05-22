@@ -19,10 +19,10 @@
 	
 	<div class="flex border-b border-gray-200">
 	<button type="button" id="tab-upcoming" class="px-4 py-2 text-sm font-medium text-[#FF5A5F] border-b-2 border-[#FF5A5F]" 
-		onclick="showUpcoming()" >
+		onclick="showUpcomingList()" >
     	다가오는 예약</button>
 	<button type="button" id="tab-history" class="px-4 py-2 text-sm font-medium text-gray-500 hover:text-[#FF5A5F]" 
-    	onclick="showHistory()">
+    	onclick="showHistoryList()">
     	지난 예약</button>
 	</div>
 	<div class="space-y-8">
@@ -38,7 +38,34 @@
 		const container = document.getElementById('reservation-content');
 		
 		function pagestart() {
+			showUpcomingList();
+		}
+		
+		function showUpcomingList() {
+			setActiveTab('upcoming');
 			showUpcoming();
+ 		}
+
+ 		function showHistoryList() {
+			setActiveTab('history');
+			showHistory();
+ 		}
+
+		
+ 		function setActiveTab(tab) {
+			const upcomingBtn = document.getElementById('tab-upcoming');
+			const historyBtn = document.getElementById('tab-history');
+
+			if (tab === 'upcoming') {
+ 		    	upcomingBtn.classList.add('text-[#FF5A5F]', 'border-b-2', 'border-[#FF5A5F]');
+ 		    	historyBtn.classList.remove('text-[#FF5A5F]', 'border-b-2', 'border-[#FF5A5F]');
+ 		    	historyBtn.classList.add('text-gray-500');
+			} 
+			else {
+ 		    	historyBtn.classList.add('text-[#FF5A5F]', 'border-b-2', 'border-[#FF5A5F]');
+ 		    	upcomingBtn.classList.remove('text-[#FF5A5F]', 'border-b-2', 'border-[#FF5A5F]');
+ 		    	upcomingBtn.classList.add('text-gray-500');
+			}
 		}
 		
 		

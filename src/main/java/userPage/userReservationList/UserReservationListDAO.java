@@ -66,6 +66,11 @@ public class UserReservationListDAO {
 	        	vo.setProperty_id(rs.getString("property_id"));
 	        	vo.setReservation_check_in(rs.getDate("reservation_check_in"));
 	        	vo.setReservation_check_out(rs.getDate("reservation_check_out"));
+	        	vo.setReservation_id(rs.getString("reservation_id"));
+	        	vo.setProperty_name(rs.getString("property_name"));
+	        	vo.setProperty_photo_url(rs.getString("property_photo_url"));
+	        	vo.setCity(rs.getString("location_city"));
+	        	vo.setCountry(rs.getString("location_country"));
 	            list.add(vo);
 	        }
 	    } 
@@ -82,7 +87,7 @@ public class UserReservationListDAO {
 	public List<UserReservationListVO> getHistoryReservations(String user_id) {
 	    List<UserReservationListVO> list = new ArrayList<>();
 	    try {
-	    	String sql = "SELECT r.reservation_id, p.property_name, p.property_photo_url,"
+	    	String sql = "SELECT r.reservation_id, p.property_id, p.property_name, p.property_photo_url,"
         		+ "l.location_city, l.location_country, r.reservation_check_in, r.reservation_check_out "
         		+ "FROM reservation r "
         		+ "JOIN property p ON r.property_id = p.property_id "
@@ -95,9 +100,14 @@ public class UserReservationListDAO {
 
 	        while (rs.next()) {
 	        	UserReservationListVO vo = new UserReservationListVO();
-	        	vo.setProperty_id(rs.getString("Property_id"));
+	        	vo.setProperty_id(rs.getString("property_id"));
 	        	vo.setReservation_check_in(rs.getDate("reservation_check_in"));
 	        	vo.setReservation_check_out(rs.getDate("reservation_check_out"));
+	        	vo.setReservation_id(rs.getString("reservation_id"));
+	        	vo.setProperty_name(rs.getString("property_name"));
+	        	vo.setProperty_photo_url(rs.getString("property_photo_url"));
+	        	vo.setCity(rs.getString("location_city"));
+	        	vo.setCountry(rs.getString("location_country"));
 	            list.add(vo);
 	        }
 	    } 

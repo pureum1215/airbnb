@@ -50,10 +50,12 @@ public class UserReservationListDAO {
 	    List<UserReservationListVO> list = new ArrayList<>();
 	    try {
 	    	String sql = "SELECT r.reservation_id, r.property_id, p.property_name, p.property_photo_url,"
-        		+ "l.location_city, l.location_country, r.reservation_check_in, r.reservation_check_out "
+        		+ "l.location_city, l.location_country, r.reservation_check_in, r.reservation_check_out, r.reservation_confirm, "
+        		+ "pay.payment_status "
         		+ "FROM reservation r "
         		+ "JOIN property p ON r.property_id = p.property_id "
         		+ "JOIN location l ON p.location_id = l.location_id "
+        		+ "LEFT JOIN payment pay ON r.reservation_id = pay.reservation_id "
         		+ "WHERE r.user_id = ? "
         		+ "AND r.reservation_check_in > CURRENT_DATE "
         		+ "ORDER BY r.reservation_check_in ASC;";
@@ -64,13 +66,13 @@ public class UserReservationListDAO {
 	        while (rs.next()) {
 	        	UserReservationListVO vo = new UserReservationListVO();
 	        	vo.setProperty_id(rs.getString("property_id"));
+	        	vo.setProperty_photo_url(rs.getString("property_photo_url"));
+	        	vo.setProperty_name(rs.getString("property_name"));
+	        	vo.setCountry(rs.getString("location_country"));
+	        	vo.setCity(rs.getString("location_city"));
 	        	vo.setReservation_check_in(rs.getDate("reservation_check_in"));
 	        	vo.setReservation_check_out(rs.getDate("reservation_check_out"));
 	        	vo.setReservation_id(rs.getString("reservation_id"));
-	        	vo.setProperty_name(rs.getString("property_name"));
-	        	vo.setProperty_photo_url(rs.getString("property_photo_url"));
-	        	vo.setCity(rs.getString("location_city"));
-	        	vo.setCountry(rs.getString("location_country"));
 	            list.add(vo);
 	        }
 	    } 
@@ -89,9 +91,11 @@ public class UserReservationListDAO {
 	    try {
 	    	String sql = "SELECT r.reservation_id, p.property_id, p.property_name, p.property_photo_url,"
         		+ "l.location_city, l.location_country, r.reservation_check_in, r.reservation_check_out "
+        		+ "pay.payment_status "
         		+ "FROM reservation r "
         		+ "JOIN property p ON r.property_id = p.property_id "
         		+ "JOIN location l ON p.location_id = l.location_id "
+        		+ "LEFT JOIN payment pay ON r.reservation_id = pay.reservation_id "
         		+ "WHERE r.user_id = ? "
         		+ "ORDER BY r.reservation_check_in ASC;";
 	        pstmt = conn.prepareStatement(sql);
@@ -101,13 +105,13 @@ public class UserReservationListDAO {
 	        while (rs.next()) {
 	        	UserReservationListVO vo = new UserReservationListVO();
 	        	vo.setProperty_id(rs.getString("property_id"));
+	        	vo.setProperty_photo_url(rs.getString("property_photo_url"));
+	        	vo.setProperty_name(rs.getString("property_name"));
+	        	vo.setCountry(rs.getString("location_country"));
+	        	vo.setCity(rs.getString("location_city"));
+	        	vo.setReservation_id(rs.getString("reservation_id"));
 	        	vo.setReservation_check_in(rs.getDate("reservation_check_in"));
 	        	vo.setReservation_check_out(rs.getDate("reservation_check_out"));
-	        	vo.setReservation_id(rs.getString("reservation_id"));
-	        	vo.setProperty_name(rs.getString("property_name"));
-	        	vo.setProperty_photo_url(rs.getString("property_photo_url"));
-	        	vo.setCity(rs.getString("location_city"));
-	        	vo.setCountry(rs.getString("location_country"));
 	            list.add(vo);
 	        }
 	    } 

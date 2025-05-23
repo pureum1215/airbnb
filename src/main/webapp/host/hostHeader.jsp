@@ -22,7 +22,7 @@
       border-bottom: 1px solid #e5e7eb;
     }
 
-    .container {
+    .headerContainer {
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -30,7 +30,7 @@
     }
     
     @media (min-width: 1536px) {
-    .container {
+    .headerContainer {
         max-width: 1950px !important;
     }
 
@@ -168,7 +168,7 @@
 <body>
 
   <header>
-    <div class="container">
+    <div class="headerContainer">
       <!-- 로고 -->
       <div class="logo">   <!-- ★★★★★ 로고 클릭했을 경우, 화면 이동 링크 필요 ★★★★★ -->
         <img src="https://cdn.icon-icons.com/icons2/2699/PNG/512/airbnb_logo_icon_170605.png" alt="airbnb logo">

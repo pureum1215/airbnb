@@ -327,7 +327,7 @@
     						card += '      <div class="card-info-property">';
     						card += '        <h2 class="card-title">' + item.property_name + '</h2>';
     						card += '        <p class="card-location">' + item.location_country + ' ' + item.location_city + '</p>';
-    						card += '        <button class="card-more-btn" onclick="location.href=\'/property_detail?propertyId=' + item.property_id + '\'">더보기</button>';
+    						card += '        <button class="card-more-btn" onclick="location.href=\'/main_detail.ma?property_id=' + item.property_id + '\'">더보기</button>';
     						card += '      </div>'
     						card += '    </div>';
 
@@ -415,7 +415,7 @@
     						card += '      <div class="card-info-property">';
     						card += '        <h2 class="card-title">' + item.property_name + '</h2>';
     						card += '        <p class="card-location">' + item.location_country + ' ' + item.location_city + '</p>';
-    						card += '        <button class="card-more-btn" onclick="location.href=\'/property_detail?propertyId=' + item.property_id + '\'">더보기</button>';
+    						card += '        <button class="card-more-btn" onclick="location.href=\'/main_detail.ma?property_id=' + item.property_id + '\'">더보기</button>';
     						card += '      </div>'
     						card += '    </div>';
 

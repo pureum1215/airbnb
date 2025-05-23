@@ -246,7 +246,7 @@
     						card += '    <div class="card-info-top">';
     						card += '      <h2 class="card-title">' + item.property_name + '</h2>';
     						card += '      <p class="card-location">' + item.country + ' ' + item.city + '</p>';
-    						card += '      <button class="card-more-btn" onclick="location.href=\'/property_detail?propertyId=' + item.property_id + '\'">더보기</button>';
+    						card += '      <button class="card-more-btn" onclick="location.href=\'/main_detail.ma?property_id=' + item.property_id + '\'">더보기</button>';
     						card += '    </div>';
     						card += '    <div class="card-info-bottom">';
     						card += '      <p class="card-date">' + item.reservation_check_in + ' ~ ' + item.reservation_check_out + '</p>';
@@ -315,7 +315,7 @@
     						card += '    <div class="card-info-top">';
     						card += '      <h2 class="card-title">' + item.property_name + '</h2>';
     						card += '      <p class="card-location">' + item.country + ' ' + item.city + '</p>';
-    						card += '      <button class="card-more-btn" onclick="location.href=\'/property_detail?propertyId=' + item.property_id + '\'">더보기</button>';
+    						card += '      <button class="card-more-btn" onclick="location.href=\'/main_detail.ma?property_id=' + item.property_id + '\'">더보기</button>';
     						card += '    </div>';
     						card += '    <div class="card-info-bottom">';
     						card += '      <p class="card-date">' + item.reservation_check_in + ' ~ ' + item.reservation_check_out + '</p>';

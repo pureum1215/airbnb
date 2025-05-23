@@ -153,9 +153,14 @@
 </style>
 
 </head>
+<<<<<<< HEAD
 <body onload="pagestart()">
 
 	<%@ include file="header_hostpage.jsp"%>
+=======
+<body>
+	<%@ include file="hostHeader.jsp"%>
+>>>>>>> main
 
 
 	<main class="main-container">

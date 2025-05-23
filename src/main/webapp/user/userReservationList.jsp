@@ -157,7 +157,7 @@
 <body onload="pagestart()">
 
 	<div>
-		<%@ include file="header_default.jsp"%>
+		<%@ include file="userHeader.jsp"%>
 		<!-- 정적 포함 -->
 	</div>
 
@@ -251,7 +251,7 @@
     						}
     						else if (item.reservation_confirm === '승인') {
     							card += '      <button class="card-action-btn" onclick="location.href=\'/reservation_payment.re?reservationId=' + item.reservation_id + '\'">결제하기</button>';
-    						} 
+    						}
     						else if (item.reservation_confirm === '보류') {
     							card += '      <span class="card-reserving-text">승인 요청 중</span>';
     						}

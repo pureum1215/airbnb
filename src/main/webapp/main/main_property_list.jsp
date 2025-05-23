@@ -178,7 +178,7 @@ List<MainPropertyListVO> propertyList = dao.allgetProperty();
 %>
 
 <!-- ====== 공통 헤더 ====== -->
-<jsp:include page="property_header.jsp" />
+<jsp:include page="mainHeader.jsp" />
 
 <!-- ====== 본문 영역 ====== -->
 <div class="container">
@@ -216,7 +216,7 @@ List<MainPropertyListVO> propertyList = dao.allgetProperty();
 </div>
 
 <!-- ====== 공통 푸터 ====== -->
-<jsp:include page="property_footer.jsp" />
+<jsp:include page="mainFooter.jsp" />
 
 <!-- ====== 하트 토글 JS ====== -->
 <script>

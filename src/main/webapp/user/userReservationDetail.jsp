@@ -117,7 +117,7 @@
 </head>
 <body>
 	<div>
-		<%@ include file="header_default.jsp"%>
+		<%@ include file="userHeader.jsp"%>
 		<!-- 헤더는 그대로 -->
 	</div>
 

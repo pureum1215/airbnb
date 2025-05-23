@@ -393,6 +393,7 @@ span.amenities:hover {
 			<div class="btn-group">
 				<!--button class="btn-edit" onclick= "location.href='/hostDeatilAction.ho'">수정 내용 저장</button>  -->
 				<form action="hostDeatilAction.ho" method="post">
+					<input type="hidden" name="propertyId" value="<%= propertyId %>">
 				    <input type="hidden" name="listingTitle" value="<%= listingTitle %>">
 				    <input type="hidden" name="rooms" value="<%= rooms %>">
 				    <input type="hidden" name="beds" value="<%= beds %>">
@@ -414,6 +415,7 @@ span.amenities:hover {
 				    %>
 				        <input type="hidden" name="amenitiesArray" value="<%= amenity %>">
 				    <% } %>
+
 				
 				    <input type="hidden" name="reservation_default" value="<%= reservation_default %>">
 				

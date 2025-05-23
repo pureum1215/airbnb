@@ -170,4 +170,46 @@ public class HostReservationListDAO {
 	    return list;
 	}
 	
+	public int reservationConfirm(String reservation_id) {
+		
+		int result = 0;
+		try {
+			String sql = "UPDATE reservation SET reservation_confirm = '승인' "
+					+ "WHERE reservation_id = ?";
+			
+			pstmt = conn.prepareStatement(sql);
+	        pstmt.setString(1, reservation_id);
+	        result = pstmt.executeUpdate();
+		} 
+	    catch (Exception e) {
+	        e.printStackTrace();
+	    } 
+	    finally {
+	        closeCon();
+	    }
+		
+		return result;
+	}
+	
+	public int reservationDecline(String reservation_id) {
+		
+		int result = 0;
+		try {
+			String sql = "UPDATE reservation SET reservation_confirm = '거절' "
+					+ "WHERE reservation_id = ?";
+			
+			pstmt = conn.prepareStatement(sql);
+	        pstmt.setString(1, reservation_id);
+	        result = pstmt.executeUpdate();
+		} 
+	    catch (Exception e) {
+	        e.printStackTrace();
+	    } 
+	    finally {
+	        closeCon();
+	    }
+
+		return result;
+	}
+	
 }

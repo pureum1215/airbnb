@@ -211,6 +211,11 @@
 		font-style: italic;
 	}
 	
+	.card-none-text {
+  		font-size: 14px;
+  		color: #6B7280;
+	}
+	
 	.tab-button {
 		padding: 8px 16px;
 		font-size: 14px;
@@ -322,7 +327,7 @@
     						card += '      <div class="card-info-property">';
     						card += '        <h2 class="card-title">' + item.property_name + '</h2>';
     						card += '        <p class="card-location">' + item.location_country + ' ' + item.location_city + '</p>';
-    						card += '        <button class="card-more-btn" onclick="location.href=\'/property_detail?propertyId=' + item.property_id + '\'">더보기</button>';
+    						card += '        <button class="card-more-btn" onclick="location.href=\'/main_detail.ma?property_id=' + item.property_id + '\'">더보기</button>';
     						card += '      </div>'
     						card += '    </div>';
 
@@ -345,8 +350,8 @@
     						  card += '      <span class="card-reserving-text">결제 취소</span>';
     						} 
     						else if (item.reservation_confirm === '보류') {
-    						 	card += '      <button class="card-action-btn" onclick="approve(' + item.reservation_id + ')">승인</button>';
-    							card += '      <button class="card-action-btn decline" onclick="decline(' + item.reservation_id + ')">거절</button>';
+    						 	card += '      <button class="card-action-btn" onclick="reservation_confirm(\'' + item.reservation_id + '\')">승인</button>';
+    							card += '      <button class="card-action-btn decline" onclick="reservation_decline(\'' + item.reservation_id + '\')">거절</button>';
     						} 
     						else if (item.reservation_confirm === '승인') {
     						  card += '      <span class="card-reserving-text">결제 대기중</span>';
@@ -363,6 +368,15 @@
     						card += '</div>'; 
     					});
    						container.innerHTML = card;
+    				}
+    				else if (res.code ==500) {
+    					console.log('500');
+    					
+    					let card = '';
+    					card += '<div class="card-container">';
+    					card += '      <span class="card-none-text">예약 내역이 없습니다</span>';
+    					card += '</div>';
+    					container.innerHTML = card;
     				}	
     				else {
     					alert('실패');
@@ -401,7 +415,7 @@
     						card += '      <div class="card-info-property">';
     						card += '        <h2 class="card-title">' + item.property_name + '</h2>';
     						card += '        <p class="card-location">' + item.location_country + ' ' + item.location_city + '</p>';
-    						card += '        <button class="card-more-btn" onclick="location.href=\'/property_detail?propertyId=' + item.property_id + '\'">더보기</button>';
+    						card += '        <button class="card-more-btn" onclick="location.href=\'/main_detail.ma?property_id=' + item.property_id + '\'">더보기</button>';
     						card += '      </div>'
     						card += '    </div>';
 
@@ -424,8 +438,8 @@
     						  card += '      <span class="card-reserving-text">결제 취소</span>';
     						} 
     						else if (item.reservation_confirm === '보류') {
-    						 	card += '      <button class="card-action-btn" onclick="approve(' + item.reservation_id + ')">승인</button>';
-    							card += '      <button class="card-action-btn decline" onclick="decline(' + item.reservation_id + ')">거절</button>';
+    						 	card += '      <button class="card-action-btn" onclick="reservation_confirm(\'' + item.reservation_id + '\')">승인</button>';
+    							card += '      <button class="card-action-btn decline" onclick="reservation_decline(\'' + item.reservation_id + '\')">거절</button>';
     						} 
     						else if (item.reservation_confirm === '승인') {
     							card += '      <span class="card-reserving-text">결제 대기중</span>';
@@ -444,6 +458,15 @@
     					
     					console.log(card);
    						container.innerHTML = card;
+    				}
+    				else if (res.code ==500) {
+    					console.log('500');
+    					
+    					let card = '';
+    					card += '<div class="card-container">';
+    					card += '      <span class="card-none-text">예약 내역이 없습니다</span>';
+    					card += '</div>';
+    					container.innerHTML = card;
     				}	
     				else {
     					alert('실패');
@@ -452,6 +475,44 @@
 			})
 		} 		
  		
+	
+		// 승인, 거절 누를 시 실행되는 함수
+		
+		function reservation_confirm(reservation_id) {
+			$.ajax({
+				url: '${pageContext.request.contextPath}/reservation_confirm.hra',
+				type: 'post',
+				data: {'reservation_id': reservation_id},
+				dataType: 'json',
+				success: function(res) {
+					console.log(res);
+					if (res.code ==200) {
+						pagestart();
+					} else {
+						alert('승인 실패');
+					}
+				}
+			})
+		}
+		
+		function reservation_decline(reservation_id) {
+			$.ajax({
+				url: '${pageContext.request.contextPath}/reservation_decline.hra',
+				type: 'post',
+				data: {'reservation_id': reservation_id},
+				dataType: 'json',
+				success: function(res) {
+					console.log(res);
+					if (res.code ==200) {
+						pagestart();
+					} else {
+						alert('거절 실패');
+					}
+				}
+			})
+		}
+		
+		
 	</script>	
 
 </body>

@@ -122,6 +122,6 @@
             계정이 없으신가요? <a href="${pageContext.request.contextPath}/register.me">회원가입</a>
         </div>
     </div>
-  </div>
+
 </body>
 </html>

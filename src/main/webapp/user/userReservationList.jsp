@@ -272,6 +272,15 @@
     						card += '</div>';
     					});
    						container.innerHTML = card;
+    				}
+    				else if (res.code ==500) {
+    					console.log('500');
+    					
+    					let card = '';
+    					card += '<div class="card-container">';
+    					card += '      <span>예약 내역이 없습니다</span>';
+    					card += '</div>';
+    					container.innerHTML = card;
     				}	
     				else {
     					alert('실패');
@@ -334,7 +343,16 @@
     					
     					console.log(card);
    						container.innerHTML = card;
-    				}	
+    				}
+    				else if (res.code ==500) {
+    					console.log('500');
+    					
+    					let card = '';
+    					card += '<div class="card-container">';
+    					card += '      <span>예약 내역이 없습니다</span>';
+    					card += '</div>';
+    					container.innerHTML = card;
+    				}
     				else {
     					alert('실패');
     				}

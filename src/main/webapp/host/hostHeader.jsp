@@ -22,15 +22,15 @@
       border-bottom: 1px solid #e5e7eb;
     }
 
-    .container {
+    .headerContainer {
       display: flex;
       justify-content: space-between;
       align-items: center;
       padding: 16px 28px;
     }
     
-    @media (min-width: 1536px) {
-    .container {
+    @media (min-width: 200px) {
+    .headerContainer {
         max-width: 1950px !important;
     }
 
@@ -39,6 +39,7 @@
       align-items: center;
       gap: 8px;
       flex-shrink: 0;
+      cursor: pointer;
     }
 
     .logo img {
@@ -90,7 +91,7 @@
       left: 0;
       top: 100%;
       margin-top: 8px;
-      width: 224px;
+      width: 160px;
       background-color: white;
       border: 1px solid #e5e7eb;
       border-radius: 8px;
@@ -104,12 +105,17 @@
     }
 
     .dropdown-item {
+      
       display: block;
-      padding: 8px 16px;
+      padding: 12px 20px;
       text-decoration: none;
       color: #111827;
     }
-
+	
+	button.dropdown-item{
+		
+		width:100%
+	}
     .dropdown-item:hover {
       background-color: #f3f4f6;
     }
@@ -167,7 +173,7 @@
 <body>
 
   <header>
-    <div class="container">
+    <div class="headerContainer">
       <!-- 로고 -->
       <div class="logo">   <!-- ★★★★★ 로고 클릭했을 경우, 화면 이동 링크 필요 ★★★★★ -->
         <img src="https://cdn.icon-icons.com/icons2/2699/PNG/512/airbnb_logo_icon_170605.png" alt="airbnb logo">
@@ -179,12 +185,17 @@
         <ul id="menuList">
           <li><button id="header_calendar" class="menu-item" >달력</button></li>   <!-- ★★★★★ hostCalendar 화면 이동 링크 필요 ★★★★★ -->
           <li><button id="header_listing" class="menu-item" onclick="location.href='/hostList.ho'">리스팅</button></li>
-          <li><button id="header_reservation" class="menu-item">예약목록</button></li>   <!-- ★★★★★ hostPropertyReservationList 화면 이동 링크 필요 ★★★★★ -->
+          <li><button id="header_reservation" onclick="location.href='/host/hostReservationList.jsp'" class="menu-item">예약목록</button></li>   <!-- ★★★★★ hostPropertyReservationList 화면 이동 링크 필요 ★★★★★ -->
           <li class="dropdown">
             <button id="menuToggle" class="menu-item">메뉴 ▼</button>
             <ul id="dropdownMenu" class="dropdown-menu">
-              <li><a href="#" class="dropdown-item">프로필</a></li>   <!-- ★★★★★ hostProfile 화면 이동 링크 필요 ★★★★★ -->
-              <li><a href="#" class="dropdown-item">통계</a></li>   <!-- ★★★★★ hostStatistics 화면 이동 링크 필요 ★★★★★ -->
+
+              <li>
+              <button class="dropdown-item" onclick="location.href='/hostProfile.ho'">프로필</button>
+              </li>
+              <li>
+              <button class="dropdown-item" onclick="location.href='/host/hostStatistics.jsp'">통계</button></li> 
+                <!-- ★★★★★ hostStatistics 화면 이동 링크 필요 ★★★★★ -->
             </ul>
           </li>
         </ul>
@@ -198,6 +209,7 @@
         </button>
         <ul id="dropdownMenu2" class="user-dropdown">
           <li><a href="#" class="dropdown-item">게스트 모드로 전환</a></li>   <!-- ★★★★★ 로그인 유지된 상태로 main_property_list 화면 이동 링크 필요 ★★★★★ -->
+          <div style="border-bottom: 2px solid #E5E7EB; margin: 0 10px;"></div>
           <li><a href="#" class="dropdown-item">로그아웃</a></li>   <!-- ★★★★★ 로그아웃된 상태로 main_property_list 화면 이동 링크 필요 ★★★★★ -->
         </ul>
       </div>

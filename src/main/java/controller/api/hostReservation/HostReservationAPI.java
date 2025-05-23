@@ -11,8 +11,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
 
-import userPage.userReservationList.UserReservationHistoryAction;
-import userPage.userReservationList.UserReservationUpcomingAction;
+import hostPage.hostReservationList.HostReservationHistoryAction;
+import hostPage.hostReservationList.HostReservationUpcomingAction;
 import util.ResponseData;
 
 
@@ -38,11 +38,11 @@ public class HostReservationAPI extends HttpServlet {
 		ResponseData responseData = null;
 		
 		if (command.equals("/host_reservation_upcoming.hra")) {
-			UserReservationUpcomingAction action = new UserReservationUpcomingAction();
+			HostReservationUpcomingAction action = new HostReservationUpcomingAction();
 			responseData = action.execute(request, response);
 		}
 		else if (command.equals("/host_reservation_history.hra")) {
-			UserReservationHistoryAction action = new UserReservationHistoryAction();
+			HostReservationHistoryAction action = new HostReservationHistoryAction();
 			responseData = action.execute(request, response);
 		}
 	

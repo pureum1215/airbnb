@@ -13,13 +13,13 @@ import javax.sql.DataSource;
 
 
 
-public class HostReservationDAO {
+public class HostReservationListDAO {
 	
 	private Connection conn;
 	private PreparedStatement pstmt;
 	private ResultSet rs;
 	
-	public HostReservationDAO() {
+	public HostReservationListDAO() {
 		try {
 			Context init = new InitialContext();
 			DataSource ds = (DataSource) init.lookup("java:comp/env/jdbc/MysqlDB");

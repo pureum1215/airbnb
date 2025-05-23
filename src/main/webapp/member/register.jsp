@@ -93,7 +93,7 @@
 <body>
   <div class="container">
     <h1>회원가입</h1>
-    <form action="${pageContext.request.contextPath}/registerProcess.me" method="post">
+    <form action="${pageContext.request.contextPath}/registerProcess.me" method="post" onsubmit="return format()">
       <div class="form-group">
         <input type="email" name="user_email" placeholder="이메일" required>
       </div>
@@ -107,10 +107,10 @@
         <input type="password" name="confirmPassword" placeholder="비밀번호 확인" required>
       </div>
       <div class="form-group">
-        <input type="text" name="user_phone_number" placeholder="전화번호" required>
+        <input type="text" id="phoneInput" name="user_phone_number" placeholder="전화번호(예: 01012345678)" required>
       </div>
       <div class="form-group">
-        <input type="text" name="user_birthday" placeholder="생년월일 (예: 2000-04-01)" required>
+        <input type="text" id="birthdayInput" name="user_birthday" placeholder="생년월일 (예: 20000401)" required>
       </div>
       <button type="submit" class="btn">회원가입</button>
     </form>
@@ -119,5 +119,35 @@
       <a href="${pageContext.request.contextPath}/login.me">로그인</a>
     </div>
   </div>
+  
+  <script>
+	function format() {
+		// 전화번호 처리
+		  const phoneInput = document.getElementById("phoneInput");
+		  let phone = phoneInput.value.replace(/[^0-9]/g, "");
+
+		  if (phone.length === 11) {
+		    phone = phone.replace(/(\d{3})(\d{4})(\d{4})/, "$1-$2-$3");
+		    phoneInput.value = phone;
+		  } else {
+		    alert("전화번호는 11자리 숫자여야 합니다.");
+		    return false;
+		  }
+
+		  // 생년월일 처리
+		  const birthdayInput = document.getElementById("birthdayInput");
+		  let birthday = birthdayInput.value.replace(/[^0-9]/g, "");
+
+		  if (birthday.length === 8) {
+		    birthday = birthday.replace(/(\d{4})(\d{2})(\d{2})/, "$1-$2-$3");
+		    birthdayInput.value = birthday;
+		  } else {
+		    alert("생년월일은 8자리 숫자여야 합니다. 예: 20000401");
+		    return false;
+		  }
+
+		  return true;
+	}
+	</script>
 </body>
 </html>

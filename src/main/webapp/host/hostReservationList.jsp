@@ -350,8 +350,8 @@
     						  card += '      <span class="card-reserving-text">결제 취소</span>';
     						} 
     						else if (item.reservation_confirm === '보류') {
-    						 	card += '      <button class="card-action-btn" onclick="approve(' + item.reservation_id + ')">승인</button>';
-    							card += '      <button class="card-action-btn decline" onclick="decline(' + item.reservation_id + ')">거절</button>';
+    						 	card += '      <button class="card-action-btn" onclick="reservation_confirm(\'' + item.reservation_id + '\')">승인</button>';
+    							card += '      <button class="card-action-btn decline" onclick="reservation_decline(\'' + item.reservation_id + '\')">거절</button>';
     						} 
     						else if (item.reservation_confirm === '승인') {
     						  card += '      <span class="card-reserving-text">결제 대기중</span>';
@@ -438,8 +438,8 @@
     						  card += '      <span class="card-reserving-text">결제 취소</span>';
     						} 
     						else if (item.reservation_confirm === '보류') {
-    						 	card += '      <button class="card-action-btn" onclick="approve(' + item.reservation_id + ')">승인</button>';
-    							card += '      <button class="card-action-btn decline" onclick="decline(' + item.reservation_id + ')">거절</button>';
+    						 	card += '      <button class="card-action-btn" onclick="reservation_confirm(\'' + item.reservation_id + '\')">승인</button>';
+    							card += '      <button class="card-action-btn decline" onclick="reservation_decline(\'' + item.reservation_id + '\')">거절</button>';
     						} 
     						else if (item.reservation_confirm === '승인') {
     							card += '      <span class="card-reserving-text">결제 대기중</span>';
@@ -475,6 +475,44 @@
 			})
 		} 		
  		
+	
+		// 승인, 거절 누를 시 실행되는 함수
+		
+		function reservation_confirm(reservation_id) {
+			$.ajax({
+				url: '${pageContext.request.contextPath}/reservation_confirm.hra',
+				type: 'post',
+				data: {'reservation_id': reservation_id},
+				dataType: 'json',
+				success: function(res) {
+					console.log(res);
+					if (res.code ==200) {
+						pagestart();
+					} else {
+						alert('승인 실패');
+					}
+				}
+			})
+		}
+		
+		function reservation_decline(reservation_id) {
+			$.ajax({
+				url: '${pageContext.request.contextPath}/reservation_decline.hra',
+				type: 'post',
+				data: {'reservation_id': reservation_id},
+				dataType: 'json',
+				success: function(res) {
+					console.log(res);
+					if (res.code ==200) {
+						pagestart();
+					} else {
+						alert('거절 실패');
+					}
+				}
+			})
+		}
+		
+		
 	</script>	
 
 </body>

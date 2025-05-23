@@ -278,7 +278,6 @@ body {
 		%>
 
 		<%
-		System.out.println(listAmentie.toString());
 		//listAmentie 무엇이 있는지.
 		for (Integer s : listAmentie) {
 			switch (s) {

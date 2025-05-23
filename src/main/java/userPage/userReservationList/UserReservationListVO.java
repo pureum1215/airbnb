@@ -6,7 +6,7 @@ public class UserReservationListVO {
 	
 	/**************************************************************************
 	 * 사용자 id, 예약 id, 숙소 id, 숙소 사진, 숙소 이름, 체크인 날짜, 체크아웃 날짜 
-	 * 도시, 나라
+	 * 도시, 나라, 승인 상태, 결제 상태
 	 **************************************************************************/
 	
 	private String user_id;
@@ -18,6 +18,8 @@ public class UserReservationListVO {
 	private Date reservation_check_out;
 	private String city;
 	private String country;
+	private String reservation_confirm;
+	private String payment_status;
 	
 	public String getCity() {
 		return city;
@@ -73,13 +75,26 @@ public class UserReservationListVO {
 	public void setReservation_check_out(Date reservation_check_out) {
 		this.reservation_check_out = reservation_check_out;
 	}
+	public String getReservation_confirm() {
+		return reservation_confirm;
+	}
+	public void setReservation_confirm(String reservation_confirm) {
+		this.reservation_confirm = reservation_confirm;
+	}
+	public String getPayment_status() {
+		return payment_status;
+	}
+	public void setPayment_status(String payment_status) {
+		this.payment_status = payment_status;
+	}
 	
 	@Override
 	public String toString() {
 		return "UserReservationListVO [user_id=" + user_id + ", reservation_id=" + reservation_id + ", property_id="
 				+ property_id + ", property_photo_url=" + property_photo_url + ", property_name=" + property_name
 				+ ", reservation_check_in=" + reservation_check_in + ", reservation_check_out=" + reservation_check_out
-				+ "]";
+				+ ", city=" + city + ", country=" + country + ", reservation_confirm=" + reservation_confirm
+				+ ", payment_status=" + payment_status + "]";
 	}
 
 }

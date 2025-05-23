@@ -7,11 +7,13 @@
 <title>예약 요청</title>
 	<style>
 		body .container {
-			font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue",
-				Helvetica, Arial, sans-serif;
+			font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Helvetica, Arial, sans-serif;
 			background-color: #fff;
-			margin: 0;
 			padding: 40px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			width: 900px;
 		}
 		
 		.container {
@@ -19,6 +21,7 @@
 			margin: 0 auto;
 			display: flex;
 			gap: 60px;
+			margin-top: 100px;
 		}
 		
 		.left, .right {
@@ -167,15 +170,12 @@
 			<h1>예약 요청</h1>
 
 			<form action="${pageContext.request.contextPath}/reservation_request.re" method="post">
-				<div class="notice-box">
-					<span>흔치 않은 기회입니다. Catherine님의 숙소는 보통 예약이 가득 차 있습니다.</span> <span>💎</span>
-				</div>
 	
 				<div class="info-group">
 					<div class="info-label">
-						날짜 <span class="change-link">수정</span>
+						날짜 
+						<span class="change-link">수정</span>
 					</div>
-					<div class="info-content">10월 31일 ~ 11월 2일</div>
 					
 					
 					<%-- 앞에서 받았던 값을 여기서 바로 적용되게 변경하기 기능 추가 필요 --%>
@@ -186,14 +186,6 @@
 					<input type="hidden" name="user_id" value="${sessionScope.user_id}">				
 					
 				</div>
-	
-				<div class="info-group">
-					<div class="info-label">
-						게스트 <span class="change-link">수정</span>
-					</div>
-					<div class="info-content">게스트 1명</div>
-				</div>
-					
 				<button type="submit" class="submit-btn">예약 요청</button>
 			</form>
 		</div>
@@ -216,10 +208,6 @@
 						<span>₩56,113 x 2박</span> <span>₩112,226</span>
 					</div>
 					<div class="price-line">
-						<span> <span class="tooltip-trigger">청소비</span>
-						</span> <span>₩14,081</span>
-					</div>
-					<div class="price-line">
 						<span><span class="tooltip-trigger fee-tooltip-trigger">에어비앤비
 								서비스 수수료</span></span> <span>₩19,138</span>
 					</div>
@@ -233,11 +221,6 @@
 				</div>
 			</div>
 		</div>
-	</div>
-	<!-- 툴팁 박스 -->
-	<div class="tooltip-box" id="tooltipBox">
-		<button class="tooltip-close" onclick="hideTooltip()">×</button>
-		호스트가 청구하는 일회성 숙소 청소 비용입니다.
 	</div>
 	<!-- 에어비앤비 수수료 툴팁 -->
 	<div class="tooltip-box" id="tooltipBoxFee">
@@ -281,7 +264,7 @@
 	    const tooltipHeight = box.offsetHeight;
 	
 	    box.style.left = rect.left + "px";
-	    box.style.top = (rect.top + scrollTop - tooltipHeight - 8) + "px";
+	    box.style.top = (rect.top + scrollTop - tooltipHeight - 4) + "px";
 	    box.style.display = "block";
 	  }
 	

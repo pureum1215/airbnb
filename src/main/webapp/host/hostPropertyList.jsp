@@ -10,7 +10,7 @@
 </head>
 <body>
 
-<!-- 테스트용 Host host001 -->
+<!-- 테스트용 Host host050 -->
 <%	
 	session.setAttribute("host_id", "host050");
 %>

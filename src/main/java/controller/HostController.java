@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import hostPage.hostPropertyDetailModify.HostPropertyDetailModifyAction;
 import reservationPage.reservationPayment.ReservationPaymentAction;
 import reservationPage.reservationRequest.ReservationConfirmAction;
 import reservationPage.reservationRequest.ReservationDefaultAction;
@@ -80,6 +81,10 @@ public class HostController extends HttpServlet {
 			forward.setPath("host/hostProfile.jsp");
 			forward.setRedirect(false);
 		}
+		
+		//else if(command.equals("/hostDeatilAction.ho")) {
+		//	forward = new HostPropertyDetailModifyAction();
+		//}
 		
 		
 		

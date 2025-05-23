@@ -203,8 +203,9 @@ body {
 <body>
 	<%@ include file="hostHeader.jsp"%>
 	<%
-	String hostId = "host050";
-	//String hostId = (String)session.getAttribute("host_id");
+	//String hostId = "host050";
+	/* String hostId = request.getParameter("hostId"); */
+	String hostId = (String)session.getAttribute("host_id");
 	//필요한 것 호스트가 가진 숙소에 대한 별점, 후기 개수, 후기내용, 호스트 이름 
 
 	HostProfileDAO dao = new HostProfileDAO();
@@ -275,11 +276,11 @@ body {
 				</div>
 
 				<div class="review-box" style="border-bottom: 1px solid #e4e4e4;">
-					<div class="section-title">Toshiko 님의 후기</div>
+					<div class="section-title"><%=hostName %> 님의 후기</div>
 
 					<!-- 후기 리스트 -->
 					<%
-					for (int i = 0; i < 2; i++) {
+					for (int i = 0; i < Math.min(hvoList3.size(), 2); i++) {
 						String review_content = hvoList3.get(i).getProperty_review_content();
 						int review_rating = hvoList3.get(i).getProperty_review_rating();
 						String review_id = hvoList3.get(i).getProperty_review_id();

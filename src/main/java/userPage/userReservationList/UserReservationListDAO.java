@@ -92,11 +92,7 @@ public class UserReservationListDAO {
 	public List<UserReservationListVO> getHistoryReservations(String user_id) {
 	    List<UserReservationListVO> list = new ArrayList<>();
 	    try {
-<<<<<<< HEAD
 	    	String sql = "SELECT r.reservation_id, p.property_id, p.property_name, p.property_photo_url,"
-=======
-	    	String sql = "SELECT r.reservation_id, r.property_id, p.property_name, p.property_photo_url,"
->>>>>>> main
         		+ "l.location_city, l.location_country, "
         		+ "r.reservation_check_in, r.reservation_check_out, r.reservation_confirm, "
         		+ "pay.payment_status "

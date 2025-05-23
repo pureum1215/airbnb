@@ -57,6 +57,7 @@
 	  gap: 16px;
 	  border-bottom: 1px solid #e5e7eb; /* 구분선 추가 (필요시) */
 	  padding-bottom: 16px;
+	  position: relative; 
 	}
 	
 	.card-image {
@@ -110,9 +111,14 @@
 	}
 	
 	.card-date {
-	  font-size: 14px;
-	  color: #6B7280;
-	  margin-bottom: 8px;
+		position: absolute; /* 오른쪽 위 고정 */
+		top: 0;
+		right: 0;
+		font-size: 14px;
+		color: #6B7280;
+		background-color: rgba(255, 255, 255, 0.8); /* 배경 투명 처리 */
+		margin: 0;
+		border-radius: 4px;
 	}
 	
 	.card-action-btn {

@@ -139,6 +139,10 @@
 	  font-style: italic;
 	}
 
+	.card-none-text {
+  		font-size: 14px;
+  		color: #6B7280;
+	}
 	
 	.tab-button {
 	  padding: 8px 16px;
@@ -278,7 +282,7 @@
     					
     					let card = '';
     					card += '<div class="card-container">';
-    					card += '      <span>예약 내역이 없습니다</span>';
+    					card += '      <span class="card-none-text">예약 내역이 없습니다</span>';
     					card += '</div>';
     					container.innerHTML = card;
     				}	
@@ -349,7 +353,7 @@
     					
     					let card = '';
     					card += '<div class="card-container">';
-    					card += '      <span>예약 내역이 없습니다</span>';
+    					card += '      <span class="card-none-text">예약 내역이 없습니다</span>';
     					card += '</div>';
     					container.innerHTML = card;
     				}

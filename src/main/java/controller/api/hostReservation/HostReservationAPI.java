@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
 
+import hostPage.hostReservationList.HostReservationConfirmAction;
+import hostPage.hostReservationList.HostReservationDeclineAction;
 import hostPage.hostReservationList.HostReservationHistoryAction;
 import hostPage.hostReservationList.HostReservationUpcomingAction;
 import util.ResponseData;
@@ -43,6 +45,14 @@ public class HostReservationAPI extends HttpServlet {
 		}
 		else if (command.equals("/host_reservation_history.hra")) {
 			HostReservationHistoryAction action = new HostReservationHistoryAction();
+			responseData = action.execute(request, response);
+		}
+		else if (command.equals("/reservation_confirm.hra")) {
+			HostReservationConfirmAction action = new HostReservationConfirmAction();
+			responseData = action.execute(request, response);
+		}
+		else if (command.equals("/reservation_decline.hra")) {
+			HostReservationDeclineAction action = new HostReservationDeclineAction();
 			responseData = action.execute(request, response);
 		}
 	

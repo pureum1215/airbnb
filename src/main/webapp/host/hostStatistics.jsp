@@ -165,7 +165,7 @@ canvas {
 </head>
 <body>
 
-	<%@ include file="header_hostpage.jsp"%>
+	<%@ include file="hostHeader.jsp"%>
 
 	<div class="container">
 		<div class="left-panel">

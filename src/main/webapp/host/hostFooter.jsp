@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>footer</title>
+<title>hostFooter</title>
 <style>
 .biggest_box {
 	font-family: Arial, sans-serif;

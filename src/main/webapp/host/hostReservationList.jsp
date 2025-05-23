@@ -173,7 +173,7 @@ body.container {
 </style>
 </head>
 <body>
-	<%@ include file="header_hostpage.jsp"%>
+	<%@ include file="hostHeader.jsp"%>
 
 
 	<div class="container">

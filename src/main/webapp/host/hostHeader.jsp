@@ -179,7 +179,6 @@
         <img src="https://cdn.icon-icons.com/icons2/2699/PNG/512/airbnb_logo_icon_170605.png" alt="airbnb logo">
         <span>airbnb</span>
       </div>
-
       <!-- 중앙 메뉴 -->
       <nav>
         <ul id="menuList">

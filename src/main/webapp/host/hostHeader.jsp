@@ -29,7 +29,7 @@
       padding: 16px 28px;
     }
     
-    @media (min-width: 1536px) {
+    @media (min-width: 200px) {
     .headerContainer {
         max-width: 1950px !important;
     }
@@ -91,7 +91,7 @@
       left: 0;
       top: 100%;
       margin-top: 8px;
-      width: 224px;
+      width: 160px;
       background-color: white;
       border: 1px solid #e5e7eb;
       border-radius: 8px;
@@ -105,15 +105,12 @@
     }
 
     .dropdown-item {
+      
       display: block;
-      padding: 8px 16px;
+      padding: 12px 20px;
       text-decoration: none;
       color: #111827;
     }
-	/* 
-	준섭님 부탁드립니다.
-	아래의 button.dropdown 중앙 정렬을 바꿔주세요.
-	 */
 	
 	button.dropdown-item{
 		
@@ -192,6 +189,7 @@
           <li class="dropdown">
             <button id="menuToggle" class="menu-item">메뉴 ▼</button>
             <ul id="dropdownMenu" class="dropdown-menu">
+
               <li>
               <button class="dropdown-item" onclick="location.href='/hostProfile.ho'">프로필</button>
               </li>
@@ -211,6 +209,7 @@
         </button>
         <ul id="dropdownMenu2" class="user-dropdown">
           <li><a href="#" class="dropdown-item">게스트 모드로 전환</a></li>   <!-- ★★★★★ 로그인 유지된 상태로 main_property_list 화면 이동 링크 필요 ★★★★★ -->
+          <div style="border-bottom: 2px solid #E5E7EB; margin: 0 10px;"></div>
           <li><a href="#" class="dropdown-item">로그아웃</a></li>   <!-- ★★★★★ 로그아웃된 상태로 main_property_list 화면 이동 링크 필요 ★★★★★ -->
         </ul>
       </div>

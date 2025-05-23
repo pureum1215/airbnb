@@ -315,7 +315,7 @@ span.amenities {
 			<h2 class="title">Listing</h2>
 			<!-- 관리 버튼 -->
 			<div class="btn-group">
-				<button class="btn-edit">수정하기</button>
+				<button class="btn-edit" onclick ="location.href='/hostDetailMo.ho'">수정하기</button>
 				<button class="btn-delete">삭제</button>
 			</div>
 		</div>

@@ -110,7 +110,15 @@
       text-decoration: none;
       color: #111827;
     }
-
+	/* 
+	준섭님 부탁드립니다.
+	아래의 button.dropdown 중앙 정렬을 바꿔주세요.
+	 */
+	
+	button.dropdown-item{
+		
+		width:100%
+	}
     .dropdown-item:hover {
       background-color: #f3f4f6;
     }
@@ -180,12 +188,16 @@
         <ul id="menuList">
           <li><button id="header_calendar" class="menu-item" >달력</button></li>   <!-- ★★★★★ hostCalendar 화면 이동 링크 필요 ★★★★★ -->
           <li><button id="header_listing" class="menu-item" onclick="location.href='/hostList.ho'">리스팅</button></li>
-          <li><button id="header_reservation" class="menu-item">예약목록</button></li>   <!-- ★★★★★ hostPropertyReservationList 화면 이동 링크 필요 ★★★★★ -->
+          <li><button id="header_reservation" onclick="location.href='/host/hostReservationList.jsp'" class="menu-item">예약목록</button></li>   <!-- ★★★★★ hostPropertyReservationList 화면 이동 링크 필요 ★★★★★ -->
           <li class="dropdown">
             <button id="menuToggle" class="menu-item">메뉴 ▼</button>
             <ul id="dropdownMenu" class="dropdown-menu">
-              <li><a href="#" class="dropdown-item">프로필</a></li>   <!-- ★★★★★ hostProfile 화면 이동 링크 필요 ★★★★★ -->
-              <li><a href="#" class="dropdown-item">통계</a></li>   <!-- ★★★★★ hostStatistics 화면 이동 링크 필요 ★★★★★ -->
+              <li>
+              <button class="dropdown-item" onclick="location.href='/hostProfile.ho'">프로필</button>
+              </li>
+              <li>
+              <button class="dropdown-item" onclick="location.href='/host/hostStatistics.jsp'">통계</button></li> 
+                <!-- ★★★★★ hostStatistics 화면 이동 링크 필요 ★★★★★ -->
             </ul>
           </li>
         </ul>

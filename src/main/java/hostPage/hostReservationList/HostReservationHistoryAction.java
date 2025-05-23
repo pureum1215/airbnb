@@ -6,8 +6,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import userPage.userReservationList.UserReservationListDAO;
-import userPage.userReservationList.UserReservationListVO;
 import util.ResponseData;
 
 public class HostReservationHistoryAction {
@@ -27,8 +25,8 @@ public class HostReservationHistoryAction {
         }
         
         // DAO에서 예약 목록 가져오기
-		UserReservationListDAO dao = new UserReservationListDAO();
-		List<UserReservationListVO> historyList = dao.getHistoryReservations(hostId);
+		HostReservationListDAO dao = new HostReservationListDAO();
+		List<HostReservationListVO> historyList = dao.getHistoryReservations(hostId);
 
 		System.out.println("가져온 예약 수: " + historyList.size());
 		

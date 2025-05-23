@@ -317,11 +317,12 @@ int hostCount= hvo2.getCount();
 					for(int i=0; i<hvolist5.size(); i++){
 						String proname = hvolist5.get(i).getProperty_name();
 						String prophoto = hvolist5.get(i).getProperty_photo_url();
+						String propertyId = hvolist5.get(i).getProperty_id();
 					%>
 					
-					<div class="listing-card">
-						<img
-							src="/uploads/<%=prophoto%>"
+					<div class="listing-card hover:shadow-md transition border cursor-pointer"  
+					onclick="location.href='/hostprdetail.ho?property_id=<%=propertyId%>'">
+						<img src="/uploads/<%=prophoto%>"
 							alt="오두막">
 						<div class="listing-info">
 							<div class="listing-name"><%=proname %></div>

@@ -237,7 +237,7 @@ body {
 </head>
 <body>
 	<div>
-		<%@ include file="property_header.jsp"%>
+		<%@ include file="mainHeader.jsp"%>
 		<!-- 정적 포함 -->
 	</div>
 	<!-- header -->
@@ -537,7 +537,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 	<!-- footer -->
-	<jsp:include page="property_footer.jsp" />
+	<jsp:include page="mainFooter.jsp" />
 
 
 </body>

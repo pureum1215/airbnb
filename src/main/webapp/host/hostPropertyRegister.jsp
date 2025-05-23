@@ -71,7 +71,7 @@
 </head>
 <body>
 	<div>
-		<%@ include file="header_hostpage.jsp"%>
+		<%@ include file="hostHeader.jsp"%>
 		<!-- 정적 포함 -->
 	</div>
 
@@ -126,7 +126,7 @@
 </div>
 
 <div>
-	<%@ include file="footer_hostpage.jsp"%>
+	<%@ include file="hostFooter.jsp"%>
 </div>
 </body>
 </html>

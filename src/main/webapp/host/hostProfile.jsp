@@ -201,7 +201,7 @@ body {
 </style>
 </head>
 <body>
-	<%@ include file="header_hostpage.jsp"%>
+	<%@ include file="hostHeader.jsp"%>
 <%
 String hostId = "host050";
 //String hostId = (String)session.getAttribute("host_id");
@@ -354,6 +354,6 @@ int hostCount= hvo2.getCount();
 		});
 	</script>
 
-	<%@ include file="footer_hostpage.jsp"%>
+	<%@ include file="hostFooter.jsp"%>
 </body>
 </html>

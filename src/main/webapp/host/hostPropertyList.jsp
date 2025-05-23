@@ -22,7 +22,7 @@
 	
 %>
 	<div>
-		<%@ include file="header_hostpage.jsp"%>
+		<%@ include file="hostHeader.jsp"%>
 		<!-- 정적 포함 -->
 	</div>
 

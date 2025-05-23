@@ -97,7 +97,7 @@
 <body class="bg-white font-sans antialiased text-gray-900">
 
 <!-- 기본 헤더 include -->
-<%@ include file="header_default.jsp" %>
+<%@ include file="userHeader.jsp" %>
 
 <%
 	

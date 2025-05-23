@@ -229,7 +229,7 @@ span.amenities {
 </head>
 <body>
 	<div>
-		<%@ include file="header_hostpage.jsp"%>
+		<%@ include file="hostHeader.jsp"%>
 	</div>
 	
 	
@@ -340,7 +340,7 @@ span.amenities {
 
 
 	<div>
-		<%@ include file="footer_hostpage.jsp"%>
+		<%@ include file="hostFooter.jsp"%>
 	</div>
 	
 

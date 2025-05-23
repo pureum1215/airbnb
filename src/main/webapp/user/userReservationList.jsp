@@ -155,7 +155,7 @@
 <body onload="pagestart()">
 
 	<div>
-		<%@ include file="header_default.jsp"%>
+		<%@ include file="userHeader.jsp"%>
 		<!-- 정적 포함 -->
 	</div>
 

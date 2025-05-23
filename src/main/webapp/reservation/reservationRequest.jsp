@@ -156,7 +156,7 @@
 </head>
 <body>
 	<div>
-		<%@ include file="header_default.jsp"%>
+		<%@ include file="reservationHeader.jsp"%>
 		<!-- 정적 포함 -->
 	</div>
 	<br>

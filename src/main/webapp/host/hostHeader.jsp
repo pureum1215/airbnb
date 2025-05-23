@@ -1,226 +1,263 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html>
+<html lang="ko">
 <head>
-<meta charset="UTF-8">
-<title>hostpage_header</title>
-<!-- Tailwind CDN -->
-<script src="https://cdn.tailwindcss.com"></script>
+  <meta charset="UTF-8">
+  <title>hostHeader</title>
 
-<!-- Airbnb 스타일 헤더 -->
-<header class="w-full border-b">
-	<!-- Google Fonts: Noto Sans KR -->
-	<link
-		href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap"
-		rel="stylesheet">
-	<div class="w-full px-7 py-4 flex justify-between items-center">
+	<!-- Tailwind CSS CDN -->
+	<script src="https://cdn.tailwindcss.com"></script>
 
-		<!-- 왼쪽 로고 -->
-		<div class="flex items-center space-x-2 flex-shrink-0">
-			<img
-				src="https://cdn.icon-icons.com/icons2/2699/PNG/512/airbnb_logo_icon_170605.png"
-				alt="airbnb logo" class="w-6 h-6"> <span
-				class="text-red-500 font-bold text-lg">airbnb</span>
-		</div>
+  <!-- Google Fonts: Noto Sans KR -->
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
 
-		<!-- 가운데 메뉴 -->
-		<nav class="relative font-sans">
-			<ul id="menuList" class="flex space-x-2 text-sm text-gray-700">
+  <style>
+    body {
+      font-family: 'Noto Sans KR', sans-serif;
+      margin: 0;
+    }
 
-				<!-- 일반 메뉴 버튼 -->
-				<li>
-					<button id="header_calendar"
-						class="menu-item px-4 py-2 rounded-full hover:bg-gray-100 font-medium">
-						달력</button>
-				</li>
-				<li>
-					<button id="header_listing"
-						class="menu-item px-4 py-2 rounded-full hover:bg-gray-100 font-medium"
-						onclick="location.href='/hostList.ho'">
-						리스팅</button>
-				</li>
-				<li>
-					<button id="header_reservation"
-						class="menu-item px-4 py-2 rounded-full hover:bg-gray-100 font-medium">
-						예약목록</button>
-				</li>
+    header {
+      width: 100%;
+      border-bottom: 1px solid #e5e7eb;
+    }
 
-				<!-- "메뉴" 버튼과 드롭다운 -->
-				<li class="relative">
-					<button id="menuToggle" class="menu-item px-4 py-2 rounded-full hover:bg-gray-100 font-medium flex items-center space-x-1">
-						<span>메뉴</span>
-						<svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-      						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-    					</svg>
-					</button> 
-					<!-- 클릭 시 토글될 드롭다운 -->
-					<ul id="dropdownMenu" class="absolute left-0 mt-2 w-56 bg-white border rounded-lg shadow-lg hidden z-10 text-sm">
-						<li><a href="#" class="dropdown-item block px-4 py-2 hover:bg-gray-100">프로필</a></li>
-						<li><a href="#" class="dropdown-item block px-4 py-2 hover:bg-gray-100">통계</a></li>
-					</ul>
-				</li>
+    .container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 28px;
+    }
+    
+    @media (min-width: 1536px) {
+    .container {
+        max-width: 1950px !important;
+    }
 
-			</ul>
-		</nav>
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-shrink: 0;
+    }
 
-		<!-- 오른쪽 메뉴 -->
-		<div class="relative flex items-center space-x-4 text-sm">
-		  <button id="menuToggle2" class="border p-1.5 px-3 rounded-full flex items-center space-x-2">
-		    <span class="text-lg">☰</span> 
-		    <span class="bg-gray-400 text-white rounded-full w-6 h-6 text-xs flex items-center justify-center"></span>
-		  </button>
-		  
-		<!-- 클릭 시 토글될 드롭다운2 -->
-		  <ul id="dropdownMenu2" class="absolute right-0 mt-[120px] w-56 bg-white border rounded-lg shadow-lg hidden z-10 text-sm">
-		    <li><a href="#" class="dropdown-item block px-4 py-2 hover:bg-gray-100">게스트 모드로 전환</a></li>
-		    <li><a href="#" class="dropdown-item block px-4 py-2 hover:bg-gray-100">로그아웃</a></li>
-		  </ul>
-		</div>
-		
-		
-	</div>
-</header>
+    .logo img {
+      width: 24px;
+      height: 24px;
+    }
 
-<!-- 선택 효과 스크립트 -->
-<script>
-  // Tailwind 설정 (폰트 적용)
-  tailwind.config = {
-    theme: {
-      extend: {
-        fontFamily: {
-          sans: ['"Noto Sans KR"', 'sans-serif']
-        }
+    .logo span {
+      color: #ef4444;
+      font-weight: bold;
+      font-size: 1.125rem;
+    }
+
+    nav ul {
+      display: flex;
+      gap: 8px;
+      font-size: 0.875rem;
+      color: #374151;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    .menu-item {
+      padding: 8px 16px;
+      border-radius: 9999px;
+      font-weight: 500;
+      cursor: pointer;
+      background-color: transparent;
+      border: none;
+    }
+
+    .menu-item:hover {
+      background-color: #f3f4f6;
+    }
+
+    .menu-item.selected {
+      font-weight: bold;
+      border: 2px solid #000;
+      background-color: #F7F7F7;
+    }
+
+    .dropdown {
+      position: relative;
+    }
+
+    .dropdown-menu {
+      position: absolute;
+      left: 0;
+      top: 100%;
+      margin-top: 8px;
+      width: 224px;
+      background-color: white;
+      border: 1px solid #e5e7eb;
+      border-radius: 8px;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+      display: none;
+      z-index: 10;
+    }
+
+    .dropdown-menu.show {
+      display: block;
+    }
+
+    .dropdown-item {
+      display: block;
+      padding: 8px 16px;
+      text-decoration: none;
+      color: #111827;
+    }
+
+    .dropdown-item:hover {
+      background-color: #f3f4f6;
+    }
+
+    .user-menu {
+      position: relative;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      font-size: 0.875rem;
+    }
+
+    .user-toggle {
+      border: 1px solid #d1d5db;
+      padding: 6px 12px;
+      border-radius: 9999px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background-color: white;
+      cursor: pointer;
+    }
+
+    .user-avatar {
+      background-color: #9ca3af;
+      color: white;
+      border-radius: 9999px;
+      width: 24px;
+      height: 24px;
+      font-size: 0.75rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .user-dropdown {
+      position: absolute;
+      right: 0;
+      top: 100%;
+      margin-top: 8px;
+      width: 224px;
+      background-color: white;
+      border: 1px solid #e5e7eb;
+      border-radius: 8px;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+      display: none;
+      z-index: 10;
+    }
+
+    .user-dropdown.show {
+      display: block;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="container">
+      <!-- 로고 -->
+      <div class="logo">   <!-- ★★★★★ 로고 클릭했을 경우, 화면 이동 링크 필요 ★★★★★ -->
+        <img src="https://cdn.icon-icons.com/icons2/2699/PNG/512/airbnb_logo_icon_170605.png" alt="airbnb logo">
+        <span>airbnb</span>
+      </div>
+
+      <!-- 중앙 메뉴 -->
+      <nav>
+        <ul id="menuList">
+          <li><button id="header_calendar" class="menu-item" >달력</button></li>   <!-- ★★★★★ hostCalendar 화면 이동 링크 필요 ★★★★★ -->
+          <li><button id="header_listing" class="menu-item" onclick="location.href='/hostList.ho'">리스팅</button></li>
+          <li><button id="header_reservation" class="menu-item">예약목록</button></li>   <!-- ★★★★★ hostPropertyReservationList 화면 이동 링크 필요 ★★★★★ -->
+          <li class="dropdown">
+            <button id="menuToggle" class="menu-item">메뉴 ▼</button>
+            <ul id="dropdownMenu" class="dropdown-menu">
+              <li><a href="#" class="dropdown-item">프로필</a></li>   <!-- ★★★★★ hostProfile 화면 이동 링크 필요 ★★★★★ -->
+              <li><a href="#" class="dropdown-item">통계</a></li>   <!-- ★★★★★ hostStatistics 화면 이동 링크 필요 ★★★★★ -->
+            </ul>
+          </li>
+        </ul>
+      </nav>
+
+      <!-- 유저 메뉴 -->
+      <div class="user-menu">
+        <button id="menuToggle2" class="user-toggle">
+          <span>☰</span>
+          <span class="user-avatar"></span>
+        </button>
+        <ul id="dropdownMenu2" class="user-dropdown">
+          <li><a href="#" class="dropdown-item">게스트 모드로 전환</a></li>   <!-- ★★★★★ 로그인 유지된 상태로 main_property_list 화면 이동 링크 필요 ★★★★★ -->
+          <li><a href="#" class="dropdown-item">로그아웃</a></li>   <!-- ★★★★★ 로그아웃된 상태로 main_property_list 화면 이동 링크 필요 ★★★★★ -->
+        </ul>
+      </div>
+    </div>
+  </header>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const menuItems = document.querySelectorAll('.menu-item');
+      const dropdownItems = document.querySelectorAll('.dropdown-item');
+      const menuToggle = document.getElementById('menuToggle');
+      const menuToggle2 = document.getElementById('menuToggle2');
+      const dropdownMenu = document.getElementById('dropdownMenu');
+      const dropdownMenu2 = document.getElementById('dropdownMenu2');
+
+      const url = window.location.pathname.toLowerCase();
+      const header_calendar = document.getElementById('header_calendar');
+      const header_listing = document.getElementById('header_listing');
+      const header_reservation = document.getElementById('header_reservation');
+
+      if (url.includes('calendar')) highlightMenu(header_calendar);
+      else if (url.includes('propertylist')) highlightMenu(header_listing);
+      else if (url.includes('reservationlist')) highlightMenu(header_reservation);
+
+      function highlightMenu(target) {
+        menuItems.forEach(el => {
+          el.classList.remove('selected');
+        });
+        target.classList.add('selected');
       }
-    }
-  }
 
-  document.addEventListener("DOMContentLoaded", function () {
-    const menuItems = document.querySelectorAll('.menu-item');
-    const dropdownItems = document.querySelectorAll('.dropdown-item');
-    const menuToggle = document.getElementById('menuToggle');
-
-    function highlightMenu(target) {
-    	  // 모든 메뉴 스타일 초기화
-    	  menuItems.forEach(el => {
-    	    el.classList.remove('font-bold', 'border-2', 'border-black');
-    	    el.style.backgroundColor = ''; // 배경색 초기화
-    	  });
-
-    	  // 강조 스타일 추가
-    	  target.classList.add('font-bold', 'border-2', 'border-black');
-    	  target.style.backgroundColor = '#F7F7F7'; // 강조 배경색
-    	}
-
-    menuItems.forEach(item => {
-      item.addEventListener('click', function () {
-        highlightMenu(this);
+      menuItems.forEach(item => {
+        item.addEventListener('click', () => highlightMenu(item));
       });
-    });
 
-    dropdownItems.forEach(item => {
-      item.addEventListener('click', function () {
-        highlightMenu(menuToggle);
-      });
-    });
-  });
-</script>
-
-<script>
-  document.addEventListener("DOMContentLoaded", function () {
-    const menuItems = document.querySelectorAll('.menu-item');
-    const dropdownItems = document.querySelectorAll('.dropdown-item');
-    const menuToggle = document.getElementById('menuToggle');
-    const dropdownMenu = document.getElementById('dropdownMenu');
-    const dropdownMenu2 = document.getElementById('dropdownMenu2');
-    
-    // 현재 URL 불러오기 + 소문자 변경
-    //✨✨✨✨✨✨✨✨✨✨✨✨ WebController servlet 정의 하게 되면, 그 명칭에 맞게
-    // equals 할 것.
-    // 안 되면 내 탓 아님, ★ 희승 ★
-    
-    /*** No Korean
-    When defining a WebController servlet
-    , it will be equals according to its name. 
-    // If it doesn't work, it's not my fault, ★ Heeseung ★
-    **/    
-    const url = window.location.pathname.toLowerCase(); //현재 url 정보 불러오기
-    
-    const header_calendar = document.getElementById('header_calendar');
-    const header_listing = document.getElementById('header_listing');
-    const header_reservation = document.getElementById('header_reservation');
-    // const menuToggle = document.getElementById('menuToggle'); // 얘 위에 존재 함
-    
-    //자동으로 해당 페이지 올 때, 선택하게 하기
-    if(url.indexOf('calendar') != -1) {
-    	highlightMenu(header_calendar);
-    }
-    else if(url.indexOf('propertylist') != -1) {
-    	highlightMenu(header_listing);
-    } 
-    else if(url.indexOf('reservationlist') != -1) {
-    	highlightMenu(header_reservation);
-    }
-    
-    
-
-    // 클릭 시 하이라이트 처리
-    function highlightMenu(target) {
-      menuItems.forEach(el => {
-        el.classList.remove('font-bold', 'border-2', 'border-black');
-        el.style.backgroundColor = '';
-      });
-      target.classList.add('font-bold', 'border-2', 'border-black');
-      target.style.backgroundColor = '#F7F7F7';
-    }
-
-    menuItems.forEach(item => {
-      item.addEventListener('click', function () {
-        highlightMenu(this);
-      });
-    });
-
-    dropdownItems.forEach(item => {
-      item.addEventListener('click', function () {
-        highlightMenu(menuToggle);
-        dropdownMenu.classList.add('hidden'); // 선택 시 자동으로 닫힘
-      });
-    });
-    
-    dropdownItems.forEach(item => {
-        item.addEventListener('click', function () {
+      dropdownItems.forEach(item => {
+        item.addEventListener('click', () => {
+          highlightMenu(menuToggle);
           highlightMenu(menuToggle2);
-          dropdownMenu2.classList.add('hidden'); // 선택 시 자동으로 닫힘
+          dropdownMenu.classList.remove('show');
+          dropdownMenu2.classList.remove('show');
         });
       });
 
-    // 클릭 시 드롭다운 메뉴 토글
-    menuToggle.addEventListener('click', function (e) {
-      e.stopPropagation(); // 이벤트 전파 막기
-      dropdownMenu.classList.toggle('hidden');
-    });
-    
-    
- 	// 클릭 시 드롭다운 메뉴 토글2
-    menuToggle2.addEventListener('click', function (e) {
-      e.stopPropagation(); // 이벤트 전파 막기
-      dropdownMenu2.classList.toggle('hidden');
-    });
+      menuToggle.addEventListener('click', e => {
+        e.stopPropagation();
+        dropdownMenu.classList.toggle('show');
+      });
 
-    // 외부 클릭 시 드롭다운 닫기
-    document.addEventListener('click', function (e) {
-      if (!menuToggle.contains(e.target)) {
-        dropdownMenu.classList.add('hidden');
-      }
+      menuToggle2.addEventListener('click', e => {
+        e.stopPropagation();
+        dropdownMenu2.classList.toggle('show');
+      });
+
+      document.addEventListener('click', e => {
+        if (!menuToggle.contains(e.target)) dropdownMenu.classList.remove('show');
+        if (!menuToggle2.contains(e.target)) dropdownMenu2.classList.remove('show');
+      });
     });
-    
-    // 외부 클릭 시 드롭다운 닫기2
-    document.addEventListener('click', function (e) {
-      if (!menuToggle2.contains(e.target)) {
-        dropdownMenu2.classList.add('hidden');
-      }
-    });
-  });
-</script>
+  </script>
+
 </body>
 </html>

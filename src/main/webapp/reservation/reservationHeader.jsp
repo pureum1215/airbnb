@@ -1,16 +1,56 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<!-- Tailwind CDN -->
-<script src="https://cdn.tailwindcss.com"></script>
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Airbnb Header</title>
+  <style>
+    .header-wrapper {
+      width: 100%;
+      border-bottom: 1px solid #e5e5e5;
+    }
 
-<!-- Airbnb 스타일 헤더 -->
-<header class="w-full border-b">
-  <div class="w-full px-7 py-4 flex justify-between items-center">
+    .header-container {
+      width: 98%;
+      padding: 16px 28px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .header-logo-group {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+    }
+
+    .header-logo-image {
+      width: 24px;
+      height: 24px;
+    }
+
+    .header-logo-text {
+      color: #ff385c;
+      font-weight: bold;
+      font-size: 1.125rem;
+    }
+  </style>
+</head>
+<body>
+
+<header class="header-wrapper">
+  <div class="header-container">
+  
     <!-- 왼쪽 로고 -->
-    <div class="flex items-center space-x-2">
-      <img src="https://cdn.icon-icons.com/icons2/2699/PNG/512/airbnb_logo_icon_170605.png" alt="airbnb logo" class="w-6 h-6">
-      <span class="text-red-500 font-bold text-lg">airbnb</span>
+    <div class="header-logo-group"> <!-- ★★★★★ 메인 홈페이지 화면 이동 링크 필요 ★★★★★ -->
+      <img src="https://cdn.icon-icons.com/icons2/2699/PNG/512/airbnb_logo_icon_170605.png" alt="airbnb logo" class="header-logo-image">
+      <span class="header-logo-text">airbnb</span>
     </div>
-
+    
   </div>
 </header>
+
+</body>
+</html>

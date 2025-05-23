@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>header</title>
+<title>userHeader</title>
 
 <!-- 외부 라이브러리 -->
 <link rel="stylesheet"
@@ -36,6 +36,7 @@ body {
 .header .logo {
 	display: flex;
 	align-items: center;
+	cursor: pointer;
 }
 
 .header .logo img {
@@ -71,15 +72,17 @@ body {
 	justify-content: center;
 	font-size: 14px;
 	font-weight: bold;
-	
 	position: relative;
 }
 
+.circle-btn {
+	cursor: pointer;
+	transition: transform 0.15s ease-in-out;
+}
 
-
-
-
-
+.circle-btn:hover {
+	transform: scale(1.05);
+}
 
 
 /* === Search Bar === */
@@ -327,6 +330,7 @@ body {
 .host-mode-btn {
 	display: flex;
 	align-items: center;
+	padding: 5px;
 	gap: 0.5rem;
 	border: 1px solid #FCFCFC; /* gray-300 */
 	background-color: #FCFCFC;
@@ -335,10 +339,12 @@ body {
 	border-radius: 9999px; /* rounded-full */
 	transition: background-color 0.2s ease;
 	cursor: pointer;
+	font-size: 12px;
+	font: bolder;
 }
 
 .host-mode-btn:hover {
-	background-color: #f9fafb; /* hover:bg-gray-50 */
+	background-color: 	#EDEDED; /* hover:bg-gray-50 */
 }
 
 .host-mode-icon {
@@ -376,6 +382,43 @@ body {
 	background-color: #f5f5f5;
 }
 
+/** user info container */
+.header .actions .circle-btn .user-info-container {
+	display: none;
+	position: absolute;
+	right: 0;
+	top: 50px;
+	padding: 10px 0px;
+	width: 200px;
+	box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+	border-radius: 10px;
+	background-color: #fff;
+	z-index: 10;
+}
+
+.header .actions .circle-btn .user-info-container.action {
+	display: block;
+}
+
+.user-info-container .menu-list {
+	padding: 15px 30px;
+	display: flex;
+	justify-content: start;
+	align-items: center;
+	font-size: 16px;
+	font-weight: bold;
+	cursor: pointer;
+}
+
+.user-info-container .menu-list:hover {
+	background-color: #F7F7F7;
+}
+
+.user-info-container .menu-list img {
+	margin-right: 10px;
+	width: 26px;
+	height: 26px;
+}
 </style>
 </head>
 
@@ -387,19 +430,18 @@ body {
 	<div class="biggest_box">
 		<!-- Header -->
 		<div class="header">
-			<div class="logo">
-				<img src="https://cdn.worldvectorlogo.com/logos/airbnb-1.svg"
-					alt="Airbnb Logo"> <span
-					style="color: #ff385c; font-weight: bold; font-size: 20px;">airbnb</span>
+			<div class="logo"> <!-- ★★★★★ 메인 홈페이지 화면 이동 링크 필요 ★★★★★ -->
+				<img src="https://cdn.worldvectorlogo.com/logos/airbnb-1.svg" alt="Airbnb Logo">
+				<span style="color: #ff385c; font-weight: bold; font-size: 20px;">airbnb</span>
 			</div>
 			<div class="nav"></div>
 			<div class="actions">
-				<button class="host-mode-btn">호스트 모드로 전환</button>
-				<div class="circle-btn">
+				<button class="host-mode-btn">호스트 모드로 전환</button>  <!-- ★★★★★ 호스트 화면 이동 링크 필요 ★★★★★ -->
+				<div class="circle-btn">  <!-- ★★★★★ 프로필 화면 이동 링크 필요 ★★★★★ -->
 					<%
 					if (userId1 != null) {
 					%>
-					<%= userId1.substring(0, 1) %>
+					<%=userId1.substring(0, 1)%>
 					<%
 					} else {
 					%>x
@@ -407,125 +449,66 @@ body {
 					}
 					%>
 				</div>
-		
-		<style>		
-			/** user info container */
-		.header .actions .circle-btn .user-info-container {
-			display: none;
-			position: absolute;
-			right: 0;
-			top: 50px;
-			
-			padding: 10px 0px;
-			
-			width: 200px;
-		    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
-			border-radius: 10px;
-			background-color: #fff;
-			z-index: 10;
-		}
-		
-		.header .actions .circle-btn .user-info-container.action {
-			display: block;
-		}
-		
-		.user-info-container .menu-list {
-			padding: 15px 30px;
-			display: flex;
-			justify-content: start;
-			align-items: center;
-			font-size: 16px;
-   			font-weight: bold;
-   			cursor: pointer;
-		}
-		
-		.user-info-container .menu-list:hover {
-			background-color: #F7F7F7;			
-		}
-		
-		.user-info-container .menu-list img {
-			margin-right: 10px;
-			width: 26px;
-			height: 26px;
-		}
-		
-		</style>
-				
-				
+
 				<!--  user info 버튼 ( 햄버거 버튼) -->
-				<div class="circle-btn" onclick="fn_userinfo_header()" style="cursor: pointer;">
+				<div class="circle-btn" onclick="fn_userinfo_header()"
+					style="cursor: pointer;">
 					<div id="userMenuToggle">
 						<i class="fas fa-bars"></i>
 					</div>
-					
+
 					<div class="user-info-container" id="userInfoContainerID">
-					
+
 						<%
 						if (userId1 != null) {
-						%> 
-						
-						<!-- 회원일때 --> 
-						<div class="menu-list" onclick="togglebutton('wish')">
-						<img src="https://cdn-icons-png.flaticon.com/512/3132/3132924.png" />
+						%>
+
+						<!-- 회원일때 -->
+						<div class="menu-list" onclick="togglebutton('wish')">   <!-- ★★★★★ 위시리스트 화면 이동 링크 필요 ★★★★★ -->
+							<img src="https://cdn-icons-png.flaticon.com/512/3132/3132924.png" />
 							<span>위시리스트</span>
 						</div>
-					
-						<div class="menu-list" onclick="togglebutton('reservation')">
-						<img src="https://cdn-icons-png.flaticon.com/512/2796/2796326.png" />
+
+						<div class="menu-list" onclick="togglebutton('reservation')">   <!-- ★★★★★ 예약목록 화면 이동 링크 필요 ★★★★★ -->
+							<img src="https://cdn-icons-png.flaticon.com/512/2796/2796326.png" />
 							<span>예약목록</span>
 						</div>
-						
-						<div class="menu-list">
-						<img src="https://cdn-icons-png.flaticon.com/512/6522/6522516.png" />
+
+						<div class="menu-list">   <!-- ★★★★★ 프로필 화면 이동 링크 필요 ★★★★★ -->
+							<img src="https://cdn-icons-png.flaticon.com/512/6522/6522516.png" />
 							<span>프로필</span>
 						</div>
 						<div style="margin-left: 20px; margin-right: 20px; border-bottom: 1px solid #5B5956;"></div>
-					
-						<div class="menu-list">
+						<div class="menu-list">   <!-- ★★★★★ 로그아웃 화면 이동 링크 필요 ★★★★★ -->
 							<span>로그아웃</span>
 						</div>
-						
+
 						<%
-						 } else {
-						 %>
-						 
-						<!-- 비회원일때 --> 
-						<div class="menu-list">
-							<span>로그인</span>
+						} else {
+						%>
+
+						<!-- 비회원일때 -->
+						<div class="menu-list">   <!-- ★★★★★ 로그인 화면 이동 링크 필요 ★★★★★ -->
+							<span>로그인 또는 회원 가입</span>
 						</div>
 
 						<%
-						 }
-						 %>
-
-						
+						}
+						%>
 					</div>
-					
-					
-					<div class="relative">
-
-				</div>
-					
-					
 				</div>
 			</div>
-		</div>
-
 		</div>
 	</div>
 
 	<!-- Dropdown Panel -->
 	<div class="dropdown-panel" id="dropdownPanel"></div>
-
 	<!-- JS Libraries -->
 	<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 
 	<script>
-	
-	
 	/****
 		user Info 버튼 토글 버튼 ( 햄버거 버트 )
-	
 	**/
 	function fn_userinfo_header() {
 		const target = document.getElementById('userInfoContainerID');
@@ -537,194 +520,9 @@ body {
 		}
 	}
 	
-/* 	// userInfo 버튼 , menu 버튼
-	function togglebutton(menu) {
-		if(menu === 'wish') {
-			alert('wish');
-			// location.href = ?
-		} else if{
-			alert('reservation');
-			// location.href = ?
-		} else if{
-			alert('reservation');
-			// location.href = ?
-		} 
-	} 
-*/
-	
-	
-	
 	// === 변수 정의 ===
 	const panel = document.getElementById('dropdownPanel');
-	const sections = document.querySelectorAll('.search-bar .section');
 	let currentType = null;
-	
-	// === 필터 UI 렌더링 ===
-	function renderfilterContent() {
-		  return `
-		    <div>
-		      <!-- 가격 범위 -->
-		      <div class="filter-row">
-		        <div>
-		          <div class="label">가격 범위</div>
-		          <div class="sub">1박 요금</div>
-		        </div>
-		        <div class="price-range">
-		        <div class="price-sliders">
-		          <input type="range" id="priceMin" min="14000" max="220000" value="14000" step="1000" oninput="updatePriceDisplay()" style="width: 300px;">
-		          <input type="range" id="priceMax" min="14000" max="220000" value="220000" step="1000" oninput="updatePriceDisplay()" style="width: 300px;">
-		        </div>
-		        <div class="price-values">
-		          <span id="priceMinDisplay">₩14000</span> - 
-		          <span id="priceMaxDisplay">₩220000+</span>
-		        </div>
-		      </div>
-		      </div>
-
-		      <!-- 침실과 침대 -->
-		      <div class="filter-row">
-		        <div>
-		          <div class="label">침실과 침대</div>
-		        </div>
-		        <div class="bedroom-controls">
-		          <div class="counter-group">
-		            <div class="label">침실</div>
-		            <div class="counter">
-		            <button data-type="bedroom" data-action="decrease" onclick="updateCount('bedroom', -1)">-</button>
-		            <span id="bedroomCount">상관없음</span>
-		            <button data-type="bedroom" data-action="increase" onclick="updateCount('bedroom', 1)">+</button>
-		            </div>
-		          </div>
-		          <div class="counter-group">
-		            <div class="label">침대</div>
-		            <div class="counter">
-		            <button data-type="bed" data-action="decrease" onclick="updateCount('bed', -1)">-</button>
-		            <span id="bedCount">상관없음</span>
-		            <button data-type="bed" data-action="increase" onclick="updateCount('bed', 1)">+</button>
-		            </div>
-		          </div>
-		          <div class="counter-group">
-		            <div class="label">욕실</div>
-		            <div class="counter">
-		            <button data-type="bathroom" data-action="decrease" onclick="updateCount('bathroom', -1)">-</button>
-		            <span id="bathroomCount">상관없음</span>
-		            <button data-type="bathroom" data-action="increase" onclick="updateCount('bathroom', 1)">+</button>
-		            </div>
-		          </div>
-		        </div>
-		      </div>
-
-		      <!-- 편의시설 -->
-		      <div class="filter-row">
-		        <div>
-		          <div class="label">편의시설</div>
-		        </div>
-		        <div class="amenities">
-		          <button class="amenity-btn">❄️ 에어컨</button>
-		          <button class="amenity-btn">📶 와이파이</button>
-		          <button class="amenity-btn">📺 TV</button>
-		          <button class="amenity-btn">🧺 대형 욕조</button>
-		          <button class="amenity-btn">🌀 건조기</button>
-		          <button class="amenity-btn">🔥 난방</button>
-		        </div>
-		      </div>
-		    </div>
-		  `;
-		}
-		// === 필터 제어용 함수 ===
-		function updatePriceDisplay() {
-			 let min = parseInt(document.getElementById('priceMin').value);
-			 let max = parseInt(document.getElementById('priceMax').value);
-		
-		 	 // 최소값이 최대값보다 작지 않도록 제한
-			  if (min > max) {
-		 	   [min, max] = [max, min]; // 스왑
-		  	  document.getElementById('priceMin').value = min;
-		 	   document.getElementById('priceMax').value = max;
-		 	 }
-			
-		 	 document.getElementById('priceMinDisplay').textContent = '₩' + min.toLocaleString();
-		 	 document.getElementById('priceMaxDisplay').textContent = '₩' + max.toLocaleString() + (max >= 220000 ? '+' : '');
-		}
-
-		const counts = {
-		 	 bedroom: 0,
-		 	 bed: 0,
-		 	 bathroom: 0
-		};
-
-		function updateCount(type, delta) {
-			counts[type] = Math.max(0, counts[type] + delta);
-			const label = counts[type] === 0 ? '상관없음' : counts[type];
-			document.getElementById(`${type}Count`).textContent = label;
-
-			// 버튼 상태 업데이트
-			const minusBtn = document.querySelector(`.counter button[data-type="${type}"][data-action="decrease"]`);
-			if (counts[type] === 0) {
-			  minusBtn.disabled = true;
-			  minusBtn.classList.add('disabled');
-			} else {
-			  minusBtn.disabled = false;
-			  minusBtn.classList.remove('disabled');
-			}
-		}
-
-
-	// === Search Bar 클릭 이벤트 처리 ===
-	sections.forEach(section => {
-		section.addEventListener('click', () => {
-			const type = section.dataset.type;
-
-			// 같은 영역 다시 누르면 닫기
-			if (type === currentType && panel.classList.contains('active')) {
-				panel.classList.remove('active');
-				currentType = null;
-				return;
-			}
-
-			// 열기
-			panel.classList.remove('active');
-			setTimeout(() => {
-				if (type === 'filter') {
-					panel.innerHTML = renderfilterContent();
-				} else if (type === 'location') {
-					panel.innerHTML = `
-						<h4>추천 여행지</h4>
-						<ul>
-							<li>🏕️ 근처 체험 찾기 - 가까운 체험</li>
-							<li>🗼 파리, 프랑스 - 추천 숙소</li>
-							<li>🏰 런던, 영국 - 관광 명소</li>
-							<li>🌲 그린델발트, 스위스 - 자연</li>
-							<li>🏞️ 인터라켄, 스위스 - 호수</li>
-							<li>🏖️ 바르셀로나, 스페인 - 해변</li>
-						</ul>`;
-				} else if (type === 'date') {
-					panel.innerHTML = `
-						<div class="calendar-wrapper">
-							<div class="calendar-panel">
-								<div id="calendar"></div>
-								<div>체크인 날짜: <span id="checkin">-</span></div>
-								<div>체크아웃 날짜: <span id="checkout">-</span></div>
-							</div>
-						</div>`;
-					flatpickr("#calendar", {
-						mode: "range",
-						minDate: "today",
-						dateFormat: "Y-m-d",
-						inline: true,
-						static: true,
-						onChange: (selectedDates, dateStr, instance) => {
-							const [start, end] = selectedDates;
-							document.getElementById('checkin').textContent = start ? instance.formatDate(start, "Y-m-d") : "-";
-							document.getElementById('checkout').textContent = end ? instance.formatDate(end, "Y-m-d") : "-";
-						}
-					});
-				}
-				panel.classList.add('active');
-				currentType = type;
-			}, 200);
-		});
-	});
 
 	// === 외부 클릭 시 패널 닫기 ===
 	document.addEventListener('click', function(e) {
@@ -736,4 +534,3 @@ body {
 	</script>
 </body>
 </html>
-<!-- 의미없이 커밋위해 -->

@@ -71,6 +71,14 @@ public class HostController extends HttpServlet {
 			forward = new ActionForward();
 			forward.setPath("host/hostPropertyDetail.jsp");
 			forward.setRedirect(false);
+		}else if(command.equals("/hostDetailMo.ho")) {
+			forward = new ActionForward();
+			forward.setPath("host/hostPropertyDetailModify.jsp");
+			forward.setRedirect(false); //이곳에서 수정하기 눌렀을 때 action 함.
+		}else if(command.equals("/hostProfile.ho")) {
+			forward = new ActionForward();
+			forward.setPath("host/hostProfile.jsp");
+			forward.setRedirect(false);
 		}
 		
 		

@@ -50,7 +50,8 @@ public class UserReservationListDAO {
 	    List<UserReservationListVO> list = new ArrayList<>();
 	    try {
 	    	String sql = "SELECT r.reservation_id, r.property_id, p.property_name, p.property_photo_url,"
-        		+ "l.location_city, l.location_country, r.reservation_check_in, r.reservation_check_out, r.reservation_confirm, "
+        		+ "l.location_city, l.location_country, "
+        		+ "r.reservation_check_in, r.reservation_check_out, r.reservation_confirm, "
         		+ "pay.payment_status "
         		+ "FROM reservation r "
         		+ "JOIN property p ON r.property_id = p.property_id "
@@ -70,9 +71,11 @@ public class UserReservationListDAO {
 	        	vo.setProperty_name(rs.getString("property_name"));
 	        	vo.setCountry(rs.getString("location_country"));
 	        	vo.setCity(rs.getString("location_city"));
+	        	vo.setReservation_id(rs.getString("reservation_id"));
+	        	vo.setReservation_confirm(rs.getString("reservation_confirm"));
+	        	vo.setPayment_status(rs.getString("payment_status"));
 	        	vo.setReservation_check_in(rs.getDate("reservation_check_in"));
 	        	vo.setReservation_check_out(rs.getDate("reservation_check_out"));
-	        	vo.setReservation_id(rs.getString("reservation_id"));
 	            list.add(vo);
 	        }
 	    } 
@@ -90,7 +93,8 @@ public class UserReservationListDAO {
 	    List<UserReservationListVO> list = new ArrayList<>();
 	    try {
 	    	String sql = "SELECT r.reservation_id, p.property_id, p.property_name, p.property_photo_url,"
-        		+ "l.location_city, l.location_country, r.reservation_check_in, r.reservation_check_out "
+        		+ "l.location_city, l.location_country, "
+        		+ "r.reservation_check_in, r.reservation_check_out, r.reservation_confirm, "
         		+ "pay.payment_status "
         		+ "FROM reservation r "
         		+ "JOIN property p ON r.property_id = p.property_id "
@@ -110,6 +114,8 @@ public class UserReservationListDAO {
 	        	vo.setCountry(rs.getString("location_country"));
 	        	vo.setCity(rs.getString("location_city"));
 	        	vo.setReservation_id(rs.getString("reservation_id"));
+	        	vo.setReservation_confirm(rs.getString("reservation_confirm"));
+	        	vo.setPayment_status(rs.getString("payment_status"));
 	        	vo.setReservation_check_in(rs.getDate("reservation_check_in"));
 	        	vo.setReservation_check_out(rs.getDate("reservation_check_out"));
 	            list.add(vo);

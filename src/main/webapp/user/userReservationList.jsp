@@ -119,10 +119,12 @@
 	  background-color: #FF5A5F;
 	  color: white;
 	  border: none;
+	  width: 150px;
 	  padding: 6px 12px;
 	  border-radius: 4px;
 	  cursor: pointer;
 	  font-size: 14px;
+	  align-self: flex-end;
 	}
 	
 	.card-reserving-text {
@@ -241,13 +243,19 @@
     						if (item.payment_status === '완료') {
     							card += '      <span class="card-reserving-text">결제 완료</span>';
     						}
-    						else if (item.payment_status === null && item.reservation_confirm === '승인')
+    						else if (item.payment_status === '대기') {
+    							card += '      <span class="card-reserving-text">결제 진행중</span>';
+    						}
+    						else if (item.payment_status === '취소') {
+    							card += '      <span class="card-reserving-text">결제 취소</span>';
+    						}
+    						else if (item.reservation_confirm === '승인') {
     							card += '      <button class="card-action-btn" onclick="location.href=\'/reservation_payment.re?reservationId=' + item.reservation_id + '\'">결제하기</button>';
     						} 
     						else if (item.reservation_confirm === '보류') {
     							card += '      <span class="card-reserving-text">승인 요청 중</span>';
     						}
-    						else if (itme.reservation_confirm === '거절') {
+    						else if (item.reservation_confirm === '거절') {
     							card += '      <span class="card-reserving-text">거절되었습니다</span>';
     						}
     						else {
@@ -295,13 +303,19 @@
     						if (item.payment_status === '완료') {
     							card += '      <span class="card-reserving-text">결제 완료</span>';
     						}
-    						else if (item.payment_status === null && item.reservation_confirm === '승인')
+    						else if (item.payment_status === '대기') {
+    							card += '      <span class="card-reserving-text">결제 진행중</span>';
+    						}
+    						else if (item.payment_status === '취소') {
+    							card += '      <span class="card-reserving-text">결제 취소</span>';
+    						}
+    						else if (item.reservation_confirm === '승인') {
     							card += '      <button class="card-action-btn" onclick="location.href=\'/reservation_payment.re?reservationId=' + item.reservation_id + '\'">결제하기</button>';
     						} 
     						else if (item.reservation_confirm === '보류') {
     							card += '      <span class="card-reserving-text">승인 요청 중</span>';
     						}
-    						else if (itme.reservation_confirm === '거절') {
+    						else if (item.reservation_confirm === '거절') {
     							card += '      <span class="card-reserving-text">거절되었습니다</span>';
     						}
     						else {

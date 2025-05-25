@@ -69,10 +69,7 @@ public class HostModifyDAO {
 			result = pstmt.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
-		} finally {
-			closeCon();
-		}
-		
+		} 
 		return result;
 	}
 	
@@ -86,16 +83,13 @@ public class HostModifyDAO {
 	    try {
 	        PreparedStatement pstmt = conn.prepareStatement(sql);
 	        pstmt.setString(1, propertyId);
-
 	        int rows = pstmt.executeUpdate();
 	        if (rows > 0) {
 	            result = true; // 삭제 성공
 	        }
 	    } catch (Exception e) {
 	        e.printStackTrace();
-	    } finally {
-	        closeCon(); // 연결 닫기 (작성한 closeCon 메서드 사용)
-	    }
+	    } 
 
 	    return result;
 	}
@@ -119,9 +113,7 @@ public class HostModifyDAO {
 
 	    } catch (SQLException e) {
 	        e.printStackTrace();
-	    } finally {
-	        closeCon(); // 연결 닫기
-	    }
+	    } 
 
 	    return result;
 	}

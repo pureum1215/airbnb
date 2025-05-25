@@ -8,6 +8,8 @@
 String propertyId = request.getParameter("propId");
 //propertyId를 통해서 
 
+//우선 서버에서 불러온 값을 다시 requestparameter 로 보내면 바보라서.
+//그게 아니라 추가된 값, ajax 를 이용하고 javascript를 이용해서 해야함.
 
 
 HostPropertyDetailDAO dao = new HostPropertyDetailDAO();
@@ -391,36 +393,8 @@ span.amenities:hover {
 			<h2 class="title">Listing</h2>
 			<!-- 관리 버튼 -->
 			<div class="btn-group">
-				<!--button class="btn-edit" onclick= "location.href='/hostDeatilAction.ho'">수정 내용 저장</button>  -->
-				<form action="hostDeatilAction.ho" method="post">
-					<input type="hidden" name="propertyId" value="<%= propertyId %>">
-				    <input type="hidden" name="listingTitle" value="<%= listingTitle %>">
-				    <input type="hidden" name="rooms" value="<%= rooms %>">
-				    <input type="hidden" name="beds" value="<%= beds %>">
-				    <input type="hidden" name="bathrooms" value="<%= bathrooms %>">
-				    <input type="hidden" name="price" value="<%= price %>">
-				    <input type="hidden" name="photo" value="<%= photo %>">
-				    <input type="hidden" name="description" value="<%= description %>">
-					<input type="hidden" name="address" value="<%=address %>">
-					<%
-						if(requestReservation){
-							//예약요청이 맞으면 true
-							reservation_default = "예약 요청";
-						}else{
-							reservation_default = "즉시 가능";
-						}
-					%>
-				    <%  // amenitiesArray 파라미터 추가
-				        for (String amenity : amenitiesArray) {
-				    %>
-				        <input type="hidden" name="amenitiesArray" value="<%= amenity %>">
-				    <% } %>
-
-				
-				    <input type="hidden" name="reservation_default" value="<%= reservation_default %>">
-				
-				    <button type="submit">수정하기</button>
-				</form>
+				<input type="hidden" name="propertyId" value="<%= propertyId %>">
+				<button onclick="sendPropertyData()">수정하기</button>
 				
 			</div>
 		</div>
@@ -522,6 +496,15 @@ span.amenities:hover {
 		    <%
 		    }
 		    %>
+		    <%
+			if(requestReservation){
+			//예약요청이 맞으면 true
+			reservation_default = "예약 요청";
+			}else{
+			reservation_default = "즉시 가능";
+			}
+			%>
+			 <input type="hidden" name="reservation_default" value="<%= reservation_default %>">
 		  </div>
 		</div>
 		
@@ -549,6 +532,11 @@ span.amenities:hover {
 		      }
 		    }
 		    %>
+		    <%  // amenitiesArray 파라미터 추가
+			for (String amenity : amenitiesArray) {
+			%>
+			<input type="hidden" name="amenitiesArray" value="<%= amenity %>">
+			<% } %>
 		  </div>
 		</div>
 
@@ -622,6 +610,47 @@ span.amenities:hover {
 	      countSpan.textContent = newValue;
 	    }
 	  }
+	 
+	 
+	function sendPropertyData() {
+		
+		// amenitiesArray 수집
+	    const amenityInputs = document.querySelectorAll('input[name="amenitiesArray"]');
+	    const amenitiesArray = Array.from(amenityInputs).map(input => input.value);
+
+		
+	    const data = {
+	    	propertyId: document.querySelector('input[name="propertyId"]').value,
+	        listingTitle: document.querySelector('input[name="listingName"]').value,
+	        rooms: document.getElementById("bedrooms").innerText,
+	        beds: document.getElementById("beds").innerText,
+	        bathrooms: document.getElementById("bathrooms").innerText,
+	        price: document.querySelector('.input-text-price').value,
+	        address: document.querySelector('.input-text-address').value,
+	        description: document.querySelector('textarea[name="listingDescription"]').value,
+	        reservation_default: document.getElementById("reservation_default"),
+	        amenitiesArray: amenitiesArray // 배열 추가
+	    };
+
+	    fetch("hostDeatilAction.ho", {
+	        method: "POST",
+	        headers: {
+	            "Content-Type": "application/json"
+	        },
+	        body: JSON.stringify(data)
+	    })
+	    .then(res => res.json())
+	    .then(result => {
+	        if (result.success) {
+	            alert("수정 완료!");
+	        } else {
+	            alert("수정 실패!");
+	        }
+	    })
+	    .catch(error => {
+	        console.error("오류 발생:", error);
+	    });
+	}
 	</script>
 
 </body>

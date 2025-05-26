@@ -255,9 +255,43 @@ public class MainPropertyListSearchDAO {
 		return list;
 	}
 	
+	// 편의시설 필터 - 필터에 체크한 모든 편의시설을 포함하는 숙소 검색
+	public List<String> filterByAmenities( String[] amenities ) throws SQLException, IOException {
+		System.out.println("filterByAmenities method 호출");
+		
+		List<String> list = new ArrayList<>();
+		List<String> filter_list = new ArrayList<>();
+		MainPropertyListSearchDAO dao = new MainPropertyListSearchDAO();
+		
+		for ( int i = 0; i < amenities.length; i++ ) {
+			filter_list = dao.filterByAmenitySet(amenities[i]);
+			list.retainAll(filter_list);
+		}
+		
+		return list;
+	}
 	
-	
-	
-
+	// 편의시설 필터 - 편의시설 하나를 포함하는 숙소 검색
+	public List<String> filterByAmenitySet( String amenities ) throws SQLException, IOException {
+		System.out.println("filterByAmenitySet method 호출");
+		
+		List<String> list = new ArrayList<>();
+		
+		String sql = "SELECT property_id "
+				+ "FROM property_amenities p "
+				+ "JOIN amenities a ON p.amenity_id = a.amenity_id "
+				+ "WHERE amenity_name = ? ";
+		
+        pstmt = conn.prepareStatement(sql);
+        rs = pstmt.executeQuery();
+		
+        while (rs.next()) {
+        	String propertyId = rs.getString("property_id");
+        	pstmt.setString(1, amenities);
+            list.add(propertyId);
+        }
+				
+		return list;
+	}
 	
 }

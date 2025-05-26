@@ -1,6 +1,8 @@
 package mainPage.mainPropertyList;
 
+import java.io.IOException;
 import java.sql.Date;
+import java.sql.SQLException;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -32,7 +34,7 @@ public class MainPropertySearchAction implements Action {
         int room = Integer.parseInt(request.getParameter("property_room"));
         int bed = Integer.parseInt(request.getParameter("property_bed"));
         int bath = Integer.parseInt(request.getParameter("property_bath"));
-        // 편의시설
+        String[] amenities = request.getParameterValues("property_amenities");
         
         MainPropertyListSearchDAO dao = new MainPropertyListSearchDAO();
         
@@ -43,62 +45,76 @@ public class MainPropertySearchAction implements Action {
         List<String> property_id_list = null;
         List<String> property_id_filter_list = null;
 
-        // 모든 id 다 가져오기
-        property_id_list = dao.getAllPropertyId();
-        property_id_filter_list = dao.getAllPropertyId();
+        try {
         
-        // 가격 필터
-        	property_id_filter_list = dao.filterByPrice(min_price, max_price);
-        	property_id_list.retainAll(property_id_filter_list);
-
-        // 대륙 필터
-        if ( continent != null ) {
-        	property_id_filter_list = dao.filterByContinent(continent);
-        	property_id_list.retainAll(property_id_filter_list);
-        }
-        // 나라 필터
-        if ( country != null ) {
-        	property_id_filter_list = dao.filterByCountry(country);
-        	property_id_list.retainAll(property_id_filter_list);
-        }
-        // 도시 필터
-        if ( city != null ) {
-        	property_id_filter_list = dao.filterByCity(city);
-        	property_id_list.retainAll(property_id_filter_list);
-        }
-        // 날짜 필터
-        if ( check_in != null && check_out != null ) {
-        	property_id_filter_list = dao.filterByDate(check_in, check_out);
-        	property_id_list.retainAll(property_id_filter_list);
-        }
-        // 침실 수 필터
-        if ( room != 0 ) {
-        	property_id_filter_list = dao.filterByRoom(room);
-        	property_id_list.retainAll(property_id_filter_list);
-        }
-        // 침대 수 필터
-        if ( bed != 0 ) {
-        	property_id_filter_list = dao.filterByBed(bed);
-        	property_id_list.retainAll(property_id_filter_list);
-        }
-        // 욕실 수 필터
-        if ( bath != 0 ) {
-        	property_id_filter_list = dao.filterByBath(bath);
-        	property_id_list.retainAll(property_id_filter_list);
-        }
-        // 편의시설 필터
-        if ( continent != null ) {
-        	
-        }
+	        // 모든 id 다 가져오기
+	        property_id_list = dao.getAllPropertyId();
+	        property_id_filter_list = dao.getAllPropertyId();
+	        
+	        // 가격 필터
+	        	property_id_filter_list = dao.filterByPrice(min_price, max_price);
+	        	property_id_list.retainAll(property_id_filter_list);
+	
+	        // 대륙 필터
+	        if ( continent != null ) {
+	        	property_id_filter_list = dao.filterByContinent(continent);
+	        	property_id_list.retainAll(property_id_filter_list);
+	        }
+	        // 나라 필터
+	        if ( country != null ) {
+	        	property_id_filter_list = dao.filterByCountry(country);
+	        	property_id_list.retainAll(property_id_filter_list);
+	        }
+	        // 도시 필터
+	        if ( city != null ) {
+	        	property_id_filter_list = dao.filterByCity(city);
+	        	property_id_list.retainAll(property_id_filter_list);
+	        }
+	        // 날짜 필터
+	        if ( check_in != null && check_out != null ) {
+	        	property_id_filter_list = dao.filterByDate(check_in, check_out);
+	        	property_id_list.retainAll(property_id_filter_list);
+	        }
+	        // 침실 수 필터
+	        if ( room != 0 ) {
+	        	property_id_filter_list = dao.filterByRoom(room);
+	        	property_id_list.retainAll(property_id_filter_list);
+	        }
+	        // 침대 수 필터
+	        if ( bed != 0 ) {
+	        	property_id_filter_list = dao.filterByBed(bed);
+	        	property_id_list.retainAll(property_id_filter_list);
+	        }
+	        // 욕실 수 필터
+	        if ( bath != 0 ) {
+	        	property_id_filter_list = dao.filterByBath(bath);
+	        	property_id_list.retainAll(property_id_filter_list);
+	        }
+	        // 편의시설 필터
+	        if ( amenities != null ) {
+	        	property_id_filter_list = dao.filterByAmenities(amenities);
+	        	property_id_list.retainAll(property_id_filter_list);
+	        }
         
-        
-    
-        
-        
+        }
+		catch(SQLException e) {
+			System.out.println("sql");
+			e.printStackTrace();
+		}
+		catch(IOException e) {
+			System.out.println("input, output");
+			e.printStackTrace();
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+		finally {
+			dao.closeCon();
+		}
         
         
         ActionForward forward = new ActionForward();
-        // request.setAttribute(); 이용해서 property_id로 된 list 담기
+        request.setAttribute("property_id_list", property_id_list);
         forward.setPath("/main_list.ma");
         forward.setRedirect(false);
         

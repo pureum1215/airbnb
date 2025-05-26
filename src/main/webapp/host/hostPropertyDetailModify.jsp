@@ -1,27 +1,87 @@
 
+<%@page import="java.util.ArrayList"%>
+<%@page import="java.util.List"%>
+<%@page import="hostPage.hostPropertyDetail.HostPropertyDetailVO"%>
+<%@page import="hostPage.hostPropertyDetail.HostPropertyDetailDAO"%>
 <%
 
+String propertyId = request.getParameter("propId");
+//propertyId를 통해서 
 
 
-// 더미 데이터 관련된 것들은 나중에 삭제 바랍니다.
-// 더미 데이터 선언 (Controller 또는 Servlet에서 전달받을 수도 있음)
-String listingTitle = "한옥 스테이 - 전주 한옥마을 중심";
-int bedrooms = 2;
-int beds = 2;
-int bathrooms = 1;
-int price = 100000;
-String description = "전통 한옥에서의 특별한 하루를 보내보세요.";
-String address = "전주시 완산구 풍남동3가";
-String thumbnailUrl = "https://img.gqkorea.co.kr/gq/2020/07/style_5f02a9fd0f28d.jpg";
 
-// 편의시설 리스트
-String[] amenities = {"Wi-Fi", "에어컨", "난방", "부엌", "샤워실", "헤어드라이기", "무료주차장", "수영장", "헬스장", "반려동물 가능"};
+HostPropertyDetailDAO dao = new HostPropertyDetailDAO();
 
-// 숙소가 소유한 편의시설
-String[] haveAmenities = {"Wi-Fi", "에어컨", "부엌", "샤워실", "수영장", "반려동물 가능"};
+HostPropertyDetailVO hvo1 = dao.hostProperty(propertyId); 
+//숙소 이름, 숙소 설명, 숙소 가격, 숙소 방 개수, 숙소 침대 수, 숙소 화장실 수, 숙소 승인 요청, 숙소 사진
 
-// 승인 요청 설정 ( true: 예약 요청, false: 즉시 예약)
+List<Integer> listAmentie = dao.propertyAm(propertyId);
+//숙소 편의시설 
+
+String address = dao.propertyLocation(propertyId);
+//숙소 주소
+
+String listingTitle = hvo1.getProperty_name();
+int rooms = hvo1.getProperty_room();
+int beds = hvo1.getProperty_bed();
+int bathrooms = hvo1.getProperty_bathroom();
+int price = hvo1.getPrice_per_night();
+String photo = hvo1.getProperty_photo_url();
+String description = hvo1.getProperty_description();
+//승인 요청 설정 ( true: 예약 요청, false: 즉시 예약)
 boolean requestReservation = true;
+
+String reservation_default ="예약 요청";
+if(hvo1.getProperty_reservation_default().equals("예약 요청")){
+	requestReservation = true;
+}else{
+	requestReservation = false;
+}
+
+//편의시설 리스트
+String[] amenities = { "Wi-Fi", "에어컨", "난방", "부엌", "샤워실", "헤어드라이기", "무료주차장", "수영장", "헬스장", "반려동물 가능"};
+
+//숙소가 소유한 편의시설
+List<String> haveAmenities = new ArrayList<>();
+
+for (Integer s : listAmentie) {
+	switch (s) {
+		case 1 :
+			haveAmenities.add("WI-FI");
+			break;
+		case 2 :
+			haveAmenities.add("에어컨");
+			break;
+		case 3 :
+			haveAmenities.add("난방");
+			break;
+		case 4 :
+			haveAmenities.add("부엌");
+			break;
+		case 5 :
+			haveAmenities.add("샤워실");
+			break;
+		case 6 :
+			haveAmenities.add("헤어드라이기");
+			break;
+		case 7 :
+			haveAmenities.add("무료주차장");
+			break;
+		case 8 :
+			haveAmenities.add("수영장");
+			break;
+		case 9 :
+			haveAmenities.add("헬스장");
+			break;
+		case 10 :
+			haveAmenities.add("반려동물 가능");
+			break;
+	}
+}
+
+String[] amenitiesArray = haveAmenities.toArray(new String[0]);
+
+
 %>
 
 
@@ -331,7 +391,35 @@ span.amenities:hover {
 			<h2 class="title">Listing</h2>
 			<!-- 관리 버튼 -->
 			<div class="btn-group">
-				<button class="btn-edit">수정 내용 저장</button>
+				<!--button class="btn-edit" onclick= "location.href='/hostDeatilAction.ho'">수정 내용 저장</button>  -->
+				<form action="hostDeatilAction.ho" method="post">
+				    <input type="hidden" name="listingTitle" value="<%= listingTitle %>">
+				    <input type="hidden" name="rooms" value="<%= rooms %>">
+				    <input type="hidden" name="beds" value="<%= beds %>">
+				    <input type="hidden" name="bathrooms" value="<%= bathrooms %>">
+				    <input type="hidden" name="price" value="<%= price %>">
+				    <input type="hidden" name="photo" value="<%= photo %>">
+				    <input type="hidden" name="description" value="<%= description %>">
+					<input type="hidden" name="address" value="<%=address %>">
+					<%
+						if(requestReservation){
+							//예약요청이 맞으면 true
+							reservation_default = "예약 요청";
+						}else{
+							reservation_default = "즉시 가능";
+						}
+					%>
+				    <%  // amenitiesArray 파라미터 추가
+				        for (String amenity : amenitiesArray) {
+				    %>
+				        <input type="hidden" name="amenitiesArray" value="<%= amenity %>">
+				    <% } %>
+				
+				    <input type="hidden" name="reservation_default" value="<%= reservation_default %>">
+				
+				    <button type="submit">수정하기</button>
+				</form>
+				
 			</div>
 		</div>
 
@@ -340,8 +428,7 @@ span.amenities:hover {
 		  <h2 class="title">대표 이미지 설정</h2>
 		
 		  <!-- 이미지 미리보기 -->
-		  <img id="previewImage" class="preview" 
-		       src="<%= thumbnailUrl %>" 
+		  <img id="previewImage" src="/uploads/<%=photo%>" alt="숙소 대표 이미지" class="preview"
 		       alt="이미지 미리보기" 
 		       style="max-width: 300px; display: block; margin-bottom: 10px;" />
 		
@@ -363,7 +450,7 @@ span.amenities:hover {
 		  <div class="countbox">
 		  	<div class="plusminus">
 			  	<button class="btn-count" onclick="changeCount('bedrooms', -1)" style="padding-bottom:3px;">-</button>
-			    <span id="bedrooms"><%=bedrooms%></span>
+			    <span id="bedrooms"><%=rooms%></span>
 			    <button class="btn-count" onclick="changeCount('bedrooms', 1)">+</button>
 		  	</div>
 		    <span style="border-top: 1px solid black">rooms</span>
@@ -443,8 +530,8 @@ span.amenities:hover {
 		    <%
 		    for (int i = 0; i < amenities.length; i++) {
 		      boolean haveAmenitiesCheck = false;
-		      for (int j = 0; j < haveAmenities.length; j++) {
-		        if (amenities[i].equals(haveAmenities[j])) {
+		      for (int j = 0; j < amenitiesArray.length; j++) {
+		        if (amenities[i].equals(amenitiesArray[j])) {
 		          haveAmenitiesCheck = true;
 		          break;
 		        }

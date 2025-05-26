@@ -135,6 +135,7 @@
 	.card-info-middle {
   		margin-top: 8px;
   		dispay: inline-block;
+  		display: flex;
 	}
 	
 	.card-info-footer {
@@ -145,7 +146,7 @@
 	}
 	
 	.card-info-property {
-
+ 		margin-left: 5px;
 	}
 	
 	.card-title {

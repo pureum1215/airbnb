@@ -75,12 +75,26 @@ th:last-child, td:last-child {
 	white-space: nowrap;
 }
 
+#toggleAdminBtn {
+	margin-top: 20px;
+	background-color: transparent;
+	border: none;
+	color: #FF385C;
+	font-weight: 600;
+	font-size: 14px;
+	cursor: pointer;
+}
+
+
 </style>
 </head>
 <body>
 <!-- 관리자 설정 섹션 -->
 	<div id="admin" class="section">
 		<h3>🔐 관리자 설정</h3>
+		<!-- 토글 버튼 -->
+		<button id="toggleAdminBtn" style="margin-top: 0;">더 보기</button>
+
 		<table>
 			<tr>
 				<th>이름</th>
@@ -89,30 +103,61 @@ th:last-child, td:last-child {
 				<th>상태</th>
 				<th>관리</th>
 			</tr>
-			<tr>
-				<td>관리자1</td>
-				<td>admin1@email.com</td>
-				<td>최고 관리자</td>
-				<td>활성</td>
+			<tr class="admin-row">
+				<td>예시_관리자1</td>
+				<td>예시_admin1@email.com</td>
+				<td>예시_최고 관리자</td>
+				<td>예시_활성</td>
 				<td class="actions"><button>삭제</button></td>
 			</tr>
-			<tr>
-				<td>관리자2</td>
-				<td>admin2@email.com</td>
-				<td>일반 관리자</td>
-				<td>활성</td>
+			<tr class="admin-row">
+				<td>예시_관리자2</td>
+				<td>예시_admin2@email.com</td>
+				<td>예시_일반 관리자</td>
+				<td>예시_활성</td>
 				<td class="actions"><button>삭제</button></td>
 			</tr>
-			<tr>
-				<td>관리자3</td>
-				<td>admin3@email.com</td>
-				<td>일반 관리자</td>
-				<td>비활성</td>
+			<tr class="admin-row">
+				<td>예시_관리자3</td>
+				<td>예시_admin3@email.com</td>
+				<td>예시_일반 관리자</td>
+				<td>예시_비활성</td>
 				<td class="actions"><button>삭제</button></td>
 			</tr>
+			<tr class="admin-row">
+				<td>예시_관리자4</td>
+				<td>예시_admin4@email.com</td>
+				<td>예시_일반 관리자</td>
+				<td>예시_활성</td>
+				<td class="actions"><button>삭제</button></td>
+			</tr>			
 		</table>
 		<br>
 		<button class="button">신규 관리자 추가</button>
 	</div>
+	
+	
+	
+	<script>
+	const toggleAdminBtn = document.getElementById('toggleAdminBtn');
+	const adminRows = document.querySelectorAll('.admin-row');
+	
+	// 처음 로드 시: 2개 이후는 숨김
+	adminRows.forEach((row, index) => {
+	  if (index >= 2) {
+	    row.style.display = 'none';
+	  }
+	});
+	
+	toggleAdminBtn.addEventListener('click', () => {
+	  const isExpanded = toggleAdminBtn.textContent === '접기';
+	  adminRows.forEach((row, index) => {
+	    if (index >= 2) {
+	      row.style.display = isExpanded ? 'none' : 'table-row';
+	    }
+	  });
+	  toggleAdminBtn.textContent = isExpanded ? '더 보기' : '접기';
+	});
+	</script>
 </body>
 </html>

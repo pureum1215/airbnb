@@ -88,16 +88,22 @@
     .login-link a:hover {
       text-decoration: underline;
     }
+    
+    #emailUniqueCheck {
+    	font-size: 12px;
+    	font-weight: bold;
+    }
   </style>
 </head>
 <body>
   <div class="container">
     <h1>회원가입</h1>
     <form action="${pageContext.request.contextPath}/registerProcess.me" method="post" onsubmit="return format()">
-      <div class="form-group">
-        <input type="email" name="user_email" placeholder="이메일" required>
+      <div class="form-group" style="margin-bottom:0px;">
+        <input type="email" id="emailInput" name="user_email" placeholder="이메일" required onkeyup="emailCheck()">
       </div>
-      <div class="form-group">
+      <span id="emailUniqueCheck"></span>
+      <div class="form-group" style="margin-top:16px;">
         <input type="text" name="user_name" placeholder="이름" required>
       </div>
       <div class="form-group">
@@ -120,8 +126,29 @@
     </div>
   </div>
   
+  <script src="../jquery-3.7.1.min.js"></script>  
   <script>
 	function format() {
+		
+		/***************** KJS- 수정 中 *************************************************************************/
+		
+		// 이메일 처리
+		/*
+		  const emailInput = document.getElementById("emailInput");
+
+		  if (true) {
+		    
+		  } else {
+		    alert("동일한 이메일 주소를 보유한 회원이 존재하여 가입할 수 없습니다.");
+		    return false;
+		  }
+		  */
+		if(idUniqueCheck) {
+			alert('아이디 유효성 검사 확인해 주세요.');
+		}
+		
+		/***************** KJS- 수정 中 *************************************************************************/
+		
 		// 전화번호 처리
 		  const phoneInput = document.getElementById("phoneInput");
 		  let phone = phoneInput.value.replace(/[^0-9]/g, "");
@@ -147,6 +174,52 @@
 		  }
 
 		  return true;
+	}
+	
+	
+	/****
+	* 아이디 유효성 검사, 비동기
+	****/
+	let idUniqueCheck = true;
+	function emailCheck() {
+		const emailInput = document.getElementById("emailInput");
+		idUniqueCheck = true;
+		
+		if(emailInput.value.length < 10) {
+			emailUniqueCheck.innerHTML = '';
+			return ;
+		} 
+		if(emailInput.value.indexOf('@') == -1) {
+			emailUniqueCheck.innerHTML = '';
+			return ;
+		}
+		if(emailInput.value.indexOf('.') == -1) {
+			emailUniqueCheck.innerHTML = '';
+			return ;
+		}
+		console.log('abc');
+		
+		$.ajax({
+			url: '${pageContext.request.contextPath}/member_idcheck.mia',
+			data: {
+				'member_email': emailInput.value
+			},
+			type: 'post',
+			dataType: 'json',
+			success: function(res) {
+				console.log(res);
+				const emailUniqueCheck = document.getElementById('emailUniqueCheck');
+				if(res.code === 200) {
+					emailUniqueCheck.style.color = 'green';
+					emailUniqueCheck.innerHTML = '🟢 사용이 가능한 아이디 입니다.';
+					idUniqueCheck = false;
+				} else if(res.code === 500) {
+					emailUniqueCheck.style.color = 'red';
+					emailUniqueCheck.innerHTML = '🔴 사용이 불가능한 아이디 입니다.'
+				}
+			}
+		})
+		
 	}
 	</script>
 </body>

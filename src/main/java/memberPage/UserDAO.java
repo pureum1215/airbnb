@@ -73,6 +73,29 @@ public class UserDAO {
 		return 0;
 	}
 	
+	public boolean userIDcheck(String email) {
+		String sql = "select * from user where user_email = ?";
+		
+		boolean kjs = true;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, email);
+			rs = pstmt.executeQuery(); //결과 담기
+			
+			if(rs.next()) {
+				kjs = false;
+			}
+			
+			
+		}
+		catch (Exception e){
+			e.printStackTrace();
+		}
+		
+		return kjs;
+		
+	}
 	
 	/*******************
 	 * 사용자 회원가입  성공시 True 실패시 false

@@ -35,6 +35,18 @@
     <url-pattern>*.hra</url-pattern>
   </servlet-mapping>
 	  
+	  
+ <!-- - - - - - - - - - - - - - - - - - - - - - - - - 
+	HostReservationAPI - 호스트 페이지에서 예약 목록 확인
+- - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <servlet>
+	<servlet-name>MemberIdCheckAPI</servlet-name>
+    <servlet-class>controller.api.member.MemberIdCheckAPI</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>MemberIdCheckAPI</servlet-name>
+    <url-pattern>*.mia</url-pattern>
+  </servlet-mapping>
 
 <!-- - - - - - - - - - - - - - - - - - - - - - - - - 
 	Member - 로그인, 회원가입

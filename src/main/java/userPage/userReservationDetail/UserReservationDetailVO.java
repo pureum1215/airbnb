@@ -117,16 +117,16 @@ public class UserReservationDetailVO {
 	public void setProperty_review_id(String property_review_id) {
 		this.property_review_id = property_review_id;
 	}
-	public String getUser_review_content() {
+	public String getProperty_review_content() {
 		return property_review_content;
 	}
-	public void setUser_review_content(String user_review_content) {
+	public void setProperty_review_content(String user_review_content) {
 		this.property_review_content = user_review_content;
 	}
-	public Timestamp getUser_review_created_at() {
+	public Timestamp setProperty_review_content() {
 		return property_review_created_at;
 	}
-	public void setUser_review_created_at(Timestamp user_review_created_at) {
+	public void setProperty_review_created_at(Timestamp user_review_created_at) {
 		this.property_review_created_at = user_review_created_at;
 	}
 	public String getReservation_id() {

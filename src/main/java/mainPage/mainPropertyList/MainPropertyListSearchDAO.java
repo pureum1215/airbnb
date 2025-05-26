@@ -2,6 +2,7 @@ package mainPage.mainPropertyList;
 
 import java.io.IOException;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -222,18 +223,41 @@ public class MainPropertyListSearchDAO {
 	}
 	
 	
+	// 날짜 필터
+	public List<String> filterByDate(Date check_in, Date check_out) throws SQLException, IOException {
+		System.out.println("filterByDate method 호출");
+		
+		List<String> list = new ArrayList<>();
+		
+		String sql = "SELECT property_id "
+				+ "FROM property p "
+				+ "WHERE NOT EXISTS (" 
+				+ "SELECT 1 "
+				+ "FROM reservation r " 
+				+ "WHERE r.property_id = p.property_id " 
+				+ "AND ((r.check_in < ? AND r.check_out > ?) " 
+				+ "OR (r.check_in >= ? AND r.check_in < ?) " 
+				+ "OR (r.check_out > ? AND r.check_out <= ?)))";
+		
+        pstmt = conn.prepareStatement(sql);
+        pstmt.setDate(1, check_out);
+        pstmt.setDate(2, check_in);
+        pstmt.setDate(3, check_in);
+        pstmt.setDate(4, check_out);
+        pstmt.setDate(5, check_in);
+        pstmt.setDate(6, check_out);
+        rs = pstmt.executeQuery();
+		
+        while (rs.next()) {
+        	String propertyId = rs.getString("property_id");
+            list.add(propertyId);
+        }
+		return list;
+	}
 	
 	
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
 	
 }

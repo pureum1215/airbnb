@@ -67,10 +67,10 @@ public class MainPropertySearchAction implements Action {
         	property_id_list.retainAll(property_id_filter_list);
         }
         // 날짜 필터
-//        if (  != null ) {
-//        	property_id_filter_list = dao.filterBy();
-//        	property_id_list.retainAll(property_id_filter_list);
-//        }
+        if ( check_in != null && check_out != null ) {
+        	property_id_filter_list = dao.filterByDate(check_in, check_out);
+        	property_id_list.retainAll(property_id_filter_list);
+        }
         // 침실 수 필터
         if ( room != 0 ) {
         	property_id_filter_list = dao.filterByRoom(room);

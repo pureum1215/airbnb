@@ -402,7 +402,7 @@ span.amenities:hover {
 		<!-- 대표 이미지 -->
 		<div class="header">
 		  <h2 class="title">대표 이미지 설정</h2>
-		
+			<input type="hidden" name="photo" value="<%= photo %>">
 		  <!-- 이미지 미리보기 -->
 		  <img id="previewImage" src="/uploads/<%=photo%>" alt="숙소 대표 이미지" class="preview"
 		       alt="이미지 미리보기" 
@@ -458,7 +458,7 @@ span.amenities:hover {
 			<h2 class="title">1박 가격</h2>
 			<div class="input-wrapper">
 				<div style="display: flex;align-items: center;">
-					<input type="text" class="input-text-price" value="<%=price %>" placeholder="금액을 입력하세요." name="listingName" />
+					<input type="text" class="input-text-price" value="<%=price %>" placeholder="금액을 입력하세요." name="price" />
 					<span style="font-size: 20px; margin-left: 10px;"> 원(KRW)</span>
 				</div>
 			</div>
@@ -468,7 +468,7 @@ span.amenities:hover {
 			<h2 class="title">위치</h2>
 			<div class="input-wrapper">
 				<div style="display: flex;align-items: center;">
-					<input type="text" class="input-text-address" value="<%=address %>" placeholder="숙소 위치를 입력하세요." name="listingName" />
+					<input type="text" class="input-text-address" value="<%=address %>" placeholder="숙소 위치를 입력하세요." name="address" />
 				</div>
 			</div>
 		</div>
@@ -496,15 +496,7 @@ span.amenities:hover {
 		    <%
 		    }
 		    %>
-		    <%
-			if(requestReservation){
-			//예약요청이 맞으면 true
-			reservation_default = "예약 요청";
-			}else{
-			reservation_default = "즉시 가능";
-			}
-			%>
-			 <input type="hidden" name="reservation_default" value="<%= reservation_default %>">
+			<input type="hidden" id="reservation_default" name="reservation_default" value="<%= requestReservation ? "예약 요청" : "즉시 가능" %>">
 		  </div>
 		</div>
 		
@@ -524,6 +516,7 @@ span.amenities:hover {
 		      if (haveAmenitiesCheck) {
 		    %>
 		      <span class="property-amenities toggle-amenity"><%=amenities[i]%></span>
+		  	  <input type="hidden" name="amenitiesArray" value="<%= amenities[i] %>">
 		    <%
 		      } else {
 		    %>
@@ -532,11 +525,7 @@ span.amenities:hover {
 		      }
 		    }
 		    %>
-		    <%  // amenitiesArray 파라미터 추가
-			for (String amenity : amenitiesArray) {
-			%>
-			<input type="hidden" name="amenitiesArray" value="<%= amenity %>">
-			<% } %>
+		    
 		  </div>
 		</div>
 
@@ -574,10 +563,11 @@ span.amenities:hover {
 	    });
 	  });
 
-	
+	  const hidden_reservation = document.getElementById('reservation_default');
 	
 	<!-- 승인요청설정 토글 -->
 	 function selectReserveType(clickedBtn) {
+		 
 	   const buttons = clickedBtn.parentElement.querySelectorAll("button");
 	
 	   buttons.forEach(btn => {
@@ -591,8 +581,10 @@ span.amenities:hover {
 	   // 클릭한 버튼에 강조 클래스 부여
 	   if (clickedBtn.textContent.includes("즉시 예약")) {
 	     clickedBtn.className = "btn-direct-ch";
+	     hidden_reservation.value = "즉시 가능";
 	   } else if (clickedBtn.textContent.includes("예약 요청")) {
 	     clickedBtn.className = "btn-request-ch";
+	     hidden_reservation.value = "예약 요청";
 	   }
 	 }
 	 
@@ -618,8 +610,9 @@ span.amenities:hover {
 	    const amenityInputs = document.querySelectorAll('input[name="amenitiesArray"]');
 	    const amenitiesArray = Array.from(amenityInputs).map(input => input.value);
 
-		
 	    const data = {
+	    	reservation_default: hidden_reservation.value,
+	    	photo: document.querySelector('input[name="photo"]').value,
 	    	propertyId: document.querySelector('input[name="propertyId"]').value,
 	        listingTitle: document.querySelector('input[name="listingName"]').value,
 	        rooms: document.getElementById("bedrooms").innerText,
@@ -628,17 +621,36 @@ span.amenities:hover {
 	        price: document.querySelector('.input-text-price').value,
 	        address: document.querySelector('.input-text-address').value,
 	        description: document.querySelector('textarea[name="listingDescription"]').value,
-	        reservation_default: document.getElementById("reservation_default"),
 	        amenitiesArray: amenitiesArray // 배열 추가
 	    };
 
-	    fetch("hostDeatilAction.ho", {
+	    fetch("hostDetailAction.ho", {
 	        method: "POST",
 	        headers: {
 	            "Content-Type": "application/json"
 	        },
 	        body: JSON.stringify(data)
 	    })
+	    .then(res => res.text())  // ⚠️ text()로 먼저 받아서
+.then(text => {
+    console.log("서버 응답 내용 확인 >>>");
+    console.log(text);  // 👉 실제 응답 내용 확인
+    try {
+        const result = JSON.parse(text);  // JSON 파싱 시도
+        if (result.success) {
+            alert("수정 완료!");
+        } else {
+            alert("수정 실패!");
+        }
+    } catch (e) {
+        console.error("⚠️ JSON 파싱 오류:", e);
+    }
+})
+.catch(error => {
+    console.error("오류 발생:", error);
+});
+	    
+/* 	    
 	    .then(res => res.json())
 	    .then(result => {
 	        if (result.success) {
@@ -649,7 +661,7 @@ span.amenities:hover {
 	    })
 	    .catch(error => {
 	        console.error("오류 발생:", error);
-	    });
+	    }); */
 	}
 	</script>
 

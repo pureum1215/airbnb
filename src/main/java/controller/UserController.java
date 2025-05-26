@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import userPage.userReservationDetail.UserReservationDetailAction;
 import userPage.userWishList.UserWishListAddAction;
 
 
@@ -52,16 +53,18 @@ public class UserController extends HttpServlet {
 		
 		Action action = null;
 		ActionForward forward = null;
+		forward = new ActionForward();
 	
 		/****************************** 
 		 * 페이지 이동 작성 구간
 		 *****************************/
 		HttpSession session = request.getSession(); // 세션 객체를 먼저 얻어와야 함
 		String userId = (String)session.getAttribute("user_id");
+		
 		if (command.equals("/wishlist_add.us")) {
 			action = new UserWishListAddAction();
-		}else if(command.equals("/userProfile.us")){
-			forward = new ActionForward();
+		}
+		else if(command.equals("/userProfile.us")){
 			if(userId!= null) {
 				forward.setPath("user/userProfile.jsp");
 				forward.setRedirect(false);
@@ -69,8 +72,8 @@ public class UserController extends HttpServlet {
 				forward.setPath("member/login.jsp");
 				forward.setRedirect(false);
 			}
-		}else if(command.equals("/userwishlist.us")) {
-			forward = new ActionForward();
+		}
+		else if(command.equals("/userwishlist.us")) {
 			if(userId!= null) {
 				forward.setPath("user/userWishList.jsp");
 				forward.setRedirect(false);
@@ -78,6 +81,9 @@ public class UserController extends HttpServlet {
 				forward.setPath("member/login.jsp");
 				forward.setRedirect(false);
 			}
+		}
+		else if (command.equals("/userReservationDetail.us")) {
+			action = new UserReservationDetailAction();
 		}
 		
 		

@@ -31,16 +31,16 @@ public class MainPropertyListAction implements Action {
 		
 		List<MainPropertyListVO> list = null;
 		
-		if ( property_id_list != null ) {
-			list = dao.getPropertyList(property_id_list, userId);
+		// property_id 없을 때, 
+		if ( property_id_list == null || property_id_list.isEmpty() ) {
+			property_id_list = dao.getAllPropertyId();
 		}
-		else {
-			list = dao.getAllPropertyList();
-		}
+
+		list = dao.getPropertyList(property_id_list, userId);
 				
 		
         ActionForward forward = new ActionForward();
-        request.setAttribute("property_id_load_list", property_id_list);
+        request.setAttribute("property_id_load_list", list);
         forward.setPath("/main_list.ma");
         forward.setRedirect(false);
         

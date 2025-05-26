@@ -1,3 +1,4 @@
+<%@page import="userPage.userReservationDetail.UserReservationDetailVO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -116,6 +117,10 @@
 </style>
 </head>
 <body>
+<%
+	UserReservationDetailVO vo = (UserReservationDetailVO) request.getAttribute("UserReservationDetailVO");
+	String UserId = (String) session.getAttribute("userId");
+%>
 	<div>
 		<%@ include file="userHeader.jsp"%>
 		<!-- 헤더는 그대로 -->
@@ -128,49 +133,56 @@
 			<div class="left-column">
 				<div class="card">
 					<div class="section-title gray">체크인</div>
-					<div class="bold">9월 11일 (월)</div>
+					<div class="bold"> <%=vo.getReservation_check_in() %> </div>
 					<div class="text-small">오후 4:00</div>
 					<hr
 						style="margin: 1rem 0; border: none; border-top: 1px solid #eee;" />
 					<div class="section-title gray">체크아웃</div>
-					<div class="bold">9월 15일 (금)</div>
+					<div class="bold"> <%=vo.getReservation_check_out() %> </div>
 					<div class="text-small">오전 11:00</div>
-				</div>
-				<div class="card">
-					<div class="section-title gray">예약 번호</div>
-					<div class="bold">HNXJAW282Z</div>
 				</div>
 				<div class="card">
 					<div class="section-title gray">결제 세부 정보</div>
 					<div class="bold">총 비용:</div>
-					<a href="#"
-						style="color: #0070f3; text-decoration: underline; font-size: 13px;">영수증
-						보기</a>
+					
+					
+					
+						<%-- null 일 경우, 다르게 출력 필요 --%>
+						
+						
+						
+						<%=vo.getPayment_price() %>
 				</div>
 			</div>
 
 			<!-- 오른쪽 영역 -->
 			<div class="right-column">
+			<a href="main_detail.ma?property_id=<%=vo.getProperty_id()%>" style="text-decoration: none; color: inherit;">
 				<div class="card">
 					<img
 						src="https://cdn.travie.com/news/photo/202102/21745_10248_2650.jpg"
 						alt="숙소 이미지" />
-					<div class="bold" style="margin-top: 0.5rem;">Naniwa Ward의 숙소</div>
-					<div class="gray">한국 Yesan-gun</div>
-					<div class="gray">79km 거리 · 6월 9일~14일</div>
+					<div class="bold" style="margin-top: 0.5rem;"> <%=vo.getProperty_name() %> </div>
+					<div class="gray"> <%=vo.getLocation_country() %> <%=vo.getLocation_city() %> </div>
 					<div class="gray"
-						style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">게스트
-						한마디 “조용하고 인테리어가 좋았습니다”</div>
-					<div class="bold" style="margin-top: 0.5rem;">₩23,374 /박</div>
+						style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+						<%=vo.getProperty_description() %>
+					</div>
+					<div class="bold" style="margin-top: 0.5rem;"> <%=vo.getPrice_per_night() %> </div>
 				</div>
+			</a>
+			<a href="hostProfile.ho?host_id=<%=vo.getHost_id()%>" style="text-decoration: none; color: inherit;">	
 				<div class="card">
-					<div class="section-title">호스트: Toshiko 님</div>
+					<div class="section-title">호스트: 
+						<%=vo.getUser_name() %>
+					</div>
 					<div class="host">
 						<img src="https://randomuser.me/api/portraits/women/1.jpg"
 							alt="호스트 사진" />
-						<div class="gray">일본, 오사카 거주. 게스트 응대에 친절하고 빠른 피드백을 주셨습니다.</div>
+						<div class="gray"> <%=vo.getHost_bio() %> </div>
 					</div>
 				</div>
+			</a>	
 
 
 <!-- ===========================리뷰 보여주는 카드 입니다. 참고하세요.(리뷰 등록 전, 후 두가지 case)=========================== -->
@@ -224,20 +236,20 @@
 			      <img src="https://cdn.travie.com/news/photo/202102/21745_10248_2650.jpg" 
 			           alt="숙소 사진" 
 			           style="width: 40px; height: 40px; border-radius: 50%; object-fit: cover;" />
-			      <div class="bold" style="font-size: 16px;">기흥 아늑한 집</div>
+			      <div class="bold" style="font-size: 16px;"> <%=vo.getProperty_name() %> </div>
 			    </div>
 			    <div style="display: flex; align-items: center; gap: 0.3rem; font-size: 16px; font-weight: bold;">
 			      <span style=" color: gold;">⭐</span>
-			      <span>4.85</span>
+			      <span> <%=vo.getProperty_review_rating() %> </span>
 			    </div>
 			  </div>
 			
 			  <!-- 중단: 리뷰 등록 날짜 -->
-			  <div class="text-small gray" style="font-size: 13px;">2025.05.21</div>
+			  <div class="text-small gray" style="font-size: 13px;"> <%=vo.getProperty_review_created_at() %> </div>
 			
 			  <!-- 하단: 리뷰 내용 -->
 			  <div style="font-size: 14px; line-height: 1.4;">
-			    너무 멋진 숙소입니다! 가족 단위의 게스트에게 추천합니다~
+			  		<%=vo.getProperty_review_content() %>
 			  </div>
 			</div>
 

@@ -37,7 +37,7 @@ public class UserReservationDetailVO {
 	private Date reservation_check_out;
 	
 	private String payment_id;
-	private String payment_price;
+	private int payment_price;
 	
 	public String getProperty_id() {
 		return property_id;
@@ -159,10 +159,10 @@ public class UserReservationDetailVO {
 	public void setPayment_id(String payment_id) {
 		this.payment_id = payment_id;
 	}
-	public String getPayment_price() {
+	public int getPayment_price() {
 		return payment_price;
 	}
-	public void setPayment_price(String payment_price) {
+	public void setPayment_price(int payment_price) {
 		this.payment_price = payment_price;
 	}
 	

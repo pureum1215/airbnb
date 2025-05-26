@@ -38,7 +38,7 @@ public class MainPropertySearchAction implements Action {
         
         MainPropertyListSearchDAO dao = new MainPropertyListSearchDAO();
         
-        // 필터로 한 번 걸러진 id와 새로운 필터에서 걸러진 내용을 비교, 새로운 filter_list에 id 담기
+        // 필터로 한 번 걸러진 id와 새로운 필터에서 걸러진 내용을 비교하여 공통, 새로운 filter_list에 id 담기
         // filter_list에 담으면 list 내용을 filter_list 내용으로 덮어쓰기
         // 반복
         
@@ -92,7 +92,7 @@ public class MainPropertySearchAction implements Action {
 	        }
 	        // 편의시설 필터
 	        if ( amenities != null ) {
-	        	property_id_filter_list = dao.filterByAmenities(amenities);
+	        	property_id_filter_list = dao.filterByAmenities(amenities, dao);
 	        	property_id_list.retainAll(property_id_filter_list);
 	        }
         

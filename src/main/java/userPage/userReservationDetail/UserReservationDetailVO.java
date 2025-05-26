@@ -28,8 +28,8 @@ public class UserReservationDetailVO {
 	private String host_bio;
 	
 	private String property_review_id;
-	private String user_review_content;
-	private Timestamp user_review_created_at;
+	private String property_review_content;
+	private Timestamp property_review_created_at;
 	
 	private String reservation_id;
 	private String user_id;
@@ -118,16 +118,16 @@ public class UserReservationDetailVO {
 		this.property_review_id = property_review_id;
 	}
 	public String getUser_review_content() {
-		return user_review_content;
+		return property_review_content;
 	}
 	public void setUser_review_content(String user_review_content) {
-		this.user_review_content = user_review_content;
+		this.property_review_content = user_review_content;
 	}
 	public Timestamp getUser_review_created_at() {
-		return user_review_created_at;
+		return property_review_created_at;
 	}
 	public void setUser_review_created_at(Timestamp user_review_created_at) {
-		this.user_review_created_at = user_review_created_at;
+		this.property_review_created_at = user_review_created_at;
 	}
 	public String getReservation_id() {
 		return reservation_id;

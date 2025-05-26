@@ -50,7 +50,8 @@ public class UserReservationDetailDAO {
 		System.out.println("reservationList method 호출");
 		
 		UserReservationDetailVO vo = new UserReservationDetailVO();
-		String sql = "SELECT r.property_id, p.property_name, p.property_photo_url, p.price_per_night"
+		String sql = "SELECT r.property_id, p.property_name, p.property_photo_url, "
+				+ "p.price_per_night, p.property_description"
 				+ "l.location_country, l.location_city, "
 				+ "h.host_id, u.user_name, h.host_bio, "
 				+ "r.reservation_check_in, r.reservation_check_out, "
@@ -75,6 +76,7 @@ public class UserReservationDetailDAO {
 				vo.setProperty_id(rs.getString("property_id"));
 				vo.setProperty_photo_url(rs.getString("property_photo_url"));
 				vo.setProperty_name(rs.getString("property_name"));
+				vo.setProperty_description(rs.getString("property_description"));
 				vo.setLocation_country(rs.getString("location_country"));
 				vo.setLocation_city(rs.getString("location_city"));
 				vo.setPrice_per_night(rs.getInt("price_per_night"));

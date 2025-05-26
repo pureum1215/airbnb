@@ -20,7 +20,7 @@ public class UserReservationDetailVO {
 	private String location_id;
 	private String location_city;
 	private String location_country;
-	private String location_detail;
+	private String property_description;
 	private int price_per_night;
 	
 	private String host_id;
@@ -81,11 +81,11 @@ public class UserReservationDetailVO {
 	public void setLocation_country(String location_country) {
 		this.location_country = location_country;
 	}
-	public String getLocation_detail() {
-		return location_detail;
+	public String getProperty_description() {
+		return property_description;
 	}
-	public void setLocation_detail(String location_detail) {
-		this.location_detail = location_detail;
+	public void setProperty_description(String property_description) {
+		this.property_description = property_description;
 	}
 	public int getPrice_per_night() {
 		return price_per_night;
@@ -120,14 +120,14 @@ public class UserReservationDetailVO {
 	public String getProperty_review_content() {
 		return property_review_content;
 	}
-	public void setProperty_review_content(String user_review_content) {
-		this.property_review_content = user_review_content;
+	public void setProperty_review_content(String property_review_content) {
+		this.property_review_content = property_review_content;
 	}
-	public Timestamp setProperty_review_content() {
+	public Timestamp getProperty_review_created_at() {
 		return property_review_created_at;
 	}
-	public void setProperty_review_created_at(Timestamp user_review_created_at) {
-		this.property_review_created_at = user_review_created_at;
+	public void setProperty_review_created_at(Timestamp property_review_created_at) {
+		this.property_review_created_at = property_review_created_at;
 	}
 	public String getReservation_id() {
 		return reservation_id;
@@ -164,19 +164,6 @@ public class UserReservationDetailVO {
 	}
 	public void setPayment_price(int payment_price) {
 		this.payment_price = payment_price;
-	}
-	
-	@Override
-	public String toString() {
-		return "UserReservationDetailVO [property_id=" + property_id + ", property_photo_url=" + property_photo_url
-				+ ", property_name=" + property_name + ", property_review_rating=" + property_review_rating
-				+ ", location_id=" + location_id + ", location_city=" + location_city + ", location_country="
-				+ location_country + ", location_detail=" + location_detail + ", price_per_night=" + price_per_night
-				+ ", host_id=" + host_id + ", user_name=" + user_name + ", host_bio=" + host_bio
-				+ ", property_review_id=" + property_review_id + ", user_review_content=" + property_review_content
-				+ ", user_review_created_at=" + property_review_created_at + ", reservation_id=" + reservation_id
-				+ ", user_id=" + user_id + ", reservation_check_in=" + reservation_check_in + ", reservation_check_out="
-				+ reservation_check_out + ", payment_id=" + payment_id + ", payment_price=" + payment_price + "]";
 	}
 		
 }

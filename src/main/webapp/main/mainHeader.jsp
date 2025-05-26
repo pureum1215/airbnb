@@ -7,11 +7,9 @@
 <title>mainHeader</title>
 
 <!-- 외부 라이브러리 -->
-<link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
-<link rel="stylesheet"
-	href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
-
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+	
 <style>
 /* === 공통 스타일 === */
 body {
@@ -224,6 +222,12 @@ body {
 	color: #222;
 }
 
+.counter button:active {
+	transform: scale(0.96);		
+	background: #F5F5F5;
+	box-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
+}
+
 .counter button.disabled {
 	opacity: 0.4;
 	cursor: not-allowed;
@@ -301,6 +305,7 @@ body {
 .counter-group {
 	display: flex;
 	flex-direction: column;
+	justify-content: center;
 	align-items: center;
 	font-size: 13px;
 }
@@ -320,7 +325,14 @@ body {
 	border-radius: 20px;
 	font-size: 13px;
 	cursor: pointer;
-	transition: background 0.2s ease;
+	transition: background 0.2s ease, color 0.2s ease;
+}
+
+/* 선택된 상태일 때 */
+.amenity-btn.selected {
+	background-color: #d0ebff; /* 밝은 파란색 */
+	border-color: #74c0fc;
+	color: #1c7ed6;
 }
 
 .amenity-btn:hover {
@@ -614,28 +626,28 @@ body {
               </div>
               <div class="bedroom-controls">
                 <div class="counter-group">
-                  <div class="label">침실</div>
-                  <div class="counter">
-                  <button data-type="bedroom" data-action="decrease" onclick="updateCount('bedroom', -1)">-</button>
-                  <span id="bedroomCount">상관없음</span>
-                  <button data-type="bedroom" data-action="increase" onclick="updateCount('bedroom', 1)">+</button>
-                  </div>
+                  <div class="label" style=" width: 136px; display:flex; align-items:center; justify-content: center;">침실</div>
+                  <div class="counter" style="width: 136px; display: flex; align-items: center; justify-content: space-between;">
+                  <button onclick="decreaseBedroom()">-</button>
+                  <span id="bedroomCount" style="flex: 1; text-align: center;">상관없음</span>
+                  <button onclick="increaseBedroom()">+</button>
+                </div>
                 </div>
                 <div class="counter-group">
-                  <div class="label">침대</div>
-                  <div class="counter">
-                  <button data-type="bed" data-action="decrease" onclick="updateCount('bed', -1)">-</button>
-                  <span id="bedCount">상관없음</span>
-                  <button data-type="bed" data-action="increase" onclick="updateCount('bed', 1)">+</button>
-                  </div>
+                  <div class="label" style="width: 136px; display:flex; align-items:center; justify-content: center;">침대</div>
+                  <div class="counter" style="width: 136px; display: flex; align-items: center; justify-content: space-between;">
+                  <button onclick="decreaseBed()">-</button>
+                  <span id="bedCount" style="flex: 1; text-align: center;">상관없음</span>
+                  <button onclick="increaseBed()">+</button>
+                </div>
                 </div>
                 <div class="counter-group">
-                  <div class="label">욕실</div>
-                  <div class="counter">
-                  <button data-type="bathroom" data-action="decrease" onclick="updateCount('bathroom', -1)">-</button>
-                  <span id="bathroomCount">상관없음</span>
-                  <button data-type="bathroom" data-action="increase" onclick="updateCount('bathroom', 1)">+</button>
-                  </div>
+                  <div class="label" style=" width: 136px; display:flex; align-items:center; justify-content: center;">욕실</div>
+                  <div class="counter" style="width: 136px; display: flex; align-items: center; justify-content: space-between;">
+                  <button onclick="decreaseBathroom()">-</button>
+                  <span id="bathCount" style="flex: 1; text-align: center;">상관없음</span>
+                  <button onclick="increaseBathroom()">+</button>
+                </div>
                 </div>
               </div>
             </div>
@@ -646,17 +658,73 @@ body {
                 <div class="label">편의시설</div>
               </div>
               <div class="amenities">
-                <button class="amenity-btn">❄️ 에어컨</button>
-                <button class="amenity-btn">📶 와이파이</button>
-                <button class="amenity-btn">📺 TV</button>
-                <button class="amenity-btn">🧺 대형 욕조</button>
-                <button class="amenity-btn">🌀 건조기</button>
-                <button class="amenity-btn">🔥 난방</button>
-              </div>
+	              <button class="amenity-btn" onclick="toggleAmenity(this)">📶 와이파이</button>
+	              <button class="amenity-btn" onclick="toggleAmenity(this)">❄️ 에어컨</button>
+	              <button class="amenity-btn" onclick="toggleAmenity(this)">🔥 난방</button>
+	              <button class="amenity-btn" onclick="toggleAmenity(this)">🍳 부엌</button>
+	              <button class="amenity-btn" onclick="toggleAmenity(this)">🚿 샤워실</button>
+	              <button class="amenity-btn" onclick="toggleAmenity(this)">💇‍♀️ 헤어드라이기</button>
+	              <button class="amenity-btn" onclick="toggleAmenity(this)">🅿️ 무료주차장</button>
+	              <button class="amenity-btn" onclick="toggleAmenity(this)">🏊 수영장</button>
+	              <button class="amenity-btn" onclick="toggleAmenity(this)">🏋️ 헬스장</button>
+	              <button class="amenity-btn" onclick="toggleAmenity(this)">🐶 반려동물</button>
+	          </div>
             </div>
           </div>
         `;
       }
+   
+   /* 편의시설 토글 function */
+		function toggleAmenity(button) {
+		  button.classList.toggle("selected");
+		}
+   
+   
+	function updateDisplay(count, elementId) {
+	   const element = document.getElementById(elementId);
+	   element.textContent = count === 0 ? "상관없음" : count;
+	 }
+
+	 // 초기 값들
+	 let bedroom = 0;
+	 let bed = 0;
+	 let bath = 0;
+
+	 // 침실
+	 function increaseBedroom() {
+	   bedroom++;
+	   updateDisplay(bedroom, "bedroomCount");
+	 }
+
+	 function decreaseBedroom() {
+	   if (bedroom > 0) bedroom--;
+	   updateDisplay(bedroom, "bedroomCount");
+	 }
+
+	 // 침대
+	 function increaseBed() {
+	   bed++;
+	   updateDisplay(bed, "bedCount");
+	 }
+
+	 function decreaseBed() {
+	   if (bed > 0) bed--;
+	   updateDisplay(bed, "bedCount");
+	 }
+
+	 // 욕실
+	 function increaseBathroom() {
+	   bath++;
+	   updateDisplay(bath, "bathCount");
+	 }
+
+	 function decreaseBathroom() {
+	   if (bath > 0) bath--;
+	   updateDisplay(bath, "bathCount");
+	 }
+   
+   
+   
       // === 필터 제어용 함수 ===
       function updatePriceDisplay() {
           let min = parseInt(document.getElementById('priceMin').value);
@@ -673,27 +741,6 @@ body {
            document.getElementById('priceMaxDisplay').textContent = '₩' + max.toLocaleString() + (max >= 220000 ? '+' : '');
       }
 
-      const counts = {
-           bedroom: 0,
-           bed: 0,
-           bathroom: 0
-      };
-
-      function updateCount(type, delta) {
-         counts[type] = Math.max(0, counts[type] + delta);
-         const label = counts[type] === 0 ? '상관없음' : counts[type];
-         document.getElementById(`${type}Count`).textContent = label;
-
-         // 버튼 상태 업데이트
-         const minusBtn = document.querySelector(`.counter button[data-type="${type}"][data-action="decrease"]`);
-         if (counts[type] === 0) {
-           minusBtn.disabled = true;
-           minusBtn.classList.add('disabled');
-         } else {
-           minusBtn.disabled = false;
-           minusBtn.classList.remove('disabled');
-         }
-      }
 
 
    // === Search Bar 클릭 이벤트 처리 ===

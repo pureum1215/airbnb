@@ -75,32 +75,62 @@ th:last-child, td:last-child {
 	white-space: nowrap;
 }
 
+#toggleListingBtn {
+	margin-top: 20px;
+	background-color: transparent;
+	border: none;
+	color: #FF385C;
+	font-weight: 600;
+	font-size: 14px;
+	cursor: pointer;
+}
+
 </style>
 </head>
 <body>
 	<!-- 숙소 관리 섹션 -->
 	<div id="listings" class="section">
 		<h3>🏠 숙소 관리</h3>
-		<table>
+		<!-- 토글 버튼 -->
+		<button id="toggleListingBtn" style="margin-top: 0;">더 보기</button>
+		<table id="listingTable">
 			<tr>
 				<th>숙소명</th>
 				<th>호스트</th>
 				<th>상태</th>
 				<th>관리</th>
 			</tr>
-			<tr>
-				<td>서울 감성하우스</td>
-				<td>박호스트</td>
-				<td>활성</td>
+			<tr class="listing-row">
+				<td>예시_숙소명1</td>
+				<td>예시_호스트1</td>
+				<td>예시_활성</td>
 				<td class="actions">
 					<button>삭제</button>
 					<button>상세보기</button>
 				</td>
 			</tr>
-			<tr>
-				<td>제주 해변민박</td>
-				<td>이호스트</td>
-				<td>삭제됨</td>
+			<tr class="listing-row">
+				<td>예시_숙소명2</td>
+				<td>예시_호스트2</td>
+				<td>예시_삭제됨</td>
+				<td class="actions">
+					<button>삭제</button>
+					<button>상세보기</button>
+				</td>
+			</tr>
+			<tr class="listing-row">
+				<td>예시_숙소명3</td>
+				<td>예시_호스트3</td>
+				<td>예시_활성</td>
+				<td class="actions">
+					<button>삭제</button>
+					<button>상세보기</button>
+				</td>
+			</tr>
+			<tr class="listing-row">
+				<td>예시_숙소명4</td>
+				<td>예시_호스트4</td>
+				<td>예시_삭제됨</td>
 				<td class="actions">
 					<button>삭제</button>
 					<button>상세보기</button>
@@ -108,5 +138,28 @@ th:last-child, td:last-child {
 			</tr>
 		</table>
 	</div>
+	
+	<script>
+	const toggleListingBtn = document.getElementById('toggleListingBtn');
+	const listingRows = document.querySelectorAll('.listing-row');
+	
+	// 처음 로드 시: 2개 이후는 숨김
+	listingRows.forEach((row, index) => {
+	  if (index >= 2) {
+	    row.style.display = 'none';
+	  }
+	});
+	
+	toggleListingBtn.addEventListener('click', () => {
+	  const isExpanded = toggleListingBtn.textContent === '접기';
+	  listingRows.forEach((row, index) => {
+	    if (index >= 2) {
+	      row.style.display = isExpanded ? 'none' : 'table-row';
+	    }
+	  });
+	  toggleListingBtn.textContent = isExpanded ? '더 보기' : '접기';
+	});
+	</script>
+	
 </body>
 </html>

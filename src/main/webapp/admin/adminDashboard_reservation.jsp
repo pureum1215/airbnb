@@ -75,13 +75,26 @@ th:last-child, td:last-child {
 	white-space: nowrap;
 }
 
+#toggleReservationBtn {
+	margin-top: 20px;
+	background-color: transparent;
+	border: none;
+	color: #FF385C;
+	font-weight: 600;
+	font-size: 14px;
+	cursor: pointer;
+}
+
 </style>
 </head>
 <body>
 	<!-- 예약 관리 섹션 -->
 	<div id="bookings" class="section">
 		<h3>📅 예약 관리</h3>
-		<table>
+		<!-- 토글 버튼 -->
+		<button id="toggleReservationBtn" style="margin-top: 0;">더 보기</button>
+		
+		<table id="reservationTable">
 			<tr>
 				<th>예약번호</th>
 				<th>숙소</th>
@@ -89,21 +102,41 @@ th:last-child, td:last-child {
 				<th>상태</th>
 				<th>관리</th>
 			</tr>
-			<tr>
-				<td>#A123</td>
-				<td>서울 감성하우스</td>
-				<td>김유저</td>
-				<td>진행중</td>
+			<tr class="reservation-row">
+				<td>예시_#A123</td>
+				<td>예시_숙소1</td>
+				<td>예시_유저1</td>
+				<td>예시_진행중</td>
 				<td class="actions">
 					<button>취소</button>
 					<button>환불</button>
 				</td>
 			</tr>
-			<tr>
-				<td>#A124</td>
-				<td>제주 해변민박</td>
-				<td>최게스트</td>
-				<td>환불됨</td>
+			<tr class="reservation-row">
+				<td>예시_#A124</td>
+				<td>예시_숙소2</td>
+				<td>예시_유저2</td>
+				<td>예시_환불됨</td>
+				<td class="actions">
+					<button>취소</button>
+					<button>환불</button>
+				</td>
+			</tr>
+			<tr class="reservation-row">
+				<td>예시_#A125</td>
+				<td>예시_숙소3</td>
+				<td>예시_유저3</td>
+				<td>예시_진행중</td>
+				<td class="actions">
+					<button>취소</button>
+					<button>환불</button>
+				</td>
+			</tr>
+			<tr class="reservation-row">
+				<td>예시_#A126</td>
+				<td>예시_숙소4</td>
+				<td>예시_유저4</td>
+				<td>예시_진행중</td>
 				<td class="actions">
 					<button>취소</button>
 					<button>환불</button>
@@ -111,5 +144,27 @@ th:last-child, td:last-child {
 			</tr>
 		</table>
 	</div>
+	
+	<script>
+	const toggleReservationBtn = document.getElementById('toggleReservationBtn');
+	const reservationRows = document.querySelectorAll('.reservation-row');
+	
+	// 처음 로드 시: 2개 이후는 숨김
+	reservationRows.forEach((row, index) => {
+	  if (index >= 2) {
+	    row.style.display = 'none';
+	  }
+	});
+	
+	toggleReservationBtn.addEventListener('click', () => {
+	  const isExpanded = toggleReservationBtn.textContent === '접기';
+	  reservationRows.forEach((row, index) => {
+	    if (index >= 2) {
+	      row.style.display = isExpanded ? 'none' : 'table-row';
+	    }
+	  });
+	  toggleReservationBtn.textContent = isExpanded ? '더 보기' : '접기';
+	});
+	</script>
 </body>
 </html>

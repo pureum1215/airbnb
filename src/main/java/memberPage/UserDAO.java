@@ -81,7 +81,7 @@ public class UserDAO {
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, email);
-			rs = pstmt.executeQuery(); //결과 담기
+			rs = pstmt.executeQuery(); //결과 담기(ResultSet)
 			
 			if(rs.next()) {
 				kjs = false;

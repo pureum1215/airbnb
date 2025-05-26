@@ -181,11 +181,11 @@
 	* 아이디 유효성 검사, 비동기
 	****/
 	let idUniqueCheck = true;
+	const emailInput = document.getElementById("emailInput");
 	function emailCheck() {
-		const emailInput = document.getElementById("emailInput");
 		idUniqueCheck = true;
 		
-		if(emailInput.value.length < 10) {
+		if(emailInput.value.length < 5) {
 			emailUniqueCheck.innerHTML = '';
 			return ;
 		} 
@@ -197,7 +197,7 @@
 			emailUniqueCheck.innerHTML = '';
 			return ;
 		}
-		console.log('abc');
+		
 		
 		$.ajax({
 			url: '${pageContext.request.contextPath}/member_idcheck.mia',
@@ -207,7 +207,6 @@
 			type: 'post',
 			dataType: 'json',
 			success: function(res) {
-				console.log(res);
 				const emailUniqueCheck = document.getElementById('emailUniqueCheck');
 				if(res.code === 200) {
 					emailUniqueCheck.style.color = 'green';
@@ -215,10 +214,10 @@
 					idUniqueCheck = false;
 				} else if(res.code === 500) {
 					emailUniqueCheck.style.color = 'red';
-					emailUniqueCheck.innerHTML = '🔴 사용이 불가능한 아이디 입니다.'
+					emailUniqueCheck.innerHTML = '🔴 사용이 불가능한 아이디 입니다.';
 				}
 			}
-		})
+		});
 		
 	}
 	</script>

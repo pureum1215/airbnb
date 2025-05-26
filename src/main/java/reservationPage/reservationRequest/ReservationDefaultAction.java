@@ -13,7 +13,7 @@ public class ReservationDefaultAction implements Action {
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		
-		System.out.println("execute 호출됨");
+		System.out.println("DefaultAction execute 호출됨");
 		
 		request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");

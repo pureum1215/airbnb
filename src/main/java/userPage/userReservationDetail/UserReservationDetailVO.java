@@ -173,8 +173,8 @@ public class UserReservationDetailVO {
 				+ ", location_id=" + location_id + ", location_city=" + location_city + ", location_country="
 				+ location_country + ", location_detail=" + location_detail + ", price_per_night=" + price_per_night
 				+ ", host_id=" + host_id + ", user_name=" + user_name + ", host_bio=" + host_bio
-				+ ", property_review_id=" + property_review_id + ", user_review_content=" + user_review_content
-				+ ", user_review_created_at=" + user_review_created_at + ", reservation_id=" + reservation_id
+				+ ", property_review_id=" + property_review_id + ", user_review_content=" + property_review_content
+				+ ", user_review_created_at=" + property_review_created_at + ", reservation_id=" + reservation_id
 				+ ", user_id=" + user_id + ", reservation_check_in=" + reservation_check_in + ", reservation_check_out="
 				+ reservation_check_out + ", payment_id=" + payment_id + ", payment_price=" + payment_price + "]";
 	}

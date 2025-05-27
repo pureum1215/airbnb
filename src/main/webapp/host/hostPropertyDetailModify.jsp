@@ -555,10 +555,17 @@ span.amenities:hover {
 		
 
 	<!-- 편의시설 토글 스크립트 -->
+
+	
+	
+	
+	/*****************
+	* 편의시설, Button 클릭 Event 생성 및 onClick Event
+	*****************/
 	  document.querySelectorAll('.toggle-amenity').forEach(el => {
 	    el.addEventListener('click', e => {
-	    	console.log('abc');
-	    	console.log(this);
+	    	
+	    	//선택 값 변경하기
 	    	const targetObj = e.target.getAttribute("data-property-amenities");
 	    	if(targetObj == 'true') {
 	    		e.target.setAttribute('data-property-amenities', 'false');

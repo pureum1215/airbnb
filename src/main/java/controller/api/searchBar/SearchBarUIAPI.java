@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
 
-import mainPage.mainPropertyList.MainPropertySearchBarAction;
+import mainPage.SearchBar.SearchBarUIAction;
 import util.ResponseData;
 
 
@@ -34,8 +34,8 @@ public class SearchBarUIAPI extends HttpServlet {
 		Gson gson = new Gson();
 		ResponseData responseData = null;
 	
-		if (command.equals("/property_search_bar.psa")) {
-			MainPropertySearchBarAction action = new MainPropertySearchBarAction();
+		if (command.equals("/search_bar_ui.sua")) {
+			SearchBarUIAction action = new SearchBarUIAction();
 			responseData = action.execute(request, response);
 		}
 		

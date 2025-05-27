@@ -514,12 +514,11 @@ span.amenities:hover {
 		      }
 		      if (haveAmenitiesCheck) {
 		    %>
-		      <span class="property-amenities toggle-amenity"><%=amenities[i]%></span>
-		  	  <input type="hidden" name="amenitiesArray" value="<%= amenities[i] %>">
+		      <span class="property-amenities toggle-amenity" data-property-amenities="true"><%=amenities[i]%></span>
 		    <%
 		      } else {
 		    %>
-		      <span class="amenities toggle-amenity"><%=amenities[i]%></span>
+		      <span class="amenities toggle-amenity" data-property-amenities="false"><%=amenities[i]%></span>
 		    <%
 		      }
 		    }
@@ -556,8 +555,24 @@ span.amenities:hover {
 		
 
 	<!-- 편의시설 토글 스크립트 -->
+
+	
+	
+	
+	/*****************
+	* 편의시설, Button 클릭 Event 생성 및 onClick Event
+	*****************/
 	  document.querySelectorAll('.toggle-amenity').forEach(el => {
-	    el.addEventListener('click', () => {
+	    el.addEventListener('click', e => {
+	    	
+	    	//선택 값 변경하기
+	    	const targetObj = e.target.getAttribute("data-property-amenities");
+	    	if(targetObj == 'true') {
+	    		e.target.setAttribute('data-property-amenities', 'false');
+	    	} else {
+	    		e.target.setAttribute('data-property-amenities', 'true');
+	    	}
+	    	
 	      el.classList.toggle('property-amenities');
 	      el.classList.toggle('amenities');
 	    });
@@ -607,12 +622,13 @@ span.amenities:hover {
 	 
 	function sendPropertyData2() {
 		
-		alert('1')
 		// amenitiesArray 수집
-	    const amenityInputs = document.querySelectorAll('input[name="amenitiesArray"]');
-	    const amenitiesArray = Array.from(amenityInputs).map(input => input.value);
-	    alert('4');
-	    console.log('test ',amenitiesArray);
+	    const amenitySpans = document.querySelectorAll('span[data-property-amenities="true"]');
+		let amenitiesArray = [];
+		for(let i=0; i< amenitySpans.length; i++) {
+			let target = amenitySpans[i].innerText;
+			amenitiesArray.push(target);
+		}
 
 	    const data = {
 	    	reservation_default: hidden_reservation.value,
@@ -625,8 +641,13 @@ span.amenities:hover {
 	        price: document.querySelector('.input-text-price').value,
 	        address: document.querySelector('.input-text-address').value,
 	        description: document.querySelector('textarea[name="listingDescription"]').value,
-	        amenitiesArray: amenitiesArray // 배열 추가
+	        amenitiesArray: amenitiesArray.join(',') // 배열 추가
 	    };
+	    
+	    
+	    console.log('data', data);
+	    
+	    
 		$.ajax({
 			type : 'post',
 			data : data,

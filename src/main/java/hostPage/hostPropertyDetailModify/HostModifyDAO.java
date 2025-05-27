@@ -67,6 +67,8 @@ public class HostModifyDAO {
 			pstmt.setString(8, vo.getProperty_photo_url());
 			pstmt.setString(9, vo.getProperty_id());
 			result = pstmt.executeUpdate();
+			
+			return result;
 		} catch (Exception e) {
 			e.printStackTrace();
 		} 

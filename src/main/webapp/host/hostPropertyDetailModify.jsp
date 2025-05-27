@@ -100,7 +100,6 @@ String formattedPrice = formatter.format(price); // 100000 → "100,000"
 <html>
 <head>
 <title><%=listingTitle%> - 숙소 세부 정보</title>
-<link rel="stylesheet" href="/css/style.css" />
 <style>
 body {
 	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
@@ -394,7 +393,7 @@ span.amenities:hover {
 			<!-- 관리 버튼 -->
 			<div class="btn-group">
 				<input type="hidden" name="propertyId" value="<%= propertyId %>">
-				<button onclick="sendPropertyData()">수정하기</button>
+				<button onclick="sendPropertyData2()">수정하기</button>
 				
 			</div>
 		</div>
@@ -536,6 +535,7 @@ span.amenities:hover {
 		<%@ include file="hostFooter.jsp"%>
 	</div>
 
+ 	<script src="../jquery-3.7.1.min.js"></script>  
 
 	<script>
 		const imageInput = document.getElementById("imageInput");
@@ -603,12 +603,16 @@ span.amenities:hover {
 	    }
 	  }
 	 
+
 	 
-	function sendPropertyData() {
+	function sendPropertyData2() {
 		
+		alert('1')
 		// amenitiesArray 수집
 	    const amenityInputs = document.querySelectorAll('input[name="amenitiesArray"]');
 	    const amenitiesArray = Array.from(amenityInputs).map(input => input.value);
+	    alert('4');
+	    console.log('test ',amenitiesArray);
 
 	    const data = {
 	    	reservation_default: hidden_reservation.value,
@@ -623,45 +627,15 @@ span.amenities:hover {
 	        description: document.querySelector('textarea[name="listingDescription"]').value,
 	        amenitiesArray: amenitiesArray // 배열 추가
 	    };
-
-	    fetch("hostDetailAction.ho", {
-	        method: "POST",
-	        headers: {
-	            "Content-Type": "application/json"
-	        },
-	        body: JSON.stringify(data)
-	    })
-	    .then(res => res.text())  // ⚠️ text()로 먼저 받아서
-.then(text => {
-    console.log("서버 응답 내용 확인 >>>");
-    console.log(text);  // 👉 실제 응답 내용 확인
-    try {
-        const result = JSON.parse(text);  // JSON 파싱 시도
-        if (result.success) {
-            alert("수정 완료!");
-        } else {
-            alert("수정 실패!");
-        }
-    } catch (e) {
-        console.error("⚠️ JSON 파싱 오류:", e);
-    }
-})
-.catch(error => {
-    console.error("오류 발생:", error);
-});
-	    
-/* 	    
-	    .then(res => res.json())
-	    .then(result => {
-	        if (result.success) {
-	            alert("수정 완료!");
-	        } else {
-	            alert("수정 실패!");
-	        }
-	    })
-	    .catch(error => {
-	        console.error("오류 발생:", error);
-	    }); */
+		$.ajax({
+			type : 'post',
+			data : data,
+			dataType : 'json',
+			url : 'host_detail.hda',
+			success : function(res) {
+				console.log(res);
+			}
+		});
 	}
 	</script>
 

@@ -35,6 +35,18 @@
     <url-pattern>*.hra</url-pattern>
   </servlet-mapping>
 	  
+  <!-- - - - - - - - - - - - - - - - - - - - - - - - - 
+	HostDeatail - 호스트 페이지에서 숙소 다시 설정하기
+- - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <servlet>
+	<servlet-name>HostDetail</servlet-name>
+    <servlet-class>controller.api.hostDetail.HostDetailAPI</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>HostDetail</servlet-name>
+    <url-pattern>*.hda</url-pattern>
+  </servlet-mapping>
+
 
 <!-- - - - - - - - - - - - - - - - - - - - - - - - - 
 	Member - 로그인, 회원가입

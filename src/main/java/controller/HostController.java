@@ -79,8 +79,7 @@ public class HostController extends HttpServlet {
 			forward.setPath("host/hostProfile.jsp");
 			forward.setRedirect(false);
 		}else if(command.equals("/hostDetailAction.ho")) {
-			action = new HostModifyAction();
-			
+
 		}
 		
 		

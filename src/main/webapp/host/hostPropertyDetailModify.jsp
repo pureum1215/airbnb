@@ -514,12 +514,11 @@ span.amenities:hover {
 		      }
 		      if (haveAmenitiesCheck) {
 		    %>
-		      <span class="property-amenities toggle-amenity"><%=amenities[i]%></span>
-		  	  <input type="hidden" name="amenitiesArray" value="<%= amenities[i] %>">
+		      <span class="property-amenities toggle-amenity" data-property-amenities="true"><%=amenities[i]%></span>
 		    <%
 		      } else {
 		    %>
-		      <span class="amenities toggle-amenity"><%=amenities[i]%></span>
+		      <span class="amenities toggle-amenity" data-property-amenities="false"><%=amenities[i]%></span>
 		    <%
 		      }
 		    }
@@ -557,7 +556,16 @@ span.amenities:hover {
 
 	<!-- 편의시설 토글 스크립트 -->
 	  document.querySelectorAll('.toggle-amenity').forEach(el => {
-	    el.addEventListener('click', () => {
+	    el.addEventListener('click', e => {
+	    	console.log('abc');
+	    	console.log(this);
+	    	const targetObj = e.target.getAttribute("data-property-amenities");
+	    	if(targetObj == 'true') {
+	    		e.target.setAttribute('data-property-amenities', 'false');
+	    	} else {
+	    		e.target.setAttribute('data-property-amenities', 'true');
+	    	}
+	    	
 	      el.classList.toggle('property-amenities');
 	      el.classList.toggle('amenities');
 	    });
@@ -607,11 +615,9 @@ span.amenities:hover {
 	 
 	function sendPropertyData2() {
 		
-		alert('1')
 		// amenitiesArray 수집
 	    const amenityInputs = document.querySelectorAll('input[name="amenitiesArray"]');
 	    const amenitiesArray = Array.from(amenityInputs).map(input => input.value);
-	    alert('4');
 	    console.log('test ',amenitiesArray);
 
 	    const data = {

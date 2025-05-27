@@ -1,5 +1,7 @@
 package mainPage.mainPropertyList;
 
+import java.io.IOException;
+import java.sql.SQLException;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -31,20 +33,37 @@ public class MainPropertyListAction implements Action {
 		MainPropertyListDAO dao = new MainPropertyListDAO();
 		List<MainPropertyListVO> list = null;
 		
-		// property_id 를 얻는 과정이 없었다면 ( search action 거치지 않았을 때 )
-		// 모든 property id 가져오기
-		if ( property_id_list == null ) {
-			property_id_list = dao.getAllPropertyId();
-			list = dao.getPropertyList(property_id_list, userId);
-
+		
+		try {
+			// property_id 를 얻는 과정이 없었다면 ( search action 거치지 않았을 때 )
+			// 모든 property id 가져오기
+			if ( property_id_list == null ) {
+				property_id_list = dao.getAllPropertyId();
+				list = dao.getPropertyList(property_id_list, userId);
+	
+			}
+			else if ( property_id_list.isEmpty() ) {
+				request.setAttribute("search_result", "empty");
+			}
+			else {
+				list = dao.getPropertyList(property_id_list, userId);
+			}
+		
 		}
-		else if ( property_id_list.isEmpty() ) {
-			request.setAttribute("search_result", "empty");
+		catch(SQLException e) {
+			System.out.println("sql");
+			e.printStackTrace();
 		}
-		else {
-			list = dao.getPropertyList(property_id_list, userId);
+		catch(IOException e) {
+			System.out.println("input, output");
+			e.printStackTrace();
 		}
-				
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+		finally {
+			dao.closeCon();
+		}
 		
         ActionForward forward = new ActionForward();
         request.setAttribute("property_id_load_list", list);

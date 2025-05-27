@@ -623,9 +623,12 @@ span.amenities:hover {
 	function sendPropertyData2() {
 		
 		// amenitiesArray 수집
-	    const amenityInputs = document.querySelectorAll('input[name="amenitiesArray"]');
-	    const amenitiesArray = Array.from(amenityInputs).map(input => input.value);
-	    console.log('test ',amenitiesArray);
+	    const amenitySpans = document.querySelectorAll('span[data-property-amenities="true"]');
+		let amenitiesArray = [];
+		for(let i=0; i< amenitySpans.length; i++) {
+			let target = amenitySpans[i].innerText;
+			amenitiesArray.push(target);
+		}
 
 	    const data = {
 	    	reservation_default: hidden_reservation.value,

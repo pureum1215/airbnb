@@ -95,8 +95,8 @@ public class ReservationDAO {
 		int result = 0;
 		
 		
-        String sql = "INSERT INTO Reservation (reservation_id, property_id, user_id, reservation_check_in, reservation_check_out, reservation_created_at) " +
-                     "VALUES (?, ?, ?, ?, ?, NOW())";
+        String sql = "INSERT INTO Reservation (reservation_id, property_id, user_id, reservation_check_in, reservation_check_out, reservation_confirm, reservation_created_at) " +
+                     "VALUES (?, ?, ?, ?, ?, ?, NOW())";
 
         pstmt = conn.prepareStatement(sql);
         pstmt.setString(1, vo.getReservation_id());
@@ -104,6 +104,7 @@ public class ReservationDAO {
         pstmt.setString(3, vo.getUser_id());
         pstmt.setDate(4, vo.getReservation_check_in());
         pstmt.setDate(5, vo.getReservation_check_out());
+        pstmt.setString(6, vo.getReservation_confirm());
 
         result = pstmt.executeUpdate();
         System.out.println("DB 저장 결과: " + result);

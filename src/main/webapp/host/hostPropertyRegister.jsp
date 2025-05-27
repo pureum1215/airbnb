@@ -383,7 +383,8 @@ span.amenities:hover {
 		<div class="header">
 			<h2 class="title">위치</h2>
 			<div class="input-wrapper" onclick="onclickAddr()" >
-			<input type="text" class="input-text-address"  placeholder="숙소 위치를 입력하세요." name="address" />
+			<input type="text" class="input-text-address"  placeholder="숙소 위치를 입력하세요." name="address" 
+				id ="address_detail" />
 				<div style="width:500px;height:400px;" flex;align-items: center;" id= "map">
 					
 				</div>
@@ -460,12 +461,13 @@ span.amenities:hover {
 	
 	
 	const addressValue = '서울시 강동구';
-	
+	//const address_id = document.getElementById("address_detail");
 	function onclickAddr(){
 		new daum.Postcode({
 		    oncomplete: function(data) {
 		        //data는 사용자가 선택한 주소 정보를 담고 있는 객체이며, 상세 설명은 아래 목록에서 확인하실 수 있습니다.
-		        addressValue = data.address;
+		        //주소
+		        $("#address_detail").val(data.address);
 		    }
 		}).open();
 	}

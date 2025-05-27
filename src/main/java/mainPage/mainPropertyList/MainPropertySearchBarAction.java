@@ -1,0 +1,36 @@
+package mainPage.mainPropertyList;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import util.ResponseData;
+
+public class MainPropertySearchBarAction {
+
+	public ResponseData execute(HttpServletRequest request, HttpServletResponse response) {
+		
+		ResponseData data = null;
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		return data;
+		
+	}
+}

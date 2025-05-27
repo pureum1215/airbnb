@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>AdminDashboard</title>
+<title>AdminDashboard-backup</title>
 
 <!-- 관리자 대시보드 스타일 정의 -->
 <style>
@@ -169,7 +169,7 @@ th:last-child, td:last-child {
 
 	<!-- 관리자 헤더 인클루드 -->
 	<div>
-		<%@ include file="header_admin.jsp"%>
+		<%@ include file="adminHeader.jsp"%>
 	</div>
 
 	<!-- 왼쪽 고정 사이드바 -->

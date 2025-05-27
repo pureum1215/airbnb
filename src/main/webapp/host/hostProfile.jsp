@@ -203,8 +203,10 @@ body {
 <body>
 	<%@ include file="hostHeader.jsp"%>
 	<%
+
 	//String hostId = "host050";
 	/* String hostId = request.getParameter("hostId"); */
+
 	String hostId = (String)session.getAttribute("host_id");
 	//필요한 것 호스트가 가진 숙소에 대한 별점, 후기 개수, 후기내용, 호스트 이름 
 

@@ -349,7 +349,7 @@ body {
 				</ul>
 				<div class="host">
 					<%=madVONPD.getProperty_description()%>
-					숙소에서 휴식을 즐기세요.<br /><br /><br />
+					<br /><br /><br />
 
 					
 					<!-- 호스트 소개 -->

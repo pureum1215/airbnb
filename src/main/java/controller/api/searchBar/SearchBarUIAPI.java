@@ -1,4 +1,4 @@
-package controller.api.mainPropertyList;
+package controller.api.searchBar;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -11,12 +11,11 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
 
-import mainPage.mainPropertyList.MainPropertySearchAction;
 import mainPage.mainPropertyList.MainPropertySearchBarAction;
 import util.ResponseData;
 
 
-public class MainPropertyListSearchAPI extends HttpServlet {
+public class SearchBarUIAPI extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doProcess(request, response);
 	}
@@ -47,5 +46,5 @@ public class MainPropertyListSearchAPI extends HttpServlet {
 		out.print(gson.toJson(responseData));
 		out.flush();
 	}
-	
+
 }

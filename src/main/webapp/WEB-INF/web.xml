@@ -48,17 +48,29 @@
   </servlet-mapping>
   
 <!-- - - - - - - - - - - - - - - - - - - - - - - - - 
-	HostDeatail - 호스트 페이지에서 숙소 다시 설정하기
+	SearchBarUI - 검색바 ui에 나타나게하기
 - - - - - - - - - - - - - - - - - - - - - - - - - - -->
   <servlet>
-	<servlet-name>ListSearch</servlet-name>
-    <servlet-class>controller.api.mainPropertyList.MainPropertyListSearchAPI</servlet-class>
+	<servlet-name>SearchBarUI</servlet-name>
+    <servlet-class>controller.api.searchBar.SearchBarUIAPI</servlet-class>
   </servlet>
   <servlet-mapping>
-    <servlet-name>ListSearch</servlet-name>
-    <url-pattern>*.psa</url-pattern>
+    <servlet-name>SearchBarUI</servlet-name>
+    <url-pattern>*.sua</url-pattern>
   </servlet-mapping>
 
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - 
+	FilterOption - 검색바에 기본값 불러오기
+- - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <servlet>
+	<servlet-name>FilterOption</servlet-name>
+    <servlet-class>controller.api.searchBar.SearchBarGetFilterOptionAPI</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>FilterOption</servlet-name>
+    <url-pattern>*.sfa</url-pattern>
+  </servlet-mapping>
+  
 
 <!-- - - - - - - - - - - - - - - - - - - - - - - - - 
 	Member - 로그인, 회원가입

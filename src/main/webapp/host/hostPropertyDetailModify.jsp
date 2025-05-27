@@ -622,6 +622,9 @@ span.amenities:hover {
 	 
 	function sendPropertyData2() {
 		
+		//오게 된 주소의 property_id
+		let propertyId= document.querySelector('input[name="propertyId"]').value;
+
 		// amenitiesArray 수집
 	    const amenitySpans = document.querySelectorAll('span[data-property-amenities="true"]');
 		let amenitiesArray = [];
@@ -656,7 +659,8 @@ span.amenities:hover {
 			success : function(res) {
 				console.log(res);
 				//여기에 성공했을 때,
-				location.href = "hostList.ho";
+				location.href ='hostprdetail.ho?property_id='+propertyId;
+				//location.href = 'hostList.ho';
 			}
 		});
 	}

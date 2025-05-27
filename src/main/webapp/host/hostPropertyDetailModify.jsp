@@ -655,6 +655,8 @@ span.amenities:hover {
 			url : 'host_detail.hda',
 			success : function(res) {
 				console.log(res);
+				//여기에 성공했을 때,
+				location.href = "hostList.ho";
 			}
 		});
 	}

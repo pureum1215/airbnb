@@ -641,8 +641,13 @@ span.amenities:hover {
 	        price: document.querySelector('.input-text-price').value,
 	        address: document.querySelector('.input-text-address').value,
 	        description: document.querySelector('textarea[name="listingDescription"]').value,
-	        amenitiesArray: amenitiesArray // 배열 추가
+	        amenitiesArray: amenitiesArray.join(',') // 배열 추가
 	    };
+	    
+	    
+	    console.log('data', data);
+	    
+	    
 		$.ajax({
 			type : 'post',
 			data : data,

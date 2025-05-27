@@ -27,14 +27,33 @@ public class MainPropertySearchAction implements Action {
         String continent = request.getParameter("location_continent");
         String country = request.getParameter("location_country");
         String city = request.getParameter("location_city");
-        Date check_in = Date.valueOf(request.getParameter("reservation_check_in"));
-        Date check_out = Date.valueOf(request.getParameter("reservation_check_out"));
+        Date check_in = null;
+        Date check_out = null;
         int min_price = Integer.parseInt(request.getParameter("min_price_per_night"));
         int max_price = Integer.parseInt(request.getParameter("max_price_per_night"));
-        int room = Integer.parseInt(request.getParameter("property_room"));
-        int bed = Integer.parseInt(request.getParameter("property_bed"));
-        int bath = Integer.parseInt(request.getParameter("property_bath"));
+        int room = 0;
+        int bed = 0;
+        int bath = 0;
         String[] amenities = request.getParameterValues("property_amenities");
+        
+        // null 일 경우 오류 방지
+        if ( request.getParameter("reservation_check_in") != null ) {
+        	check_in = Date.valueOf(request.getParameter("reservation_check_in"));
+        }
+        if ( request.getParameter("reservation_check_out") != null ) {
+        	check_out = Date.valueOf(request.getParameter("reservation_check_out"));
+        }
+
+        if ( request.getParameter("property_room") != null ) {
+        	room = Integer.parseInt(request.getParameter("property_room"));
+        }
+        if ( request.getParameter("property_bed") != null ) {
+        	bed = Integer.parseInt(request.getParameter("property_bed"));
+        }
+        if ( request.getParameter("property_bath") != null ) {
+        	bath = Integer.parseInt(request.getParameter("property_bath"));
+        }
+                
         
         MainPropertyListSearchDAO dao = new MainPropertyListSearchDAO();
         
@@ -114,7 +133,7 @@ public class MainPropertySearchAction implements Action {
         
         
         ActionForward forward = new ActionForward();
-		request.setAttribute("property_id_list", property_id_list);
+        request.setAttribute("property_id_list", property_id_list);
         forward.setPath("/main_list.ma");
         forward.setRedirect(false);
         

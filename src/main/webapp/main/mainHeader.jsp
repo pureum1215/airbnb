@@ -140,6 +140,12 @@ body {
 	align-items: center;
 	justify-content: center;
 	cursor: pointer;
+	
+
+	border: none;
+	outline: none;
+	padding: 0;
+	font: inherit;
 }
 
 .search-bar .search-icon:hover {
@@ -540,9 +546,11 @@ body {
 				<div class="section-title">필터</div>
 				<div class="section-value">필터 추가</div>
 			</div>
-			<div class="search-icon">  <!-- ★★★★★ 검색창 "돋보기" 버튼 ★★★★★ -->
-				<i class="fas fa-search"></i>
-			</div>
+			<form action="${pageContext.request.contextPath}/property_search.ma" method="post">
+				<button type="submit" class="search-icon">
+					<i class="fas fa-search"></i>
+				</button>
+			</form>
 		</div>
 	</div>
 
@@ -609,8 +617,8 @@ body {
               </div>
               <div class="price-range">
               <div class="price-sliders">
-                <input type="range" id="priceMin" min="14000" max="220000" value="14000" step="1000" oninput="updatePriceDisplay()" style="width: 300px;">
-                <input type="range" id="priceMax" min="14000" max="220000" value="220000" step="1000" oninput="updatePriceDisplay()" style="width: 300px;">
+                <input type="range" id="priceMin" name="min_price_per_night" min="14000" max="220000" value="14000" step="1000" oninput="updatePriceDisplay()" style="width: 300px;">
+                <input type="range" id="priceMax" name="max_price_per_night" min="14000" max="220000" value="220000" step="1000" oninput="updatePriceDisplay()" style="width: 300px;">
               </div>
               <div class="price-values">
                 <span id="priceMinDisplay">₩14000</span> - 
@@ -806,6 +814,9 @@ body {
          currentType = null;
       }
    });
+   
+   
+   // === host mode 버튼 ===
    document.querySelector('.host-mode-btn').addEventListener('click', function() {
 	    window.location.href = 'hostList.ho'; // 이동할 경로로 수정
 	  });

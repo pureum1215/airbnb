@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import mainPage.mainPropertyDetail.PropertyDAO;
+import mainPage.mainPropertyList.MainPropertyListAction;
 import mainPage.mainPropertyList.MainPropertyListDAO;
 import mainPage.mainPropertyList.MainPropertyListVO;
 import mainPage.mainPropertyList.MainPropertySearchAction;
@@ -61,6 +62,7 @@ public class MainController extends HttpServlet {
 		ActionForward forward = null;
 		forward = new ActionForward();
 		
+		
 		/****************************** 
 		 * 페이지 이동 작성 구간
 		 *****************************/		
@@ -70,8 +72,7 @@ public class MainController extends HttpServlet {
 			forward.setRedirect(false);
 		}
 		else if(command.equals("/main_list.ma")) {
-			forward.setPath("main/main_property_list.jsp");
-			forward.setRedirect(false);
+			action = new MainPropertyListAction();
 		}
 		else if(command.equals("/logout.ma")) {
 			forward.setPath("main/logout.jsp");

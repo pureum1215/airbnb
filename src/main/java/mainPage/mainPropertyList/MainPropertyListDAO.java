@@ -78,7 +78,7 @@ public class MainPropertyListDAO {
 	
 	
 	public List<MainPropertyListVO> getPropertyList( List<String> property_id_list, String userId ) {
-		System.out.println("getAllPropertyId method 호출");
+		System.out.println("getPropertyList method 호출");
 		
 	    // 최종 결과 리스트
 	    List<MainPropertyListVO> resultList = new ArrayList<>();
@@ -220,7 +220,8 @@ public class MainPropertyListDAO {
 		
 		List<String> list = new ArrayList<>();
 		
-		String sql = "SELECT property_id FROM PROPERTY";
+		String sql = "SELECT property_id FROM PROPERTY"
+				+ "WHERE property_delete_yn = 'N'";
 		
         pstmt = conn.prepareStatement(sql);
         rs = pstmt.executeQuery();

@@ -78,9 +78,6 @@ public class MainController extends HttpServlet {
 			forward.setPath("main/logout.jsp");
 			forward.setRedirect(false);
 		}
-		else if (command.equals("/property_search.ma")) {
-			action = new MainPropertySearchAction();
-		}
 		
 		
 		try {

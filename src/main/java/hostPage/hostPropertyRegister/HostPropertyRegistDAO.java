@@ -69,6 +69,12 @@ public class HostPropertyRegistDAO {
 	
 	
 	
+	
+	
+	//location 테이블 생성.
+	
+	
+	
 	/*****
 	 * 
 	 * location_id와 amenity_id를 연관시켜야 함.

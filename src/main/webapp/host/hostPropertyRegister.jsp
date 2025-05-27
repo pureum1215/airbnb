@@ -460,60 +460,69 @@ span.amenities:hover {
 	<script>
 	
 	
-	const addressValue = '서울시 강동구';
+	const address_detail = document.getElementById("address_detail");//
+	mapLocation("서울 종로구 사직로 161");
+	let lng = 100;
+	let lat = 20;
+	
 	//const address_id = document.getElementById("address_detail");
 	function onclickAddr(){
 		new daum.Postcode({
 		    oncomplete: function(data) {
 		        //data는 사용자가 선택한 주소 정보를 담고 있는 객체이며, 상세 설명은 아래 목록에서 확인하실 수 있습니다.
 		        //주소
+		        
 		        $("#address_detail").val(data.address);
+		        mapLocation(data.address);
 		    }
 		}).open();
 	}
+	function mapLocation(addr){
+		var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+	    mapOption = {
+	        center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+	        level: 3 // 지도의 확대 레벨
+	    };  
+
+			// 지도를 생성합니다    
+			var map = new kakao.maps.Map(mapContainer, mapOption); 
+				
+				// 주소-좌표 변환 객체를 생성합니다
+			var geocoder = new kakao.maps.services.Geocoder();
+				
+				// 주소로 좌표를 검색합니다
+			geocoder.addressSearch(addr, function(result, status) {
 	
+		    // 정상적으로 검색이 완료됐으면 
+		     if (status === kakao.maps.services.Status.OK) {
 	
-	var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
-    mapOption = {
-        center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
-        level: 3 // 지도의 확대 레벨
-    };  
+		        var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+		        lng = coords.getLng();
+		        lat = coords.getLat();
+	
+		        // 결과값으로 받은 위치를 마커로 표시합니다
+		        var marker = new kakao.maps.Marker({
+		            map: map,
+		            position: coords
+		        });
+	
+		        // 인포윈도우로 장소에 대한 설명을 표시합니다
+		        var infowindow = new kakao.maps.InfoWindow({
+		            content: '<div style="width:150px;text-align:center;padding:6px 0;">우리 숙소</div>'
+		        });
+		        infowindow.open(map, marker);
+	
+		        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+		        map.setCenter(coords);
+		    } 
+		});    
+	}
 
-		// 지도를 생성합니다    
-	var map = new kakao.maps.Map(mapContainer, mapOption); 
-		
-		// 주소-좌표 변환 객체를 생성합니다
-	var geocoder = new kakao.maps.services.Geocoder();
-		
-		// 주소로 좌표를 검색합니다
-	geocoder.addressSearch(addressValue, function(result, status) {
-
-    // 정상적으로 검색이 완료됐으면 
-     if (status === kakao.maps.services.Status.OK) {
-
-        var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
-
-        // 결과값으로 받은 위치를 마커로 표시합니다
-        var marker = new kakao.maps.Marker({
-            map: map,
-            position: coords
-        });
-
-        // 인포윈도우로 장소에 대한 설명을 표시합니다
-        var infowindow = new kakao.maps.InfoWindow({
-            content: '<div style="width:150px;text-align:center;padding:6px 0;">우리 숙소</div>'
-        });
-        infowindow.open(map, marker);
-
-        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
-        map.setCenter(coords);
-    } 
-});    
 	
 
 	<!-- 편의시설 토글 스크립트 -->
 	  document.querySelectorAll('.toggle-amenity').forEach(el => {
-	    el.addEventListener('click', () => {
+	    el.addEventListener('click', e => {
 	    	//선택 값 변경하기
 	    	const targetObj = e.target.getAttribute("data-property-amenities");
 	    	if(targetObj == 'true') {

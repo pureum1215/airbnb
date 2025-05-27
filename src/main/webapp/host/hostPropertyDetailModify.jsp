@@ -8,6 +8,8 @@
 String propertyId = request.getParameter("propId");
 //propertyId를 통해서 
 
+//우선 서버에서 불러온 값을 다시 requestparameter 로 보내면 바보라서.
+//그게 아니라 추가된 값, ajax 를 이용하고 javascript를 이용해서 해야함.
 
 
 HostPropertyDetailDAO dao = new HostPropertyDetailDAO();
@@ -98,7 +100,6 @@ String formattedPrice = formatter.format(price); // 100000 → "100,000"
 <html>
 <head>
 <title><%=listingTitle%> - 숙소 세부 정보</title>
-<link rel="stylesheet" href="/css/style.css" />
 <style>
 body {
 	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
@@ -391,34 +392,8 @@ span.amenities:hover {
 			<h2 class="title">Listing</h2>
 			<!-- 관리 버튼 -->
 			<div class="btn-group">
-				<!--button class="btn-edit" onclick= "location.href='/hostDeatilAction.ho'">수정 내용 저장</button>  -->
-				<form action="hostDeatilAction.ho" method="post">
-				    <input type="hidden" name="listingTitle" value="<%= listingTitle %>">
-				    <input type="hidden" name="rooms" value="<%= rooms %>">
-				    <input type="hidden" name="beds" value="<%= beds %>">
-				    <input type="hidden" name="bathrooms" value="<%= bathrooms %>">
-				    <input type="hidden" name="price" value="<%= price %>">
-				    <input type="hidden" name="photo" value="<%= photo %>">
-				    <input type="hidden" name="description" value="<%= description %>">
-					<input type="hidden" name="address" value="<%=address %>">
-					<%
-						if(requestReservation){
-							//예약요청이 맞으면 true
-							reservation_default = "예약 요청";
-						}else{
-							reservation_default = "즉시 가능";
-						}
-					%>
-				    <%  // amenitiesArray 파라미터 추가
-				        for (String amenity : amenitiesArray) {
-				    %>
-				        <input type="hidden" name="amenitiesArray" value="<%= amenity %>">
-				    <% } %>
-				
-				    <input type="hidden" name="reservation_default" value="<%= reservation_default %>">
-				
-				    <button type="submit">수정하기</button>
-				</form>
+				<input type="hidden" name="propertyId" value="<%= propertyId %>">
+				<button onclick="sendPropertyData2()">수정하기</button>
 				
 			</div>
 		</div>
@@ -426,7 +401,7 @@ span.amenities:hover {
 		<!-- 대표 이미지 -->
 		<div class="header">
 		  <h2 class="title">대표 이미지 설정</h2>
-		
+			<input type="hidden" name="photo" value="<%= photo %>">
 		  <!-- 이미지 미리보기 -->
 		  <img id="previewImage" src="/uploads/<%=photo%>" alt="숙소 대표 이미지" class="preview"
 		       alt="이미지 미리보기" 
@@ -482,7 +457,7 @@ span.amenities:hover {
 			<h2 class="title">1박 가격</h2>
 			<div class="input-wrapper">
 				<div style="display: flex;align-items: center;">
-					<input type="text" class="input-text-price" value="<%=price %>" placeholder="금액을 입력하세요." name="listingName" />
+					<input type="text" class="input-text-price" value="<%=price %>" placeholder="금액을 입력하세요." name="price" />
 					<span style="font-size: 20px; margin-left: 10px;"> 원(KRW)</span>
 				</div>
 			</div>
@@ -492,7 +467,7 @@ span.amenities:hover {
 			<h2 class="title">위치</h2>
 			<div class="input-wrapper">
 				<div style="display: flex;align-items: center;">
-					<input type="text" class="input-text-address" value="<%=address %>" placeholder="숙소 위치를 입력하세요." name="listingName" />
+					<input type="text" class="input-text-address" value="<%=address %>" placeholder="숙소 위치를 입력하세요." name="address" />
 				</div>
 			</div>
 		</div>
@@ -520,6 +495,7 @@ span.amenities:hover {
 		    <%
 		    }
 		    %>
+			<input type="hidden" id="reservation_default" name="reservation_default" value="<%= requestReservation ? "예약 요청" : "즉시 가능" %>">
 		  </div>
 		</div>
 		
@@ -538,15 +514,16 @@ span.amenities:hover {
 		      }
 		      if (haveAmenitiesCheck) {
 		    %>
-		      <span class="property-amenities toggle-amenity"><%=amenities[i]%></span>
+		      <span class="property-amenities toggle-amenity" data-property-amenities="true"><%=amenities[i]%></span>
 		    <%
 		      } else {
 		    %>
-		      <span class="amenities toggle-amenity"><%=amenities[i]%></span>
+		      <span class="amenities toggle-amenity" data-property-amenities="false"><%=amenities[i]%></span>
 		    <%
 		      }
 		    }
 		    %>
+		    
 		  </div>
 		</div>
 
@@ -557,6 +534,7 @@ span.amenities:hover {
 		<%@ include file="hostFooter.jsp"%>
 	</div>
 
+ 	<script src="../jquery-3.7.1.min.js"></script>  
 
 	<script>
 		const imageInput = document.getElementById("imageInput");
@@ -577,17 +555,34 @@ span.amenities:hover {
 		
 
 	<!-- 편의시설 토글 스크립트 -->
+
+	
+	
+	
+	/*****************
+	* 편의시설, Button 클릭 Event 생성 및 onClick Event
+	*****************/
 	  document.querySelectorAll('.toggle-amenity').forEach(el => {
-	    el.addEventListener('click', () => {
+	    el.addEventListener('click', e => {
+	    	
+	    	//선택 값 변경하기
+	    	const targetObj = e.target.getAttribute("data-property-amenities");
+	    	if(targetObj == 'true') {
+	    		e.target.setAttribute('data-property-amenities', 'false');
+	    	} else {
+	    		e.target.setAttribute('data-property-amenities', 'true');
+	    	}
+	    	
 	      el.classList.toggle('property-amenities');
 	      el.classList.toggle('amenities');
 	    });
 	  });
 
-	
+	  const hidden_reservation = document.getElementById('reservation_default');
 	
 	<!-- 승인요청설정 토글 -->
 	 function selectReserveType(clickedBtn) {
+		 
 	   const buttons = clickedBtn.parentElement.querySelectorAll("button");
 	
 	   buttons.forEach(btn => {
@@ -601,8 +596,10 @@ span.amenities:hover {
 	   // 클릭한 버튼에 강조 클래스 부여
 	   if (clickedBtn.textContent.includes("즉시 예약")) {
 	     clickedBtn.className = "btn-direct-ch";
+	     hidden_reservation.value = "즉시 가능";
 	   } else if (clickedBtn.textContent.includes("예약 요청")) {
 	     clickedBtn.className = "btn-request-ch";
+	     hidden_reservation.value = "예약 요청";
 	   }
 	 }
 	 
@@ -620,6 +617,49 @@ span.amenities:hover {
 	      countSpan.textContent = newValue;
 	    }
 	  }
+	 
+
+	 
+	function sendPropertyData2() {
+		
+		// amenitiesArray 수집
+	    const amenitySpans = document.querySelectorAll('span[data-property-amenities="true"]');
+		let amenitiesArray = [];
+		for(let i=0; i< amenitySpans.length; i++) {
+			let target = amenitySpans[i].innerText;
+			amenitiesArray.push(target);
+		}
+
+	    const data = {
+	    	reservation_default: hidden_reservation.value,
+	    	photo: document.querySelector('input[name="photo"]').value,
+	    	propertyId: document.querySelector('input[name="propertyId"]').value,
+	        listingTitle: document.querySelector('input[name="listingName"]').value,
+	        rooms: document.getElementById("bedrooms").innerText,
+	        beds: document.getElementById("beds").innerText,
+	        bathrooms: document.getElementById("bathrooms").innerText,
+	        price: document.querySelector('.input-text-price').value,
+	        address: document.querySelector('.input-text-address').value,
+	        description: document.querySelector('textarea[name="listingDescription"]').value,
+	        amenitiesArray: amenitiesArray.join(',') // 배열 추가
+	    };
+	    
+	    
+	    console.log('data', data);
+	    
+	    
+		$.ajax({
+			type : 'post',
+			data : data,
+			dataType : 'json',
+			url : 'host_detail.hda',
+			success : function(res) {
+				console.log(res);
+				//여기에 성공했을 때,
+				location.href = "hostList.ho";
+			}
+		});
+	}
 	</script>
 
 </body>

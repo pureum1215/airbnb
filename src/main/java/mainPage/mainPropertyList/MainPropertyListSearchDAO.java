@@ -57,7 +57,7 @@ public class MainPropertyListSearchDAO {
 		
 		List<String> list = new ArrayList<>();
 		
-		String sql = "SELECT property_id FROM PROPERTY"
+		String sql = "SELECT property_id FROM PROPERTY "
 				+ "WHERE property_delete_yn = 'N'";
 		
         pstmt = conn.prepareStatement(sql);

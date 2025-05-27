@@ -38,9 +38,9 @@ public class MainPropertyListAction implements Action {
 			// property_id 를 얻는 과정이 없었다면 ( search action 거치지 않았을 때 )
 			// 모든 property id 가져오기
 			if ( property_id_list == null ) {
-				System.out.println( property_id_list );
+				System.out.println( "property_id_list: " + property_id_list );
 				property_id_list = dao.getAllPropertyId();
-				list = dao.getPropertyList(property_id_list, userId);
+				list = dao.getPropertyList(property_id_list);
 	
 			}
 			else if ( property_id_list.isEmpty() ) {
@@ -48,7 +48,7 @@ public class MainPropertyListAction implements Action {
 				request.setAttribute("search_result", "empty");
 			}
 			else {
-				list = dao.getPropertyList(property_id_list, userId);
+				list = dao.getPropertyList(property_id_list);
 			}
 		
 		}

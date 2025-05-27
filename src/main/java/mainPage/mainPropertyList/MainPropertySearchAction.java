@@ -114,7 +114,7 @@ public class MainPropertySearchAction implements Action {
         
         
         ActionForward forward = new ActionForward();
-        request.setAttribute("property_id_list", property_id_list);
+		request.setAttribute("property_id_list", property_id_list);
         forward.setPath("/main_list.ma");
         forward.setRedirect(false);
         

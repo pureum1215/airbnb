@@ -23,7 +23,7 @@
     <url-pattern>*.ura</url-pattern>
   </servlet-mapping>
   
-  <!-- - - - - - - - - - - - - - - - - - - - - - - - - 
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - 
 	HostReservationAPI - 호스트 페이지에서 예약 목록 확인
 - - - - - - - - - - - - - - - - - - - - - - - - - - -->
   <servlet>
@@ -35,7 +35,7 @@
     <url-pattern>*.hra</url-pattern>
   </servlet-mapping>
 	  
-  <!-- - - - - - - - - - - - - - - - - - - - - - - - - 
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - 
 	HostDeatail - 호스트 페이지에서 숙소 다시 설정하기
 - - - - - - - - - - - - - - - - - - - - - - - - - - -->
   <servlet>
@@ -45,6 +45,18 @@
   <servlet-mapping>
     <servlet-name>HostDetail</servlet-name>
     <url-pattern>*.hda</url-pattern>
+  </servlet-mapping>
+  
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - 
+	HostDeatail - 호스트 페이지에서 숙소 다시 설정하기
+- - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <servlet>
+	<servlet-name>ListSearch</servlet-name>
+    <servlet-class>controller.api.mainPropertyList.MainPropertyListSearchAPI</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ListSearch</servlet-name>
+    <url-pattern>*.psa</url-pattern>
   </servlet-mapping>
 
 

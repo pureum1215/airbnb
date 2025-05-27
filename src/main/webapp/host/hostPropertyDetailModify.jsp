@@ -393,7 +393,7 @@ span.amenities:hover {
 			<!-- 관리 버튼 -->
 			<div class="btn-group">
 				<input type="hidden" name="propertyId" value="<%= propertyId %>">
-				<button onclick="sendPropertyData2()">수정하기</button>
+				<button onclick="sendPropertyData()">수정하기</button>
 				
 			</div>
 		</div>
@@ -620,7 +620,7 @@ span.amenities:hover {
 	 
 
 	 
-	function sendPropertyData2() {
+	function sendPropertyData() {
 		
 		//오게 된 주소의 property_id
 		let propertyId= document.querySelector('input[name="propertyId"]').value;

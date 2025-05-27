@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.google.gson.Gson;
 
 import hostPage.hostPropertyDetailModify.HostModifyAction;
+import hostPage.hostPropertyRegister.HostPropertyRegisterAction;
 import util.ResponseData;
 
 /**
@@ -40,8 +41,11 @@ public class HostDetailAPI extends HttpServlet {
 		ResponseData responseData = null;
 		
 		if (command.equals("/host_detail.hda")) {
-			System.out.println("/host_detail.hda는 출력됩니다.");
 			HostModifyAction action = new HostModifyAction();
+			responseData = action.execute(request, response);
+		}else if(command.equals("/host_register.hda")) {
+			System.out.println("/host_register.hda는 출력됩니다.");
+			HostPropertyRegisterAction action = new HostPropertyRegisterAction();
 			responseData = action.execute(request, response);
 		}
 	

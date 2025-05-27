@@ -45,7 +45,7 @@
 				<!-- 숙소 추가 버튼 -->
 				<button
 					class="w-9 h-9 rounded-full bg-gray-100 flex items-center justify-center hover:bg-gray-200"
-					onclick="location.href='/listing/new'">
+					onclick="location.href='/hostRegister.ho'">
 					<svg xmlns="http://www.w3.org/2000/svg"
 						class="h-5 w-5 text-gray-800" fill="none" viewBox="0 0 24 24"
 						stroke="currentColor">

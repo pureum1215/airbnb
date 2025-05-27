@@ -871,10 +871,33 @@ body {
                   dateFormat: "Y-m-d",
                   inline: true,
                   static: true,
+                  
+                  // 선택 유지
+                  defaultDate: [filterState.check_in, filterState.check_out],
+                  
+                  
                   onChange: (selectedDates, dateStr, instance) => {
                      const [start, end] = selectedDates;
+                     
+                     // 상태 저장
+                     filterState.check_in = start ? instance.formatDate(start, "Y-m-d") : null;
+                     filterState.check_out = end ? instance.formatDate(end, "Y-m-d") : null;
+                     
+                     
                      document.getElementById('checkin').textContent = start ? instance.formatDate(start, "Y-m-d") : "-";
                      document.getElementById('checkout').textContent = end ? instance.formatDate(end, "Y-m-d") : "-";
+                     
+                     
+                     // "날짜 추가" 텍스트 영역 업데이트
+                     const dateSection = document.querySelector('.section[data-type="date"] .section-value');
+                     if (filterState.check_in && filterState.check_out) {
+                     	dateSection.textContent = filterState.check_in + " ~ " + filterState.check_out;
+                     }
+                     else {
+                     	dateSection.textContent = "날짜 추가";
+                     }
+
+                     
                   }
                });
             }

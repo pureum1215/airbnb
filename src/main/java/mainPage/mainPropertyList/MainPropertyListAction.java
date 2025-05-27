@@ -38,11 +38,13 @@ public class MainPropertyListAction implements Action {
 			// property_id 를 얻는 과정이 없었다면 ( search action 거치지 않았을 때 )
 			// 모든 property id 가져오기
 			if ( property_id_list == null ) {
+				System.out.println( property_id_list );
 				property_id_list = dao.getAllPropertyId();
 				list = dao.getPropertyList(property_id_list, userId);
 	
 			}
 			else if ( property_id_list.isEmpty() ) {
+				System.out.println( "property_id_list is empty" );
 				request.setAttribute("search_result", "empty");
 			}
 			else {
@@ -67,7 +69,7 @@ public class MainPropertyListAction implements Action {
 		
         ActionForward forward = new ActionForward();
         request.setAttribute("property_id_load_list", list);
-        forward.setPath("/main_list.ma");
+        forward.setPath("main/main_property_list.jsp");
         forward.setRedirect(false);
         
         return forward;

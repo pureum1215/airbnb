@@ -62,6 +62,7 @@ public class MainController extends HttpServlet {
 		ActionForward forward = null;
 		forward = new ActionForward();
 		
+		
 		/****************************** 
 		 * 페이지 이동 작성 구간
 		 *****************************/		

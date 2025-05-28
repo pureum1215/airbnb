@@ -57,7 +57,8 @@ public class MainPropertyListSearchDAO {
 		
 		List<String> list = new ArrayList<>();
 		
-		String sql = "SELECT property_id FROM PROPERTY";
+		String sql = "SELECT property_id FROM PROPERTY "
+				+ "WHERE property_delete_yn = 'N'";
 		
         pstmt = conn.prepareStatement(sql);
         rs = pstmt.executeQuery();
@@ -256,12 +257,11 @@ public class MainPropertyListSearchDAO {
 	}
 	
 	// 편의시설 필터 - 필터에 체크한 모든 편의시설을 포함하는 숙소 검색
-	public List<String> filterByAmenities( String[] amenities ) throws SQLException, IOException {
+	public List<String> filterByAmenities( String[] amenities, MainPropertyListSearchDAO dao ) throws SQLException, IOException {
 		System.out.println("filterByAmenities method 호출");
 		
 		List<String> list = new ArrayList<>();
 		List<String> filter_list = new ArrayList<>();
-		MainPropertyListSearchDAO dao = new MainPropertyListSearchDAO();
 		
 		for ( int i = 0; i < amenities.length; i++ ) {
 			filter_list = dao.filterByAmenitySet(amenities[i]);

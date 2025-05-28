@@ -7,6 +7,7 @@ public class ReservationRequestVO {
 
 	/**************************************************************
 	 * 예약 id, 숙소 id, 사용자 id, 체크인 날짜, 체크아웃 날짜, 예약 생성 날짜,
+	 * 예약 상태 (승인, 거부, 보류)
 	 * 숙소 예약 승인 방식 기본 설정 ( property_reservation_default )
 	 * 숙소 사진, 숙소 이름, 숙소 별점, 숙소 상세, 1박 가격, 
 	 **************************************************************/
@@ -16,6 +17,7 @@ public class ReservationRequestVO {
 	private String user_id;
 	private Date reservation_check_in;
 	private Date reservation_check_out;
+	private String reservation_confirm;
 	private Timestamp reservation_created_at;
 	
 	private String property_reservation_default;
@@ -54,6 +56,12 @@ public class ReservationRequestVO {
 	}
 	public void setReservation_check_out(Date reservation_check_out) {
 		this.reservation_check_out = reservation_check_out;
+	}
+	public String getReservation_confirm() {
+		return reservation_confirm;
+	}
+	public void setReservation_confirm(String reservation_confirm) {
+		this.reservation_confirm = reservation_confirm;
 	}
 	public Timestamp getReservation_created_at() {
 		return reservation_created_at;

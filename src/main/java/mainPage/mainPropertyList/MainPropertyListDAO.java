@@ -75,10 +75,11 @@ public class MainPropertyListDAO {
 		return lists;
 	}
 	
+
 	
-	
-	public List<MainPropertyListVO> getPropertyList( List<String> property_id_list, String userId ) {
-		System.out.println("getAllPropertyId method 호출");
+	// 로그인시 목록 최종 출력
+	public List<MainPropertyListVO> getPropertyList( List<String> property_id_list ) {
+		System.out.println("getPropertyList method 호출");
 		
 	    // 최종 결과 리스트
 	    List<MainPropertyListVO> resultList = new ArrayList<>();
@@ -87,7 +88,7 @@ public class MainPropertyListDAO {
 			// 각 데이터 가져오기
 			List<MainPropertyListVO> property_info_list = getPropertyInfo(property_id_list);
 			Map<String, Double> property_rating = getPropertyAverageRating(property_id_list);
-		    List<String> wishListProperty = getWishListProperty(userId);
+
 			
 		    // 순차적으로 모든 정보 VO에 담기
 		    for (int i = 0; i < property_info_list.size(); i++) {
@@ -97,15 +98,9 @@ public class MainPropertyListDAO {
 		        // 평균 별점 세팅
 		        if (property_rating.containsKey(propertyId)) {
 		            vo.setProperty_review_rating(property_rating.get(propertyId));
-		        } else {
+		        } 
+		        else {
 		            vo.setProperty_review_rating(0.0); // 별점 없는 경우 0 처리
-		        }
-	
-		        // 위시리스트 여부 세팅
-		        if (wishListProperty.contains(propertyId)) {
-		            vo.setWish_list("Y");
-		        } else {
-		            vo.setWish_list("N");
 		        }
 
 		        resultList.add(vo);
@@ -220,7 +215,8 @@ public class MainPropertyListDAO {
 		
 		List<String> list = new ArrayList<>();
 		
-		String sql = "SELECT property_id FROM PROPERTY";
+		String sql = "SELECT property_id FROM PROPERTY "
+				+ "WHERE property_delete_yn = 'N'";
 		
         pstmt = conn.prepareStatement(sql);
         rs = pstmt.executeQuery();

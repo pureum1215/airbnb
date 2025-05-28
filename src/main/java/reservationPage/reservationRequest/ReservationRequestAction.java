@@ -42,6 +42,7 @@ public class ReservationRequestAction implements Action {
 			vo.setProperty_id(propertyId);
 			vo.setReservation_check_in(Date.valueOf(checkIn));
 			vo.setReservation_check_out(Date.valueOf(checkOut));
+			vo.setReservation_confirm("보류");
 			
 			// 예약 요청 기능
 			dao.reservationRequest(vo);

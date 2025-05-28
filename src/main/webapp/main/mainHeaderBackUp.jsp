@@ -446,8 +446,6 @@ body {
 	String userId = (String) session.getAttribute("user_id");
 	%>
 
-	<form id="searchForm" action="${pageContext.request.contextPath}/property_search.ma" method="post">
-
 	<div class="biggest_box">
 		<!-- Header -->
 		<div class="header">
@@ -457,15 +455,15 @@ body {
 			</div>
 			<div class="nav"></div>
 			<div class="actions">
-				<button type="button" class="host-mode-btn">호스트 모드로 전환</button>  <!-- ★★★★★ 호스트 화면 이동 링크 필요 ★★★★★ -->
-				<div class="circle-btn" style="background-color: black; color: white;">  <!-- ★★★★★ 프로필 화면 이동 링크 필요 ★★★★★ -->
+				<button class="host-mode-btn">호스트 모드로 전환</button>  <!-- ★★★★★ 호스트 화면 이동 링크 필요 ★★★★★ -->
+				<div class="circle-btn">  <!-- ★★★★★ 프로필 화면 이동 링크 필요 ★★★★★ -->
 					<%
 					if (userId != null) {
 					%>
-					U
+					<%=userId.substring(0, 1)%>
 					<%
 					} else {
-					%>
+					%>x
 					<%
 					}
 					%>
@@ -548,29 +546,30 @@ body {
 				<div class="section-title">필터</div>
 				<div class="section-value">필터 추가</div>
 			</div>
-			<input type="hidden" name="location_continent" id="hiddenContinent">
-			<input type="hidden" name="location_country" id="hiddenCountry">
-			<input type="hidden" name="location_city" id="hiddenCity">
-			<input type="hidden" name="reservation_check_in" id="reservationCheckIn">
-			<input type="hidden" name="reservation_check_out" id="reservationCheckOut">
-			<input type="hidden" name="min_price_per_night" id="hiddenMinPrice">
-			<input type="hidden" name="max_price_per_night" id="hiddenMaxPrice">
-			<input type="hidden" name="property_room" id="hiddenBedroom">
-			<input type="hidden" name="property_bed" id="hiddenBed">
-			<input type="hidden" name="property_bath" id="hiddenBath">
-			<input type="hidden" name="property_amenities" id="hiddenAmenities">
-			<button type="button" class="search-icon" onclick="handleSearchClick(event)">
-				<i class="fas fa-search"></i>
-			</button>
+			<form action="${pageContext.request.contextPath}/property_search.ma" method="post">
+				<input type="hidden" name="location_continent" id="hiddenContinent">
+				<input type="hidden" name="location_country" id="hiddenCountry">
+				<input type="hidden" name="location_city" id="hiddenCity">
+				<input type="hidden" name="reservation_check_in" id="hiddenMinCheckIn">
+				<input type="hidden" name="reservation_check_out" id="hiddenCheckOut">
+				<input type="hidden" name="min_price_per_night" id="hiddenMinPrice">
+				<input type="hidden" name="max_price_per_night" id="hiddenMaxPrice">
+				<input type="hidden" name="property_room" id="hiddenBedroom">
+				<input type="hidden" name="property_bed" id="hiddenBed">
+				<input type="hidden" name="property_bath" id="hiddenBath">
+				<input type="hidden" name="property_amenities" id="hiddenAmenities">
+				<button type="submit" class="search-icon">
+					<i class="fas fa-search"></i>
+				</button>
+			</form>
 		</div>
 	</div>
 
 
+
+
 	<!-- Dropdown Panel -->
 	<div class="dropdown-panel" id="dropdownPanel"></div>
-
-	</form>
-
 	<!-- JS Libraries -->
 	<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 
@@ -610,87 +609,19 @@ body {
    } 
 
    
-   // 데이터 넘기기
-	function handleSearchClick() {
-		event.preventDefault();
-
-		// 위치 정보 미완성
-		document.getElementById('hiddenContinent').value = filterState.location;
-		document.getElementById('hiddenCountry').value = filterState.location;
-		document.getElementById('hiddenCity').value = filterState.location;
-		
-		
-		document.getElementById('hiddenMinPrice').value = filterState.minPrice;
-		document.getElementById('hiddenMaxPrice').value = filterState.maxPrice;
-		document.getElementById('reservationCheckIn').value = filterState.check_in;
-		document.getElementById('reservationCheckOut').value = filterState.check_out;
-		document.getElementById('hiddenBedroom').value = filterState.bedroom;
-		document.getElementById('hiddenBed').value = filterState.bed;
-		document.getElementById('hiddenBath').value = filterState.bath;
-		
-		document.getElementById('searchForm').submit();
-	}
    
    // 검색 필터에 적용된 정보 저장
 	let filterState = {
-		location: "",
+		location: null,
 		check_in: null,
   		check_out: null,
 		minPrice: 14000,
-		maxPrice: 2000000,
+		maxPrice: 220000,
 		bedroom: 0,
 		bed: 0,
 		bath: 0,
 		amenities: [],
 	};
-   
-   
-   // 검색 필터에 저장된 내용 나타내주기
-	function initializeFilterUIFromState() {
-		// 가격
-		document.getElementById('priceMin').value = filterState.minPrice;
-		document.getElementById('priceMax').value = filterState.maxPrice;
-		updatePriceDisplay();
-		
-		// 침실, 침대, 욕실
-		updateDisplay(filterState.bedroom, "bedroomCount");
-		updateDisplay(filterState.bed, "bedCount");
-		updateDisplay(filterState.bath, "bathCount");
-		
-		// 편의시설
-		document.querySelectorAll('.amenity-btn').forEach(btn => {
-		  const key = btn.dataset.amenity;
-		  if (filterState.amenities.includes(key)) {
-		    btn.classList.add('selected');
-		  } else {
-		    btn.classList.remove('selected');
-		  }
-		});
-	}
-   
-   
-   // hidden input 갱신
-	function syncAmenityInputs() {
-		// 기존 hidden input 삭제
-		const oldInputs = document.querySelectorAll('input[name="property_amenities"]');
-		for (let i = 0; i < oldInputs.length; i++) {
-			oldInputs[i].remove();
-		}
-		
-		// filterState.amenities 기준으로 hidden input 새로 추가
-		const form = document.getElementById('searchForm');
-		for (let i = 0; i < filterState.amenities.length; i++) {
-			const input = document.createElement("input");
-			input.type = "hidden";
-			input.name = "property_amenities";
-			input.value = filterState.amenities[i];
-			form.appendChild(input);
-		}
-	}
-
-
-   
-   
    
    
    // === 변수 정의 ===
@@ -709,15 +640,15 @@ body {
                 <div class="sub">1박 요금</div>
               </div>
               <div class="price-range">
-	              <div class="price-sliders">
-	                <input type="range" id="priceMin" min="14000" max="220000" value="${filterState.minPrice}" step="1000" oninput="updatePriceDisplay()" style="width: 300px;">
-	                <input type="range" id="priceMax" min="14000" max="220000" value="${filterState.maxPrice}" step="1000" oninput="updatePriceDisplay()" style="width: 300px;">
-	              </div>
-	              <div class="price-values">
-	                <span id="priceMinDisplay">₩14000</span> - 
-	                <span id="priceMaxDisplay">₩220000+</span>
-	              </div>
-	          </div>
+              <div class="price-sliders">
+                <input type="range" id="priceMin" name="min_price_per_night" min="14000" max="220000" value="14000" step="1000" oninput="updatePriceDisplay()" style="width: 300px;">
+                <input type="range" id="priceMax" name="max_price_per_night" min="14000" max="220000" value="220000" step="1000" oninput="updatePriceDisplay()" style="width: 300px;">
+              </div>
+              <div class="price-values">
+                <span id="priceMinDisplay">₩14000</span> - 
+                <span id="priceMaxDisplay">₩220000+</span>
+              </div>
+            </div>
             </div>
 
             <!-- 침실과 침대 -->
@@ -729,25 +660,25 @@ body {
                 <div class="counter-group">
                   <div class="label" style=" width: 136px; display:flex; align-items:center; justify-content: center;">침실</div>
                   <div class="counter" style="width: 136px; display: flex; align-items: center; justify-content: space-between;">
-                  <button type="button" onclick="decreaseBedroom()">-</button>
-                  <span id="bedroomCount" style="flex: 1; text-align: center;"></span>
-                  <button type="button" onclick="increaseBedroom()">+</button>
+                  <button onclick="decreaseBedroom()">-</button>
+                  <span id="bedroomCount" style="flex: 1; text-align: center;">상관없음</span>
+                  <button onclick="increaseBedroom()">+</button>
                 </div>
                 </div>
                 <div class="counter-group">
                   <div class="label" style="width: 136px; display:flex; align-items:center; justify-content: center;">침대</div>
                   <div class="counter" style="width: 136px; display: flex; align-items: center; justify-content: space-between;">
-                  <button type="button" onclick="decreaseBed()">-</button>
-                  <span id="bedCount" style="flex: 1; text-align: center;"></span>
-                  <button type="button" onclick="increaseBed()">+</button>
+                  <button onclick="decreaseBed()">-</button>
+                  <span id="bedCount" style="flex: 1; text-align: center;">상관없음</span>
+                  <button onclick="increaseBed()">+</button>
                 </div>
                 </div>
                 <div class="counter-group">
                   <div class="label" style=" width: 136px; display:flex; align-items:center; justify-content: center;">욕실</div>
                   <div class="counter" style="width: 136px; display: flex; align-items: center; justify-content: space-between;">
-                  <button type="button" onclick="decreaseBathroom()">-</button>
-                  <span id="bathCount" style="flex: 1; text-align: center;"></span>
-                  <button type="button" onclick="increaseBathroom()">+</button>
+                  <button onclick="decreaseBathroom()">-</button>
+                  <span id="bathCount" style="flex: 1; text-align: center;">상관없음</span>
+                  <button onclick="increaseBathroom()">+</button>
                 </div>
                 </div>
               </div>
@@ -759,16 +690,16 @@ body {
                 <div class="label">편의시설</div>
               </div>
               <div class="amenities">
-	              <button type="button" class="amenity-btn" data-amenity="Wi-Fi" onclick="toggleAmenity(this)">📶 와이파이</button>
-	              <button type="button" class="amenity-btn" data-amenity="Air Conditioning" onclick="toggleAmenity(this)">❄️ 에어컨</button>
-	              <button type="button" class="amenity-btn" data-amenity="Heating" onclick="toggleAmenity(this)">🔥 난방</button>
-	              <button type="button" class="amenity-btn" data-amenity="Kitchen" onclick="toggleAmenity(this)">🍳 부엌</button>
-	              <button type="button" class="amenity-btn" data-amenity="Washer" onclick="toggleAmenity(this)">🚿 샤워실</button>
-	              <button type="button" class="amenity-btn" data-amenity="Dryer" onclick="toggleAmenity(this)">💇‍♀️ 헤어드라이기</button>
-	              <button type="button" class="amenity-btn" data-amenity="Free Parking" onclick="toggleAmenity(this)">🅿️ 무료주차장</button>
-	              <button type="button" class="amenity-btn" data-amenity="Pool" onclick="toggleAmenity(this)">🏊 수영장</button>
-	              <button type="button" class="amenity-btn" data-amenity="Gym" onclick="toggleAmenity(this)">🏋️ 헬스장</button>
-	              <button type="button" class="amenity-btn" data-amenity="Pet Friendly" onclick="toggleAmenity(this)">🐶 반려동물</button>
+	              <button class="amenity-btn" onclick="toggleAmenity(this)">📶 와이파이</button>
+	              <button class="amenity-btn" onclick="toggleAmenity(this)">❄️ 에어컨</button>
+	              <button class="amenity-btn" onclick="toggleAmenity(this)">🔥 난방</button>
+	              <button class="amenity-btn" onclick="toggleAmenity(this)">🍳 부엌</button>
+	              <button class="amenity-btn" onclick="toggleAmenity(this)">🚿 샤워실</button>
+	              <button class="amenity-btn" onclick="toggleAmenity(this)">💇‍♀️ 헤어드라이기</button>
+	              <button class="amenity-btn" onclick="toggleAmenity(this)">🅿️ 무료주차장</button>
+	              <button class="amenity-btn" onclick="toggleAmenity(this)">🏊 수영장</button>
+	              <button class="amenity-btn" onclick="toggleAmenity(this)">🏋️ 헬스장</button>
+	              <button class="amenity-btn" onclick="toggleAmenity(this)">🐶 반려동물</button>
 	          </div>
             </div>
           </div>
@@ -776,28 +707,9 @@ body {
       }
    
    /* 편의시설 토글 function */
-	function toggleAmenity(button) {
-		const amenity = button.dataset.amenity; // 버튼에 data-amenity 속성 필요
-		button.classList.toggle("selected");
-		
-		const index = filterState.amenities.indexOf(amenity);
-		
-		if (button.classList.contains("selected")) {
-			// 없으면 추가
-			if (index === -1) {
-				filterState.amenities.push(amenity);
-			}
-		} 
-		else {
-			// 있으면 제거
-			if (index !== -1) {
-				filterState.amenities.splice(index, 1);
-			}
+		function toggleAmenity(button) {
+		  button.classList.toggle("selected");
 		}
-		
-		// hidden input 갱신
-		syncAmenityInputs();
-	}
    
    
 	function updateDisplay(count, elementId) {
@@ -813,39 +725,33 @@ body {
 	 // 침실
 	 function increaseBedroom() {
 	   bedroom++;
-	   filterState.bedroom = bedroom;
 	   updateDisplay(bedroom, "bedroomCount");
 	 }
 
 	 function decreaseBedroom() {
 	   if (bedroom > 0) bedroom--;
-	   filterState.bedroom = bedroom;
 	   updateDisplay(bedroom, "bedroomCount");
 	 }
 
 	 // 침대
 	 function increaseBed() {
 	   bed++;
-	   filterState.bed = bed;
 	   updateDisplay(bed, "bedCount");
 	 }
 
 	 function decreaseBed() {
 	   if (bed > 0) bed--;
-	   filterState.bed = bed;
 	   updateDisplay(bed, "bedCount");
 	 }
 
 	 // 욕실
 	 function increaseBathroom() {
 	   bath++;
-	   filterState.bath = bath;
 	   updateDisplay(bath, "bathCount");
 	 }
 
 	 function decreaseBathroom() {
 	   if (bath > 0) bath--;
-	   filterState.bath = bath;
 	   updateDisplay(bath, "bathCount");
 	 }
    
@@ -863,12 +769,6 @@ body {
              document.getElementById('priceMax').value = max;
            }
          
-           
-           // 필터 상태 업데이트
-           filterState.minPrice = min;
-           filterState.maxPrice = max;
-           
-           
            document.getElementById('priceMinDisplay').textContent = '₩' + min.toLocaleString();
            document.getElementById('priceMaxDisplay').textContent = '₩' + max.toLocaleString() + (max >= 220000 ? '+' : '');
       }
@@ -892,7 +792,6 @@ body {
          setTimeout(() => {
             if (type === 'filter') {
                panel.innerHTML = renderfilterContent();
-               initializeFilterUIFromState();
             } else if (type === 'location') {
                panel.innerHTML = `
                   <h4>추천 여행지</h4>
@@ -919,33 +818,10 @@ body {
                   dateFormat: "Y-m-d",
                   inline: true,
                   static: true,
-                  
-                  // 선택 유지
-                  defaultDate: [filterState.check_in, filterState.check_out],
-                  
-                  
                   onChange: (selectedDates, dateStr, instance) => {
                      const [start, end] = selectedDates;
-                     
-                     // 상태 저장
-                     filterState.check_in = start ? instance.formatDate(start, "Y-m-d") : null;
-                     filterState.check_out = end ? instance.formatDate(end, "Y-m-d") : null;
-                     
-                     
                      document.getElementById('checkin').textContent = start ? instance.formatDate(start, "Y-m-d") : "-";
                      document.getElementById('checkout').textContent = end ? instance.formatDate(end, "Y-m-d") : "-";
-                     
-                     
-                     // "날짜 추가" 텍스트 영역 업데이트
-                     const dateSection = document.querySelector('.section[data-type="date"] .section-value');
-                     if (filterState.check_in && filterState.check_out) {
-                     	dateSection.textContent = filterState.check_in + " ~ " + filterState.check_out;
-                     }
-                     else {
-                     	dateSection.textContent = "날짜 추가";
-                     }
-
-                     
                   }
                });
             }

@@ -3,6 +3,7 @@ package mainPage.mainPropertyList;
 import java.io.IOException;
 import java.sql.Date;
 import java.sql.SQLException;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -27,14 +28,39 @@ public class MainPropertySearchAction implements Action {
         String continent = request.getParameter("location_continent");
         String country = request.getParameter("location_country");
         String city = request.getParameter("location_city");
-        Date check_in = Date.valueOf(request.getParameter("reservation_check_in"));
-        Date check_out = Date.valueOf(request.getParameter("reservation_check_out"));
+        Date check_in = null;
+        Date check_out = null;
         int min_price = Integer.parseInt(request.getParameter("min_price_per_night"));
         int max_price = Integer.parseInt(request.getParameter("max_price_per_night"));
-        int room = Integer.parseInt(request.getParameter("property_room"));
-        int bed = Integer.parseInt(request.getParameter("property_bed"));
-        int bath = Integer.parseInt(request.getParameter("property_bath"));
+        int room = 0;
+        int bed = 0;
+        int bath = 0;
         String[] amenities = request.getParameterValues("property_amenities");
+        
+        
+        System.out.println("check_in: " + request.getParameter("reservation_check_in"));
+        System.out.println("check_out: " + request.getParameter("reservation_check_out"));
+        
+        // null 일 경우 오류 방지
+        if ( request.getParameter("reservation_check_in") != null 
+        		&& request.getParameter("reservation_check_in") != "" ) {
+        	check_in = Date.valueOf(request.getParameter("reservation_check_in"));
+        }
+        if ( request.getParameter("reservation_check_out") != null 
+        		&& request.getParameter("reservation_check_out") != "" ) {
+        	check_out = Date.valueOf(request.getParameter("reservation_check_out"));
+        }
+
+        if ( request.getParameter("property_room") != null ) {
+        	room = Integer.parseInt(request.getParameter("property_room"));
+        }
+        if ( request.getParameter("property_bed") != null ) {
+        	bed = Integer.parseInt(request.getParameter("property_bed"));
+        }
+        if ( request.getParameter("property_bath") != null ) {
+        	bath = Integer.parseInt(request.getParameter("property_bath"));
+        }
+                
         
         MainPropertyListSearchDAO dao = new MainPropertyListSearchDAO();
         
@@ -51,22 +77,23 @@ public class MainPropertySearchAction implements Action {
 	        property_id_list = dao.getAllPropertyId();
 	        property_id_filter_list = dao.getAllPropertyId();
 	        
+	        
 	        // 가격 필터
-	        	property_id_filter_list = dao.filterByPrice(min_price, max_price);
-	        	property_id_list.retainAll(property_id_filter_list);
-	
+        	property_id_filter_list = dao.filterByPrice(min_price, max_price);
+        	property_id_list.retainAll(property_id_filter_list);
+
 	        // 대륙 필터
-	        if ( continent != null ) {
+	        if ( continent != null && continent != "" ) {
 	        	property_id_filter_list = dao.filterByContinent(continent);
 	        	property_id_list.retainAll(property_id_filter_list);
 	        }
 	        // 나라 필터
-	        if ( country != null ) {
+	        if ( country != null && country != "" ) {
 	        	property_id_filter_list = dao.filterByCountry(country);
 	        	property_id_list.retainAll(property_id_filter_list);
 	        }
 	        // 도시 필터
-	        if ( city != null ) {
+	        if ( city != null && city != "" ) {
 	        	property_id_filter_list = dao.filterByCity(city);
 	        	property_id_list.retainAll(property_id_filter_list);
 	        }
@@ -91,8 +118,8 @@ public class MainPropertySearchAction implements Action {
 	        	property_id_list.retainAll(property_id_filter_list);
 	        }
 	        // 편의시설 필터
-	        if ( amenities != null ) {
-	        	property_id_filter_list = dao.filterByAmenities(amenities, dao);
+	        if ( amenities != null && amenities.length > 0 && !amenities[0].isEmpty() ) {
+	        	property_id_filter_list = dao.filterByAmenities(amenities, property_id_list);
 	        	property_id_list.retainAll(property_id_filter_list);
 	        }
         

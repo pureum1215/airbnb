@@ -57,7 +57,8 @@ public class MainPropertyListSearchDAO {
 		
 		List<String> list = new ArrayList<>();
 		
-		String sql = "SELECT property_id FROM PROPERTY";
+		String sql = "SELECT property_id FROM PROPERTY "
+				+ "WHERE property_delete_yn = 'N'";
 		
         pstmt = conn.prepareStatement(sql);
         rs = pstmt.executeQuery();
@@ -81,16 +82,17 @@ public class MainPropertyListSearchDAO {
 				+ "FROM property "
 				+ "WHERE price_per_night BETWEEN ? AND ? ";
 		
-        pstmt = conn.prepareStatement(sql);
-        rs = pstmt.executeQuery();
-		
-        while (rs.next()) {
-        	String propertyId = rs.getString("property_id");
-        	pstmt.setInt(1, min_price);
-        	pstmt.setInt(1, max_price);
-            list.add(propertyId);
-        }
-		return list;
+        pstmt = conn.prepareStatement(sql);        
+    	pstmt.setInt(1, min_price);
+    	pstmt.setInt(2, max_price);
+    	rs = pstmt.executeQuery();
+
+    	while (rs.next()) {
+    		String propertyId = rs.getString("property_id");
+    		list.add(propertyId);
+    	}
+
+        return list;
 	}
 	
 	// 대륙 필터
@@ -102,17 +104,18 @@ public class MainPropertyListSearchDAO {
 		String sql = "SELECT p.property_id "
 				+ "FROM property p "
 				+ "JOIN location l ON p.location_id = l.location_id "
-				+ "WHERE l.location_countinent = ? ";
+				+ "WHERE l.location_continent = ? ";
 		
         pstmt = conn.prepareStatement(sql);
+        pstmt.setString(1, continent);
         rs = pstmt.executeQuery();
-		
+
         while (rs.next()) {
         	String propertyId = rs.getString("property_id");
-        	pstmt.setString(1, continent);
             list.add(propertyId);
         }
-		return list;
+
+        return list;
 	}
 	
 	// 나라 필터
@@ -127,14 +130,15 @@ public class MainPropertyListSearchDAO {
 				+ "WHERE l.location_country = ? ";
 		
         pstmt = conn.prepareStatement(sql);
+        pstmt.setString(1, country);
         rs = pstmt.executeQuery();
-		
+
         while (rs.next()) {
         	String propertyId = rs.getString("property_id");
-        	pstmt.setString(1, country);
             list.add(propertyId);
         }
-		return list;
+
+        return list;
 	}
 	
 	// 도시 필터
@@ -149,14 +153,15 @@ public class MainPropertyListSearchDAO {
 				+ "WHERE l.location_city = ? ";
 		
         pstmt = conn.prepareStatement(sql);
+        pstmt.setString(1, city);
         rs = pstmt.executeQuery();
-		
+
         while (rs.next()) {
         	String propertyId = rs.getString("property_id");
-        	pstmt.setString(1, city);
             list.add(propertyId);
         }
-		return list;
+
+        return list;
 	}
 	
 	// 침실 수 필터
@@ -170,14 +175,15 @@ public class MainPropertyListSearchDAO {
 				+ "WHERE property_room >= ? ";
 		
         pstmt = conn.prepareStatement(sql);
+        pstmt.setInt(1, room);
         rs = pstmt.executeQuery();
-		
+
         while (rs.next()) {
         	String propertyId = rs.getString("property_id");
-        	pstmt.setInt(1, room);
             list.add(propertyId);
         }
-		return list;
+
+        return list;
 	}
 	
 	// 침대 수 필터
@@ -191,14 +197,15 @@ public class MainPropertyListSearchDAO {
 				+ "WHERE property_bed >= ? ";
 		
         pstmt = conn.prepareStatement(sql);
+        pstmt.setInt(1, bed);
         rs = pstmt.executeQuery();
-		
+
         while (rs.next()) {
         	String propertyId = rs.getString("property_id");
-        	pstmt.setInt(1, bed);
             list.add(propertyId);
         }
-		return list;
+
+        return list;
 	}
 	
 	// 욕실 수 필터
@@ -212,14 +219,15 @@ public class MainPropertyListSearchDAO {
 				+ "WHERE property_bath >= ? ";
 		
         pstmt = conn.prepareStatement(sql);
+        pstmt.setInt(1, bath);
         rs = pstmt.executeQuery();
-		
+
         while (rs.next()) {
         	String propertyId = rs.getString("property_id");
-        	pstmt.setInt(1, bath);
             list.add(propertyId);
         }
-		return list;
+
+        return list;
 	}
 	
 	
@@ -235,9 +243,9 @@ public class MainPropertyListSearchDAO {
 				+ "SELECT 1 "
 				+ "FROM reservation r " 
 				+ "WHERE r.property_id = p.property_id " 
-				+ "AND ((r.check_in < ? AND r.check_out > ?) " 
-				+ "OR (r.check_in >= ? AND r.check_in < ?) " 
-				+ "OR (r.check_out > ? AND r.check_out <= ?)))";
+				+ "AND ((r.reservation_check_in < ? AND r.reservation_check_out > ?) " 
+				+ "OR (r.reservation_check_in >= ? AND r.reservation_check_in < ?) " 
+				+ "OR (r.reservation_check_out > ? AND r.reservation_check_out <= ?)))";
 		
         pstmt = conn.prepareStatement(sql);
         pstmt.setDate(1, check_out);
@@ -256,14 +264,14 @@ public class MainPropertyListSearchDAO {
 	}
 	
 	// 편의시설 필터 - 필터에 체크한 모든 편의시설을 포함하는 숙소 검색
-	public List<String> filterByAmenities( String[] amenities, MainPropertyListSearchDAO dao ) throws SQLException, IOException {
+	public List<String> filterByAmenities( String[] amenities, List<String> property_id_list) throws SQLException, IOException {
 		System.out.println("filterByAmenities method 호출");
 		
-		List<String> list = new ArrayList<>();
+		List<String> list = property_id_list;
 		List<String> filter_list = new ArrayList<>();
 		
 		for ( int i = 0; i < amenities.length; i++ ) {
-			filter_list = dao.filterByAmenitySet(amenities[i]);
+			filter_list = filterByAmenitySet(amenities[i]);
 			list.retainAll(filter_list);
 		}
 		
@@ -282,11 +290,11 @@ public class MainPropertyListSearchDAO {
 				+ "WHERE amenity_name = ? ";
 		
         pstmt = conn.prepareStatement(sql);
+        pstmt.setString(1, amenities);
         rs = pstmt.executeQuery();
-		
+
         while (rs.next()) {
         	String propertyId = rs.getString("property_id");
-        	pstmt.setString(1, amenities);
             list.add(propertyId);
         }
 				

@@ -23,7 +23,7 @@
     <url-pattern>*.ura</url-pattern>
   </servlet-mapping>
   
-  <!-- - - - - - - - - - - - - - - - - - - - - - - - - 
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - 
 	HostReservationAPI - 호스트 페이지에서 예약 목록 확인
 - - - - - - - - - - - - - - - - - - - - - - - - - - -->
   <servlet>
@@ -34,8 +34,21 @@
     <servlet-name>HostReservationAPI</servlet-name>
     <url-pattern>*.hra</url-pattern>
   </servlet-mapping>
+
 	  
-  <!-- - - - - - - - - - - - - - - - - - - - - - - - - 
+ <!-- - - - - - - - - - - - - - - - - - - - - - - - - 
+	HostReservationAPI - 호스트 페이지에서 예약 목록 확인
+- - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <servlet>
+	<servlet-name>MemberIdCheckAPI</servlet-name>
+    <servlet-class>controller.api.member.MemberIdCheckAPI</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>MemberIdCheckAPI</servlet-name>
+    <url-pattern>*.mia</url-pattern>
+  </servlet-mapping>
+
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - 
 	HostDeatail - 호스트 페이지에서 숙소 다시 설정하기
 - - - - - - - - - - - - - - - - - - - - - - - - - - -->
   <servlet>
@@ -46,6 +59,31 @@
     <servlet-name>HostDetail</servlet-name>
     <url-pattern>*.hda</url-pattern>
   </servlet-mapping>
+  
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - 
+	SearchBarUI - 검색바 ui에 나타나게하기
+- - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <servlet>
+	<servlet-name>SearchBarUI</servlet-name>
+    <servlet-class>controller.api.searchBar.SearchBarUIAPI</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>SearchBarUI</servlet-name>
+    <url-pattern>*.sua</url-pattern>
+  </servlet-mapping>
+
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - 
+	FilterOption - 검색바에 기본값 불러오기
+- - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <servlet>
+	<servlet-name>FilterOption</servlet-name>
+    <servlet-class>controller.api.searchBar.SearchBarGetFilterOptionAPI</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>FilterOption</servlet-name>
+    <url-pattern>*.sfa</url-pattern>
+  </servlet-mapping>
+  
 
 
 <!-- - - - - - - - - - - - - - - - - - - - - - - - - 

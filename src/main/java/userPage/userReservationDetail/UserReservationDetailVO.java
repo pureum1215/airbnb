@@ -9,8 +9,8 @@ public class UserReservationDetailVO {
 	 * 숙소 id, 숙소 사진, 숙소 이름, 숙소 별점, 숙소 위치 id, 상세주소, 숙소 도시, 나라, 숙소 상세, 1박 가격,
 	 * 호스트 id, 호스트 이름, 호스트 소개
 	 * 숙소 리뷰 id, 리뷰 내용, 리뷰 생성 날짜, 
-	 * 예약 id, 사용자 id, 체크인 날짜, 체크아웃 날짜,
-	 * 결제 id, 결제 비용, 
+	 * 예약 id, 사용자 id, 체크인 날짜, 체크아웃 날짜, 예약 요청 상태, 
+	 * 결제 id, 결제 비용, 결제 상태
 	 **************************************************************************/
 	
 	private String property_id;
@@ -35,9 +35,11 @@ public class UserReservationDetailVO {
 	private String user_id;
 	private Date reservation_check_in;
 	private Date reservation_check_out;
+	private String reservation_confirm;
 	
 	private String payment_id;
 	private int payment_price;
+	private String payment_status;
 	
 	public String getProperty_id() {
 		return property_id;
@@ -153,6 +155,12 @@ public class UserReservationDetailVO {
 	public void setReservation_check_out(Date reservation_check_out) {
 		this.reservation_check_out = reservation_check_out;
 	}
+	public String getReservation_confirm() {
+		return reservation_confirm;
+	}
+	public void setReservation_confirm(String reservation_confirm) {
+		this.reservation_confirm = reservation_confirm;
+	}
 	public String getPayment_id() {
 		return payment_id;
 	}
@@ -164,6 +172,12 @@ public class UserReservationDetailVO {
 	}
 	public void setPayment_price(int payment_price) {
 		this.payment_price = payment_price;
+	}
+	public String getPayment_status() {
+		return payment_status;
+	}
+	public void setPayment_status(String payment_status) {
+		this.payment_status = payment_status;
 	}
 		
 }

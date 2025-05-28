@@ -11,6 +11,7 @@ String reservation_default ="예약 요청";
 
 boolean requestReservation = true;
 
+String hostId = (String)session.getAttribute("host_id");
 %>
 
 
@@ -418,7 +419,7 @@ span.amenities:hover {
 
 		  </div>
 		</div>
-		
+	
 		<!-- 편의시설 -->
 		<div class="section-amenity">
 		  <h2 style="font-size: 24px;">편의시설</h2>
@@ -446,7 +447,7 @@ span.amenities:hover {
 		  </div>
 		</div>
 	</div>
-
+	<input type="hidden" id="hostId" name="hostId" value="<%= hostId%>">	
 
 	<div>
 		<%@ include file="hostFooter.jsp"%>
@@ -460,20 +461,20 @@ span.amenities:hover {
 	<script>
 	
 	
-	const address_detail = document.getElementById("address_detail");//
+	//const address_detail = document.getElementById("address_detail");
 	mapLocation("서울 종로구 사직로 161");
-	let lng = 100;
-	let lat = 20;
+	let addr_detail;
+	let lng = 100;//경도
+	let lat = 20;//위도
 	
-	//const address_id = document.getElementById("address_detail");
 	function onclickAddr(){
 		new daum.Postcode({
 		    oncomplete: function(data) {
 		        //data는 사용자가 선택한 주소 정보를 담고 있는 객체이며, 상세 설명은 아래 목록에서 확인하실 수 있습니다.
 		        //주소
-		        
 		        $("#address_detail").val(data.address);
 		        mapLocation(data.address);
+		        addr_detail = data.address;
 		    }
 		}).open();
 	}
@@ -576,9 +577,13 @@ span.amenities:hover {
 	  }
 	 
 	function createData(){
+		alert('생성');
+		
+		let addr_detail;//자세한 주소
+		let lng = 100;//경도
+		let lat = 20;//위도
 		
 		//property_id 는 생성시켜야 함.
-		
 		// amenitiesArray 수집
 	    const amenitySpans = document.querySelectorAll('span[data-property-amenities="true"]');
 		let amenitiesArray = [];
@@ -587,23 +592,28 @@ span.amenities:hover {
 			amenitiesArray.push(target);
 		}
 
+		
+		
 	    const data = {
+	    	hostId: document.querySelector('input[name="hostId"]').value,
 	    	reservation_default: hidden_reservation.value,
 	        listingTitle: document.querySelector('input[name="listingName"]').value,
 	        rooms: document.getElementById("bedrooms").innerText,
 	        beds: document.getElementById("beds").innerText,
 	        bathrooms: document.getElementById("bathrooms").innerText,
 	        price: document.querySelector('.input-text-price').value,
-	        address: document.querySelector('.input-text-address').value,
 	        description: document.querySelector('textarea[name="listingDescription"]').value,
-	        amenitiesArray: amenitiesArray.join(',') // 배열 추가
+	        amenitiesArray: amenitiesArray.join(','), // 배열 추가
+	        address: addr_detail,
+	       	address_lng :lng,
+	       	address_lat :lat
 	    };
 	    
 	    
 	    console.log('data', data);
+
 	    
-	    
-		$.ajax({
+/* 		$.ajax({
 			type : 'post',
 			data : data,
 			dataType : 'json',
@@ -613,8 +623,8 @@ span.amenities:hover {
 				//여기에 성공했을 때,
 				location.href = 'hostList.ho';
 			}
-		});
-		
+		}); */
+		//주석 처리한 이유는 data 확인.
 	}
 	 
 	 

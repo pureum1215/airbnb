@@ -141,7 +141,7 @@ public class DummyDAO {
 	}
 	
 	public boolean initLocation(LocationVO locVO) {
-		String sql = "INSERT INTO Location (location_id, location_city, location_country, location_continent,\n"
+		String sql = "INSERT INTO Location (location_id, location_city, location_country, location_continent, "
 				+ "location_detail, location_x, location_y)";
 		sql += "VALUES(?,?,?,?,?,?,?)";
 		

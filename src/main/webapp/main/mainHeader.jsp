@@ -458,14 +458,14 @@ body {
 			<div class="nav"></div>
 			<div class="actions">
 				<button class="host-mode-btn">호스트 모드로 전환</button>  <!-- ★★★★★ 호스트 화면 이동 링크 필요 ★★★★★ -->
-				<div class="circle-btn">  <!-- ★★★★★ 프로필 화면 이동 링크 필요 ★★★★★ -->
+				<div class="circle-btn" style="background-color: black; color: white;">  <!-- ★★★★★ 프로필 화면 이동 링크 필요 ★★★★★ -->
 					<%
 					if (userId != null) {
 					%>
-					<%=userId.substring(0, 1)%>
+					U
 					<%
 					} else {
-					%>x
+					%>
 					<%
 					}
 					%>

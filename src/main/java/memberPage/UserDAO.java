@@ -73,29 +73,43 @@ public class UserDAO {
 		return 0;
 	}
 	
+	
+	/******************************************************************
+	 *  회원가입 시 email 중복체크 유효성 검사
+	 ******************************************************************/
 	public boolean userIDcheck(String email) {
-		String sql = "select * from user where user_email = ?";
-		
-		boolean kjs = true;
-		
-		try {
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, email);
-			rs = pstmt.executeQuery(); //결과 담기(ResultSet)
-			
-			if(rs.next()) {
-				kjs = false;
-			}
-			
-			
-		}
-		catch (Exception e){
-			e.printStackTrace();
-		}
-		
-		return kjs;
-		
+	    // user 테이블에서 user_email이 email 과 일치하는 레코드 조회 쿼리문
+	    String sql = "select * from user where user_email = ?";
+	    
+	    // 중복 없으면 true, 있으면 false 로 반환할 변수 초기값 true
+	    boolean kjs = true;
+	    
+	    try {
+	        // SQL 쿼리 실행 준비
+	        pstmt = conn.prepareStatement(sql);
+	        
+	        // 첫 번째 ? 자리에 email 값 바인딩
+	        pstmt.setString(1, email);
+	        
+	        // 쿼리 실행 후 결과(ResultSet) 저장
+	        rs = pstmt.executeQuery();
+	        
+	        // 결과가 하나라도 있으면(즉, 이미 존재하면)
+	        if(rs.next()) {
+	            // 중복이므로 false 로 변경
+	            kjs = false;
+	        }
+	        
+	    } catch (Exception e){
+	        // 예외 발생 시 스택 트레이스 출력
+	        e.printStackTrace();
+	    }
+	    
+	    // 중복 여부 반환 (true = 중복 없음, false = 중복 있음)
+	    return kjs;
 	}
+	
+	
 	
 	/*******************
 	 * 사용자 회원가입  성공시 True 실패시 false

@@ -62,7 +62,7 @@ body {
 
 /* 카드 내부 정보 */
 .property-info {
-	padding: 10px 12px;
+	padding: 6px 12px 10px 12px;
 }
 
 .property-location {
@@ -75,6 +75,11 @@ body {
 	font-weight: bold;
 	margin: 4px 0;
 	color: #222;
+	display: flex;
+	justify-content: space-between;
+}
+.property-name-title {
+	font-size: 16px;
 }
 
 .property-rating {
@@ -146,6 +151,28 @@ body {
 		width: 100%;
 	}
 }
+
+.empty_box {
+    height: 488px;
+	padding: 15px;
+	margin-left: 25px;
+}
+
+.empty_title {
+	font-size: 22px;
+	font-weight: bolder;
+    margin-top: 20px;
+}
+.empty_info {
+	font-size: 16px;
+	margin-top: 20px;
+}
+
+.property-card-link {
+	text-decoration: none;
+	color: inherit;
+	display: block;
+}
 </style>
 </head>
 <body>
@@ -173,7 +200,10 @@ body {
 	
 	if ("empty".equals(searchResult)) {
 %>
-    <p>검색 결과가 없습니다.</p>
+	<div class="empty_box">
+		<div class="empty_title">일치하는 결과 없음</div>
+    	<div class="empty_info">일부 필터를 변경하거나 삭제하여 검색 지역을 조정해보세요.</div>
+	</div>
 <%
     } 
 	else if (propertyList != null && !propertyList.isEmpty()) {
@@ -220,7 +250,9 @@ body {
 				<img src="/uploads/<%=photoUrl%>" alt="숙소 대표 이미지" />
 				<div class="property-info">
 					<div class="property-name">
-						<%=propertyName%>
+						<div class="property-name-title">
+							<%=propertyName%>
+						</div>
 						<span style="float: right; font-weight: normal; color: #555;">
 							⭐ <%= rating != null ? String.format("%.1f", rating) : "-" %>
 						</span>

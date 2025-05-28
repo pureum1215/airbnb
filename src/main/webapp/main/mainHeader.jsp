@@ -613,21 +613,22 @@ body {
    // 데이터 넘기기
 	function handleSearchClick() {
 		event.preventDefault();
-	   
-	   const min = filterState.minPrice;
-	   const max = filterState.maxPrice;
 
-	   console.log("Submitting with min:", min, "max:", max);
-
-	   document.getElementById('hiddenMinPrice').value = min;
-	   document.getElementById('hiddenMaxPrice').value = max;
-	   document.getElementById('reservationCheckIn').value = filterState.check_in;
-	   document.getElementById('reservationCheckOut').value = filterState.check_out;
-	   document.getElementById('hiddenBedroom').value = filterState.bedroom;
-	   document.getElementById('hiddenBed').value = filterState.bed;
-	   document.getElementById('hiddenBath').value = filterState.bath;
-
-	   document.getElementById('searchForm').submit();
+		// 위치 정보 미완성
+		document.getElementById('hiddenContinent').value = filterState.location;
+		document.getElementById('hiddenCountry').value = filterState.location;
+		document.getElementById('hiddenCity').value = filterState.location;
+		
+		
+		document.getElementById('hiddenMinPrice').value = filterState.minPrice;
+		document.getElementById('hiddenMaxPrice').value = filterState.maxPrice;
+		document.getElementById('reservationCheckIn').value = filterState.check_in;
+		document.getElementById('reservationCheckOut').value = filterState.check_out;
+		document.getElementById('hiddenBedroom').value = filterState.bedroom;
+		document.getElementById('hiddenBed').value = filterState.bed;
+		document.getElementById('hiddenBath').value = filterState.bath;
+		
+		document.getElementById('searchForm').submit();
 	}
    
    // 검색 필터에 적용된 정보 저장

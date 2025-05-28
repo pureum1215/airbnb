@@ -37,11 +37,17 @@ public class MainPropertySearchAction implements Action {
         int bath = 0;
         String[] amenities = request.getParameterValues("property_amenities");
         
+        
+        System.out.println("check_in: " + request.getParameter("reservation_check_in"));
+        System.out.println("check_out: " + request.getParameter("reservation_check_out"));
+        
         // null 일 경우 오류 방지
-        if ( request.getParameter("reservation_check_in") != null ) {
+        if ( request.getParameter("reservation_check_in") != null 
+        		&& request.getParameter("reservation_check_in") != "" ) {
         	check_in = Date.valueOf(request.getParameter("reservation_check_in"));
         }
-        if ( request.getParameter("reservation_check_out") != null ) {
+        if ( request.getParameter("reservation_check_out") != null 
+        		&& request.getParameter("reservation_check_out") != "" ) {
         	check_out = Date.valueOf(request.getParameter("reservation_check_out"));
         }
 

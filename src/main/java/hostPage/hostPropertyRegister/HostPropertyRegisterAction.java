@@ -53,11 +53,14 @@ public class HostPropertyRegisterAction {
 		int firstamenity = 0;
 		
 		/********
-		 * 편의 시설 담기
+		 * 편의 시설 담기 2-1
 		 ********/
 		String amarray = request.getParameter("amenitiesArray");
 		
 		String [] amenitiesArray = amarray.split(",");
+		
+		
+		
 		
 		
 		
@@ -89,38 +92,22 @@ public class HostPropertyRegisterAction {
 		
 		System.out.println("ㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁs");
 		
-		Map<String, Integer> amenityMap = new HashMap<>();
-		amenityMap.put("WI-FI", 1);
-		amenityMap.put("에어컨", 2);
-		amenityMap.put("난방", 3);
-		amenityMap.put("부엌", 4);
-		amenityMap.put("샤워실", 5);
-		amenityMap.put("헤어드라이기", 6);
-		amenityMap.put("무료주차장", 7);
-		amenityMap.put("수영장", 8);
-		amenityMap.put("헬스장", 9);
-		amenityMap.put("반려동물 가능", 10);
+		/**********
+		 *  2. 숙소 편의 시설 등록 과정
+		 **********/
 		
-		List<Integer> amenityIds = new ArrayList<>();
-
-		for (String amenity : amenitiesArray) {
-		    Integer id = amenityMap.get(amenity);
-		    if (id != null) {
-		        amenityIds.add(id);
-		    }
+		// 편의시설 목록찾아오기. 2-1 , 2-1
+		List<AmenitiesDTO> lists = registDAO.getTotalAmenities();
+		for(AmenitiesDTO li : lists) {
+			System.out.println(li.getAmenities_name_kr());
 		}
-		
-		if(!amenityIds.isEmpty()) {
-			firstamenity = amenityIds.get(0);
-		}
-		
-		
 
+		System.out.println("ㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁe");
 		
 		
 		result1= registDAO.locationInsert(locvo);
 		
-		result3= registDAO.insertPropertyAmenities(amenityIds);
+		//result3= registDAO.insertPropertyAmenities(amenityIds);
 		
 		registDAO.closeCon();
 		

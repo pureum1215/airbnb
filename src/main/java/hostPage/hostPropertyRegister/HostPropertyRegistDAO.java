@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -16,16 +17,18 @@ public class HostPropertyRegistDAO {
 	private Connection conn;
 	private PreparedStatement pstmt;
 	private ResultSet rs;
+
 	
-	public HostPropertyRegistDAO() {
+	public Connection getHostPropertyRegistDAO() {
 		try {
 			Context init = new InitialContext();
 			DataSource ds = (DataSource) init.lookup("java:comp/env/jdbc/MysqlDB");
-			conn = ds.getConnection();
+			return ds.getConnection();
 
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		return null;
 	}
 	
 
@@ -52,6 +55,7 @@ public class HostPropertyRegistDAO {
 	 ******************************************************************/
 	//idx check
 	public int initPropertyIdxCount() {
+		conn = getHostPropertyRegistDAO();
 		try {
 			String sql = "select count(*)+1 as cnt from Property where property_id like 'prop%'";
 			pstmt = conn.prepareStatement(sql);
@@ -70,9 +74,44 @@ public class HostPropertyRegistDAO {
 	}
 	
 	
+	public List<AmenitiesDTO> getTotalAmenities() {
+		conn = getHostPropertyRegistDAO();
+		List<AmenitiesDTO> lists = new ArrayList<AmenitiesDTO>();
+		
+		String sql = "select amenity_id, amenity_name_kr from amenities";
+		
+		try {
+			
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				AmenitiesDTO dto = new AmenitiesDTO();
+				dto.setAmenities_id(rs.getString("amenity_id"));
+				dto.setAmenities_name_kr(rs.getString("amenity_name_kr"));
+				
+				lists.add(dto);
+			}
+			
+			
+			
+			
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+		finally {
+			closeCon();
+		}
+		
+		return lists;
+	}
+	
+	
 	
 	//location 테이블에 삽입.
 	public boolean locationInsert(HostPropertyRegisterVO locvo) {
+		conn = getHostPropertyRegistDAO();
 		String sql = "INSERT INTO Location (location_id, location_city, location_country, location_continent, "
 				+ "location_detail, location_x, location_y)";
 		sql += "VALUES(?,?,'한국','아시아',?,?,?)";
@@ -100,6 +139,8 @@ public class HostPropertyRegistDAO {
 			
 			
 			return false;
+		} finally {
+			closeCon();
 		}
 		
 		
@@ -118,6 +159,9 @@ public class HostPropertyRegistDAO {
 	 *************/
 	//property 테이블에 삽입
 	public boolean hostPropertyRegister(HostPropertyRegisterVO propvo) {
+		conn = getHostPropertyRegistDAO();
+		
+		
 		String sql = "Insert into property (property_id, host_id, property_name, "
 				+ "property_description, price_per_night, property_room, property_bed, property_bathroom, "
 				+ "property_reservation_default, property_photo_url, property_delete_yn) ";
@@ -148,6 +192,8 @@ public class HostPropertyRegistDAO {
 			
 			
 			return false;
+		} finally {
+			closeCon();
 		}
 		
 		

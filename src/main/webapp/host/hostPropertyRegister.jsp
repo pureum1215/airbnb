@@ -660,7 +660,7 @@ span.amenities:hover {
 			success : function(res) {
 				console.log(res);
 				//여기에 성공했을 때,
-				//location.href = 'hostList.ho';
+				location.href = 'hostList.ho';
 			}
 		}); 
 		//주석 처리한 이유는 data 확인.

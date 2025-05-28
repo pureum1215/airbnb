@@ -124,6 +124,12 @@ public class HostPropertyRegisterAction {
 			return new ResponseData(500, "data false");
 		}
 		
+		//숙소에 location Id 추가하기
+		if(!registDAO.registerPropertyAddLocation(locationIdx, propertyIdx)) {
+			System.out.println("LOCATION false / locationIdx: "+locationIdx);
+			return new ResponseData(500, "data false");
+		}
+		
 		
 		
 		

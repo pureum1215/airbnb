@@ -95,38 +95,7 @@ public class HostPropertyRegistDAO {
 		return -1;
 	}
 
-	// location 테이블에 삽입.
-	public boolean locationInsert(HostPropertyRegisterVO locvo) {
-		conn = getHostPropertyRegistDAO();
-		String sql = "INSERT INTO Location (location_id, location_city, location_country, location_continent, "
-				+ "location_detail, location_x, location_y)";
-		sql += "VALUES(?,?,'한국','아시아',?,?,?)";
 
-		try {
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, locvo.getLocation_id());// loc +idx
-			pstmt.setString(2, locvo.getLocation_city());// addr에서 잘라서 도시 알기
-			pstmt.setString(3, locvo.getLocation_country());
-			pstmt.setString(4, locvo.getLocation_continent());
-			
-			pstmt.setString(5, locvo.getLocation_detail());
-			pstmt.setDouble(6, locvo.getLocation_x());
-			pstmt.setDouble(7, locvo.getLocation_y());
-
-			if (0 < pstmt.executeUpdate()) {
-				return true;
-			}
-
-		} catch (SQLException e) {
-			e.printStackTrace();
-
-			return false;
-		} finally {
-			closeCon();
-		}
-
-		return false;
-	}
 
 	/*****
 	 * 
@@ -195,6 +164,68 @@ public class HostPropertyRegistDAO {
 			closeCon();
 		}
 
+		return false;
+	}
+	
+	
+	// location 테이블에 삽입.
+	public boolean locationInsert(HostPropertyRegisterVO locvo) {
+		conn = getHostPropertyRegistDAO();
+		String sql = "INSERT INTO Location (location_id, location_city, location_country, location_continent, "
+				+ "location_detail, location_x, location_y)";
+		sql += "VALUES(?, ?, ?, ?, ?, ?, ?)";
+
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, locvo.getLocation_id());// loc +idx
+			pstmt.setString(2, locvo.getLocation_city());// addr에서 잘라서 도시 알기
+			pstmt.setString(3, locvo.getLocation_country());
+			pstmt.setString(4, locvo.getLocation_continent());
+
+			pstmt.setString(5, locvo.getLocation_detail());
+			pstmt.setDouble(6, locvo.getLocation_x());
+			pstmt.setDouble(7, locvo.getLocation_y());
+
+			if (0 < pstmt.executeUpdate()) {
+				return true;
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+
+			return false;
+		} finally {
+			closeCon();
+		}
+
+		return false;
+	}
+	
+	
+	//위치 등록 후, property에 location 등록 
+	public boolean registerPropertyAddLocation(String locationIdx, String propertyIdx) {
+		conn = getHostPropertyRegistDAO();
+		
+		
+		String sql = "UPDATE Property "
+				+ "SET LOCATION_ID = ? "
+				+ "WHERE PROPERTY_ID = ?";
+		
+		try {
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, locationIdx);
+			pstmt.setString(2, propertyIdx);
+
+			if (pstmt.executeUpdate() > 0) {
+				return true;
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			closeCon();
+		}
+		
 		return false;
 	}
 

@@ -463,7 +463,7 @@ span.amenities:hover {
 	
 	//const address_detail = document.getElementById("address_detail");
 	mapLocation("서울 종로구 사직로 161");
-	let addr_detail;
+	let addr_detail ="서울시 ";
 	let lng = 100;//경도
 	let lat = 20;//위도
 	
@@ -475,6 +475,7 @@ span.amenities:hover {
 		        $("#address_detail").val(data.address);
 		        mapLocation(data.address);
 		        addr_detail = data.address;
+		        console.log(addr_detail);
 		    }
 		}).open();
 	}
@@ -579,10 +580,7 @@ span.amenities:hover {
 	function createData(){
 		alert('생성');
 		
-		let addr_detail;//자세한 주소
-		let lng = 100;//경도
-		let lat = 20;//위도
-		
+
 		//property_id 는 생성시켜야 함.
 		// amenitiesArray 수집
 	    const amenitySpans = document.querySelectorAll('span[data-property-amenities="true"]');
@@ -613,7 +611,7 @@ span.amenities:hover {
 	    console.log('data', data);
 
 	    
-/* 		$.ajax({
+		$.ajax({
 			type : 'post',
 			data : data,
 			dataType : 'json',
@@ -623,7 +621,7 @@ span.amenities:hover {
 				//여기에 성공했을 때,
 				location.href = 'hostList.ho';
 			}
-		}); */
+		}); 
 		//주석 처리한 이유는 data 확인.
 	}
 	 

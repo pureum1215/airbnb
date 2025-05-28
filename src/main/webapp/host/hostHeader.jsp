@@ -204,7 +204,7 @@
       <div class="user-menu">
         <button id="menuToggle2" class="user-toggle">
           <span>☰</span>
-          <span class="user-avatar"></span>
+          <span class="user-avatar" style="background-color: black; color: white;">H</span>
         </button>
         <ul id="dropdownMenu2" class="user-dropdown">
           <li><a href="#" class="dropdown-item">게스트 모드로 전환</a></li>   <!-- ★★★★★ 로그인 유지된 상태로 main_property_list 화면 이동 링크 필요 ★★★★★ -->

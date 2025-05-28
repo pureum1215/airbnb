@@ -62,7 +62,7 @@ body {
 
 /* 카드 내부 정보 */
 .property-info {
-	padding: 10px 12px;
+	padding: 6px 12px 10px 12px;
 }
 
 .property-location {
@@ -75,6 +75,11 @@ body {
 	font-weight: bold;
 	margin: 4px 0;
 	color: #222;
+	display: flex;
+	justify-content: space-between;
+}
+.property-name-title {
+	font-size: 16px;
 }
 
 .property-rating {
@@ -162,6 +167,12 @@ body {
 	font-size: 16px;
 	margin-top: 20px;
 }
+
+.property-card-link {
+	text-decoration: none;
+	color: inherit;
+	display: block;
+}
 </style>
 </head>
 <body>
@@ -239,7 +250,9 @@ body {
 				<img src="/uploads/<%=photoUrl%>" alt="숙소 대표 이미지" />
 				<div class="property-info">
 					<div class="property-name">
-						<%=propertyName%>
+						<div class="property-name-title">
+							<%=propertyName%>
+						</div>
 						<span style="float: right; font-weight: normal; color: #555;">
 							⭐ <%= rating != null ? String.format("%.1f", rating) : "-" %>
 						</span>

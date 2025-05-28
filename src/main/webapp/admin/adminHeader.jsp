@@ -112,7 +112,7 @@
 				<div class="menu-area">
 					<a href="#">홈페이지로 이동</a>
 					<button class="menu-button">
-						<span class="menu-icon">☰</span> <span class="user-icon"></span>
+						<span class="menu-icon">☰</span> <span class="user-icon" style="background-color: #F9595E; color: white;">A</span>
 					</button>
 				</div>
 			</div>

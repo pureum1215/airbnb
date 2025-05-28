@@ -1,6 +1,7 @@
 package userPage.userReservationDetail;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
@@ -51,11 +52,11 @@ public class UserReservationDetailDAO {
 		
 		UserReservationDetailVO vo = new UserReservationDetailVO();
 		String sql = "SELECT r.property_id, p.property_name, p.property_photo_url, "
-				+ "p.price_per_night, p.property_description"
+				+ "p.price_per_night, p.property_description, "
 				+ "l.location_country, l.location_city, "
 				+ "h.host_id, u.user_name, h.host_bio, "
-				+ "r.reservation_check_in, r.reservation_check_out, "
-				+ "pay.payment_id, pay.payment_price, "
+				+ "r.reservation_check_in, r.reservation_check_out, r.reservation_confirm, "
+				+ "pay.payment_id, pay.payment_price, pay.payment_status, "
 				+ "pre.property_review_id, pre.property_review_rating, "
 				+ "pre.property_review_content, pre.property_review_created_at "
 				+ "FROM reservation r "
@@ -85,8 +86,25 @@ public class UserReservationDetailDAO {
 				vo.setHost_bio(rs.getString("host_bio"));
 				vo.setReservation_check_in(rs.getDate("reservation_check_in"));
 				vo.setReservation_check_out(rs.getDate("reservation_check_out"));
-				vo.setPayment_id(rs.getString("payment_id"));
-				vo.setPayment_price(rs.getInt("payment_price"));
+				vo.setReservation_confirm(rs.getString("reservation_confirm"));
+				
+					if ( rs.getString("payment_id") != null ) {
+						vo.setPayment_id(rs.getString("payment_id"));
+						vo.setPayment_price(rs.getInt("payment_price"));
+						vo.setPayment_status(rs.getString("payment_status"));
+					}
+					else {
+						vo.setPayment_id("not_paid");
+						
+						int pricePerNight = rs.getInt("price_per_night");
+						Date checkIn = rs.getDate("reservation_check_in");
+						Date checkOut = rs.getDate("reservation_check_out");
+						int totalPrice = getTotalPrice( pricePerNight, checkIn, checkOut );
+						vo.setPayment_price(totalPrice);
+						
+						vo.setPayment_status("not_paid");
+					}
+					
 				vo.setProperty_review_id(rs.getString("property_review_id"));
 				vo.setProperty_review_rating(rs.getInt("property_review_rating"));
 				vo.setProperty_review_content(rs.getString("property_review_content"));
@@ -102,5 +120,22 @@ public class UserReservationDetailDAO {
 		
 		return vo;
 	}
+	
+	
+	
+	// payment_id 가 존재하지 않을 때, payment_price 계산
+	public int getTotalPrice( int pricePerNight, Date checkIn, Date checkOut ) {
+		int totalPrice = 0;
+		
+        // 일수 계산 (체크아웃 - 체크인)
+        long millis = checkOut.getTime() - checkIn.getTime();
+        int days = (int) (millis / (1000 * 60 * 60 * 24));
+
+        totalPrice = days * pricePerNight;
+		
+		return totalPrice;
+	}
+	
+	
 
 }

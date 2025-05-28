@@ -240,7 +240,7 @@
     					res.data.forEach(item => {
     						console.log('예약 항목:', item);
     						
-    						card += '<div class="card-container">';
+    						card += '<div class="card-container" style="cursor:pointer;" onclick="location.href=\'/userReservationDetail.us?reservation_id=' + item.reservation_id + '\'">';
     						card += '  <img src="/uploads/' + item.property_photo_url + '" alt="숙소 이미지" class="card-image" />';
     						card += '  <div class="card-info">';
     						card += '    <div class="card-info-top">';

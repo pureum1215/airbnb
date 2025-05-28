@@ -104,7 +104,7 @@ public class MainPropertyListSearchDAO {
 		String sql = "SELECT p.property_id "
 				+ "FROM property p "
 				+ "JOIN location l ON p.location_id = l.location_id "
-				+ "WHERE l.location_countinent = ? ";
+				+ "WHERE l.location_continent = ? ";
 		
         pstmt = conn.prepareStatement(sql);
         pstmt.setString(1, continent);
@@ -243,9 +243,9 @@ public class MainPropertyListSearchDAO {
 				+ "SELECT 1 "
 				+ "FROM reservation r " 
 				+ "WHERE r.property_id = p.property_id " 
-				+ "AND ((r.check_in < ? AND r.check_out > ?) " 
-				+ "OR (r.check_in >= ? AND r.check_in < ?) " 
-				+ "OR (r.check_out > ? AND r.check_out <= ?)))";
+				+ "AND ((r.reservation_check_in < ? AND r.reservation_check_out > ?) " 
+				+ "OR (r.reservation_check_in >= ? AND r.reservation_check_in < ?) " 
+				+ "OR (r.reservation_check_out > ? AND r.reservation_check_out <= ?)))";
 		
         pstmt = conn.prepareStatement(sql);
         pstmt.setDate(1, check_out);
@@ -264,14 +264,14 @@ public class MainPropertyListSearchDAO {
 	}
 	
 	// 편의시설 필터 - 필터에 체크한 모든 편의시설을 포함하는 숙소 검색
-	public List<String> filterByAmenities( String[] amenities, MainPropertyListSearchDAO dao ) throws SQLException, IOException {
+	public List<String> filterByAmenities( String[] amenities, List<String> property_id_list) throws SQLException, IOException {
 		System.out.println("filterByAmenities method 호출");
 		
-		List<String> list = new ArrayList<>();
+		List<String> list = property_id_list;
 		List<String> filter_list = new ArrayList<>();
 		
 		for ( int i = 0; i < amenities.length; i++ ) {
-			filter_list = dao.filterByAmenitySet(amenities[i]);
+			filter_list = filterByAmenitySet(amenities[i]);
 			list.retainAll(filter_list);
 		}
 		

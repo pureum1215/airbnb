@@ -759,16 +759,16 @@ body {
                 <div class="label">편의시설</div>
               </div>
               <div class="amenities">
-	              <button type="button" class="amenity-btn" data-amenity="wifi" onclick="toggleAmenity(this)">📶 와이파이</button>
-	              <button type="button" class="amenity-btn" data-amenity="air_conditioning" onclick="toggleAmenity(this)">❄️ 에어컨</button>
-	              <button type="button" class="amenity-btn" data-amenity="heating" onclick="toggleAmenity(this)">🔥 난방</button>
-	              <button type="button" class="amenity-btn" data-amenity="kitchen" onclick="toggleAmenity(this)">🍳 부엌</button>
-	              <button type="button" class="amenity-btn" data-amenity="washer" onclick="toggleAmenity(this)">🚿 샤워실</button>
-	              <button type="button" class="amenity-btn" data-amenity="dryer" onclick="toggleAmenity(this)">💇‍♀️ 헤어드라이기</button>
-	              <button type="button" class="amenity-btn" data-amenity="free_parking" onclick="toggleAmenity(this)">🅿️ 무료주차장</button>
-	              <button type="button" class="amenity-btn" data-amenity="pool" onclick="toggleAmenity(this)">🏊 수영장</button>
-	              <button type="button" class="amenity-btn" data-amenity="gym" onclick="toggleAmenity(this)">🏋️ 헬스장</button>
-	              <button type="button" class="amenity-btn" data-amenity="pet" onclick="toggleAmenity(this)">🐶 반려동물</button>
+	              <button type="button" class="amenity-btn" data-amenity="Wi-Fi" onclick="toggleAmenity(this)">📶 와이파이</button>
+	              <button type="button" class="amenity-btn" data-amenity="Air Conditioning" onclick="toggleAmenity(this)">❄️ 에어컨</button>
+	              <button type="button" class="amenity-btn" data-amenity="Heating" onclick="toggleAmenity(this)">🔥 난방</button>
+	              <button type="button" class="amenity-btn" data-amenity="Kitchen" onclick="toggleAmenity(this)">🍳 부엌</button>
+	              <button type="button" class="amenity-btn" data-amenity="Washer" onclick="toggleAmenity(this)">🚿 샤워실</button>
+	              <button type="button" class="amenity-btn" data-amenity="Dryer" onclick="toggleAmenity(this)">💇‍♀️ 헤어드라이기</button>
+	              <button type="button" class="amenity-btn" data-amenity="Free Parking" onclick="toggleAmenity(this)">🅿️ 무료주차장</button>
+	              <button type="button" class="amenity-btn" data-amenity="Pool" onclick="toggleAmenity(this)">🏊 수영장</button>
+	              <button type="button" class="amenity-btn" data-amenity="Gym" onclick="toggleAmenity(this)">🏋️ 헬스장</button>
+	              <button type="button" class="amenity-btn" data-amenity="Pet Friendly" onclick="toggleAmenity(this)">🐶 반려동물</button>
 	          </div>
             </div>
           </div>

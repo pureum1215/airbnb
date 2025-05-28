@@ -86,7 +86,9 @@ body {
 	background: #fff;
 	border-radius: 16px;
 	padding: 32px;
-	box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
+	box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);\
+	width: 850px;
+    margin-bottom: 20px;
 }
 
 .section-title {

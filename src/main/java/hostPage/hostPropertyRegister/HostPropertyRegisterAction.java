@@ -90,7 +90,7 @@ public class HostPropertyRegisterAction {
 		
 		propertySuccessCheck = registDAO.hostPropertyRegister(propvo);
 		
-		System.out.println("ㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁs");
+		System.out.println("ㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁ 1");
 		
 		/**********
 		 *  2. 숙소 편의 시설 등록 과정
@@ -102,7 +102,12 @@ public class HostPropertyRegisterAction {
 			System.out.println(li.getAmenities_name_kr());
 		}
 
-		System.out.println("ㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁe");
+		System.out.println("ㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁ 2");
+		for(String li: amenitiesArray) {
+			System.out.println(li);
+		}
+		
+		System.out.println("ㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁ 3");
 		
 		
 		result1= registDAO.locationInsert(locvo);

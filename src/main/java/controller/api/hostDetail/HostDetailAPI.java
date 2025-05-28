@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -19,6 +20,7 @@ import util.ResponseData;
  * Servlet implementation class HostDetailAPI
  */
 @WebServlet("/HostDetailAPI")
+@MultipartConfig
 public class HostDetailAPI extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) 
 			throws ServletException, IOException {
@@ -45,6 +47,7 @@ public class HostDetailAPI extends HttpServlet {
 			responseData = action.execute(request, response);
 		}else if(command.equals("/host_register.hda")) {
 			System.out.println("/host_register.hda는 출력됩니다.");
+			String addr_detail = request.getParameter("address");
 			HostPropertyRegisterAction action = new HostPropertyRegisterAction();
 			responseData = action.execute(request, response);
 		}

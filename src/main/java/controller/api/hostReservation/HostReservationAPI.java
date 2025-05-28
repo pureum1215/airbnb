@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -16,7 +17,6 @@ import hostPage.hostReservationList.HostReservationDeclineAction;
 import hostPage.hostReservationList.HostReservationHistoryAction;
 import hostPage.hostReservationList.HostReservationUpcomingAction;
 import util.ResponseData;
-
 
 public class HostReservationAPI extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) 

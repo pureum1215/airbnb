@@ -590,7 +590,8 @@ span.amenities:hover {
 	  }
 	 
 	function createData(){
-		alert('생성');
+		
+		
 		
 
 		//property_id 는 생성시켜야 함.
@@ -603,7 +604,33 @@ span.amenities:hover {
 		}
 		
 		
+		//파일 이미지 추출
+		let fileInput = document.getElementById('imageInput');
 		
+		let formData = new FormData();
+		formData.append('hostId', document.querySelector('input[name="hostId"]').value);
+		formData.append('reservation_default', hidden_reservation.value);
+		formData.append('listingTitle', document.querySelector('input[name="listingName"]').value);
+		formData.append('rooms', document.getElementById("bedrooms").innerText);
+		formData.append('beds', document.getElementById("beds").innerText);
+		formData.append('bathrooms', document.getElementById("bathrooms").innerText);
+		formData.append('price', document.querySelector('.input-text-price').value);
+		formData.append('description', document.querySelector('textarea[name="listingDescription"]').value);
+		
+		formData.append('amenitiesArray', amenitiesArray.join(','));
+		formData.append('address', addr_detail);
+		formData.append('address_lng', lng);
+		formData.append('address_lat', lat);
+		formData.append('image', fileInput.files[0]);
+		
+		
+		
+		for (let value of formData.values()) {
+		    console.log('value:', value);
+		}
+		
+		
+		alert('data');
 	    const data = {
 	    	hostId: document.querySelector('input[name="hostId"]').value,
 	    	reservation_default: hidden_reservation.value,
@@ -620,13 +647,15 @@ span.amenities:hover {
 	    };
 	    
 	    
-	    console.log('data', data);
+	    console.log('data', formData);
 
 	    
 		$.ajax({
 			type : 'post',
-			data : data,
+			data : formData,
 			dataType : 'json',
+		    contentType: false,  // 반드시 false
+		    processData: false,  // 반드시 false
 			url : 'host_register.hda',
 			success : function(res) {
 				console.log(res);

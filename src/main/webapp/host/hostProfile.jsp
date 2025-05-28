@@ -42,12 +42,21 @@ body {
 	box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
 }
 
-.profile-box img {
+.host-img {
 	width: 96px;
 	height: 96px;
+	border: 1px solid black;
 	border-radius: 50%;
 	object-fit: cover;
 	margin-bottom: 16px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background-color: black;
+	color: #FAFAFA;
+	font-size: 53px;
+    font-weight: bold;
+	
 }
 
 .profile-box h2 {
@@ -227,7 +236,7 @@ body {
 		<!-- 왼쪽 패널 -->
 		<div class="left-panel">
 			<div class="profile-box">
-				<img src="https://i.pravatar.cc/150?img=11" alt="Toshiko 프로필 사진">
+				<div class="host-img">H</div>
 				<h2><%=hostName%></h2>
 				<div class="rating">
 					⭐

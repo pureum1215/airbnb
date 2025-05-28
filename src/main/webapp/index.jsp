@@ -13,7 +13,8 @@
 response.sendRedirect(request.getContextPath()+"/main_list.ma");
 
 // 임시 코드
-session.setAttribute("user_id", "user099");
+session.setAttribute("user_id", "user004");
+session.setAttribute("host_id", "host004");
 
 
 

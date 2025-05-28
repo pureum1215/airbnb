@@ -446,6 +446,8 @@ body {
 	String userId = (String) session.getAttribute("user_id");
 	%>
 
+	<form id="searchForm" action="${pageContext.request.contextPath}/property_search.ma" method="post">
+
 	<div class="biggest_box">
 		<!-- Header -->
 		<div class="header">
@@ -546,30 +548,29 @@ body {
 				<div class="section-title">필터</div>
 				<div class="section-value">필터 추가</div>
 			</div>
-			<form action="${pageContext.request.contextPath}/property_search.ma" method="post">
-				<input type="hidden" name="location_continent" id="hiddenContinent">
-				<input type="hidden" name="location_country" id="hiddenCountry">
-				<input type="hidden" name="location_city" id="hiddenCity">
-				<input type="hidden" name="reservation_check_in" id="hiddenMinCheckIn">
-				<input type="hidden" name="reservation_check_out" id="hiddenCheckOut">
-				<input type="hidden" name="min_price_per_night" id="hiddenMinPrice">
-				<input type="hidden" name="max_price_per_night" id="hiddenMaxPrice">
-				<input type="hidden" name="property_room" id="hiddenBedroom">
-				<input type="hidden" name="property_bed" id="hiddenBed">
-				<input type="hidden" name="property_bath" id="hiddenBath">
-				<input type="hidden" name="property_amenities" id="hiddenAmenities">
-				<button type="submit" class="search-icon">
-					<i class="fas fa-search"></i>
-				</button>
-			</form>
+			<input type="hidden" name="location_continent" id="hiddenContinent">
+			<input type="hidden" name="location_country" id="hiddenCountry">
+			<input type="hidden" name="location_city" id="hiddenCity">
+			<input type="hidden" name="reservation_check_in" id="reservationCheckIn">
+			<input type="hidden" name="reservation_check_out" id="reservationCheckOut">
+			<input type="hidden" name="min_price_per_night" id="hiddenMinPrice">
+			<input type="hidden" name="max_price_per_night" id="hiddenMaxPrice">
+			<input type="hidden" name="property_room" id="hiddenBedroom">
+			<input type="hidden" name="property_bed" id="hiddenBed">
+			<input type="hidden" name="property_bath" id="hiddenBath">
+			<input type="hidden" name="property_amenities" id="hiddenAmenities">
+			<button type="button" class="search-icon" onclick="handleSearchClick(event)">
+				<i class="fas fa-search"></i>
+			</button>
 		</div>
 	</div>
 
 
-
-
 	<!-- Dropdown Panel -->
 	<div class="dropdown-panel" id="dropdownPanel"></div>
+
+	</form>
+
 	<!-- JS Libraries -->
 	<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 
@@ -609,6 +610,26 @@ body {
    } 
 
    
+   // 데이터 넘기기
+	function handleSearchClick() {
+		event.preventDefault();
+
+		// 위치 정보 미완성
+		document.getElementById('hiddenContinent').value = filterState.location;
+		document.getElementById('hiddenCountry').value = filterState.location;
+		document.getElementById('hiddenCity').value = filterState.location;
+		
+		
+		document.getElementById('hiddenMinPrice').value = filterState.minPrice;
+		document.getElementById('hiddenMaxPrice').value = filterState.maxPrice;
+		document.getElementById('reservationCheckIn').value = filterState.check_in;
+		document.getElementById('reservationCheckOut').value = filterState.check_out;
+		document.getElementById('hiddenBedroom').value = filterState.bedroom;
+		document.getElementById('hiddenBed').value = filterState.bed;
+		document.getElementById('hiddenBath').value = filterState.bath;
+		
+		document.getElementById('searchForm').submit();
+	}
    
    // 검색 필터에 적용된 정보 저장
 	let filterState = {
@@ -648,6 +669,30 @@ body {
 	}
    
    
+   // hidden input 갱신
+	function syncAmenityInputs() {
+		// 기존 hidden input 삭제
+		const oldInputs = document.querySelectorAll('input[name="property_amenities"]');
+		for (let i = 0; i < oldInputs.length; i++) {
+			oldInputs[i].remove();
+		}
+		
+		// filterState.amenities 기준으로 hidden input 새로 추가
+		const form = document.getElementById('searchForm');
+		for (let i = 0; i < filterState.amenities.length; i++) {
+			const input = document.createElement("input");
+			input.type = "hidden";
+			input.name = "property_amenities";
+			input.value = filterState.amenities[i];
+			form.appendChild(input);
+		}
+	}
+
+
+   
+   
+   
+   
    // === 변수 정의 ===
    const panel = document.getElementById('dropdownPanel');
    const sections = document.querySelectorAll('.search-bar .section');
@@ -684,25 +729,25 @@ body {
                 <div class="counter-group">
                   <div class="label" style=" width: 136px; display:flex; align-items:center; justify-content: center;">침실</div>
                   <div class="counter" style="width: 136px; display: flex; align-items: center; justify-content: space-between;">
-                  <button onclick="decreaseBedroom()">-</button>
+                  <button type="button" onclick="decreaseBedroom()">-</button>
                   <span id="bedroomCount" style="flex: 1; text-align: center;"></span>
-                  <button onclick="increaseBedroom()">+</button>
+                  <button type="button" onclick="increaseBedroom()">+</button>
                 </div>
                 </div>
                 <div class="counter-group">
                   <div class="label" style="width: 136px; display:flex; align-items:center; justify-content: center;">침대</div>
                   <div class="counter" style="width: 136px; display: flex; align-items: center; justify-content: space-between;">
-                  <button onclick="decreaseBed()">-</button>
+                  <button type="button" onclick="decreaseBed()">-</button>
                   <span id="bedCount" style="flex: 1; text-align: center;"></span>
-                  <button onclick="increaseBed()">+</button>
+                  <button type="button" onclick="increaseBed()">+</button>
                 </div>
                 </div>
                 <div class="counter-group">
                   <div class="label" style=" width: 136px; display:flex; align-items:center; justify-content: center;">욕실</div>
                   <div class="counter" style="width: 136px; display: flex; align-items: center; justify-content: space-between;">
-                  <button onclick="decreaseBathroom()">-</button>
+                  <button type="button" onclick="decreaseBathroom()">-</button>
                   <span id="bathCount" style="flex: 1; text-align: center;"></span>
-                  <button onclick="increaseBathroom()">+</button>
+                  <button type="button" onclick="increaseBathroom()">+</button>
                 </div>
                 </div>
               </div>
@@ -714,16 +759,16 @@ body {
                 <div class="label">편의시설</div>
               </div>
               <div class="amenities">
-	              <button class="amenity-btn" data-amenity="wifi" onclick="toggleAmenity(this)">📶 와이파이</button>
-	              <button class="amenity-btn" data-amenity="air_conditioning" onclick="toggleAmenity(this)">❄️ 에어컨</button>
-	              <button class="amenity-btn" data-amenity="heating" onclick="toggleAmenity(this)">🔥 난방</button>
-	              <button class="amenity-btn" data-amenity="kitchen" onclick="toggleAmenity(this)">🍳 부엌</button>
-	              <button class="amenity-btn" data-amenity="washer" onclick="toggleAmenity(this)">🚿 샤워실</button>
-	              <button class="amenity-btn" data-amenity="dryer" onclick="toggleAmenity(this)">💇‍♀️ 헤어드라이기</button>
-	              <button class="amenity-btn" data-amenity="free_parking" onclick="toggleAmenity(this)">🅿️ 무료주차장</button>
-	              <button class="amenity-btn" data-amenity="pool" onclick="toggleAmenity(this)">🏊 수영장</button>
-	              <button class="amenity-btn" data-amenity="gym" onclick="toggleAmenity(this)">🏋️ 헬스장</button>
-	              <button class="amenity-btn" data-amenity="pet" onclick="toggleAmenity(this)">🐶 반려동물</button>
+	              <button type="button" class="amenity-btn" data-amenity="wifi" onclick="toggleAmenity(this)">📶 와이파이</button>
+	              <button type="button" class="amenity-btn" data-amenity="air_conditioning" onclick="toggleAmenity(this)">❄️ 에어컨</button>
+	              <button type="button" class="amenity-btn" data-amenity="heating" onclick="toggleAmenity(this)">🔥 난방</button>
+	              <button type="button" class="amenity-btn" data-amenity="kitchen" onclick="toggleAmenity(this)">🍳 부엌</button>
+	              <button type="button" class="amenity-btn" data-amenity="washer" onclick="toggleAmenity(this)">🚿 샤워실</button>
+	              <button type="button" class="amenity-btn" data-amenity="dryer" onclick="toggleAmenity(this)">💇‍♀️ 헤어드라이기</button>
+	              <button type="button" class="amenity-btn" data-amenity="free_parking" onclick="toggleAmenity(this)">🅿️ 무료주차장</button>
+	              <button type="button" class="amenity-btn" data-amenity="pool" onclick="toggleAmenity(this)">🏊 수영장</button>
+	              <button type="button" class="amenity-btn" data-amenity="gym" onclick="toggleAmenity(this)">🏋️ 헬스장</button>
+	              <button type="button" class="amenity-btn" data-amenity="pet" onclick="toggleAmenity(this)">🐶 반려동물</button>
 	          </div>
             </div>
           </div>
@@ -749,6 +794,9 @@ body {
 				filterState.amenities.splice(index, 1);
 			}
 		}
+		
+		// hidden input 갱신
+		syncAmenityInputs();
 	}
    
    

@@ -18,7 +18,6 @@ public class HostPropertyRegistDAO {
 	private PreparedStatement pstmt;
 	private ResultSet rs;
 
-	
 	public Connection getHostPropertyRegistDAO() {
 		try {
 			Context init = new InitialContext();
@@ -30,7 +29,6 @@ public class HostPropertyRegistDAO {
 		}
 		return null;
 	}
-	
 
 	public void closeCon() {
 		try {
@@ -49,125 +47,104 @@ public class HostPropertyRegistDAO {
 		} catch (Exception e) {
 		}
 	}
-	
+
 	/******************************************************************
-	 *  idx check 용 작성
+	 * idx check 용 작성
 	 ******************************************************************/
-	//idx check
+	// idx check
 	public int initPropertyIdxCount() {
 		conn = getHostPropertyRegistDAO();
 		try {
 			String sql = "select count(*)+1 as cnt from Property where property_id like 'prop%'";
 			pstmt = conn.prepareStatement(sql);
 			rs = pstmt.executeQuery();
-			
-			if(rs.next()) {
+
+			if (rs.next()) {
 				return rs.getInt("cnt");
 			}
-			
-		}
-		catch(SQLException e) {
+
+		} catch (SQLException e) {
 			System.out.println("wow");
 			e.printStackTrace();
 		}
 		return 0;
 	}
-	
-	
-	public List<AmenitiesDTO> getTotalAmenities() {
+
+	public int getAmenityById(String amenity_name) {
 		conn = getHostPropertyRegistDAO();
-		List<AmenitiesDTO> lists = new ArrayList<AmenitiesDTO>();
-		
-		String sql = "select amenity_id, amenity_name_kr from amenities";
-		
+
+		String sql = "SELECT amenity_id FROM amenities WHERE amenity_name = ?";
+
 		try {
-			
+
 			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, amenity_name);
 			rs = pstmt.executeQuery();
-			
-			while(rs.next()) {
-				AmenitiesDTO dto = new AmenitiesDTO();
-				dto.setAmenities_id(rs.getString("amenity_id"));
-				dto.setAmenities_name_kr(rs.getString("amenity_name_kr"));
-				
-				lists.add(dto);
+
+			while (rs.next()) {
+
+				return rs.getInt("amenity_id");
 			}
-			
-			
-			
-			
-		}
-		catch(Exception e) {
+
+		} catch (Exception e) {
 			e.printStackTrace();
-		}
-		finally {
+		} finally {
 			closeCon();
 		}
-		
-		return lists;
+
+		return -1;
 	}
-	
-	
-	
-	//location 테이블에 삽입.
+
+	// location 테이블에 삽입.
 	public boolean locationInsert(HostPropertyRegisterVO locvo) {
 		conn = getHostPropertyRegistDAO();
 		String sql = "INSERT INTO Location (location_id, location_city, location_country, location_continent, "
 				+ "location_detail, location_x, location_y)";
 		sql += "VALUES(?,?,'한국','아시아',?,?,?)";
-		int locationIdx = initPropertyIdxCount();//숙소 idx와 같이 증가
-		
+
 		try {
 			pstmt = conn.prepareStatement(sql);
-			if(locationIdx<100) {
-				pstmt.setString(1, "loc0"+locationIdx);//loc +idx
-			}else {
-				pstmt.setString(1, "loc"+locationIdx);//loc +idx
-			}
-			pstmt.setString(2, locvo.getLocation_city());//addr에서 잘라서 도시 알기
-			pstmt.setString(3, locvo.getLocation_detail());
-			pstmt.setDouble(4, locvo.getLocation_x());
-			pstmt.setDouble(5, locvo.getLocation_y());
+			pstmt.setString(1, locvo.getLocation_id());// loc +idx
+			pstmt.setString(2, locvo.getLocation_city());// addr에서 잘라서 도시 알기
+			pstmt.setString(3, locvo.getLocation_country());
+			pstmt.setString(4, locvo.getLocation_continent());
 			
-			if(0 < pstmt.executeUpdate()) {
+			pstmt.setString(5, locvo.getLocation_detail());
+			pstmt.setDouble(6, locvo.getLocation_x());
+			pstmt.setDouble(7, locvo.getLocation_y());
+
+			if (0 < pstmt.executeUpdate()) {
 				return true;
 			}
-			
-			
+
 		} catch (SQLException e) {
 			e.printStackTrace();
-			
-			
+
 			return false;
 		} finally {
 			closeCon();
 		}
-		
-		
-		
+
 		return false;
 	}
-	
-	
+
 	/*****
 	 * 
-	 * location_id와 amenity_id를 연관시켜야 함.
-	 * 필요한 값 host_id amenity_id property_name property_description price_per_night property_room
-	 * property_bed property_bathroom property_reservation_default
+	 * location_id와 amenity_id를 연관시켜야 함. 필요한 값 host_id amenity_id property_name
+	 * property_description price_per_night property_room property_bed
+	 * property_bathroom property_reservation_default
 	 * 
 	 * @return
 	 *************/
-	//property 테이블에 삽입
+	// property 테이블에 삽입
 	public boolean hostPropertyRegister(HostPropertyRegisterVO propvo) {
 		conn = getHostPropertyRegistDAO();
-		
-		
+
 		String sql = "Insert into property (property_id, host_id, property_name, "
 				+ "property_description, price_per_night, property_room, property_bed, property_bathroom, "
 				+ "property_reservation_default, property_photo_url, property_delete_yn) ";
 		sql += "VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'N')";
-		int propertyIdx = initPropertyIdxCount(); //property_id와 location_id 같이 씀 photourl에도 씀.
-		
+
 		try {
 			pstmt = conn.prepareStatement(sql);
 
@@ -181,53 +158,44 @@ public class HostPropertyRegistDAO {
 			pstmt.setInt(8, propvo.getProperty_bathroom());
 			pstmt.setString(9, propvo.getProperty_reservation_default());
 			pstmt.setString(10, propvo.getProperty_photo_url());
-			
 
-			if(0 < pstmt.executeUpdate()) {
+			if (0 < pstmt.executeUpdate()) {
 				return true;
 			}
-			
+
 		} catch (SQLException e) {
 			e.printStackTrace();
-			
-			
+
 			return false;
 		} finally {
 			closeCon();
 		}
-		
-		
-		
+
 		return false;
 	}
-	
-	//편의시설 insert 용
-		public boolean insertPropertyAmenities(List<Integer> amenityIds) {
-		    boolean result = false;
-		    int propertyIdx = initPropertyIdxCount(); //property_id
-		    String sql = "INSERT INTO Property_Amenities (amenity_id, property_id) VALUES (?, ?)";
 
-		    try {
-		        PreparedStatement pstmt = conn.prepareStatement(sql);
-		        for (int amenityId : amenityIds) {
-		            pstmt.setInt(1, amenityId);
-		            if(propertyIdx<100) {
-		            	pstmt.setString(2, "prop0"+propertyIdx);
-		            }else {
-		            	pstmt.setString(2, "prop"+propertyIdx);
-					}
-		            
-		            pstmt.addBatch(); // 배치 추가
-		        }
+	// 편의시설 insert 용
+	public boolean insertPropertyAmenities(int amenityIdx, String propertyIdx) {
+		conn = getHostPropertyRegistDAO();
 
-		        int[] affectedRows = pstmt.executeBatch(); // 일괄 실행
-		        result = Arrays.stream(affectedRows).allMatch(row -> row > 0);
+		String sql = "INSERT INTO PROPERTY_AMENITIES (AMENITY_ID, PROPERTY_ID) VALUES (?, ?)";
 
-		    } catch (SQLException e) {
-		        e.printStackTrace();
-		    } 
+		try {
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, amenityIdx);
+			pstmt.setString(2, propertyIdx);
 
-		    return result;
+			if (pstmt.executeUpdate() > 0) {
+				return true;
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			closeCon();
 		}
+
+		return false;
+	}
 
 }

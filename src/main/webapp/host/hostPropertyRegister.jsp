@@ -4,6 +4,18 @@
 <%
 //편의시설 리스트
 String[] amenities = {"Wi-Fi", "에어컨", "난방", "부엌", "샤워실", "헤어드라이기", "무료주차장", "수영장", "헬스장", "반려동물 가능"};
+String[] amnitiesName = {
+		"Wi-Fi",
+		"Air Conditioning",
+		"Heating",
+		"Kitchen",
+		"Washer",
+		"Dryer",
+		"Free Parking",
+		"Pool",
+		"Gym",
+		"Pet Friendly",
+};
 
 String[] amenitiesArray = {};
 
@@ -435,11 +447,11 @@ span.amenities:hover {
 		      }
 		      if (haveAmenitiesCheck) {
 		    %>
-		      <span class="property-amenities toggle-amenity" data-property-amenities="true"><%=amenities[i]%></span>
+		      <span class="property-amenities toggle-amenity" data-property-amenities="true" data-property-name="<%=amnitiesName[i]%>"><%=amenities[i]%></span>
 		    <%
 		      } else {
 		    %>
-		      <span class="amenities toggle-amenity" data-property-amenities="false"><%=amenities[i]%></span>
+		      <span class="amenities toggle-amenity" data-property-amenities="false" data-property-name="<%=amnitiesName[i]%>"><%=amenities[i]%></span>
 		    <%
 		      }
 		    }
@@ -586,10 +598,10 @@ span.amenities:hover {
 	    const amenitySpans = document.querySelectorAll('span[data-property-amenities="true"]');
 		let amenitiesArray = [];
 		for(let i=0; i< amenitySpans.length; i++) {
-			let target = amenitySpans[i].innerText;
+			let target = amenitySpans[i].getAttribute("data-property-name");
 			amenitiesArray.push(target);
 		}
-
+		
 		
 		
 	    const data = {
@@ -619,7 +631,7 @@ span.amenities:hover {
 			success : function(res) {
 				console.log(res);
 				//여기에 성공했을 때,
-				location.href = 'hostList.ho';
+				//location.href = 'hostList.ho';
 			}
 		}); 
 		//주석 처리한 이유는 data 확인.

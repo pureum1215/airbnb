@@ -19,7 +19,6 @@ public class HostPropertyRegisterAction {
 		
 		HostPropertyRegistDAO registDAO = new HostPropertyRegistDAO();
 
-		HostPropertyRegisterVO locvo = new HostPropertyRegisterVO();
 		
 		/********
 		 *  request 불러오기
@@ -29,14 +28,12 @@ public class HostPropertyRegisterAction {
 		 * 주소값 담기
 		 *******/
 		String addr_detail = request.getParameter("address");
-		String addr_city = addr_detail.substring(0,2);
+		String addr_city = addr_detail.split(" ")[0] +" " + addr_detail.split(" ")[1] ;
 		double addr_lng =Double.parseDouble(request.getParameter("address_lng"));//경도 예시) 124.123
 		double addr_lat =Double.parseDouble(request.getParameter("address_lat"));//위도 예시) 30.123
 		
-		locvo.setLocation_detail(addr_detail);
-		locvo.setLocation_city(addr_city);
-		locvo.setLocation_x(addr_lng);
-		locvo.setLocation_y(addr_lat);
+		HostPropertyRegisterVO locvo = new HostPropertyRegisterVO();
+
 		
 		
 		/*******
@@ -52,31 +49,21 @@ public class HostPropertyRegisterAction {
 		int price = Integer.parseInt(request.getParameter("price"));
 		int firstamenity = 0;
 		
-		/********
-		 * 편의 시설 담기 2-1
-		 ********/
 		String amarray = request.getParameter("amenitiesArray");
 		
-		String [] amenitiesArray = amarray.split(",");
 		
 		
-		
-		
-		
-		
-		boolean result1 = false;
-		boolean propertySuccessCheck = false; // 숙소 등록 성공 여
-		boolean result3 = false;
 		
 		
 		/**********
 		 *  1. 숙소 등록 과정
 		 **********/
-		int propertyIdx = registDAO.initPropertyIdxCount();
-		String cnt = String.format("%03d", propertyIdx);
+		int propertyCnt = registDAO.initPropertyIdxCount();
+		String cnt = String.format("%03d", propertyCnt);
 		
 		HostPropertyRegisterVO propvo = new HostPropertyRegisterVO();
-		propvo.setProperty_id("prop"+cnt);
+		String propertyIdx = "prop"+cnt;
+		propvo.setProperty_id(propertyIdx);
 		propvo.setHost_id(hostId);
 		propvo.setAmenity_id(firstamenity);
 		propvo.setProperty_name(property_name);
@@ -85,36 +72,62 @@ public class HostPropertyRegisterAction {
 		propvo.setProperty_room(rooms);
 		propvo.setProperty_bed(beds);
 		propvo.setProperty_bathroom(bathrooms);
-		propvo.setProperty_photo_url("prop"+cnt+".jpg");
+		propvo.setProperty_photo_url(propertyIdx+".jpg");
 		propvo.setProperty_reservation_default(reservation_default);
 		
-		propertySuccessCheck = registDAO.hostPropertyRegister(propvo);
+		if(!registDAO.hostPropertyRegister(propvo)) {
+			return new ResponseData(500, "data false");
+		}
+
+		System.out.println("insert propertyIDx: "+propertyIdx);
 		
-		System.out.println("ㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁ 1");
+		
 		
 		/**********
 		 *  2. 숙소 편의 시설 등록 과정
 		 **********/
-		
-		// 편의시설 목록찾아오기. 2-1 , 2-1
-		List<AmenitiesDTO> lists = registDAO.getTotalAmenities();
-		for(AmenitiesDTO li : lists) {
-			System.out.println(li.getAmenities_name_kr());
-		}
+		String [] amenitiesArray = amarray.split(",");
 
-		System.out.println("ㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁ 2");
 		for(String li: amenitiesArray) {
+			int amenityIdx = registDAO.getAmenityById(li);
+			
+			//-1이 표시 될 때, 실패
+			if(amenityIdx == -1) {
+				System.out.println("amenityIdx 찾을 수 없음 amenityIdx: "+amenityIdx);
+				return new ResponseData(500, "data false");
+			}
+			
+			if(!registDAO.insertPropertyAmenities(amenityIdx, propertyIdx)) {
+				System.out.println("PROPERTY_AMENITIES false / amenityIdx: "+amenityIdx+" / propertyIdx: "+propertyIdx);
+				return new ResponseData(500, "data false");
+			}
 			System.out.println(li);
 		}
 		
-		System.out.println("ㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁ 3");
 		
 		
-		result1= registDAO.locationInsert(locvo);
+		
+		/**********
+		 *  3. 위치 등록
+		 **********/
+		String locationIdx = "loc"+cnt;
+		locvo.setLocation_id(locationIdx);
+		locvo.setLocation_city(addr_city);
+		locvo.setLocation_detail(addr_detail);
+		locvo.setLocation_x(addr_lng);
+		locvo.setLocation_y(addr_lat);
+		locvo.setLocation_continent("아시아");
+		locvo.setLocation_country("한국");
+		//dao 등록
+		if(!registDAO.locationInsert(locvo)) {
+			System.out.println("LOCATION false / locationIdx: "+locationIdx);
+			return new ResponseData(500, "data false");
+		}
+		
+		
+		
 		
 		//result3= registDAO.insertPropertyAmenities(amenityIds);
-		
-		registDAO.closeCon();
 		
 		ResponseData data = null;
 		

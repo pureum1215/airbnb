@@ -3,6 +3,7 @@ package mainPage.mainPropertyList;
 import java.io.IOException;
 import java.sql.Date;
 import java.sql.SQLException;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -70,22 +71,23 @@ public class MainPropertySearchAction implements Action {
 	        property_id_list = dao.getAllPropertyId();
 	        property_id_filter_list = dao.getAllPropertyId();
 	        
+	        
 	        // 가격 필터
-	        	property_id_filter_list = dao.filterByPrice(min_price, max_price);
-	        	property_id_list.retainAll(property_id_filter_list);
-	
+        	property_id_filter_list = dao.filterByPrice(min_price, max_price);
+        	property_id_list.retainAll(property_id_filter_list);
+
 	        // 대륙 필터
-	        if ( continent != null ) {
+	        if ( continent != null && continent != "" ) {
 	        	property_id_filter_list = dao.filterByContinent(continent);
 	        	property_id_list.retainAll(property_id_filter_list);
 	        }
 	        // 나라 필터
-	        if ( country != null ) {
+	        if ( country != null && country != "" ) {
 	        	property_id_filter_list = dao.filterByCountry(country);
 	        	property_id_list.retainAll(property_id_filter_list);
 	        }
 	        // 도시 필터
-	        if ( city != null ) {
+	        if ( city != null && city != "" ) {
 	        	property_id_filter_list = dao.filterByCity(city);
 	        	property_id_list.retainAll(property_id_filter_list);
 	        }
@@ -110,8 +112,8 @@ public class MainPropertySearchAction implements Action {
 	        	property_id_list.retainAll(property_id_filter_list);
 	        }
 	        // 편의시설 필터
-	        if ( amenities != null ) {
-	        	property_id_filter_list = dao.filterByAmenities(amenities, dao);
+	        if ( amenities != null && amenities.length > 0 && !amenities[0].isEmpty() ) {
+	        	property_id_filter_list = dao.filterByAmenities(amenities, property_id_list);
 	        	property_id_list.retainAll(property_id_filter_list);
 	        }
         

@@ -444,6 +444,7 @@ body {
 <body>
 	<%
 	String userId = (String) session.getAttribute("user_id");
+	String hostId = (String) session.getAttribute("host_id");
 	%>
 
 	<form id="searchForm" action="${pageContext.request.contextPath}/property_search.ma" method="post">
@@ -451,15 +452,23 @@ body {
 	<div class="biggest_box">
 		<!-- Header -->
 		<div class="header">
-			<div class="logo">  <!-- ★★★★★ 메인 홈페이지 화면 이동 링크 필요 ★★★★★ -->
+			<div class="logo" onclick="location.href='/main_list.ma'">
 				<img src="https://cdn.worldvectorlogo.com/logos/airbnb-1.svg" 
 				alt="Airbnb Logo"> 
 				<span style="color: #ff385c; font-weight: bold; font-size: 20px;">airbnb</span>
 			</div>
 			<div class="nav"></div>
 			<div class="actions">
-				<button type="button" class="host-mode-btn">호스트 모드로 전환</button>  <!-- ★★★★★ 호스트 화면 이동 링크 필요 ★★★★★ -->
-				<div class="circle-btn" style="background-color: black; color: white;">  <!-- ★★★★★ 프로필 화면 이동 링크 필요 ★★★★★ -->
+				<%
+					if (hostId != null ) {
+				%>
+						<button type="button" class="host-mode-btn">호스트 모드로 전환</button>
+				<%
+					}
+					
+				%>
+				<div class="circle-btn" style="background-color: black; color: white;" 
+					onclick="fn_userinfo_header()">
 					<%
 					if (userId != null) {
 					%>
@@ -968,7 +977,7 @@ body {
    
    // === host mode 버튼 ===
    document.querySelector('.host-mode-btn').addEventListener('click', function() {
-	    window.location.href = 'hostList.ho'; // 이동할 경로로 수정
+	    window.location.href = 'hostList.ho';
 	  });
 </script>
 </body>

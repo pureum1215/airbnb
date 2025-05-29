@@ -444,6 +444,7 @@ body {
 <body>
 	<%
 	String userId = (String) session.getAttribute("user_id");
+	String hostId = (String) session.getAttribute("host_id");
 	%>
 
 	<form id="searchForm" action="${pageContext.request.contextPath}/property_search.ma" method="post">
@@ -457,7 +458,9 @@ body {
 			</div>
 			<div class="nav"></div>
 			<div class="actions">
+			<% if(hostId != null) { %>
 				<button type="button" class="host-mode-btn">호스트 모드로 전환</button>  <!-- ★★★★★ 호스트 화면 이동 링크 필요 ★★★★★ -->
+			<%} %>
 				<div class="circle-btn" style="background-color: black; color: white;">  <!-- ★★★★★ 프로필 화면 이동 링크 필요 ★★★★★ -->
 					<%
 					if (userId != null) {

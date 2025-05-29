@@ -425,6 +425,7 @@ body {
 <body>
 	<%
 	String userId1 = (String) session.getAttribute("user_id");
+	String hostId1 = (String) session.getAttribute("host_id");
 	%>
 
 	<div class="biggest_box">
@@ -436,7 +437,9 @@ body {
 			</div>
 			<div class="nav"></div>
 			<div class="actions">
+			<% if(hostId1 != null) { %>
 				<button class="host-mode-btn">호스트 모드로 전환</button>  <!-- ★★★★★ 호스트 화면 이동 링크 필요 ★★★★★ -->
+			<%} %>
 				<div class="circle-btn"  style="background-color: black; color: white;">  <!-- ★★★★★ 프로필 화면 이동 링크 필요 ★★★★★ -->
 					<%
 					if (userId1 != null) {
@@ -447,7 +450,7 @@ body {
 					%>x
 					<%
 					}
-					%>
+					%>                                                                                                                                                                                                                                                                                                                                           
 				</div>
 
 				<!--  user info 버튼 ( 햄버거 버튼) -->

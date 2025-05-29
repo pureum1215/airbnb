@@ -52,13 +52,17 @@ public class HostProfileDAO {
 		HostProfileVO vo = new HostProfileVO();
 		
 		try {
-			String sql = "select u.user_name, h.host_bio from host h join user u on h.user_id= u.user_id where host_id = ?";
+			String sql = "select u.user_name, h.host_bio, u.user_email, u.user_phone_number "
+					+ "from host h join user u "
+					+ "on h.user_id= u.user_id where host_id = ?";
 			PreparedStatement pstmt = conn.prepareStatement(sql);
 	        pstmt.setString(1, hostId);
 	        ResultSet rs = pstmt.executeQuery();
 			if(rs.next()) {
 				vo.setUser_name(rs.getString(1));
 				vo.setHost_bio(rs.getString(2));
+				vo.setUser_email(rs.getString("user_email"));
+				vo.setUser_phone_number(rs.getString("user_phone_number"));
 			}
 			
 		} catch (Exception e) {
@@ -141,7 +145,7 @@ public class HostProfileDAO {
 			return vo;
 		}
 		
-		//호스트가 가지고 있는 숙소 숙소이름, 숙소 사
+		//호스트가 가지고 있는 숙소 숙소이름, 숙소 사진
 		public List<HostProfileVO> hostProfile5(String hostId){
 			List<HostProfileVO> voList = new ArrayList<HostProfileVO>();
 			

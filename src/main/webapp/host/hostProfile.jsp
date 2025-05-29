@@ -225,6 +225,8 @@ body {
 	List<HostProfileVO> hvolist5 = dao.hostProfile5(hostIdProfile);
 
 	String hostName = hvo1.getUser_name();
+	String hostEmail = hvo1.getUser_email();
+	String hostPhoneNumber = hvo1.getUser_phone_number();
 	String hostBio = hvo1.getHost_bio();
 	double hostAvg = hvo2.getAvg();
 	int hostCount = hvo2.getCount();
@@ -260,8 +262,8 @@ body {
 				<!-- 사용자 소개 섹션(개인정보) -->
 				<div class="user-session">
 					<h1 class="text-2xl font-bold"><%=hostName %>님 정보</h1><br>
-					<h2>이메일:</h2>
-					<h2>전화번호:</h2>
+					<h2>이메일: <%=hostEmail %></h2>
+					<h2>전화번호: <%=hostPhoneNumber %></h2>
 					<button class="mt-2 text-sm font-medium border px-4 py-2 rounded-md hover:bg-gray-50">프로필 수정하기</button>
 				</div>
 			</div>

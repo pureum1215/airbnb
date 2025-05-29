@@ -181,7 +181,7 @@ public class PropertyDAO {
 		MainPropertyDetailVO madVO = new MainPropertyDetailVO();
 		
 		try {
-			String sql = "SELECT u.user_name, h.host_created_at "
+			String sql = "SELECT u.user_name, h.host_created_at ,h.host_id "
 					+ "FROM property p "
 					+ "JOIN host h ON p.host_id = h.host_id "
 					+ "JOIN user u ON h.user_id = u.user_id "
@@ -192,6 +192,7 @@ public class PropertyDAO {
 	        if (rs.next()) {
 	        	madVO.setUser_name(rs.getString(1));;
 	        	madVO.setHost_created_at(rs.getString(2));
+	        	madVO.setHost_id(rs.getString(3));
 	        }
 			
 		}

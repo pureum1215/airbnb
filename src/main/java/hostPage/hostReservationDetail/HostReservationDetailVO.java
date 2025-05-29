@@ -3,6 +3,12 @@ package hostPage.hostReservationDetail;
 import java.sql.Date;
 import java.sql.Timestamp;
 
+/**
+ * 
+ */
+/**
+ * 
+ */
 public class HostReservationDetailVO {
 	
 	/**************************************************************************
@@ -179,5 +185,36 @@ public class HostReservationDetailVO {
 	public void setPayment_status(String payment_status) {
 		this.payment_status = payment_status;
 	}
+	
+	
+	@Override
+	public String toString() {
+		return "HostReservationDetailVO [property_id=" + property_id + ", property_photo_url=" + property_photo_url
+				+ ", property_name=" + property_name + ", property_review_rating=" + property_review_rating
+				+ ", location_id=" + location_id + ", location_city=" + location_city + ", location_country="
+				+ location_country + ", property_description=" + property_description + ", price_per_night="
+				+ price_per_night + ", host_id=" + host_id + ", user_name=" + user_name + ", host_bio=" + host_bio
+				+ ", property_review_id=" + property_review_id + ", property_review_content=" + property_review_content
+				+ ", property_review_created_at=" + property_review_created_at + ", reservation_id=" + reservation_id
+				+ ", user_id=" + user_id + ", reservation_check_in=" + reservation_check_in + ", reservation_check_out="
+				+ reservation_check_out + ", reservation_confirm=" + reservation_confirm + ", payment_id=" + payment_id
+				+ ", payment_price=" + payment_price + ", payment_status=" + payment_status + ", getProperty_id()="
+				+ getProperty_id() + ", getProperty_photo_url()=" + getProperty_photo_url() + ", getProperty_name()="
+				+ getProperty_name() + ", getProperty_review_rating()=" + getProperty_review_rating()
+				+ ", getLocation_id()=" + getLocation_id() + ", getLocation_city()=" + getLocation_city()
+				+ ", getLocation_country()=" + getLocation_country() + ", getProperty_description()="
+				+ getProperty_description() + ", getPrice_per_night()=" + getPrice_per_night() + ", getHost_id()="
+				+ getHost_id() + ", getUser_name()=" + getUser_name() + ", getHost_bio()=" + getHost_bio()
+				+ ", getProperty_review_id()=" + getProperty_review_id() + ", getProperty_review_content()="
+				+ getProperty_review_content() + ", getProperty_review_created_at()=" + getProperty_review_created_at()
+				+ ", getReservation_id()=" + getReservation_id() + ", getUser_id()=" + getUser_id()
+				+ ", getReservation_check_in()=" + getReservation_check_in() + ", getReservation_check_out()="
+				+ getReservation_check_out() + ", getReservation_confirm()=" + getReservation_confirm()
+				+ ", getPayment_id()=" + getPayment_id() + ", getPayment_price()=" + getPayment_price()
+				+ ", getPayment_status()=" + getPayment_status() + ", getClass()=" + getClass() + ", hashCode()="
+				+ hashCode() + ", toString()=" + super.toString() + "]";
+	}
+	
+	
 		
 }

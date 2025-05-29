@@ -312,9 +312,14 @@ body {
 					<%=madVONPD.getProperty_description()%>
 					<br /><br /><br />
 
+<%
+String hostName = madVONameAt.getUser_name();
+String hostId = madVONameAt.getHost_id();
+%>					
 					
 					<!-- 호스트 소개 -->
-					<div style="display: flex; align-items: center; margin-bottom: 30px;">
+					<div style="display: flex; align-items: center; margin-bottom: 30px; 
+					cursor: pointer; transition: 0.3s;" onclick= "gotohostProfile()">
 						<div style="
 							width: 60px;
 							height: 60px;
@@ -328,10 +333,10 @@ body {
 							font-size: 14px;
 							margin-right: 16px;
 						">
-							<%=madVONameAt.getUser_name()%>
+							<%=hostName%>
 						</div>
 						<p>
-							<strong>호스트: <%=madVONameAt.getUser_name()%></strong><br />
+							<strong>호스트: <%=hostName%></strong><br />
 							<strong>호스팅 경력: </strong>
 							<%=totalYears%>년
 							<%=remainMonths%>개월
@@ -408,7 +413,7 @@ body {
 
 				<!-- 리뷰 섹션 (임의 데이터) -->
 				<div class="review-box">
-					<h3><%=madVONameAt.getUser_name()%>
+					<h3><%=hostName%>
 						님에 대한 호스트의 후기
 					</h3>
 					<%
@@ -545,6 +550,10 @@ document.addEventListener("DOMContentLoaded", function () {
 	    // 마커 지도에 표시
 	    marker.setMap(map);
 	});
+	
+	function gotohostProfile(){
+		location.href = '/hostProfile.ho?host_id=<%=hostId %>';
+	}
 	
 </script>
 

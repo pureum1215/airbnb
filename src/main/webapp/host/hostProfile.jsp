@@ -210,10 +210,24 @@ body {
 </style>
 </head>
 <body>
-	<%@ include file="hostHeader.jsp"%>
-	<%
 
+	<%
 	String hostIdProfile = request.getParameter("host_id");
+	String sessionHostId = (String) session.getAttribute("host_id");
+    if (hostIdProfile != null && hostIdProfile.equals(sessionHostId)) {
+%>
+    <%@ include file="hostHeader.jsp" %>
+<%
+    } else {
+%>
+    <%@ include file="/user/userHeader.jsp"%>
+<%
+    }
+%>
+
+<% 
+
+/* 	String hostIdProfile = request.getParameter("host_id"); */
 
 	//String hostId = (String)session.getAttribute("host_id");
 	//필요한 것 호스트가 가진 숙소에 대한 별점, 후기 개수, 후기내용, 호스트 이름 
@@ -258,6 +272,9 @@ body {
 		<!-- 임시로 넣어놓음 -->
 		<!-- 오른쪽 패널 -->
 		<div style="gap: 10px;">
+		<%
+		if (hostIdProfile != null && hostIdProfile.equals(sessionHostId)){
+		%>
 			<div class="right-panel">
 				<!-- 사용자 소개 섹션(개인정보) -->
 				<div class="user-session">
@@ -267,6 +284,7 @@ body {
 					<button class="mt-2 text-sm font-medium border px-4 py-2 rounded-md hover:bg-gray-50">프로필 수정하기</button>
 				</div>
 			</div>
+		<%} %>
 
 			<div class="right-panel">
 
@@ -280,12 +298,7 @@ body {
 				</div>
 
 				<div class="introduction">
-					<!-- 안녕하세요, 저는 Toshiko입니다. <br> <br> 카가와현에서 태어난 저는 오사카에서 대만 해외
-				중국인 남편을 만났고, 지금은 남편과 함께 에어비앤비를 운영하고 있습니다.<br> 저는 중국어를 할 수 없지만,
-				남편은 중국어를 구사합니다.<br> <br> 제 취미는 여행과 이 동네에서 현지 음식을 먹는 것을
-				좋아합니다. 저는 남편의 동생이 대만에 살고 있기 때문에 대만에 자주 갑니다.<br> <br> 2살과
-				11세 어린이로 인해 안타깝게도 체크인 시 만날 수 없습니다. 남편과 직원이 에어비앤비에서 대신 기시모토를 통해 연락
-				가능합니다.<br> <br> 오사카에서 20년정도 살았는데 궁금하신 점 있으시면 언제든지 연락주세요! -->
+
 				</div>
 
 				<div class="review-box" style="border-bottom: 1px solid #e4e4e4;">
@@ -356,8 +369,9 @@ body {
 							String proname = hvolist5.get(i).getProperty_name();
 							String prophoto = hvolist5.get(i).getProperty_photo_url();
 							String propertyId = hvolist5.get(i).getProperty_id();
-						%>
-
+							if (hostIdProfile != null && hostIdProfile.equals(sessionHostId)) {
+								
+							%>
 						<div
 							class="listing-card hover:shadow-md transition border cursor-pointer"
 							onclick="location.href='/hostprdetail.ho?property_id=<%=propertyId%>'">
@@ -366,6 +380,22 @@ body {
 								<div class="listing-name"><%=proname%></div>
 							</div>
 						</div>
+							<% 	
+								
+							}
+							else{
+						%>
+						<div
+							class="listing-card hover:shadow-md transition border cursor-pointer"
+							onclick="location.href='/main_detail.ma?property_id=<%=propertyId%>'">
+							<img src="/uploads/<%=prophoto%>" alt="오두막">
+							<div class="listing-info">
+								<div class="listing-name"><%=proname%></div>
+							</div>
+						</div>
+						<%
+						}
+						%>
 						<%
 						}
 						%>
@@ -392,6 +422,11 @@ body {
    		 	});
    			toggleBtn.textContent = isExpanded ? '후기 더 보기' : '접기';
 		});
+		
+		function gotouserPageProperty(propertyId){
+			location.href=contextPath + '/main_detail.ma?property_id=' + propertyId;
+		}
+		
 	</script>
 
 	<%@ include file="hostFooter.jsp"%>

@@ -260,6 +260,7 @@
 						<br>
 						<!-- 체크아웃 날짜 후: 별점+리뷰 등록 -->
 						<div class="card" style="padding: 10px;">
+						 <form id="reviewForm" method="post" action="/userReviewSubmit.us">
 							<!-- 별점 영역 -->
 							<div class="stars"
 								style="margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center;">
@@ -277,9 +278,15 @@
 		
 							<!-- 리뷰 작성 영역 -->
 							<div>
-								<input type="text" placeholder="리뷰를 작성해주세요"
+								<input type="text" name="property_review_content" placeholder="리뷰를 작성해주세요"
 									style="width: 100%; padding: 5px; box-sizing: border-box;">
 							</div>
+							
+							    <%-- 서버로 넘길 값 --%>
+						    <input type="hidden" name="property_review_rating" id="ratingValue">
+						    <input type="hidden" name="reservation_id" value=<%=request.getAttribute("reservation_id") %>>
+						    <input type="hidden" name="property_id" value=<%=vo.getProperty_id() %>>
+						  </form>
 						</div>
 		
 						<!-- JavaScript 추가 -->
@@ -293,10 +300,19 @@
 						        star.classList.remove('filled');
 						      }
 						    });
+						    document.getElementById('ratingValue').value = index;
 						  }
 						  
 						  function reviewSubmit() {
-							  location.href="/userReviewSubmit.us";
+						    const rating = document.getElementById('ratingValue').value;
+						    const review = document.getElementById('reviewContent').value;
+							  
+						    if (!review.trim()) {
+						        alert("리뷰 내용을 입력해주세요.");
+						        return;
+						    }
+							  
+						    document.getElementById('reviewForm').submit();
 						  }
 						</script>
 						<%

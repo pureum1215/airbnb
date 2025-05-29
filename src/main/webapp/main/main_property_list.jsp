@@ -181,11 +181,9 @@ body {
 
 <%
 	MemberLogInVO loginVO = (MemberLogInVO) session.getAttribute("userInfo");
-
-	if (loginVO != null) {
-		String loginuserId = loginVO.getUser_id();
-		String loginuserName = loginVO.getUser_name();
-	}
+	
+	String sessionUserId = (String) session.getAttribute("user_id");
+	String sessionHostId = (String) session.getAttribute("host_id");
 
 %>
 
@@ -227,6 +225,7 @@ body {
             Double rating = vo.getProperty_review_rating();
             String wishList = vo.getWish_list();
 	%>
+	
 		<div class="property-card">
 		
             <!-- ♥ 위시리스트 버튼 -->

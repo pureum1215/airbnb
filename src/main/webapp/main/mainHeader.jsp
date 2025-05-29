@@ -443,8 +443,8 @@ body {
 
 <body>
 	<%
-	String sessionUserId = (String) session.getAttribute("user_id");
-	String sessionHostId = (String) session.getAttribute("host_id");
+	String sessionUserIdHeader = (String) session.getAttribute("user_id");
+	String sessionHostIdHeader = (String) session.getAttribute("host_id");
 	%>
 
 	<form id="searchForm" action="${pageContext.request.contextPath}/property_search.ma" method="post">
@@ -461,7 +461,7 @@ body {
 			<div class="actions">
 
 				<%
-					if (sessionHostId != null ) {
+					if (sessionHostIdHeader != null ) {
 				%>
 						<button type="button" class="host-mode-btn">호스트 모드로 전환</button>
 				<%
@@ -471,7 +471,7 @@ body {
 				<div class="circle-btn" style="background-color: black; color: white;" 
 					onclick="fn_userinfo_header()">
 					<%
-					if (sessionUserId != null) {
+					if (sessionUserIdHeader != null) {
 					%>
 					U
 					<%
@@ -492,7 +492,7 @@ body {
 					<div class="user-info-container" id="userInfoContainerID">
 
 						<%
-						if (sessionUserId != null) {
+						if (sessionUserIdHeader != null) {
 						%>
 
 						<!-- 회원일때 -->
@@ -607,11 +607,11 @@ body {
    // userInfo 버튼 , menu 버튼
    function togglebutton(menu) {
       if(menu === 'wish') {
-         location.href = '${pageContext.request.contextPath}/userwishlist.us?userId=<%=sessionUserId%>';
+         location.href = '${pageContext.request.contextPath}/userwishlist.us?userId=<%=sessionUserIdHeader%>';
       } else if(menu === 'reservation') {
-         location.href = "${pageContext.request.contextPath}/user/userReservationList.jsp?userId=<%=sessionUserId%>";
+         location.href = "${pageContext.request.contextPath}/user/userReservationList.jsp?userId=<%=sessionUserIdHeader%>";
       } else if(menu === 'profile') {
-         location.href = '${pageContext.request.contextPath}/userProfile.us?userId=<%=sessionUserId%>';
+         location.href = '${pageContext.request.contextPath}/userProfile.us?userId=<%=sessionUserIdHeader%>';
       } 
       else if(menu === 'login') {
          location.href = "login.me";

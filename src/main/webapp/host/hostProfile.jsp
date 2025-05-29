@@ -211,7 +211,7 @@ body {
 </head>
 <body>
 
-	<%
+<%
 	String hostIdProfile = request.getParameter("host_id");
 	String sessionHostId = (String) session.getAttribute("host_id");
     if (hostIdProfile != null && hostIdProfile.equals(sessionHostId)) {

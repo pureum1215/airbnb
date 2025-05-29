@@ -100,21 +100,18 @@
 <%@ include file="userHeader.jsp" %>
 
 <%
-	
-  // 1. 사용자 정보 및 후기 데이터 가져오기
-  //String userId = "user001";//로그인 안하고, 이 페이지만 사용할때
 
-  String userId = (String) session.getAttribute("user_id");//로그인하고 이용할 때
+  String userIdprofile = request.getParameter("userId");//로그인하고 이용할 때
 
-  if(userId == null) {
+  if(userIdprofile == null) {
 	  
   } else {
 	 
   }
   UserProfileDAO dao = new UserProfileDAO();
-  UserProfileVO upNCvo = dao.profileNC(userId); // 이름, 생성일 등 프로필 정보,개인정보
-  List<UserProfileVO> uvoList = dao.userReview(userId); // 호스트가 남긴 후기 리스트
-  List<UserProfileVO> pvoList = dao.propertyReview(userId); // 사용자가 작성한 후기 리스트
+  UserProfileVO upNCvo = dao.profileNC(userIdprofile); // 이름, 생성일 등 프로필 정보,개인정보
+  List<UserProfileVO> uvoList = dao.userReview(userIdprofile); // 호스트가 남긴 후기 리스트
+  List<UserProfileVO> pvoList = dao.propertyReview(userIdprofile); // 사용자가 작성한 후기 리스트
 
   // 2. 데이터 존재 여부 확인
   boolean checkcount1 = (uvoList != null && !uvoList.isEmpty());

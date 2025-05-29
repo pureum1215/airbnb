@@ -50,7 +50,7 @@ public class HostModifyAction {
 //		
 //		String[] amenitiesArray = haveAmenities.toArray(new String[0]);
 		Map<String, Integer> amenityMap = new HashMap<>();
-		amenityMap.put("WI-FI", 1);
+		amenityMap.put("Wi-Fi", 1);
 		amenityMap.put("에어컨", 2);
 		amenityMap.put("난방", 3);
 		amenityMap.put("부엌", 4);

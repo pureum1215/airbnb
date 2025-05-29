@@ -8,10 +8,6 @@
 String propertyId = request.getParameter("propId");
 //propertyId를 통해서 
 
-//우선 서버에서 불러온 값을 다시 requestparameter 로 보내면 바보라서.
-//그게 아니라 추가된 값, ajax 를 이용하고 javascript를 이용해서 해야함.
-
-
 HostPropertyDetailDAO dao = new HostPropertyDetailDAO();
 
 HostPropertyDetailVO hvo1 = dao.hostProperty(propertyId); 
@@ -49,7 +45,7 @@ List<String> haveAmenities = new ArrayList<>();
 for (Integer s : listAmentie) {
 	switch (s) {
 		case 1 :
-			haveAmenities.add("WI-FI");
+			haveAmenities.add("Wi-Fi");
 			break;
 		case 2 :
 			haveAmenities.add("에어컨");

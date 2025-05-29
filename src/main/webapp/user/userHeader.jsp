@@ -423,15 +423,17 @@ body {
 </head>
 
 <body>
-	<%
-	String userId1 = (String) session.getAttribute("user_id");
-	%>
+<%
+	String userId = request.getParameter("userId");//로그인하고 이용할 때
+
+%>
 
 	<div class="biggest_box">
 		<!-- Header -->
 		<div class="header">
 			<div class="logo"> <!-- ★★★★★ 메인 홈페이지 화면 이동 링크 필요 ★★★★★ -->
-				<img src="https://cdn.worldvectorlogo.com/logos/airbnb-1.svg" alt="Airbnb Logo">
+				<img src="https://cdn.worldvectorlogo.com/logos/airbnb-1.svg" 
+				alt="Airbnb Logo" >
 				<span style="color: #ff385c; font-weight: bold; font-size: 20px;">airbnb</span>
 			</div>
 			<div class="nav"></div>
@@ -439,7 +441,7 @@ body {
 				<button class="host-mode-btn">호스트 모드로 전환</button>  <!-- ★★★★★ 호스트 화면 이동 링크 필요 ★★★★★ -->
 				<div class="circle-btn"  style="background-color: black; color: white;">  <!-- ★★★★★ 프로필 화면 이동 링크 필요 ★★★★★ -->
 					<%
-					if (userId1 != null) {
+					if (userId != null) {
 					%>
 					U
 					<%
@@ -460,7 +462,7 @@ body {
 					<div class="user-info-container" id="userInfoContainerID">
 
 						<%
-						if (userId1 != null) {
+						if (userId != null) {
 						%>
 
 						<!-- 회원일때 -->
@@ -474,12 +476,12 @@ body {
 							<span>예약목록</span>
 						</div>
 
-						<div class="menu-list">   <!-- ★★★★★ 프로필 화면 이동 링크 필요 ★★★★★ -->
+						<div class="menu-list" onclick="togglebutton('profile')">   <!-- ★★★★★ 프로필 화면 이동 링크 필요 ★★★★★ -->
 							<img src="https://cdn-icons-png.flaticon.com/512/6522/6522516.png" />
 							<span>프로필</span>
 						</div>
 						<div style="margin-left: 20px; margin-right: 20px; border-bottom: 1px solid #5B5956;"></div>
-						<div class="menu-list">   <!-- ★★★★★ 로그아웃 화면 이동 링크 필요 ★★★★★ -->
+						<div class="menu-list" onclick="togglebutton('logout')">   <!-- ★★★★★ 로그아웃 화면 이동 링크 필요 ★★★★★ -->
 							<span>로그아웃</span>
 						</div>
 
@@ -488,8 +490,8 @@ body {
 						%>
 
 						<!-- 비회원일때 -->
-						<div class="menu-list">   <!-- ★★★★★ 로그인 화면 이동 링크 필요 ★★★★★ -->
-							<span>로그인 또는 회원 가입</span>
+						<div class="menu-list" onclick="togglebutton('login')">   <!-- ★★★★★ 로그인 화면 이동 링크 필요 ★★★★★ -->
+							<span>로그인</span>
 						</div>
 
 						<%
@@ -531,6 +533,25 @@ body {
 			currentType = null;
 		}
 	});
+	
+	   // userInfo 버튼 , menu 버튼
+	   function togglebutton(menu) {
+	      if(menu === 'wish') {
+	         location.href = '${pageContext.request.contextPath}/userwishlist.us?userId=<%=userId%>';
+	      } else if(menu === 'reservation') {
+	         location.href = '${pageContext.request.contextPath}/user/userReservationList.jsp?userId=<%=userId%>';
+	      } else if(menu === 'profile') {
+	         location.href = '${pageContext.request.contextPath}/userProfile.us?userId=<%=userId%>';
+	      } 
+	      else if(menu === 'login') {
+	         location.href = "login.me";
+	      } 
+	      else if(menu === 'logout') {
+	         location.href = "logout.ma";
+	      } 
+	   } 
+	
+	
 	</script>
 </body>
 </html>

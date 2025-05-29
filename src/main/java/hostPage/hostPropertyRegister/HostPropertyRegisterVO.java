@@ -3,11 +3,12 @@ package hostPage.hostPropertyRegister;
 public class HostPropertyRegisterVO {
 	
 	/**************************************************************************
-	 * 숙소 id, 위치 id, 어메니티 id, 숙소 이름, 설명, 1박 가격,
+	 * 숙소 id, 위치 id, 어메니티 id, 숙소 이름, 설명, 1박 가격, 호스트 id
 	 * 침실 수, 침대 수, 욕실 수, 예약 요청 기본값, 숙소 사진, 어메니티 이름, 
 	 * 위치 도시, 나라, 대륙, 상세, 위도, 경도,
 	 **************************************************************************/
 	
+	private String host_id;
 	private String property_id;
 	private String location_id;
 	private int amenity_id;
@@ -34,6 +35,13 @@ public class HostPropertyRegisterVO {
 	}
 	public void setProperty_id(String property_id) {
 		this.property_id = property_id;
+	}
+	
+	public String getHost_id() {
+		return host_id;
+	}
+	public void setHost_id(String host_id) {
+		this.host_id = host_id;
 	}
 	public String getLocation_id() {
 		return location_id;

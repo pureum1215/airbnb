@@ -4,6 +4,26 @@
 <%
 //편의시설 리스트
 String[] amenities = {"Wi-Fi", "에어컨", "난방", "부엌", "샤워실", "헤어드라이기", "무료주차장", "수영장", "헬스장", "반려동물 가능"};
+String[] amnitiesName = {
+		"Wi-Fi",
+		"Air Conditioning",
+		"Heating",
+		"Kitchen",
+		"Washer",
+		"Dryer",
+		"Free Parking",
+		"Pool",
+		"Gym",
+		"Pet Friendly",
+};
+
+String[] amenitiesArray = {};
+
+String reservation_default ="예약 요청";
+
+boolean requestReservation = true;
+
+String hostId = (String)session.getAttribute("host_id");
 %>
 
 
@@ -304,7 +324,7 @@ span.amenities:hover {
 			<h2 class="title">Listing</h2>
 			<!-- 관리 버튼 -->
 			<div class="btn-group">											<!-- ★★★★★ 수정내용 저장 버튼: 저장후 페이지 이동 필요 ★★★★ -->
-				<button class="btn-edit">수정 내용 저장</button>
+				<button class="btn-edit" onclick="createData()">생성</button>
 			</div>
 		</div>
 
@@ -367,7 +387,7 @@ span.amenities:hover {
 			<h2 class="title">1박 가격</h2>
 			<div class="input-wrapper">
 				<div style="display: flex;align-items: center;">
-					<input type="text" class="input-text-price" placeholder="금액을 입력하세요." name="listingName" />
+					<input type="text" class="input-text-price" placeholder="금액을 입력하세요." name="price" />
 					<span style="font-size: 20px; margin-left: 10px;"> 원(KRW)</span>
 				</div>
 			</div>
@@ -375,9 +395,11 @@ span.amenities:hover {
 		<!-- 숙소 위치 -->
 		<div class="header">
 			<h2 class="title">위치</h2>
-			<div class="input-wrapper">
-				<div style="display: flex;align-items: center;">
-					<input type="text" class="input-text-address"placeholder="숙소 위치를 입력하세요." name="listingName" />
+			<div class="input-wrapper" onclick="onclickAddr()" >
+			<input type="text" class="input-text-address"  placeholder="숙소 위치를 입력하세요." name="address" 
+				id ="address_detail" />
+				<div style="width:500px;height:400px;" flex;align-items: center;" id= "map">
+					
 				</div>
 			</div>
 		</div>
@@ -392,60 +414,143 @@ span.amenities:hover {
 		<div class="section-reserve">
 		  <h2 style="font-size: 24px;">승인 요청 설정</h2>
 		  <div>
+		    <%
+		    if (requestReservation != true) {
+		    %>
+		    <button class="btn-direct-ch" onclick="selectReserveType(this)">즉시 예약</button>
 		    <button class="btn-request" onclick="selectReserveType(this)">예약 요청</button>
+		    <%
+		    } else {
+		    %>
 		    <button class="btn-direct" onclick="selectReserveType(this)">즉시 예약</button>
+		    <button class="btn-request-ch" onclick="selectReserveType(this)">예약 요청</button>
+		    <%
+		    }
+		    %>
+			<input type="hidden" id="reservation_default" name="reservation_default" value="<%= requestReservation ? "예약 요청" : "즉시 가능" %>">
+
 		  </div>
 		</div>
-		
+	
 		<!-- 편의시설 -->
 		<div class="section-amenity">
 		  <h2 style="font-size: 24px;">편의시설</h2>
 		  <div class="amenities">
-		    <%
+		  <%
 		    for (int i = 0; i < amenities.length; i++) {
+		      boolean haveAmenitiesCheck = false;
+		      for (int j = 0; j < amenitiesArray.length; j++) {
+		        if (amenities[i].equals(amenitiesArray[j])) {
+		          haveAmenitiesCheck = true;
+		          break;
+		        }
+		      }
+		      if (haveAmenitiesCheck) {
 		    %>
-		      <span class="amenities toggle-amenity"><%=amenities[i]%></span>
+		      <span class="property-amenities toggle-amenity" data-property-amenities="true" data-property-name="<%=amnitiesName[i]%>"><%=amenities[i]%></span>
+		    <%
+		      } else {
+		    %>
+		      <span class="amenities toggle-amenity" data-property-amenities="false" data-property-name="<%=amnitiesName[i]%>"><%=amenities[i]%></span>
 		    <%
 		      }
+		    }
 		    %>
 		  </div>
 		</div>
-
 	</div>
-
+	<input type="hidden" id="hostId" name="hostId" value="<%= hostId%>">	
 
 	<div>
 		<%@ include file="hostFooter.jsp"%>
 	</div>
 
+	<script src="../jquery-3.7.1.min.js"></script>  
 
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=17e9a78b24113575792c87c68f10fcb1&libraries=services">
+</script>
+	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 	<script>
-		const imageInput = document.getElementById("imageInput");
-		const previewImage = document.getElementById("previewImage");
+	
+	
+	//const address_detail = document.getElementById("address_detail");
+	mapLocation("서울 종로구 사직로 161");
+	let addr_detail ="서울시 ";
+	let lng = 100;//경도
+	let lat = 20;//위도
+	
+	function onclickAddr(){
+		new daum.Postcode({
+		    oncomplete: function(data) {
+		        //data는 사용자가 선택한 주소 정보를 담고 있는 객체이며, 상세 설명은 아래 목록에서 확인하실 수 있습니다.
+		        //주소
+		        $("#address_detail").val(data.address);
+		        mapLocation(data.address);
+		        addr_detail = data.address;
+		        console.log(addr_detail);
+		    }
+		}).open();
+	}
+	function mapLocation(addr){
+		var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+	    mapOption = {
+	        center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+	        level: 3 // 지도의 확대 레벨
+	    };  
 
-		imageInput.addEventListener("change", function() {
-			const file = imageInput.files[0];
-			if (file) {
-				const reader = new FileReader();
-				reader.onload = function(e) {
-					previewImage.src = e.target.result;
-					previewImage.style.display = "block";
-				}
-				reader.readAsDataURL(file);
-			}
-		});
-		
-		
+			// 지도를 생성합니다    
+			var map = new kakao.maps.Map(mapContainer, mapOption); 
+				
+				// 주소-좌표 변환 객체를 생성합니다
+			var geocoder = new kakao.maps.services.Geocoder();
+				
+				// 주소로 좌표를 검색합니다
+			geocoder.addressSearch(addr, function(result, status) {
+	
+		    // 정상적으로 검색이 완료됐으면 
+		     if (status === kakao.maps.services.Status.OK) {
+	
+		        var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+		        lng = coords.getLng();
+		        lat = coords.getLat();
+	
+		        // 결과값으로 받은 위치를 마커로 표시합니다
+		        var marker = new kakao.maps.Marker({
+		            map: map,
+		            position: coords
+		        });
+	
+		        // 인포윈도우로 장소에 대한 설명을 표시합니다
+		        var infowindow = new kakao.maps.InfoWindow({
+		            content: '<div style="width:150px;text-align:center;padding:6px 0;">우리 숙소</div>'
+		        });
+		        infowindow.open(map, marker);
+	
+		        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+		        map.setCenter(coords);
+		    } 
+		});    
+	}
+
+	
 
 	<!-- 편의시설 토글 스크립트 -->
 	  document.querySelectorAll('.toggle-amenity').forEach(el => {
-	    el.addEventListener('click', () => {
+	    el.addEventListener('click', e => {
+	    	//선택 값 변경하기
+	    	const targetObj = e.target.getAttribute("data-property-amenities");
+	    	if(targetObj == 'true') {
+	    		e.target.setAttribute('data-property-amenities', 'false');
+	    	} else {
+	    		e.target.setAttribute('data-property-amenities', 'true');
+	    	}
+	    	
 	      el.classList.toggle('property-amenities');
 	      el.classList.toggle('amenities');
 	    });
 	  });
 
-	
+	  const hidden_reservation = document.getElementById('reservation_default');
 	
 	<!-- 승인요청설정 토글 -->
 	 function selectReserveType(clickedBtn) {
@@ -462,8 +567,10 @@ span.amenities:hover {
 	   // 클릭한 버튼에 강조 클래스 부여
 	   if (clickedBtn.textContent.includes("즉시 예약")) {
 	     clickedBtn.className = "btn-direct-ch";
+	     hidden_reservation.value = "즉시 가능";
 	   } else if (clickedBtn.textContent.includes("예약 요청")) {
 	     clickedBtn.className = "btn-request-ch";
+	     hidden_reservation.value = "예약 요청";
 	   }
 	 }
 	 
@@ -481,6 +588,85 @@ span.amenities:hover {
 	      countSpan.textContent = newValue;
 	    }
 	  }
+	 
+	function createData(){
+		
+		
+		
+
+		//property_id 는 생성시켜야 함.
+		// amenitiesArray 수집
+	    const amenitySpans = document.querySelectorAll('span[data-property-amenities="true"]');
+		let amenitiesArray = [];
+		for(let i=0; i< amenitySpans.length; i++) {
+			let target = amenitySpans[i].getAttribute("data-property-name");
+			amenitiesArray.push(target);
+		}
+		
+		
+		//파일 이미지 추출
+		let fileInput = document.getElementById('imageInput');
+		
+		let formData = new FormData();
+		formData.append('hostId', document.querySelector('input[name="hostId"]').value);
+		formData.append('reservation_default', hidden_reservation.value);
+		formData.append('listingTitle', document.querySelector('input[name="listingName"]').value);
+		formData.append('rooms', document.getElementById("bedrooms").innerText);
+		formData.append('beds', document.getElementById("beds").innerText);
+		formData.append('bathrooms', document.getElementById("bathrooms").innerText);
+		formData.append('price', document.querySelector('.input-text-price').value);
+		formData.append('description', document.querySelector('textarea[name="listingDescription"]').value);
+		
+		formData.append('amenitiesArray', amenitiesArray.join(','));
+		formData.append('address', addr_detail);
+		formData.append('address_lng', lng);
+		formData.append('address_lat', lat);
+		formData.append('image', fileInput.files[0]);
+		
+		
+		
+		for (let value of formData.values()) {
+		    console.log('value:', value);
+		}
+		
+		
+		alert('data');
+	    const data = {
+	    	hostId: document.querySelector('input[name="hostId"]').value,
+	    	reservation_default: hidden_reservation.value,
+	        listingTitle: document.querySelector('input[name="listingName"]').value,
+	        rooms: document.getElementById("bedrooms").innerText,
+	        beds: document.getElementById("beds").innerText,
+	        bathrooms: document.getElementById("bathrooms").innerText,
+	        price: document.querySelector('.input-text-price').value,
+	        description: document.querySelector('textarea[name="listingDescription"]').value,
+	        amenitiesArray: amenitiesArray.join(','), // 배열 추가
+	        address: addr_detail,
+	       	address_lng :lng,
+	       	address_lat :lat
+	    };
+	    
+	    
+	    console.log('data', formData);
+
+	    
+		$.ajax({
+			type : 'post',
+			data : formData,
+			dataType : 'json',
+		    contentType: false,  // 반드시 false
+		    processData: false,  // 반드시 false
+			url : 'host_register.hda',
+			success : function(res) {
+				console.log(res);
+				//여기에 성공했을 때,
+				location.href = 'hostList.ho';
+			}
+		}); 
+		//주석 처리한 이유는 data 확인.
+	}
+	 
+	 
 	</script>
 
 </body>

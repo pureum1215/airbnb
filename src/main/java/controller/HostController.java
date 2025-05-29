@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -77,6 +78,10 @@ public class HostController extends HttpServlet {
 		}else if(command.equals("/hostProfile.ho")) {
 			forward = new ActionForward();
 			forward.setPath("host/hostProfile.jsp");
+			forward.setRedirect(false);
+		}else if(command.equals("/hostRegister.ho")) {
+			forward = new ActionForward();
+			forward.setPath("host/hostPropertyRegister.jsp");
 			forward.setRedirect(false);
 		}
 		

@@ -42,12 +42,10 @@ public class HostModifyAction {
 
 		// amenitiesArray는 배열로 전달되므로 getParameterValues로 받아야 함
 		//String[] amenitiesArray = request.getParameterValues("amenitiesArray");
-		String test = request.getParameter("amenitiesArray");
-		System.out.println(test);
+		String amarray = request.getParameter("amenitiesArray");
 		
-		String [] amenitiesArray = test.split(",");
+		String [] amenitiesArray = amarray.split(",");
 		
-		System.out.println("size: "+amenitiesArray.length);
 //		List<String> haveAmenities = Arrays.asList(amenitiesArray); // 배열 → 리스트
 //		
 //		String[] amenitiesArray = haveAmenities.toArray(new String[0]);

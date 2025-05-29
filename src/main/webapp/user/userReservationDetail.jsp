@@ -229,48 +229,6 @@
 					if ( vo.getProperty_review_id() != null ) {
 						%>
 						<br>
-						<!-- 체크아웃 날짜 후: 별점+리뷰 등록 -->
-						<div class="card" style="padding: 10px;">
-							<!-- 별점 영역 -->
-							<div class="stars"
-								style="margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center;">
-								<div id="starContainer">
-									<span class="star" data-index="1" onclick="setRating(1)"></span>
-									<span class="star" data-index="2" onclick="setRating(2)"></span>
-									<span class="star" data-index="3" onclick="setRating(3)"></span>
-									<span class="star" data-index="4" onclick="setRating(4)"></span>
-									<span class="star" data-index="5" onclick="setRating(5)"></span>
-								</div>
-		
-								<button class="reviewSubmit">제출</button>
-							</div>
-		
-		
-							<!-- 리뷰 작성 영역 -->
-							<div>
-								<input type="text" placeholder="리뷰를 작성해주세요"
-									style="width: 100%; padding: 5px; box-sizing: border-box;">
-							</div>
-						</div>
-		
-						<!-- JavaScript 추가 -->
-						<script>
-						  function setRating(index) {
-						    const stars = document.querySelectorAll('#starContainer .star');
-						    stars.forEach((star, i) => {
-						      if (i < index) {
-						        star.classList.add('filled');
-						      } else {
-						        star.classList.remove('filled');
-						      }
-						    });
-						  }
-						</script>
-						<%
-					}
-					else if ( checkOutDate.before(today) ) {
-						%>
-						<br>
 						<!-- 리뷰 등록 후: 리뷰 보여주기 박스 -->
 						<div class="card" style="display: flex; flex-direction: column; gap: 0.8rem; padding: 1rem;">
 						  <!-- 상단 영역: 좌측 숙소사진 + 이름, 우측 별점 -->
@@ -295,6 +253,52 @@
 						  		<%=vo.getProperty_review_content() %>
 						  </div>
 						</div>
+						<%
+					}
+					else if ( checkOutDate.before(today) ) {
+						%>
+						<br>
+						<!-- 체크아웃 날짜 후: 별점+리뷰 등록 -->
+						<div class="card" style="padding: 10px;">
+							<!-- 별점 영역 -->
+							<div class="stars"
+								style="margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center;">
+								<div id="starContainer">
+									<span class="star" data-index="1" onclick="setRating(1)"></span>
+									<span class="star" data-index="2" onclick="setRating(2)"></span>
+									<span class="star" data-index="3" onclick="setRating(3)"></span>
+									<span class="star" data-index="4" onclick="setRating(4)"></span>
+									<span class="star" data-index="5" onclick="setRating(5)"></span>
+								</div>
+		
+								<button class="reviewSubmit" onclick="reviewSubmit()" >제출</button>
+							</div>
+		
+		
+							<!-- 리뷰 작성 영역 -->
+							<div>
+								<input type="text" placeholder="리뷰를 작성해주세요"
+									style="width: 100%; padding: 5px; box-sizing: border-box;">
+							</div>
+						</div>
+		
+						<!-- JavaScript 추가 -->
+						<script>
+						  function setRating(index) {
+						    const stars = document.querySelectorAll('#starContainer .star');
+						    stars.forEach((star, i) => {
+						      if (i < index) {
+						        star.classList.add('filled');
+						      } else {
+						        star.classList.remove('filled');
+						      }
+						    });
+						  }
+						  
+						  function reviewSubmit() {
+							  location.href="/userReviewSubmit.us";
+						  }
+						</script>
 						<%
 					}
 				%>

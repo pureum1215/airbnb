@@ -399,7 +399,7 @@
     					res.data.forEach(item => {
     						console.log('예약 항목2:', item);
     						
-    						card += '<div class="card-container">';
+    						card += '<div class="card-container" onclick="hostDetailMove(\''+item.reservation_id+'\')" >';
 
     						card += '  <div class="card-info">';
     						card += '    <div class="card-info-top">';

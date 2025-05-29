@@ -261,7 +261,7 @@ HostReservationDetailVO vo = (HostReservationDetailVO) request.getAttribute("Hos
 						</div>
 						<%
 					}
-					else if ( !checkOutDate.before(today) ) {
+					else if ( checkOutDate.before(today) ) {
 						%>
 					<br>
 						<!-- 체크아웃 날짜 후: 별점+리뷰 등록 -->

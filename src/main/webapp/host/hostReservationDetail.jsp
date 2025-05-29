@@ -206,15 +206,15 @@ HostReservationDetailVO vo = (HostReservationDetailVO) request.getAttribute("Hos
 					<div class="bold" style="margin-top: 0.5rem;"> <%=vo.getPrice_per_night() %> / 1박 </div>
 				</div>
 			</a>
-			<a href="hostProfile.ho?host_id=<%=vo.getHost_id()%>" style="text-decoration: none; color: inherit;">	
+			<a href="hostProfile.ho?host_id=<%=vo.getUser_id()%>" style="text-decoration: none; color: inherit;">	
 				<div class="card">
-					<div class="section-title">호스트: 
+					<div class="section-title">예약자: 
 						<%=vo.getUser_name() %>
 					</div>
 					<div class="host">
 						<img src="https://randomuser.me/api/portraits/women/1.jpg"
 							alt="호스트 사진" />
-						<div class="gray"> <%=vo.getHost_bio() %> </div>
+						<div class="gray"> ============ 여기 봐주세요. ========================</div>
 					</div>
 				</div>
 			</a>	
@@ -228,7 +228,11 @@ HostReservationDetailVO vo = (HostReservationDetailVO) request.getAttribute("Hos
 					Date checkOutDate = vo.getReservation_check_out();
     				Date today = new Date();
     				
-					if ( vo.getProperty_review_id() != null ) {
+    				System.out.println("mhs / jsp: "+checkOutDate);
+    				System.out.println("mhs / today: "+today);
+    				System.out.println("mhs / now: "+checkOutDate.before(today));
+    				
+					if ( vo.getProperty_review_created_at() != null ) {
 						%>
 						<br>
 						<!-- 리뷰 등록 후: 리뷰 보여주기 박스 -->
@@ -257,7 +261,7 @@ HostReservationDetailVO vo = (HostReservationDetailVO) request.getAttribute("Hos
 						</div>
 						<%
 					}
-					else if ( checkOutDate.before(today) ) {
+					else if ( !checkOutDate.before(today) ) {
 						%>
 					<br>
 						<!-- 체크아웃 날짜 후: 별점+리뷰 등록 -->

@@ -9,10 +9,6 @@
 </head>
 <body>
 
-<!-- 테스트용 Host host050 -->
-<%	
-	session.setAttribute("host_id", "host004");
-%>
 <%
 	String hostId = (String)session.getAttribute("host_id");
 

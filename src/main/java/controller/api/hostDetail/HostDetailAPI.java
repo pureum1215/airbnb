@@ -37,7 +37,6 @@ public class HostDetailAPI extends HttpServlet {
 		String url = request.getRequestURI();
 		String path = request.getContextPath();
 		String command = url.substring(path.length());
-		System.out.println("api호출: " + command);
 		
 		Gson gson = new Gson();
 		ResponseData responseData = null;
@@ -46,7 +45,6 @@ public class HostDetailAPI extends HttpServlet {
 			HostModifyAction action = new HostModifyAction();
 			responseData = action.execute(request, response);
 		}else if(command.equals("/host_register.hda")) {
-			System.out.println("/host_register.hda는 출력됩니다.");
 			String addr_detail = request.getParameter("address");
 			HostPropertyRegisterAction action = new HostPropertyRegisterAction();
 			responseData = action.execute(request, response);

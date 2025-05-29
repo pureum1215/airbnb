@@ -240,10 +240,6 @@
 <body onload="pagestart()">
 
 	<%@ include file="hostHeader.jsp"%>
-<%	
-	session.setAttribute("user_id", "user004");
-	session.setAttribute("host_id", "host004");
-%>
 
 
 	<main class="main-container">

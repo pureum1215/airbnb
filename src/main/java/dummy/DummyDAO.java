@@ -35,7 +35,6 @@ public class DummyDAO {
 			DataSource ds = (DataSource) init.lookup("java:comp/env/jdbc/MysqlDB");
 			this.conn = ds.getConnection();
 
-			System.out.println("db 연결 성공");
 			return true;
 		} catch (Exception e) {
 		}

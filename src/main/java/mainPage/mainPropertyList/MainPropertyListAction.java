@@ -17,7 +17,6 @@ public class MainPropertyListAction implements Action {
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		// TODO Auto-generated method stub
 		
-		System.out.println("MainPropertyListAction execute 호출됨");
 		
 		request.setCharacterEncoding("UTF-8");
 		response.setCharacterEncoding("UTF-8");	

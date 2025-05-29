@@ -13,31 +13,30 @@ import controller.Action;
 import controller.ActionForward;
 import memberPage.UserDAO;
 
-public class LoginAction implements Action{
+public class LoginAction implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		// TODO Auto-generated method stub
 		ActionForward forward = new ActionForward();
-		MemberLogInVO mlVO = new MemberLogInVO(); //내가 입력한 값.
+		MemberLogInVO mlVO = new MemberLogInVO(); // 내가 입력한 값.
 		UserDAO userDAO = new UserDAO();
 		MemberLogInVO mlVOB = new MemberLogInVO(); // 확인해볼값.
 		MemberLogInVO mlVOC = new MemberLogInVO(); // sessoin에 넣을 값
-		
-		
+
 		mlVO.setUser_email(request.getParameter("user_email"));
 		mlVO.setUser_password(request.getParameter("user_password"));
-		
+
 		mlVOB = userDAO.login(mlVO.getUser_email());
-		
-		if(mlVOB != null&& mlVO.getUser_password().equals(mlVOB.getUser_password())) {
-			
+
+		if (mlVOB != null && mlVO.getUser_password().equals(mlVOB.getUser_password())) {
+
 			HttpSession session = request.getSession(); // 세션 객체를 먼저 얻어와야 함
-			
+
 			/*************************
 			 * 여기에 redirecturl 지움.
 			 *************************/
-			
+
 //			String redirectUrl = (String) session.getAttribute("prevPage");
 //			System.out.println(redirectUrl);
 //			if (redirectUrl != null) {
@@ -60,21 +59,29 @@ public class LoginAction implements Action{
 //			    }
 //				
 //			}
-			
-			//dao에 들러서 user 정보 다시 가져와 session 에 넣기
+
+			// dao에 들러서 user 정보 다시 가져와 session 에 넣기
 			mlVOC = userDAO.infoSession(mlVO.getUser_email());
 			
-			forward.setPath(request.getContextPath()+"/main_list.ma");
+			String hostId = userDAO.getHostCheck(mlVOC.getUser_id());
+			if(hostId != null) {
+				session.setAttribute("host_id", hostId);
+			}
+
+			forward.setPath(request.getContextPath() + "/main_list.ma");
 			forward.setRedirect(true);
 
 			// 세션 등록 과정
 			session.setAttribute("userInfo", mlVOC);
-			session.setAttribute("user_id", mlVOC.getUser_id());			
+			session.setAttribute("user_id", mlVOC.getUser_id());
 			return forward;
 		}
+		
+		
+		
 		userDAO.closeCon();
 		forward.setPath("login.me");
-		
+
 		return forward;
 	}
 

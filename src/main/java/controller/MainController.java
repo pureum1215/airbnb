@@ -56,7 +56,6 @@ public class MainController extends HttpServlet {
 		String url = request.getRequestURI();
 		String path = request.getContextPath();
 		String command = url.substring(path.length());
-		System.out.println("command: "+command);
 		
 		Action action = null;
 		ActionForward forward = null;

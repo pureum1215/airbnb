@@ -39,7 +39,6 @@ public class MemberIdCheckAPI extends HttpServlet {
         // 실제 요청 명령어 부분만 추출 (예: /member_idcheck.mia)
         String command = url.substring(path.length());
         // 콘솔에 호출된 API 명령어 로그 출력
-        System.out.println("member api호출: " + command);
         
         // JSON 변환을 위한 Gson 객체 생성
         Gson gson = new Gson();

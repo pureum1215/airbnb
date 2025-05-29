@@ -44,7 +44,7 @@
   <div class="header-container">
   
     <!-- 왼쪽 로고 -->
-    <div class="header-logo-group"> <!-- ★★★★★ 메인 홈페이지 화면 이동 링크 필요 ★★★★★ -->
+    <div class="header-logo-group" onclick="location.href='/main_list.ma'">
       <img src="https://cdn.icon-icons.com/icons2/2699/PNG/512/airbnb_logo_icon_170605.png" alt="airbnb logo" class="header-logo-image">
       <span class="header-logo-text">airbnb</span>
     </div>

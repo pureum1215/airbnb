@@ -14,11 +14,11 @@
 	session.setAttribute("host_id", "host004");
 %>
 <%
-	String hostId = (String)session.getAttribute("host_id");
+	String hostId2 = (String)session.getAttribute("host_id");
 
 
 	HostPropertyListDAO dao = new HostPropertyListDAO();
-	List<HostPropertyListVO> hostpro = dao.hostProperty(hostId);
+	List<HostPropertyListVO> hostpro = dao.hostProperty(hostId2);
 	
 %>
 	<div>

@@ -14,7 +14,6 @@ response.sendRedirect(request.getContextPath()+"/main_list.ma");
 
 
 
-
 %>
 </body>
 </html>

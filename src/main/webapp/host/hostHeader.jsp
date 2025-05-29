@@ -174,7 +174,7 @@
 </head>
 <body>
 <%
-	String hostId = (String)session.getAttribute("host_id");
+	String sessionHostIdHeader = (String)session.getAttribute("host_id");
 
 %>
 
@@ -197,7 +197,7 @@
             <ul id="dropdownMenu" class="dropdown-menu">
 
               <li>
-              <button class="dropdown-item" onclick="location.href='/hostProfile.ho?host_id=<%=hostId %>'">프로필</button>
+              <button class="dropdown-item" onclick="location.href='/hostProfile.ho?host_id=<%=sessionHostIdHeader %>'">프로필</button>
               </li>
               <li>
               <button class="dropdown-item" onclick="location.href='/host/hostStatistics.jsp'">통계</button></li> 

@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import userPage.userReservationDetail.UserReservationDetailAction;
+import userPage.userReservationDetail.UserReviewAction;
 import userPage.userWishList.UserWishListAddAction;
 
 
@@ -66,6 +67,9 @@ public class UserController extends HttpServlet {
 		}
 		else if (command.equals("/userReservationDetail.us")) {
 			action = new UserReservationDetailAction();
+		}
+		else if (command.equals("/userReviewSubmit.us")) {
+			action = new UserReviewAction();
 		}
 		
 		

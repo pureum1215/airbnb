@@ -413,8 +413,8 @@ String hostId = madVONameAt.getHost_id();
 
 				<!-- 리뷰 섹션 (임의 데이터) -->
 				<div class="review-box">
-					<h3><%=hostName%>
-						님에 대한 호스트의 후기
+					<h3>
+						후기
 					</h3>
 					<%
 					if (checkcount && madVOReviewList != null && madVOReviewList.size() > 0) {

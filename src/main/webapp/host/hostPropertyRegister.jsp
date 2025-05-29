@@ -23,7 +23,7 @@ String reservation_default ="예약 요청";
 
 boolean requestReservation = true;
 
-String hostId3 = (String)session.getAttribute("host_id");
+String hostIdPropRegist = (String)session.getAttribute("host_id");
 %>
 
 
@@ -459,7 +459,7 @@ span.amenities:hover {
 		  </div>
 		</div>
 	</div>
-	<input type="hidden" id="hostId" name="hostId" value="<%= hostId3%>">	
+	<input type="hidden" id="hostId" name="hostId" value="<%= hostIdPropRegist%>">	
 
 	<div>
 		<%@ include file="hostFooter.jsp"%>

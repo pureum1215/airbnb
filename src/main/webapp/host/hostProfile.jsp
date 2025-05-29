@@ -213,16 +213,16 @@ body {
 	<%@ include file="hostHeader.jsp"%>
 	<%
 
-	String hostId5 = request.getParameter("host_id");
+	String hostIdProfile = request.getParameter("host_id");
 
 	//String hostId = (String)session.getAttribute("host_id");
 	//필요한 것 호스트가 가진 숙소에 대한 별점, 후기 개수, 후기내용, 호스트 이름 
 
 	HostProfileDAO dao = new HostProfileDAO();
-	HostProfileVO hvo1 = dao.hostProfile1(hostId5);
-	HostProfileVO hvo2 = dao.hostProfile2(hostId5);
-	List<HostProfileVO> hvoList3 = dao.hostProfile3(hostId5);
-	List<HostProfileVO> hvolist5 = dao.hostProfile5(hostId5);
+	HostProfileVO hvo1 = dao.hostProfile1(hostIdProfile);
+	HostProfileVO hvo2 = dao.hostProfile2(hostIdProfile);
+	List<HostProfileVO> hvoList3 = dao.hostProfile3(hostIdProfile);
+	List<HostProfileVO> hvolist5 = dao.hostProfile5(hostIdProfile);
 
 	String hostName = hvo1.getUser_name();
 	String hostBio = hvo1.getHost_bio();

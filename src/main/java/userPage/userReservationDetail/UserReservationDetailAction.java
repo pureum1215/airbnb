@@ -38,6 +38,7 @@ public class UserReservationDetailAction implements Action {
         vo = dao.reservationList(reservationId);
 		
         ActionForward forward = new ActionForward();
+        request.setAttribute("reservation_id", reservationId);
         request.setAttribute("UserReservationDetailVO", vo);
         forward.setPath("user/userReservationDetail.jsp");
         forward.setRedirect(false);

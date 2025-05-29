@@ -51,6 +51,7 @@ public class UserReviewAction implements Action {
         dao.propertyReview(vo);
 		
         ActionForward forward = new ActionForward();
+        request.setAttribute("reservation_id", reservationId);
         forward.setPath("userReservationDetail.us");
         forward.setRedirect(false);
         

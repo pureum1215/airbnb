@@ -52,7 +52,7 @@ List<String> haveAmenities = new ArrayList<>();
 for (Integer s : listAmentie) {
 	switch (s) {
 		case 1 :
-			haveAmenities.add("WI-FI");
+			haveAmenities.add("Wi-Fi");
 			break;
 		case 2 :
 			haveAmenities.add("에어컨");

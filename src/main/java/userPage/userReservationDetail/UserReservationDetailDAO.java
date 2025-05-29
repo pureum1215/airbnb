@@ -151,7 +151,7 @@ public class UserReservationDetailDAO {
 	        pstmt = conn.prepareStatement(sql);
 	        pstmt.setString(1, vo.getProperty_review_id());
 	        pstmt.setString(2, vo.getUser_id());
-	        pstmt.setString(3, vo.getReservation_id());
+	        pstmt.setString(3, vo.getProperty_id());
 	        pstmt.setInt(4, vo.getProperty_review_rating());
 	        pstmt.setString(5, vo.getProperty_review_content());
 	

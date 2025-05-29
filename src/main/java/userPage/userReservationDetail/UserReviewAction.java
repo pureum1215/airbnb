@@ -21,6 +21,7 @@ public class UserReviewAction implements Action {
         HttpSession session = request.getSession();
         String userId = (String) session.getAttribute("user_id");
         String reservationId = request.getParameter("reservation_id");
+        String propertyId = request.getParameter("property_id");
 		
         System.out.println("userId: " + userId);
         System.out.println("reservationId: " + reservationId);
@@ -43,7 +44,7 @@ public class UserReviewAction implements Action {
         // vo에 입력받은 값 세팅
         vo.setProperty_review_id(newReviewId);
         vo.setUser_id(userId);
-        vo.setReservation_id(reservationId);
+        vo.setProperty_id(propertyId);
         vo.setProperty_review_rating(reviewRating);
         vo.setProperty_review_content(reviewContent);
         

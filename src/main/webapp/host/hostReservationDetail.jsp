@@ -206,13 +206,13 @@ HostReservationDetailVO vo = (HostReservationDetailVO) request.getAttribute("Hos
 					<div class="bold" style="margin-top: 0.5rem;"> <%=vo.getPrice_per_night() %> / 1박 </div>
 				</div>
 			</a>
-			<a href="hostProfile.ho?host_id=<%=vo.getUser_id()%>" style="text-decoration: none; color: inherit;">	
+			<a href="${pageContext.request.contextPath}/userProfile.us?userId=<%=vo.getUser_id()%>" style="text-decoration: none; color: inherit;">	
 				<div class="card">
 					<div class="section-title">예약자: 
 						<%=vo.getUser_name() %>
 					</div>
 					<div class="host">
-						<img src="https://randomuser.me/api/portraits/women/1.jpg"
+						<img src="https://randomuser.me/api/portraits/women/<%=vo.getProperty_photo_url() %>"
 							alt="호스트 사진" />
 						<div class="gray"> ============ 여기 봐주세요. ========================</div>
 					</div>

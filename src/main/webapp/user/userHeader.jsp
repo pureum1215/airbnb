@@ -424,28 +424,30 @@ body {
 
 <body>
 	<%
-	String userId1 = (String) session.getAttribute("user_id");
-	String hostId1 = (String) session.getAttribute("host_id");
+	String userId = (String) session.getAttribute("user_id");
+	String hostId = (String) session.getAttribute("host_id");
 	%>
-<%
-	String userId = request.getParameter("userId");//로그인하고 이용할 때
 
-%>
 
 	<div class="biggest_box">
 		<!-- Header -->
 		<div class="header">
-			<div class="logo"> <!-- ★★★★★ 메인 홈페이지 화면 이동 링크 필요 ★★★★★ -->
+			<div class="logo" onclick="location.href='/main_list.ma'">
 				<img src="https://cdn.worldvectorlogo.com/logos/airbnb-1.svg" 
 				alt="Airbnb Logo" >
 				<span style="color: #ff385c; font-weight: bold; font-size: 20px;">airbnb</span>
 			</div>
 			<div class="nav"></div>
 			<div class="actions">
-			<% if(hostId1 != null) { %>
-				<button class="host-mode-btn">호스트 모드로 전환</button>  <!-- ★★★★★ 호스트 화면 이동 링크 필요 ★★★★★ -->
-			<%} %>
-				<div class="circle-btn"  style="background-color: black; color: white;">  <!-- ★★★★★ 프로필 화면 이동 링크 필요 ★★★★★ -->
+			<%
+				if(hostId != null ) {
+			%>
+					<button class="host-mode-btn">호스트 모드로 전환</button>
+			<%
+				}
+			%>
+				<div class="circle-btn"  style="background-color: black; color: white;"
+					onclick="fn_userinfo_header()">
 					<%
 					if (userId != null) {
 					%>
@@ -472,22 +474,22 @@ body {
 						%>
 
 						<!-- 회원일때 -->
-						<div class="menu-list" onclick="togglebutton('wish')">   <!-- ★★★★★ 위시리스트 화면 이동 링크 필요 ★★★★★ -->
+						<div class="menu-list" onclick="togglebutton('wish')"> 
 							<img src="https://cdn-icons-png.flaticon.com/512/3132/3132924.png" />
 							<span>위시리스트</span>
 						</div>
 
-						<div class="menu-list" onclick="togglebutton('reservation')">   <!-- ★★★★★ 예약목록 화면 이동 링크 필요 ★★★★★ -->
+						<div class="menu-list" onclick="togglebutton('reservation')">
 							<img src="https://cdn-icons-png.flaticon.com/512/2796/2796326.png" />
 							<span>예약목록</span>
 						</div>
 
-						<div class="menu-list" onclick="togglebutton('profile')">   <!-- ★★★★★ 프로필 화면 이동 링크 필요 ★★★★★ -->
+						<div class="menu-list" onclick="togglebutton('profile')">
 							<img src="https://cdn-icons-png.flaticon.com/512/6522/6522516.png" />
 							<span>프로필</span>
 						</div>
 						<div style="margin-left: 20px; margin-right: 20px; border-bottom: 1px solid #5B5956;"></div>
-						<div class="menu-list" onclick="togglebutton('logout')">   <!-- ★★★★★ 로그아웃 화면 이동 링크 필요 ★★★★★ -->
+						<div class="menu-list" onclick="togglebutton('logout')">
 							<span>로그아웃</span>
 						</div>
 
@@ -496,7 +498,7 @@ body {
 						%>
 
 						<!-- 비회원일때 -->
-						<div class="menu-list" onclick="togglebutton('login')">   <!-- ★★★★★ 로그인 화면 이동 링크 필요 ★★★★★ -->
+						<div class="menu-list" onclick="togglebutton('login')">
 							<span>로그인</span>
 						</div>
 
@@ -528,6 +530,7 @@ body {
 		}
 	}
 	
+	
 	// === 변수 정의 ===
 	const panel = document.getElementById('dropdownPanel');
 	let currentType = null;
@@ -557,7 +560,11 @@ body {
 	      } 
 	   } 
 	
-	
+	   
+	   // === host mode 버튼 ===
+	   document.querySelector('.host-mode-btn').addEventListener('click', function() {
+		    window.location.href = 'hostList.ho';
+		  });
 	</script>
 </body>
 </html>

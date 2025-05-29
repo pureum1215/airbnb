@@ -594,11 +594,11 @@ body {
    // userInfo 버튼 , menu 버튼
    function togglebutton(menu) {
       if(menu === 'wish') {
-         location.href = "userwishlist.us";
+         location.href = 'userwishlist.us?userId=<%=userId%>';
       } else if(menu === 'reservation') {
          location.href = "${pageContext.request.contextPath}/user/userReservationList.jsp";
       } else if(menu === 'profile') {
-         location.href = "userProfile.us";
+         location.href = 'userProfile.us?userId=<%=userId%>';
       } 
       else if(menu === 'login') {
          location.href = "login.me";

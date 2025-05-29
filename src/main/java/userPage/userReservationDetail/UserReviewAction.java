@@ -7,13 +7,13 @@ import javax.servlet.http.HttpSession;
 import controller.Action;
 import controller.ActionForward;
 
-public class UserReservationDetailAction implements Action {
+public class UserReviewAction implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		// TODO Auto-generated method stub
 		
-		System.out.println("ReservationDetail execute 호출됨");
+		System.out.println("ReviewAction execute 호출됨");
 		
 		request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
@@ -21,9 +21,12 @@ public class UserReservationDetailAction implements Action {
         HttpSession session = request.getSession();
         String userId = (String) session.getAttribute("user_id");
         String reservationId = request.getParameter("reservation_id");
+        String propertyId = request.getParameter("property_id");
 		
         System.out.println("userId: " + userId);
         System.out.println("reservationId: " + reservationId);
+		int reviewRating = Integer.parseInt(request.getParameter("property_review_rating"));
+		String reviewContent = request.getParameter("property_review_content");
         
         // 로그인하지 않은 경우
         if (userId == null) {
@@ -31,16 +34,26 @@ public class UserReservationDetailAction implements Action {
             return null;
         }
         
-        // List 불러오기
         UserReservationDetailDAO dao = new UserReservationDetailDAO();
         UserReservationDetailVO vo = new UserReservationDetailVO();
         
-        vo = dao.reservationList(reservationId);
+        // review_id 생성
+		int number = Integer.parseInt(reservationId.substring(3));
+		String newReviewId = String.format("prv%03d", number + 1);
+        
+        // vo에 입력받은 값 세팅
+        vo.setProperty_review_id(newReviewId);
+        vo.setUser_id(userId);
+        vo.setProperty_id(propertyId);
+        vo.setProperty_review_rating(reviewRating);
+        vo.setProperty_review_content(reviewContent);
+        
+        // 리뷰 등록 기능
+        dao.propertyReview(vo);
 		
         ActionForward forward = new ActionForward();
         request.setAttribute("reservation_id", reservationId);
-        request.setAttribute("UserReservationDetailVO", vo);
-        forward.setPath("user/userReservationDetail.jsp");
+        forward.setPath("userReservationDetail.us");
         forward.setRedirect(false);
         
         return forward;

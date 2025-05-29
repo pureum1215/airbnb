@@ -1,5 +1,5 @@
 <%@page import="java.util.Date"%>
-<%@page import="userPage.userReservationDetail.UserReservationDetailVO"%>
+<%@page import="hostPage.hostReservationDetail.HostReservationDetailVO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -134,7 +134,7 @@
 <body>
 
 <%
-	UserReservationDetailVO vo = (UserReservationDetailVO) request.getAttribute("UserReservationDetailVO");
+HostReservationDetailVO vo = (HostReservationDetailVO) request.getAttribute("HostReservationDetailVO");
 	String UserId = (String) session.getAttribute("userId");
 %>
 

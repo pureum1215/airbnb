@@ -311,7 +311,7 @@
     					res.data.forEach(item => {
     						console.log('예약 항목:', item);
     						
-    						card += '<div class="card-container">';
+    						card += '<div class="card-container" onclick="hostDetailMove()" >';
 
     						card += '  <div class="card-info">';
     						card += '    <div class="card-info-top">';
@@ -510,6 +510,9 @@
 		}
 		
 		
+		function hostDetailMove() {
+			location.href ='${pageContext.request.contextPath}/hostReservationDetail.ho';			
+		}
 	</script>	
 
 </body>

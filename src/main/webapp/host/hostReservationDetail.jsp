@@ -228,9 +228,6 @@ HostReservationDetailVO vo = (HostReservationDetailVO) request.getAttribute("Hos
 					Date checkOutDate = vo.getReservation_check_out();
     				Date today = new Date();
     				
-    				System.out.println("mhs / jsp: "+checkOutDate);
-    				System.out.println("mhs / today: "+today);
-    				System.out.println("mhs / now: "+checkOutDate.before(today));
     				
 					if ( vo.getProperty_review_created_at() != null ) {
 						%>

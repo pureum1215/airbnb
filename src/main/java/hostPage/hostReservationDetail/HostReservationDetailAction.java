@@ -39,8 +39,6 @@ public class HostReservationDetailAction implements Action {
 		
         ActionForward forward = new ActionForward();
         request.setAttribute("HostReservationDetailVO", vo);
-        System.out.println("mhs");
-        System.out.println(vo.toString());
         forward.setPath("host/hostReservationDetail.jsp");
         forward.setRedirect(false);
         

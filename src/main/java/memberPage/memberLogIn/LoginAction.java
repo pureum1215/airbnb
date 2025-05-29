@@ -33,32 +33,6 @@ public class LoginAction implements Action {
 
 			HttpSession session = request.getSession(); // 세션 객체를 먼저 얻어와야 함
 
-			/*************************
-			 * 여기에 redirecturl 지움.
-			 *************************/
-
-//			String redirectUrl = (String) session.getAttribute("prevPage");
-//			System.out.println(redirectUrl);
-//			if (redirectUrl != null) {
-//				
-//				try {
-//			        // referer에서 contextPath 이후 경로만 추출
-//			        URL url = new URL(redirectUrl);
-//			        String path = url.getPath(); // "/airbnb/reservation.ur"
-//
-//			        // contextPath("/airbnb") 제거
-//			        String contextPath = request.getContextPath(); // "/airbnb"
-//			        if (path.startsWith(contextPath)) {
-//			            path = path.substring(contextPath.length()); // "/reservation.ur"
-//			            System.out.println(path);
-//			        }
-//			        forward.setPath(path);
-//
-//			    } catch (MalformedURLException e) {
-//			        e.printStackTrace();
-//			    }
-//				
-//			}
 
 			// dao에 들러서 user 정보 다시 가져와 session 에 넣기
 			mlVOC = userDAO.infoSession(mlVO.getUser_email());
@@ -67,13 +41,13 @@ public class LoginAction implements Action {
 			if(hostId != null) {
 				session.setAttribute("host_id", hostId);
 			}
+			// 세션 등록 과정
+			session.setAttribute("userInfo", mlVOC);
+			session.setAttribute("user_id", mlVOC.getUser_id());
 
 			forward.setPath(request.getContextPath() + "/main_list.ma");
 			forward.setRedirect(true);
 
-			// 세션 등록 과정
-			session.setAttribute("userInfo", mlVOC);
-			session.setAttribute("user_id", mlVOC.getUser_id());
 			return forward;
 		}
 		

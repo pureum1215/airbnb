@@ -11,7 +11,6 @@ public class AmenitiesInitData implements DummyAction {
 
 	@Override
 	public void execute(DummyDAO dummyDAO) {
-		System.out.println("============================= Amenities init db =============================");
 		
 		List<AmenitiesVO> amenities = new ArrayList<>();
 		amenities.add(new AmenitiesVO(1, "Wi-Fi"));

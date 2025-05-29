@@ -423,10 +423,11 @@ body {
 </head>
 
 <body>
-<%
-	String userId = (String) session.getAttribute("user_id");//로그인하고 이용할 때
+	<%
+	String userId = (String) session.getAttribute("user_id");
+	String hostId = (String) session.getAttribute("host_id");
+	%>
 
-%>
 
 	<div class="biggest_box">
 		<!-- Header -->
@@ -438,7 +439,13 @@ body {
 			</div>
 			<div class="nav"></div>
 			<div class="actions">
-				<button class="host-mode-btn">호스트 모드로 전환</button>
+			<%
+				if(hostId != null ) {
+			%>
+					<button class="host-mode-btn">호스트 모드로 전환</button>
+			<%
+				}
+			%>
 				<div class="circle-btn"  style="background-color: black; color: white;"
 					onclick="fn_userinfo_header()">
 					<%
@@ -450,7 +457,7 @@ body {
 					%>x
 					<%
 					}
-					%>
+					%>                                                                                                                                                                                                                                                                                                                                           
 				</div>
 
 				<!--  user info 버튼 ( 햄버거 버튼) -->

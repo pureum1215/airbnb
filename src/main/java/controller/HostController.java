@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import hostPage.hostPropertyDetailModify.HostModifyAction;
+import hostPage.hostReservationDetail.HostReservationDetailAction;
+import userPage.userReservationDetail.UserReservationDetailAction;
 
 
 
@@ -53,7 +55,6 @@ public class HostController extends HttpServlet {
 		String url = request.getRequestURI();
 		String path = request.getContextPath();
 		String command = url.substring(path.length());
-		System.out.println("command: "+command);
 		
 		Action action = null;
 		ActionForward forward = null;
@@ -83,6 +84,9 @@ public class HostController extends HttpServlet {
 			forward = new ActionForward();
 			forward.setPath("host/hostPropertyRegister.jsp");
 			forward.setRedirect(false);
+		}
+		else if (command.equals("/hostReservationDetail.ho")) {
+			action = new HostReservationDetailAction();
 		}
 		
 		

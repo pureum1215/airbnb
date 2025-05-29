@@ -7,14 +7,8 @@
 <title>Insert title here</title>
 </head>
 <body>
-<h1>response 연결 부분</h1>
-<%
+<img src="/uploads/img.png" alt="이미지" width="300">
+<%-- 주소창만 변경하기 --%>
 
-response.sendRedirect(request.getContextPath()+"/main_list.ma");
-
-
-
-
-%>
 </body>
 </html>

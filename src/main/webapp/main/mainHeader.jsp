@@ -459,6 +459,7 @@ body {
 			</div>
 			<div class="nav"></div>
 			<div class="actions">
+
 				<%
 					if (hostId != null ) {
 				%>

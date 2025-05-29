@@ -34,7 +34,6 @@ public class HostReservationAPI extends HttpServlet {
 		String url = request.getRequestURI();
 		String path = request.getContextPath();
 		String command = url.substring(path.length());
-		System.out.println("api호출: " + command);
 		
 		Gson gson = new Gson();
 		ResponseData responseData = null;

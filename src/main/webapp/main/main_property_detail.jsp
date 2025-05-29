@@ -312,10 +312,10 @@ body {
 					<%=madVONPD.getProperty_description()%>
 					<br /><br /><br />
 
-<%
-String hostName = madVONameAt.getUser_name();
-String hostId = madVONameAt.getHost_id();
-%>					
+	<%
+		String hostName = madVONameAt.getUser_name();
+		String hostId = madVONameAt.getHost_id();
+	%>					
 					
 					<!-- 호스트 소개 -->
 					<div style="display: flex; align-items: center; margin-bottom: 30px; 

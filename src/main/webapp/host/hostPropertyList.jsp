@@ -9,12 +9,14 @@
 </head>
 <body>
 
+<!-- 테스트용 Host host050 -->
+
 <%
-	String hostId = (String)session.getAttribute("host_id");
+	String hostIdPropList = (String)session.getAttribute("host_id");
 
 
 	HostPropertyListDAO dao = new HostPropertyListDAO();
-	List<HostPropertyListVO> hostpro = dao.hostProperty(hostId);
+	List<HostPropertyListVO> hostpro = dao.hostProperty(hostIdPropList);
 	
 %>
 	<div>

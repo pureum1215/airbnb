@@ -186,6 +186,8 @@ public class HostPropertyRegisterAction {
 			 String SAVE_DIR12 = "C:\\Users\\BIT\\property_photo"; // 저장 경로 윈도우는 여기서 바꾸기.
 
 			//String SAVE_DIR12 ="/Users/jinjaehwan/property_photo";//mac 용 경로
+			
+			
 			// 실제 저장 경로
 			// String fullPath = SAVE_DIR12 + File.separator + fileName;
 

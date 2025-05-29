@@ -278,44 +278,6 @@ body {
 		%>
 
 		<%
-		//listAmentie 무엇이 있는지.
-		for (Integer s : listAmentie) {
-			switch (s) {
-				case 1 :
-			amenties += "WI-FI ";
-			break;
-				case 2 :
-			amenties += "에어컨 ";
-			break;
-				case 3 :
-			amenties += "난방 ";
-			break;
-				case 4 :
-			amenties += "부엌 ";
-			break;
-				case 5 :
-			amenties += "샤워실 ";
-			break;
-				case 6 :
-			amenties += "헤어드라이기 ";
-			break;
-				case 7 :
-			amenties += "무료주차장 ";
-			break;
-				case 8 :
-			amenties += "수영장 ";
-			break;
-				case 9 :
-			amenties += "헬스장 ";
-			break;
-				case 10 :
-			amenties += "애완동물 가능 ";
-			break;
-			}
-		}
-		%>
-		
-		<%
 		// 지도 위도, 경도 가져오기
 		    MainPropertyDetailVO mapInfo = dao.getPropertyLatLng(propertyId);
 		    double locationX = mapInfo.getLocation_x();
@@ -345,7 +307,6 @@ body {
 						개, 욕실 <%=madVObath.getProperty_bathroom()%> 개
 					</li>
 					<li>⭐ <%=madVOAvgCount.getProperty_review_avg()%> · 후기 <%=madVOAvgCount.getProperty_review_count()%></li>
-					<li><%=amenties%></li>
 				</ul>
 				<div class="host">
 					<%=madVONPD.getProperty_description()%>
@@ -383,11 +344,64 @@ body {
 				<div>
 				  <h2 style="margin-top: 0; font-size: 22px;">어메니티 종류</h2>
 				  <ul class="amenities-container">
-				    <li class="amenity-item"><span class="amenity-icon">📶</span> 와이파이</li>
-				    <li class="amenity-item"><span class="amenity-icon">🧺</span> 세탁기</li>
-				    <li class="amenity-item"><span class="amenity-icon">🐾</span> 반려동물 출입 가능</li>
-				    <li class="amenity-item"><span class="amenity-icon">🅿️</span> 무료 주차</li>
-				    <li class="amenity-item"><span class="amenity-icon">❄️</span> 에어컨</li>
+				  <%
+				//listAmentie 무엇이 있는지.
+					for (Integer s : listAmentie) {
+						switch (s) {
+							case 1 :
+								%>
+						<li class="amenity-item"><span class="amenity-icon">📶</span> 와이파이</li>
+						<%
+						break;
+							case 2 :
+						%>
+						<li class="amenity-item"><span class="amenity-icon">❄️</span> 에어컨</li>
+						<% 
+						break;
+							case 3 :
+						%>
+						<li class="amenity-item"><span class="amenity-icon">🔥</span> 난방</li>
+						<%
+						break;
+							case 4 :
+						%>
+						<li class="amenity-item"><span class="amenity-icon">👨‍🍳</span> 부엌</li>
+						<% 
+						break;
+							case 5 :
+						%>
+						<li class="amenity-item"><span class="amenity-icon">🚿</span> 샤워실</li>
+						<%
+						break;
+						case 6 :
+						%>
+						<li class="amenity-item"><span class="amenity-icon">💨</span> 헤어드라이기</li>
+						<%
+						break;
+							case 7 :
+						%>
+						<li class="amenity-item"><span class="amenity-icon">️🅿️</span> 무료주차장</li>
+						<% 
+						break;
+							case 8 :
+						%>
+						<li class="amenity-item"><span class="amenity-icon">🏊‍♂️</span> 수영장</li>
+						<%
+						break;
+							case 9 :
+						%>
+						<li class="amenity-item"><span class="amenity-icon">🏋️‍♂️</span> 헬스장</li>
+						<% 
+						break;
+							case 10 :
+						%>
+						<li class="amenity-item"><span class="amenity-icon">🐶</span> 애완동물 가능</li>
+						<%
+						break;
+						}
+					}
+						%>
+
 				    <!-- 계속 추가 가능 -->
 				  </ul>
 				</div>

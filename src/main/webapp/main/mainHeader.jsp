@@ -453,7 +453,8 @@ body {
 		<!-- Header -->
 		<div class="header">
 			<div class="logo">  <!-- ★★★★★ 메인 홈페이지 화면 이동 링크 필요 ★★★★★ -->
-				<img src="https://cdn.worldvectorlogo.com/logos/airbnb-1.svg" alt="Airbnb Logo"> 
+				<img src="https://cdn.worldvectorlogo.com/logos/airbnb-1.svg" 
+				alt="Airbnb Logo"> 
 				<span style="color: #ff385c; font-weight: bold; font-size: 20px;">airbnb</span>
 			</div>
 			<div class="nav"></div>
@@ -551,6 +552,7 @@ body {
 				<div class="section-title">필터</div>
 				<div class="section-value">필터 추가</div>
 			</div>
+			
 			<input type="hidden" name="location_continent" id="hiddenContinent">
 			<input type="hidden" name="location_country" id="hiddenCountry">
 			<input type="hidden" name="location_city" id="hiddenCity">
@@ -594,15 +596,15 @@ body {
       }
    }
    
-   
+
    // userInfo 버튼 , menu 버튼
    function togglebutton(menu) {
       if(menu === 'wish') {
-         location.href = "userwishlist.us";
+         location.href = '${pageContext.request.contextPath}/userwishlist.us?userId=<%=userId%>';
       } else if(menu === 'reservation') {
-         location.href = "${pageContext.request.contextPath}/user/userReservationList.jsp";
+         location.href = "${pageContext.request.contextPath}/user/userReservationList.jsp?userId=<%=userId%>";
       } else if(menu === 'profile') {
-         location.href = "userProfile.us";
+         location.href = '${pageContext.request.contextPath}/userProfile.us?userId=<%=userId%>';
       } 
       else if(menu === 'login') {
          location.href = "login.me";

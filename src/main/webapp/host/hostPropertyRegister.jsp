@@ -23,7 +23,7 @@ String reservation_default ="예약 요청";
 
 boolean requestReservation = true;
 
-String hostId = (String)session.getAttribute("host_id");
+String hostIdPropRegist = (String)session.getAttribute("host_id");
 %>
 
 
@@ -459,7 +459,7 @@ span.amenities:hover {
 		  </div>
 		</div>
 	</div>
-	<input type="hidden" id="hostId" name="hostId" value="<%= hostId%>">	
+	<input type="hidden" id="hostId" name="hostId" value="<%= hostIdPropRegist%>">	
 
 	<div>
 		<%@ include file="hostFooter.jsp"%>
@@ -624,32 +624,6 @@ span.amenities:hover {
 		formData.append('image', fileInput.files[0]);
 		
 		
-		
-		for (let value of formData.values()) {
-		    console.log('value:', value);
-		}
-		
-		
-		alert('data');
-	    const data = {
-	    	hostId: document.querySelector('input[name="hostId"]').value,
-	    	reservation_default: hidden_reservation.value,
-	        listingTitle: document.querySelector('input[name="listingName"]').value,
-	        rooms: document.getElementById("bedrooms").innerText,
-	        beds: document.getElementById("beds").innerText,
-	        bathrooms: document.getElementById("bathrooms").innerText,
-	        price: document.querySelector('.input-text-price').value,
-	        description: document.querySelector('textarea[name="listingDescription"]').value,
-	        amenitiesArray: amenitiesArray.join(','), // 배열 추가
-	        address: addr_detail,
-	       	address_lng :lng,
-	       	address_lat :lat
-	    };
-	    
-	    
-	    console.log('data', formData);
-
-	    
 		$.ajax({
 			type : 'post',
 			data : formData,
@@ -658,8 +632,6 @@ span.amenities:hover {
 		    processData: false,  // 반드시 false
 			url : 'host_register.hda',
 			success : function(res) {
-				console.log(res);
-				//여기에 성공했을 때,
 				location.href = 'hostList.ho';
 			}
 		}); 

@@ -111,9 +111,10 @@ body.body {
 <body class="body">
 	<%
 	//String userId = (String)session.getAttribute("user_id");//실제 사
-	String userId ="user002";//테스트
+	//String userId ="user002";//테스트
+	String userId1 = request.getParameter("userId");//로그인하고 이용할 때
 	UserWishListDAO dao = new UserWishListDAO();
-	List<UserWishListVO> propvoList = dao.wishListProp(userId);
+	List<UserWishListVO> propvoList = dao.wishListProp(userId1);
 	%>
 	<div>
 		<%@ include file="userHeader.jsp"%>

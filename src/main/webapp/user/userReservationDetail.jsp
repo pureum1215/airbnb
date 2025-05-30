@@ -234,7 +234,7 @@
 						  <!-- 상단 영역: 좌측 숙소사진 + 이름, 우측 별점 -->
 						  <div style="display: flex; justify-content: space-between; align-items: center;">
 						    <div style="display: flex; align-items: center; gap: 0.6rem;">
-						      <img src="https://cdn.travie.com/news/photo/202102/21745_10248_2650.jpg" 
+						      <img src="/uploads/<%=vo.getProperty_photo_url() %>" 
 						           alt="숙소 사진" 
 						           style="width: 40px; height: 40px; border-radius: 50%; object-fit: cover;" />
 						      <div class="bold" style="font-size: 16px;"> <%=vo.getProperty_name() %> </div>

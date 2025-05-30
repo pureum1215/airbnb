@@ -167,34 +167,4 @@ public class UserReservationDetailDAO {
 		return result;
 	}
 	
-	// user review 등록 ( updated table )
-	public int userReview( UserReservationDetailVO vo ) {
-		System.out.println("userReview method 호출");
-		
-		int result = 0;
-		
-		String sql = "INSERT INTO USER_REVIEW (USER_REVIEW_ID, USER_ID, RESERVATION_ID, "
-				+ "USER_REVIEW_RATING, USER_REVIEW_CONTENT, USER_REVIEW_CREATED_AT) "
-				+ "VALUES (?, ?, ?, ?, ?, NOW())";
-		
-		try {
-	        pstmt = conn.prepareStatement(sql);
-	        pstmt.setString(1, vo.getProperty_review_id());
-	        pstmt.setString(2, vo.getUser_id());
-	        pstmt.setString(3, vo.getReservation_id());
-	        pstmt.setInt(4, vo.getProperty_review_rating());
-	        pstmt.setString(5, vo.getProperty_review_content());
-	
-	        result = pstmt.executeUpdate();
-		}
-		catch (Exception e) {
-			e.printStackTrace();
-		} 
-		finally {
-			closeCon();
-		}
-		
-		return result;
-	}
-	
 }

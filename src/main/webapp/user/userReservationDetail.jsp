@@ -241,7 +241,7 @@
 					Date checkOutDate = vo.getReservation_check_out();
     				Date today = new Date();
     				
-					if ( vo.getProperty_review_id() != null ) {
+					if ( vo.getProperty_review_id() != null && checkOutDate.before(today) && vo.getPayment_status().equals("완료") ) {
 						%>
 						<br>
 						<!-- 리뷰 등록 후: 리뷰 보여주기 박스 -->
@@ -276,6 +276,12 @@
 						<!-- 체크아웃 날짜 후: 별점+리뷰 등록 -->
 						<div class="card" style="padding: 10px;">
 						 <form id="reviewForm" method="post" action="/userReviewSubmit.us">
+						 	<div style="display: flex; align-items: center; gap: 0.6rem;">
+						      <img src="/uploads/<%=vo.getProperty_photo_url() %>" 
+						           alt="숙소 사진" 
+						           style="width: 40px; height: 40px; border-radius: 50%; object-fit: cover;" />
+						      <div class="bold" style="font-size: 16px;"> <%=vo.getProperty_name() %> </div>
+						    </div>
 							<!-- 별점 영역 -->
 							<div class="stars"
 								style="margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center;">

@@ -242,7 +242,7 @@
     				Date today = new Date();
     				
     				
-					if ( vo.getUser_review_created_at() != null ) {
+					if ( vo.getUser_review_created_at() != null && checkOutDate.before(today) && vo.getPayment_status().equals("완료") ) {
 						%>
 						<br>
 						<!-- 리뷰 등록 후: 리뷰 보여주기 박스 -->

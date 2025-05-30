@@ -311,8 +311,8 @@
     					res.data.forEach(item => {
     						console.log('예약 항목:', item);
     						
-    						card += '<div class="card-container" onclick="hostDetailMove(\''+item.reservation_id+'\')" >';
-
+    						card += '<div class="card-container" style="cursor:pointer;" data-reservation-id="' + item.reservation_id + '">';
+    						
     						card += '  <div class="card-info">';
     						card += '    <div class="card-info-top">';
     						card += '      <div class="card-date-range">' + item.reservation_check_in + ' ~ ' + item.reservation_check_out + '</div>';
@@ -335,7 +335,6 @@
     						card += '      </div>';
     						card += '      <div class="card-actions">';
     						card += '        <p class="card-created-at">예약 신청일: ' + item.reservation_created_at + '</p>';
-    						// 아래 조건문 그대로
 
     						if (item.payment_status === '완료') {
     						  card += '      <span class="card-reserving-text">결제 완료</span>';
@@ -399,8 +398,8 @@
     					res.data.forEach(item => {
     						console.log('예약 항목2:', item);
     						
-    						card += '<div class="card-container" onclick="hostDetailMove(\''+item.reservation_id+'\')" >';
-
+    						card += '<div class="card-container" style="cursor:pointer;" data-reservation-id="' + item.reservation_id + '">';
+    						
     						card += '  <div class="card-info">';
     						card += '    <div class="card-info-top">';
     						card += '      <div class="card-date-range">' + item.reservation_check_in + ' ~ ' + item.reservation_check_out + '</div>';
@@ -423,7 +422,6 @@
     						card += '      </div>';
     						card += '      <div class="card-actions">';
     						card += '        <p class="card-created-at">예약 신청일: ' + item.reservation_created_at + '</p>';
-    						// 아래 조건문 그대로
 
 							if (item.payment_status === '완료') {
     							card += '      <span class="card-reserving-text">결제 완료</span>';
@@ -511,8 +509,23 @@
 		
 		
 		function hostDetailMove(reservation_id) {
+			event.stopPropagation();
 			location.href ='${pageContext.request.contextPath}/hostReservationDetail.ho?reservation_id='+reservation_id;			
 		}
+		
+		
+		// 카드 클릭 이벤트 위임
+		document.addEventListener("click", function(e) {
+			const card = e.target.closest(".card-container");
+			if (card) {
+				// 버튼을 클릭한 경우 무시
+				if (e.target.tagName === 'BUTTON' || e.target.closest('button')) return;
+
+				const reservationId = card.dataset.reservationId;
+				location.href = '/userReservationDetail.us?reservation_id=' + reservationId;
+			}
+		});
+		
 	</script>	
 
 </body>

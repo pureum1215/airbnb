@@ -16,9 +16,7 @@
 
 	<main class="max-w-6xl mx-auto px-6 py-10 grid md:grid-cols-3 gap-10">
 
-	<form
-		action="${pageContext.request.contextPath}/reservation_payment.re"
-		method="post">
+	<form method="post" onsubmit="return payment(this);">
 		
 		<input type="hidden" id="paymentMethodInput" name="payment_method" />
 				
@@ -128,9 +126,22 @@
 		</aside>
 	</main>
 
-	<!-- 드롭다운 스크립트 -->
 	<script>
+
+	function payment(form) {
+		const paymentMethod = document.getElementById("paymentMethodInput").value;
+		
+		if ( !paymentMethod || paymentMethod == null ) {
+			alert ( "결제 수단을 선택해주세요" );
+			return false;
+		}
+		
+		form.action = "<%=request.getContextPath() %>/reservation_payment.re"
+		return true;
+	}
 	
+	
+	<!-- 드롭다운 스크립트 -->
 		const toggle = document.getElementById("paymentToggle");
 		const options = document.getElementById("paymentOptions");
 

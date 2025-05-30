@@ -241,6 +241,11 @@ body {
 		<!-- 정적 포함 -->
 	</div>
 	<!-- header -->
+	
+<%
+    String userId = (String) session.getAttribute("user_id");
+%>	
+	
 	<!-- body -->
 	<div class="container">
 		<%
@@ -481,11 +486,7 @@ body {
 				<input type="date" value="2025-06-14" />
 
 				<%-- 예약하기 버튼 --%>
-				<form
-					action="${pageContext.request.contextPath}/reservation_default.re"
-					method="post">
-
-					<%-- servlet에 넘겨줄 값 --%>
+				<form method="post" onsubmit="return reservation(this);">
 					<input type="hidden" name="property_id" value="<%=propertyId%>">
 					<button type="submit">예약하기</button>
 				</form>
@@ -501,6 +502,22 @@ body {
 
 <script type="text/javascript" src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=991e8640696acefd76255f05e2328d69&autoload=false" ></script>
 <script>
+
+// 미 로그인시 예약하기 눌렀을 때
+	function reservation(form) {
+		var userId = "<%=userId %>";
+
+		if ( !userId || userId === "null" ) {
+			alert("로그인이 필요합니다.");
+			window.location.href = "login.me";
+			return false;
+		}
+
+		form.action = "<%=request.getContextPath() %>/reservation_default.re";
+		return true;
+	}
+
+	
 document.addEventListener("DOMContentLoaded", function () {
 	  const heart = document.getElementById("wishlist-heart");
 

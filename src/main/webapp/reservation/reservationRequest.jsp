@@ -177,7 +177,6 @@
 						<span class="change-link">수정</span>
 					</div>
 					
-					
 					<%-- 앞에서 받았던 값을 여기서 바로 적용되게 변경하기 기능 추가 필요 --%>
 					<%-- servlet으로 보낼 값, 체크인, 체크아웃 날짜 --%>
 					<input type="hidden" name="property_id" value="<%= request.getAttribute("property_id") %>">

@@ -128,6 +128,22 @@
 		align-self: flex-end;
 	}
 	
+	.host-img {
+		width: 30px;
+		height: 30px;
+		border: 1px solid black;
+		border-radius: 50%;
+		object-fit: cover;
+		margin-bottom: 16px;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		background-color: black;
+		color: #FAFAFA;
+		font-size: 20px;
+	    font-weight: bold;
+	}
+	
 	
 </style>
 </head>
@@ -206,12 +222,11 @@
 			</a>
 			<a href="hostProfile.ho?host_id=<%=vo.getHost_id()%>" style="text-decoration: none; color: inherit;">	
 				<div class="card">
+					<div class="host-img">H</div>
 					<div class="section-title">호스트: 
 						<%=vo.getUser_name() %>
 					</div>
 					<div class="host">
-						<img src="https://randomuser.me/api/portraits/women/1.jpg"
-							alt="호스트 사진" />
 						<div class="gray"> <%=vo.getHost_bio() %> </div>
 					</div>
 				</div>
@@ -255,7 +270,7 @@
 						</div>
 						<%
 					}
-					else if ( checkOutDate.before(today) ) {
+					else if ( checkOutDate.before(today) && vo.getPayment_status().equals("완료") ) {
 						%>
 						<br>
 						<!-- 체크아웃 날짜 후: 별점+리뷰 등록 -->

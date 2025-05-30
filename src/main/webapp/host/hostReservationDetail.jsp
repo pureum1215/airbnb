@@ -130,6 +130,22 @@
 		background-color: #EF4444;
 	}
 	
+	.user-img {
+		width: 30px;
+		height: 30px;
+		border: 1px solid black;
+		border-radius: 50%;
+		object-fit: cover;
+		margin-bottom: 16px;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		background-color: black;
+		color: #FAFAFA;
+		font-size: 20px;
+	    font-weight: bold;
+	}
+	
 </style>
 </head>
 <body>
@@ -209,13 +225,9 @@
 			</a>
 			<a href="${pageContext.request.contextPath}/userProfile.us?userId=<%=vo.getUser_id()%>" style="text-decoration: none; color: inherit;">	
 				<div class="card">
+					<div class="user-img">H</div>
 					<div class="section-title">예약자: 
 						<%=vo.getUser_name() %>
-					</div>
-					<div class="host">
-						<img src="https://randomuser.me/api/portraits/women/1.jpg %>"
-							alt="호스트 사진" />
-						<div class="gray"> ============ 여기 봐주세요. ========================</div>
 					</div>
 				</div>
 			</a>	
@@ -259,7 +271,7 @@
 						</div>
 						<%
 					}
-					else if ( checkOutDate.before(today) ) {
+					else if ( checkOutDate.before(today) && vo.getPayment_status().equals("완료") ) {
 						%>
 					<br>
 						<!-- 체크아웃 날짜 후: 별점+리뷰 등록 -->

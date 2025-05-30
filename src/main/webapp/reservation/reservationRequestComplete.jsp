@@ -120,7 +120,7 @@ body {
 				</div>
 			</div>
 
-			<a href="../main/main_property_list.jsp" class="back-btn">숙소 목록으로 돌아가기</a>
+			<a href="/main_list.ma" class="back-btn">숙소 목록으로 돌아가기</a>
 		</div>
 	</div>
 </body>

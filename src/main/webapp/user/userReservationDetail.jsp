@@ -170,7 +170,7 @@
 							else if ( vo.getReservation_confirm().equals("승인") && vo.getPayment_id().equals("not_paid") ) {
 								%> <br/> 
 									<button class="payment-btn" 
-									onclick="location.href='../reservation/reservationPayment.jsp?reservationId=<%=vo.getReservation_id() %>'">
+									onclick="location.href='<%=request.getContextPath() %>/reservation/reservationPayment.jsp?reservationId=<%=vo.getReservation_id() %>'">
 									결제하기</button> <%
 							}
 							else if ( vo.getPayment_status().equals("취소") ) {

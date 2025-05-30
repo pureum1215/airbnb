@@ -68,7 +68,7 @@
 
 		<%-- servlet으로 보낼 값 --%>
 		<input type="hidden" name="payment_method" id="paymentMethodInput" />
-		<input type="hidden" name="reservation_id" value="<%=request.getAttribute("reservation_id") %>"> 
+		<input type="hidden" name="reservation_id" value="<%=request.getParameter("reservationId") %>"> 
 		<input type="hidden" name="property_id" value="<%=request.getAttribute("property_id") %>">
 	
 		<button type="submit"

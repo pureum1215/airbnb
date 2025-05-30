@@ -69,7 +69,7 @@ public class HostReservationDetailDAO {
 			rs = pstmt.executeQuery();
 
 			if (rs.next()) {
-
+				vo.setReservation_id(reservation_id);
 				vo.setUser_id(rs.getString("USER_ID"));								// 예약자 유저 아이디
 				vo.setUser_name(rs.getString("USER_NAME"));							// 예약자 유저 이름
 				vo.setProperty_id(rs.getString("property_id"));						// 숙소 IDX

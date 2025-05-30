@@ -66,7 +66,7 @@ public class HostReservationListDAO {
 	                + "LEFT JOIN payment pay ON r.reservation_id = pay.reservation_id "
 	                + "WHERE h.host_id = ? "
 	        		+ "AND r.reservation_check_in > CURRENT_DATE "
-	        		+ "ORDER BY r.reservation_created_at ASC;";
+	        		+ "ORDER BY r.reservation_created_at DESC;";
 	        pstmt = conn.prepareStatement(sql);
 	        pstmt.setString(1, host_id);
 	        rs = pstmt.executeQuery();
@@ -126,7 +126,7 @@ public class HostReservationListDAO {
 	                + "JOIN location l ON p.location_id = l.location_id "
 	                + "LEFT JOIN payment pay ON r.reservation_id = pay.reservation_id "
 	                + "WHERE h.host_id = ? "
-	        		+ "ORDER BY r.reservation_created_at ASC;";
+	        		+ "ORDER BY r.reservation_created_at DESC;";
 	        pstmt = conn.prepareStatement(sql);
 	        pstmt.setString(1, host_id);
 	        rs = pstmt.executeQuery();

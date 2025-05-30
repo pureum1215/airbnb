@@ -169,8 +169,8 @@
 							}
 							else if ( vo.getReservation_confirm().equals("보류") ) {
 								%> <br/>
-    						 		<button class="card-action-btn" onclick="reservation_confirm()">승인</button>';
-    								<button class="card-action-btn decline" onclick="reservation_decline()">거절</button>';									
+    						 		<button class="card-action-btn" onclick="reservation_confirm()">승인</button>
+    								<button class="card-action-btn decline" onclick="reservation_decline()">거절</button>									
 								<%
 							}
 							else if ( vo.getReservation_confirm().equals("승인") && vo.getPayment_id().equals("not_paid") ) {

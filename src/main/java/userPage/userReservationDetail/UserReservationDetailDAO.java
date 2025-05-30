@@ -74,6 +74,7 @@ public class UserReservationDetailDAO {
 			rs = pstmt.executeQuery();
 			
 			if (rs.next()) {
+				vo.setReservation_id(reservation_id);
 				vo.setProperty_id(rs.getString("property_id"));
 				vo.setProperty_photo_url(rs.getString("property_photo_url"));
 				vo.setProperty_name(rs.getString("property_name"));

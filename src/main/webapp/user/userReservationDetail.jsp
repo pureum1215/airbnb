@@ -128,6 +128,22 @@
 		align-self: flex-end;
 	}
 	
+	.host-img {
+		width: 30px;
+		height: 30px;
+		border: 1px solid black;
+		border-radius: 50%;
+		object-fit: cover;
+		margin-bottom: 16px;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		background-color: black;
+		color: #FAFAFA;
+		font-size: 20px;
+	    font-weight: bold;
+	}
+	
 	
 </style>
 </head>
@@ -170,7 +186,7 @@
 							else if ( vo.getReservation_confirm().equals("승인") && vo.getPayment_id().equals("not_paid") ) {
 								%> <br/> 
 									<button class="payment-btn" 
-									onclick="location.href='../reservation/reservationPayment.jsp?reservationId=<%=vo.getReservation_id() %>'">
+									onclick="location.href='<%=request.getContextPath() %>/reservation/reservationPayment.jsp?reservationId=<%=vo.getReservation_id() %>'">
 									결제하기</button> <%
 							}
 							else if ( vo.getPayment_status().equals("취소") ) {
@@ -206,12 +222,11 @@
 			</a>
 			<a href="hostProfile.ho?host_id=<%=vo.getHost_id()%>" style="text-decoration: none; color: inherit;">	
 				<div class="card">
+					<div class="host-img">H</div>
 					<div class="section-title">호스트: 
 						<%=vo.getUser_name() %>
 					</div>
 					<div class="host">
-						<img src="https://randomuser.me/api/portraits/women/1.jpg"
-							alt="호스트 사진" />
 						<div class="gray"> <%=vo.getHost_bio() %> </div>
 					</div>
 				</div>
@@ -226,7 +241,7 @@
 					Date checkOutDate = vo.getReservation_check_out();
     				Date today = new Date();
     				
-					if ( vo.getProperty_review_id() != null ) {
+					if ( vo.getProperty_review_id() != null && checkOutDate.before(today) && vo.getPayment_status().equals("완료") ) {
 						%>
 						<br>
 						<!-- 리뷰 등록 후: 리뷰 보여주기 박스 -->
@@ -255,12 +270,18 @@
 						</div>
 						<%
 					}
-					else if ( checkOutDate.before(today) ) {
+					else if ( checkOutDate.before(today) && vo.getPayment_status().equals("완료") ) {
 						%>
 						<br>
 						<!-- 체크아웃 날짜 후: 별점+리뷰 등록 -->
 						<div class="card" style="padding: 10px;">
 						 <form id="reviewForm" method="post" action="/userReviewSubmit.us">
+						 	<div style="display: flex; align-items: center; gap: 0.6rem;">
+						      <img src="/uploads/<%=vo.getProperty_photo_url() %>" 
+						           alt="숙소 사진" 
+						           style="width: 40px; height: 40px; border-radius: 50%; object-fit: cover;" />
+						      <div class="bold" style="font-size: 16px;"> <%=vo.getProperty_name() %> </div>
+						    </div>
 							<!-- 별점 영역 -->
 							<div class="stars"
 								style="margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center;">

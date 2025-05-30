@@ -522,7 +522,7 @@
 				if (e.target.tagName === 'BUTTON' || e.target.closest('button')) return;
 
 				const reservationId = card.dataset.reservationId;
-				location.href = '/userReservationDetail.us?reservation_id=' + reservationId;
+				location.href = '/hostReservationDetail.ho?reservation_id=' + reservationId;
 			}
 		});
 		

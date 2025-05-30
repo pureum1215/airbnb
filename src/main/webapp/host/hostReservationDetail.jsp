@@ -116,25 +116,26 @@
 		transition: background-color 0.3s ease;
 	}
 	
-	.payment-btn {
-		background-color: #FF5A5F;
+	.card-action-btn {
+		background-color: #10B981;
 		color: white;
 		border: none;
-		width: 150px;
 		padding: 6px 12px;
 		border-radius: 4px;
-		cursor: pointer;
 		font-size: 14px;
-		align-self: flex-end;
+		cursor: pointer;
 	}
 	
+	.card-action-btn.decline {
+		background-color: #EF4444;
+	}
 	
 </style>
 </head>
 <body>
 
 <%
-HostReservationDetailVO vo = (HostReservationDetailVO) request.getAttribute("HostReservationDetailVO");
+	HostReservationDetailVO vo = (HostReservationDetailVO) request.getAttribute("HostReservationDetailVO");
 	String UserId = (String) session.getAttribute("userId");
 %>
 
@@ -167,13 +168,13 @@ HostReservationDetailVO vo = (HostReservationDetailVO) request.getAttribute("Hos
 								%> <br/><span> 예약 요청이 거절되었습니다 </span> <%
 							}
 							else if ( vo.getReservation_confirm().equals("보류") ) {
-								%> <br/><span> 예약 요청중 </span> <%
+								%> <br/>
+    						 		<button class="card-action-btn" onclick="reservation_confirm()">승인</button>';
+    								<button class="card-action-btn decline" onclick="reservation_decline()">거절</button>';									
+								<%
 							}
 							else if ( vo.getReservation_confirm().equals("승인") && vo.getPayment_id().equals("not_paid") ) {
-								%> <br/> 
-									<button class="payment-btn" 
-									onclick="location.href='../reservation/reservationPayment.jsp?reservationId=<%=vo.getReservation_id() %>'">
-									결제하기</button> <%
+								%> <br/><span> 승인 완료. 결제 요청 중 </span> <%
 							}
 							else if ( vo.getPayment_status().equals("취소") ) {
 								%> <br/><span> 결제가 취소되었습니다 </span> <%
@@ -212,7 +213,7 @@ HostReservationDetailVO vo = (HostReservationDetailVO) request.getAttribute("Hos
 						<%=vo.getUser_name() %>
 					</div>
 					<div class="host">
-						<img src="https://randomuser.me/api/portraits/women/<%=vo.getProperty_photo_url() %>"
+						<img src="https://randomuser.me/api/portraits/women/1.jpg %>"
 							alt="호스트 사진" />
 						<div class="gray"> ============ 여기 봐주세요. ========================</div>
 					</div>
@@ -229,7 +230,7 @@ HostReservationDetailVO vo = (HostReservationDetailVO) request.getAttribute("Hos
     				Date today = new Date();
     				
     				
-					if ( vo.getProperty_review_created_at() != null ) {
+					if ( vo.getUser_review_created_at() != null ) {
 						%>
 						<br>
 						<!-- 리뷰 등록 후: 리뷰 보여주기 박스 -->
@@ -238,22 +239,22 @@ HostReservationDetailVO vo = (HostReservationDetailVO) request.getAttribute("Hos
 						  <div style="display: flex; justify-content: space-between; align-items: center;">
 						    <div style="display: flex; align-items: center; gap: 0.6rem;">
 						      <img src="https://cdn.travie.com/news/photo/202102/21745_10248_2650.jpg" 
-						           alt="숙소 사진" 
+						           alt="user icon" 
 						           style="width: 40px; height: 40px; border-radius: 50%; object-fit: cover;" />
 						      <div class="bold" style="font-size: 16px;"> <%=vo.getProperty_name() %> </div>
 						    </div>
 						    <div style="display: flex; align-items: center; gap: 0.3rem; font-size: 16px; font-weight: bold;">
 						      <span style=" color: gold;">⭐</span>
-						      <span> <%=vo.getProperty_review_rating() %> </span>
+						      <span> <%=vo.getUser_review_rating() %> </span>
 						    </div>
 						  </div>
 						
 						  <!-- 중단: 리뷰 등록 날짜 -->
-						  <div class="text-small gray" style="font-size: 13px;"> <%=vo.getProperty_review_created_at() %> </div>
+						  <div class="text-small gray" style="font-size: 13px;"> <%=vo.getUser_review_created_at() %> </div>
 						
 						  <!-- 하단: 리뷰 내용 -->
 						  <div style="font-size: 14px; line-height: 1.4;">
-						  		<%=vo.getProperty_review_content() %>
+						  		<%=vo.getUser_review_content() %>
 						  </div>
 						</div>
 						<%
@@ -263,6 +264,7 @@ HostReservationDetailVO vo = (HostReservationDetailVO) request.getAttribute("Hos
 					<br>
 						<!-- 체크아웃 날짜 후: 별점+리뷰 등록 -->
 						<div class="card" style="padding: 10px;">
+						 <form id="reviewForm" method="post" action="/hostReviewSubmit.ho">
 							<!-- 별점 영역 -->
 							<div class="stars"
 								style="margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center;">
@@ -274,15 +276,21 @@ HostReservationDetailVO vo = (HostReservationDetailVO) request.getAttribute("Hos
 									<span class="star" data-index="5" onclick="setRating(5)"></span>
 								</div>
 		
-								<button class="reviewSubmit">제출</button>
+								<button class="reviewSubmit" onclick="reviewSubmit()" >제출</button>
 							</div>
 		
 		
 							<!-- 리뷰 작성 영역 -->
 							<div>
-								<input type="text" placeholder="리뷰를 작성해주세요"
+								<input type="text" name="user_review_content" placeholder="리뷰를 작성해주세요"
 									style="width: 100%; padding: 5px; box-sizing: border-box;">
 							</div>
+						
+								<%-- 서버로 넘길 값 --%>
+						    <input type="hidden" name="user_review_rating" id="ratingValue">
+						    <input type="hidden" name="reservation_id" value=<%=request.getAttribute("reservation_id") %>>
+						    <input type="hidden" name="property_id" value=<%=vo.getProperty_id() %>>
+						  </form>
 						</div>
 		
 						<!-- JavaScript 추가 -->
@@ -296,6 +304,19 @@ HostReservationDetailVO vo = (HostReservationDetailVO) request.getAttribute("Hos
 						        star.classList.remove('filled');
 						      }
 						    });
+						    document.getElementById('ratingValue').value = index;
+						  }
+						  
+						  function reviewSubmit() {
+							const rating = document.getElementById('ratingValue').value;
+							const review = document.getElementById('reviewContent').value;
+								  
+						    if (!review.trim()) {
+						        alert("리뷰 내용을 입력해주세요.");
+						        return;
+						    }
+							  
+						    document.getElementById('reviewForm').submit();
 						  }
 						</script>
 						<%
@@ -305,6 +326,47 @@ HostReservationDetailVO vo = (HostReservationDetailVO) request.getAttribute("Hos
 		</div>
 	</div>
 
+
+
+<script>
+
+	// 승인, 거절 누를 시 실행되는 함수
+	
+	function reservation_confirm(reservation_id) {
+		$.ajax({
+			url: '${pageContext.request.contextPath}/reservation_confirm.hra',
+			type: 'post',
+			data: {'reservation_id': reservation_id},
+			dataType: 'json',
+			success: function(res) {
+				console.log(res);
+				if (res.code ==200) {
+					pagestart();
+				} else {
+					alert('승인 실패');
+				}
+			}
+		})
+	}
+	
+	function reservation_decline(reservation_id) {
+		$.ajax({
+			url: '${pageContext.request.contextPath}/reservation_decline.hra',
+			type: 'post',
+			data: {'reservation_id': reservation_id},
+			dataType: 'json',
+			success: function(res) {
+				console.log(res);
+				if (res.code ==200) {
+					pagestart();
+				} else {
+					alert('거절 실패');
+				}
+			}
+		})
+	}
+
+</script>
 
 </body>
 </html>

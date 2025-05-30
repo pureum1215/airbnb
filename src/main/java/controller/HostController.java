@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import hostPage.hostPropertyDetailModify.HostModifyAction;
 import hostPage.hostReservationDetail.HostReservationDetailAction;
-import userPage.userReservationDetail.UserReservationDetailAction;
+import hostPage.hostReservationDetail.HostReviewAction;
 
 
 
@@ -87,6 +87,9 @@ public class HostController extends HttpServlet {
 		}
 		else if (command.equals("/hostReservationDetail.ho")) {
 			action = new HostReservationDetailAction();
+		}
+		else if (command.equals("/hostReviewSubmit.ho")) {
+			action = new HostReviewAction();
 		}
 		
 		

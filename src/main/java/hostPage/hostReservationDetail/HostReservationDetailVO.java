@@ -12,9 +12,9 @@ import java.sql.Timestamp;
 public class HostReservationDetailVO {
 	
 	/**************************************************************************
-	 * 숙소 id, 숙소 사진, 숙소 이름, 숙소 별점, 숙소 위치 id, 상세주소, 숙소 도시, 나라, 숙소 상세, 1박 가격,
-	 * 호스트 id, 호스트 이름, 호스트 소개
-	 * 숙소 리뷰 id, 리뷰 내용, 리뷰 생성 날짜, 
+	 * 숙소 id, 숙소 사진, 숙소 이름, 숙소 위치 id, 상세주소, 숙소 도시, 나라, 숙소 상세, 1박 가격,
+	 * 호스트 id, 호스트 이름
+	 * 사용자 리뷰 id, 별점, 리뷰 내용, 리뷰 생성 날짜, 
 	 * 예약 id, 사용자 id, 체크인 날짜, 체크아웃 날짜, 예약 요청 상태, 
 	 * 결제 id, 결제 비용, 결제 상태
 	 **************************************************************************/
@@ -22,7 +22,6 @@ public class HostReservationDetailVO {
 	private String property_id;
 	private String property_photo_url;
 	private String property_name;
-	private int property_review_rating;
 	private String location_id;
 	private String location_city;
 	private String location_country;
@@ -31,11 +30,11 @@ public class HostReservationDetailVO {
 	
 	private String host_id;
 	private String user_name;
-	private String host_bio;
 	
-	private String property_review_id;
-	private String property_review_content;
-	private Timestamp property_review_created_at;
+	private String user_review_id;
+	private int user_review_rating;
+	private String user_review_content;
+	private Timestamp user_review_created_at;
 	
 	private String reservation_id;
 	private String user_id;
@@ -64,12 +63,6 @@ public class HostReservationDetailVO {
 	}
 	public void setProperty_name(String property_name) {
 		this.property_name = property_name;
-	}
-	public int getProperty_review_rating() {
-		return property_review_rating;
-	}
-	public void setProperty_review_rating(int property_review_rating) {
-		this.property_review_rating = property_review_rating;
 	}
 	public String getLocation_id() {
 		return location_id;
@@ -113,29 +106,29 @@ public class HostReservationDetailVO {
 	public void setUser_name(String user_name) {
 		this.user_name = user_name;
 	}
-	public String getHost_bio() {
-		return host_bio;
+	public String getUser_review_id() {
+		return user_review_id;
 	}
-	public void setHost_bio(String host_bio) {
-		this.host_bio = host_bio;
+	public void setUser_review_id(String user_review_id) {
+		this.user_review_id = user_review_id;
 	}
-	public String getProperty_review_id() {
-		return property_review_id;
+	public int getUser_review_rating() {
+		return user_review_rating;
 	}
-	public void setProperty_review_id(String property_review_id) {
-		this.property_review_id = property_review_id;
+	public void setUser_review_rating(int user_review_rating) {
+		this.user_review_rating = user_review_rating;
 	}
-	public String getProperty_review_content() {
-		return property_review_content;
+	public String getUser_review_content() {
+		return user_review_content;
 	}
-	public void setProperty_review_content(String property_review_content) {
-		this.property_review_content = property_review_content;
+	public void setUser_review_content(String user_review_content) {
+		this.user_review_content = user_review_content;
 	}
-	public Timestamp getProperty_review_created_at() {
-		return property_review_created_at;
+	public Timestamp getUser_review_created_at() {
+		return user_review_created_at;
 	}
-	public void setProperty_review_created_at(Timestamp property_review_created_at) {
-		this.property_review_created_at = property_review_created_at;
+	public void setUser_review_created_at(Timestamp user_review_created_at) {
+		this.user_review_created_at = user_review_created_at;
 	}
 	public String getReservation_id() {
 		return reservation_id;
@@ -185,36 +178,5 @@ public class HostReservationDetailVO {
 	public void setPayment_status(String payment_status) {
 		this.payment_status = payment_status;
 	}
-	
-	
-	@Override
-	public String toString() {
-		return "HostReservationDetailVO [property_id=" + property_id + ", property_photo_url=" + property_photo_url
-				+ ", property_name=" + property_name + ", property_review_rating=" + property_review_rating
-				+ ", location_id=" + location_id + ", location_city=" + location_city + ", location_country="
-				+ location_country + ", property_description=" + property_description + ", price_per_night="
-				+ price_per_night + ", host_id=" + host_id + ", user_name=" + user_name + ", host_bio=" + host_bio
-				+ ", property_review_id=" + property_review_id + ", property_review_content=" + property_review_content
-				+ ", property_review_created_at=" + property_review_created_at + ", reservation_id=" + reservation_id
-				+ ", user_id=" + user_id + ", reservation_check_in=" + reservation_check_in + ", reservation_check_out="
-				+ reservation_check_out + ", reservation_confirm=" + reservation_confirm + ", payment_id=" + payment_id
-				+ ", payment_price=" + payment_price + ", payment_status=" + payment_status + ", getProperty_id()="
-				+ getProperty_id() + ", getProperty_photo_url()=" + getProperty_photo_url() + ", getProperty_name()="
-				+ getProperty_name() + ", getProperty_review_rating()=" + getProperty_review_rating()
-				+ ", getLocation_id()=" + getLocation_id() + ", getLocation_city()=" + getLocation_city()
-				+ ", getLocation_country()=" + getLocation_country() + ", getProperty_description()="
-				+ getProperty_description() + ", getPrice_per_night()=" + getPrice_per_night() + ", getHost_id()="
-				+ getHost_id() + ", getUser_name()=" + getUser_name() + ", getHost_bio()=" + getHost_bio()
-				+ ", getProperty_review_id()=" + getProperty_review_id() + ", getProperty_review_content()="
-				+ getProperty_review_content() + ", getProperty_review_created_at()=" + getProperty_review_created_at()
-				+ ", getReservation_id()=" + getReservation_id() + ", getUser_id()=" + getUser_id()
-				+ ", getReservation_check_in()=" + getReservation_check_in() + ", getReservation_check_out()="
-				+ getReservation_check_out() + ", getReservation_confirm()=" + getReservation_confirm()
-				+ ", getPayment_id()=" + getPayment_id() + ", getPayment_price()=" + getPayment_price()
-				+ ", getPayment_status()=" + getPayment_status() + ", getClass()=" + getClass() + ", hashCode()="
-				+ hashCode() + ", toString()=" + super.toString() + "]";
-	}
-	
-	
 		
 }

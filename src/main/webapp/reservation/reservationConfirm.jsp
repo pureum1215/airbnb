@@ -183,7 +183,7 @@
 					<input type="hidden" name="user_id" value="${sessionScope.user_id}">				
 					
 				</div>
-				<button type="submit" class="submit-btn">예약 요청</button>
+				<button type="submit" class="submit-btn">즉시 예약</button>
 			</form>
 		</div>
 

@@ -82,39 +82,38 @@ public class HostReservationDetailDAO {
 				vo.setReservation_check_in(rs.getDate("reservation_check_in"));		// 예약 체크 인
 				vo.setReservation_check_out(rs.getDate("reservation_check_out"));	// 예약 체크 아웃
 				vo.setReservation_confirm(rs.getString("reservation_confirm"));		// 예약 상태
-
-
-				/*******
-				 *  결제 정보 ?
-				 *******/
-				if (rs.getString("payment_id") != null) {
-					vo.setPayment_id(rs.getString("payment_id"));
-					vo.setPayment_price(rs.getInt("payment_price"));
-					vo.setPayment_status(rs.getString("payment_status"));
-				} else {
-					vo.setPayment_id("not_paid");
-
-					int pricePerNight = rs.getInt("price_per_night");
-					Date checkIn = rs.getDate("reservation_check_in");
-					Date checkOut = rs.getDate("reservation_check_out");
-					int totalPrice = getTotalPrice(pricePerNight, checkIn, checkOut);
-					vo.setPayment_price(totalPrice);
-
-					vo.setPayment_status("not_paid");
-				}
+	
+					if (rs.getString("payment_id") != null) {
+						vo.setPayment_id(rs.getString("payment_id"));
+						vo.setPayment_price(rs.getInt("payment_price"));
+						vo.setPayment_status(rs.getString("payment_status"));
+					} 
+					else {
+						vo.setPayment_id("not_paid");
+	
+						int pricePerNight = rs.getInt("price_per_night");
+						Date checkIn = rs.getDate("reservation_check_in");
+						Date checkOut = rs.getDate("reservation_check_out");
+						int totalPrice = getTotalPrice(pricePerNight, checkIn, checkOut);
+						vo.setPayment_price(totalPrice);
+	
+						vo.setPayment_status("not_paid");
+					}
 
 				if(rs.getString("user_review_created_at") != null) {
-					vo.setProperty_review_rating(rs.getInt("user_review_rating"));
-					vo.setProperty_review_content(rs.getString("user_review_content"));
-					vo.setProperty_review_created_at(rs.getTimestamp("user_review_created_at"));
+					vo.setUser_review_rating(rs.getInt("user_review_rating"));
+					vo.setUser_review_content(rs.getString("user_review_content"));
+					vo.setUser_review_created_at(rs.getTimestamp("user_review_created_at"));
 				}
 				
 				
 				
 			}
-		} catch (Exception e) {
+		} 
+		catch (Exception e) {
 			e.printStackTrace();
-		} finally {
+		} 
+		finally {
 			closeCon();
 		}
 
@@ -133,5 +132,36 @@ public class HostReservationDetailDAO {
 
 		return totalPrice;
 	}
-
+	
+	
+	// user review 등록
+	public int userReview ( HostReservationDetailVO vo ) {
+		System.out.println("userReview method 호출");
+		
+		int result = 0;
+		
+		String sql = "INSERT INTO PROPERTY_REVIEW (USER_REVIEW_ID, USER_ID, HOST_ID, "
+				+ "USER_REVIEW_RATING, USER_REVIEW_CONTENT, USER_REVIEW_CREATED_AT) "
+				+ "VALUES (?, ?, ?, ?, ?, NOW())";
+		
+		try {
+	        pstmt = conn.prepareStatement(sql);
+	        pstmt.setString(1, vo.getUser_review_id());
+	        pstmt.setString(2, vo.getUser_id());
+	        pstmt.setString(3, vo.getHost_id());
+	        pstmt.setInt(4, vo.getUser_review_rating());
+	        pstmt.setString(5, vo.getUser_review_content());
+	
+	        result = pstmt.executeUpdate();
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		} 
+		finally {
+			closeCon();
+		}
+		
+		return result;
+	}
+	
 }
